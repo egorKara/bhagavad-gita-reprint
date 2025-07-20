@@ -1,1 +1,23 @@
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [main]  # Ветка, которую нужно отслеживать
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
+      # Замена плейсхолдеров (например, {{FORM_ID}}) на секреты
+      - name: Replace placeholders
+        env:
+          FORM_ID: ${{ secrets.FORM_ID }}
+        run: |
+          sed -i "s/{{FORM_ID}}/$FORM_ID/g" contacts.html
+
+      # Деплой на GitHub Pages
+      - name: Deploy to Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
