@@ -36,15 +36,34 @@
 </head>
 <body>
   <h2>Заказать книгу</h2>
-  <form 
-  action="https://formspree.io/f/mldlgwdk " 
-  method="POST"
-  onsubmit="this.action += '?success=https://egorkara.github.io/bhagavad-gita-reprint/ ';"
->
+  <form id="orderForm" action="https://formspree.io/f/mldlgwdk " method="POST">
   <input type="text" name="name" placeholder="Ваше имя" required />
   <input type="email" name="email" placeholder="Email" required />
   <input type="tel" name="phone" placeholder="Телефон" required />
   <button type="submit">Отправить заказ</button>
 </form>
+
+<script>
+  document.getElementById('orderForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // Отключаем стандартную отправку формы
+
+    // Отправляем данные вручную
+    fetch(this.action, {
+      method: this.method,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(new FormData(this)),
+    })
+      .then(() => {
+        // Редирект на страницу благодарности
+        window.location.href = 'https://egorkara.github.io/bhagavad-gita-reprint/thanks.html ';
+      })
+      .catch((error) => {
+        alert('Ошибка при отправке формы.');
+        console.error(error);
+      });
+  });
+</script>
 </body>
 </html>
