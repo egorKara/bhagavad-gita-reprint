@@ -3,9 +3,8 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Обслуживание статических файлов из корня проекта (где находятся index.html, about.html и т.д.)
-// Предполагается, что фронтенд-файлы находятся в корне проекта, а не в src/public
-app.use(express.static(path.join(__dirname, '..')));
+// Обслуживание статических файлов из директории public
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Маршрут для API (пример)
 app.get('/api/status', (req, res) => {
