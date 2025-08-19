@@ -5,13 +5,13 @@
  */
 
 const app = require('./app');
-const PORT = process.env.PORT || 3000;
+const { port } = require('./config');
 
 // Запуск сервера
-const server = app.listen(PORT, () => {
-    console.log(`Сервер запущен на порту ${PORT}`);
-    console.log(`Фронтенд доступен по адресу: http://localhost:${PORT}`);
-    console.log(`API endpoint: http://localhost:${PORT}/api/status`);
+const server = app.listen(port, () => {
+    console.log(`Сервер запущен на порту ${port}`);
+    console.log(`Фронтенд доступен по адресу: http://localhost:${port}`);
+    console.log(`API endpoint: http://localhost:${port}/api/status`);
 });
 
 // Обработка сигналов завершения для корректного закрытия сервера
