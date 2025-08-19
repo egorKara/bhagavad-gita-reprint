@@ -26,6 +26,7 @@ jobs:
         run: |
           mkdir -p out
           cp -r public/* out/
+          echo "www.gita-1972-reprint.ru" > out/CNAME
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3

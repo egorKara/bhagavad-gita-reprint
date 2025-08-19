@@ -80,11 +80,50 @@
 
 ssh -i ~/.ssh/ssh-key-1753182147967 yc-user@46.21.247.218
 
+## Архитектура доменов (рекомендовано)
+
+- Лендинг (GitHub Pages): `www.gita-1972-reprint.ru`
+- Основной сайт (сервер): `gita-1972-reprint.ru`
+- API (сервер): `api.gita-1972-reprint.ru`
+
+### DNS записи
+
+- `www.gita-1972-reprint.ru` → CNAME → `egorkara.github.io`
+- `gita-1972-reprint.ru` → A → `46.21.247.218`
+- `api.gita-1972-reprint.ru` → A → `46.21.247.218`
+
+Почтовые записи (MX/TXT/SPF) оставьте без изменений.
+
+### GitHub Pages (лендинг)
+
+1. Ветка `gh-pages` публикуется через workflow; CNAME выставляется автоматически на `www.gita-1972-reprint.ru`.
+2. В настройках репозитория включить GitHub Pages и HTTPS.
+3. Все статические файлы лежат в `public/` и деплоятся в `gh-pages`.
+
+### Сервер (основной сайт + API)
+
+1. Репозиторий в `/srv/gita`, `.env` содержит `PORT=3000`.
+2. Node/Express запускается systemd-сервисом `gita` (см. шаблон ниже).
+3. Nginx обслуживает:
+   - `gita-1972-reprint.ru` как статику из `/srv/gita/public` (HTTPS)
+   - `api.gita-1972-reprint.ru` как прокси к `127.0.0.1:3000` (HTTPS)
+
+Шаблоны конфигов лежат в `docs/nginx/`.
+
+### Выпуск HTTPS сертификатов
+
+Для каждого домена:
+```
+sudo apt-get install -y certbot python3-certbot-nginx
+sudo certbot --nginx -d gita-1972-reprint.ru --non-interactive --agree-tos -m you@example.com
+sudo certbot --nginx -d api.gita-1972-reprint.ru --non-interactive --agree-tos -m you@example.com
+```
+
 ## Дальнейшие шаги
 
 1.  **Добавление серверной части**: При разработке серверной логики (Node.js, API, работа с БД), файлы следует добавлять в ветку `main`.
-2.  **Развертывание на сервере Yandex.Cloud**: Настроить Nginx для обслуживания статических файлов из ветки `main` или `gh-pages`.
-3.  **CI/CD**: Рассмотреть возможность настройки автоматического развертывания при пуше в определенные ветки.
+2.  **Развертывание на сервере Yandex.Cloud**: Настроить Nginx для обслуживания статики и проксирования API по шаблонам из `docs/nginx/`.
+3.  **CI/CD**: Настроены workflows на деплой `gh-pages` и линт; расширяйте по необходимости.
 
 ## Важно
 
