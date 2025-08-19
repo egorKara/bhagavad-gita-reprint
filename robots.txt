@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://egorkara.github.io/bhagavad-gita-reprint/sitemap.xml
