@@ -11,6 +11,11 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 // Middleware для парсинга JSON
 app.use(express.json());
 
+// Endpoint для проверки состояния сервера (health check)
+app.get('/healthz', (req, res) => {
+    res.status(200).send('ok');
+});
+
 // Маршруты API
 app.use('/api', statusRoutes);
 
