@@ -2,15 +2,31 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Бхагавад-Гита 1972 — Лицензированный репринт</title>
     <meta name="description" content="Точное воспроизведение оригинального издания 1972 года. Доставка по России. Официальное разрешение Bhaktivedanta Book Trust.">
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="assets/images/logo.png" as="image" type="image/png">
+    <link rel="preload" href="assets/css/combined.css" as="style">
+    
+    <!-- Critical CSS inlined -->
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;line-height:1.6;max-width:1200px;margin:0 auto;padding:20px}header{background:#f5f5f5;padding:20px;text-align:center;margin-bottom:20px}.logo{width:100px;height:auto;margin-bottom:10px}nav a{margin:0 15px;text-decoration:none;color:#333}h1{font-size:2em;margin-bottom:20px}
+    </style>
+    
+    <!-- Non-critical CSS loaded asynchronously -->
+    <link rel="preload" href="assets/css/combined.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="assets/css/combined.css"></noscript>
+    
     <link rel="icon" href="favicon.ico">
 </head>
 <body>
     <header>
-        <img src="assets/images/logo.png" alt="Логотип" class="logo">
+        <picture>
+            <source srcset="assets/images/logo.webp" type="image/webp">
+            <img src="assets/images/logo-optimized.png" alt="Логотип" class="logo" width="100" height="100">
+        </picture>
         <nav>
             <a href="index.html">Главная</a>
             <a href="about.html">О книге</a>
@@ -20,13 +36,16 @@
     </header>
     <main>
         <h1>Бхагавад-Гита как она есть</h1>
-        <img src="assets/images/cover.jpg" alt="Обложка 1972 года" class="book-cover">
+        <picture>
+            <source media="(max-width: 768px)" srcset="assets/images/cover-300w.webp" type="image/webp">
+            <source media="(max-width: 768px)" srcset="assets/images/cover-300w.jpg">
+            <source srcset="assets/images/cover-600w.webp" type="image/webp">
+            <img src="assets/images/cover-600w.jpg" alt="Обложка 1972 года" class="book-cover" loading="lazy" width="300" height="400">
+        </picture>
         <p>Лицензированный репринт оригинального издания. <br>Цена: 1500 руб.</p>
-        <a href="contacts.html">
-  <button style="padding: 10px 20px; background-color: #007BFF; color: white; border: none; border-radius: 4px;">
-    Заказать книгу
-  </button>
-</a>
+        <a href="contacts.html" class="btn" style="background-color: #007BFF;">
+            Заказать книгу
+        </a>
     </main>
 </body>
 </html>
