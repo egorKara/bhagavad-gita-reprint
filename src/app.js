@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const apiRoutes = require('./routes/apiRoutes');
+const statusRoutes = require('./api/routes/statusRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.json());
 
 // Маршруты API
-app.use('/api', apiRoutes);
+app.use('/api', statusRoutes);
 
 // Экспорт приложения
 module.exports = app;

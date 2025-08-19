@@ -32,36 +32,35 @@
 ### Переключение между ветками
 
 # Переключиться на ветку main
-git checkout main
+ git checkout main
 
 # Переключиться на ветку gh-pages
-git checkout gh-pages
-
+ git checkout gh-pages
 
 ### Работа с изменениями
 
 # Добавить все изменения в индекс
-git add .
+ git add .
 
 # Сделать коммит
-git commit -m "Описание изменений"
+ git commit -m "Описание изменений"
 
 # Отправить изменения в удаленный репозиторий
-git push origin main
-# или
-git push origin gh-pages
+ git push origin main
 
+# или
+ git push origin gh-pages
 
 ### Получение последних изменений
 
 # Получить изменения из удаленного репозитория (без слияния)
-git fetch origin
+ git fetch origin
 
 # Получить и слить изменения из удаленной ветки
-git pull origin main
-# или
-git pull origin gh-pages
+ git pull origin main
 
+# или
+ git pull origin gh-pages
 
 ## GitHub Pages
 
@@ -80,7 +79,6 @@ git pull origin gh-pages
 **Команда для подключения по SSH**:
 
 ssh -i ~/.ssh/ssh-key-1753182147967 yc-user@46.21.247.218
-
 
 ## Дальнейшие шаги
 
