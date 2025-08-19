@@ -1,39 +1,10 @@
-# Зависимости Node.js
-node_modules/
-
-# Логи
-*.log
-
-# Временные файлы редактора
-*~
-.#*
-.DS_Store
-Thumbs.db
-
-# Переменные окружения
-.env
-.env.local
-.env.*.local
-
-# Файлы PID и состояния
-*.pid
-*.seed
-*.pid.lock
-
-# Каталоги резервных копий, созданные скриптами
-backups/
-
-# Системные файлы, созданные скриптами
-.step_*_complete
-
-# IDE и редакторы
-.vscode/
-.idea/
-
-# Директория public (она управляется отдельно через веб-интерфейс или другой механизм)
-# Если вы хотите, чтобы public/ был в репозитории, удалите эту строку
-
 # Прочие файлы, которые не должны попасть в репозиторий
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/.cache/
+/public/assets/css/styles.min.css
+/public/assets/images/*.webp
+/.cache/
+/public/assets/css/styles.min.css
+/public/assets/images/*.webp

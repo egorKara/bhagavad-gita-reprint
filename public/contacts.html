@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Заказать книгу</title>
+  <link rel="preload" href="assets/css/styles.min.css?v=1" as="style">
+  <link rel="stylesheet" href="assets/css/styles.min.css?v=1">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -36,7 +38,7 @@
 </head>
 <body>
   <h2>Заказать книгу</h2>
-  <form id="orderForm" action="https://formspree.io/f/mldlgwdk " method="POST">
+  <form id="orderForm" action="https://formspree.io/f/mldlgwdk" method="POST">
   <input type="text" name="name" placeholder="Ваше имя" required />
   <input type="email" name="email" placeholder="Email" required />
   <input type="tel" name="phone" placeholder="Телефон" required />
@@ -57,7 +59,7 @@
     })
       .then(() => {
         // Редирект на страницу благодарности
-        window.location.href = 'https://egorkara.github.io/bhagavad-gita-reprint/thanks.html ';
+        window.location.href = 'https://egorkara.github.io/bhagavad-gita-reprint/thanks.html';
       })
       .catch((error) => {
         alert('Ошибка при отправке формы.');
