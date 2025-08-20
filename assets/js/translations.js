@@ -12,32 +12,162 @@ const translations = {
         // Главная страница
         home: {
             title: "Бхагавад-Гита как она есть",
-            subtitle: "Лицензированный репринт оригинального издания",
-            price: "Цена: 1500 руб.",
+            subtitle: "Оригинальное издание 1972 года от Macmillan Publishing",
+            description: "Точное воспроизведение легендарного издания с полным текстом, комментариями А.Ч. Бхактиведанты Свами Прабхупады и 44 оригинальными иллюстрациями",
+            features: {
+                fullText: "Полный текст с комментариями",
+                illustrations: "44 оригинальные иллюстрации",
+                license: "Официальная лицензия BBT"
+            },
+            price: "1500 ₽",
+            priceNote: "Доставка по России",
             orderButton: "Заказать книгу",
-            description: "Точное воспроизведение оригинального издания 1972 года. Доставка по России. Официальное разрешение Bhaktivedanta Book Trust."
+            learnMore: "Узнать больше"
         },
         
         // О книге
         about: {
             title: "О книге",
-            description: "Это точный репринт оригинального издания 1972 года, одобренный Bhaktivedanta Book Trust. Книга сохраняет:",
+            subtitle: "Оригинальное издание 1972 года от Macmillan Publishing",
+            history: "История создания",
+            description: "Это точный репринт оригинального издания 1972 года, одобренный Bhaktivedanta Book Trust. Книга представляет собой полную версию с оригинальным текстом, который был сокращен при первом издании.",
+            whatIncludes: "Что включает полное издание:",
             features: [
-                "Формат и дизайн оригинала",
-                "Комментарии А.Ч. Бхактиведанты Свами Прабхупады",
-                "Качество печати 1972 года"
-            ]
+                "Оригинальный санскритский текст в деванагари",
+                "Римская транслитерация для произношения",
+                "Английские эквиваленты каждого слова",
+                "Полный перевод на английский язык",
+                "Подробные комментарии А.Ч. Бхактиведанты Свами Прабхупады",
+                "44 оригинальные цветные иллюстрации",
+                "Полные индексы и перекрестные ссылки",
+                "Глоссарий и руководство по произношению санскрита"
+            ],
+            academicRecognition: "Академическое признание",
+            academicQuote: "Принося нам новое и живое толкование текста, уже известного многим, А.Ч. Бхактиведанта Свами Прабхупада увеличил наше понимание во много раз.",
+            academicCite: "— Профессор Эдвард К. Димок, младший",
+            academicDepartment: "Кафедра языков и цивилизации Южной Азии",
+            academicUniversity: "Университет Чикаго",
+            backCover: "Задняя обложка с полным описанием издания",
+            publicationDetails: "Детали издания",
+            publisherInfo: "Издательская информация",
+            originalPublisher: "Оригинальный издатель: Macmillan Publishing Co., Inc.",
+            firstEdition: "Год первого издания: 1972",
+            editionType: "Тип издания: Твердый переплет",
+            license: "Лицензия: Bhaktivedanta Book Trust",
+            isbn: "ISBN: 72-79319 (Library of Congress)",
+            designFeatures: "Особенности оформления",
+            illustrations: "Иллюстрации: 44 оригинальные цветные картины",
+            artists: "Художники: Американские преданные",
+            style: "Стиль: Традиционное индийское искусство",
+            printQuality: "Качество печати: Высокое, как в оригинале 1972 года",
+            bookStructure: "Структура книги",
+            preface: "Предисловие и Введение",
+            chapters: "18 глав с полным текстом",
+            commentaries: "Комментарии к каждому стиху",
+            appendices: "Приложения и справочные материалы",
+            fullContents: "Полное содержание",
+            mainChapters: "Основные главы",
+            additionalMaterials: "Дополнительные материалы",
+            chapters1to9: "Основные главы (1-9)",
+            chapters10to18: "Основные главы (10-18)",
+            chapter1: "Глава 1: Наблюдение армий на поле битвы Курукшетра",
+            chapter2: "Глава 2: Содержание Гиты вкратце",
+            chapter3: "Глава 3: Карма-йога",
+            chapter4: "Глава 4: Трансцендентальное знание",
+            chapter5: "Глава 5: Карма-йога — деятельность в сознании Кришны",
+            chapter6: "Глава 6: Санкхья-йога",
+            chapter7: "Глава 7: Знание Абсолюта",
+            chapter8: "Глава 8: Достижение Высшего",
+            chapter9: "Глава 9: Самое сокровенное знание",
+            chapter10: "Глава 10: Великолепие Абсолюта",
+            chapter11: "Глава 11: Вселенская форма",
+            chapter12: "Глава 12: Преданное служение",
+            chapter13: "Глава 13: Природа, наслаждающийся и сознание",
+            chapter14: "Глава 14: Три гуны материальной природы",
+            chapter15: "Глава 15: Йога Верховной Личности",
+            chapter16: "Глава 16: Божественная и демоническая природы",
+            chapter17: "Глава 17: Разделы веры",
+            chapter18: "Глава 18: Заключение — Совершенство отречения",
+            prefaceIntro: "Предисловие и Введение",
+            originalIllustrations: "44 оригинальные иллюстрации",
+            illustrationIndex: "Индекс иллюстраций",
+            references: "Справочники и Глоссарий",
+            sanskritGuide: "Руководство по произношению санскрита",
+            whyThisEdition: "Почему именно это издание?",
+            authenticity: "Аутентичность и полнота",
+            authenticityDesc: "Это издание представляет собой полную версию оригинальной рукописи, которая была сокращена при первом издании 1972 года. Теперь читатели получают доступ ко всем материалам, которые автор изначально планировал включить в книгу.",
+            philosophicalAccuracy: "Философская точность",
+            philosophicalDesc: "Комментарии А.Ч. Бхактиведанты Свами Прабхупады основаны на аутентичной ведической традиции и передаются через парампару (ученическую преемственность). Это гарантирует точность философских интерпретаций.",
+            historicalValue: "Историческая ценность",
+            historicalDesc: "Издание 1972 года стало культовым для западного мира, представив ведическую мудрость в доступной форме. Этот репринт сохраняет историческую значимость оригинального издания.",
+            titlePage: "Титульная страница с полной информацией об издании"
         },
         
         // Об авторе
         author: {
             title: "Об авторе",
-            description: "А.Ч. Бхактиведанта Свами Прабхупада (1896-1977) - основатель Международного общества сознания Кришны (ISKCON) и автор более 80 книг по ведической философии.",
+            subtitle: "А.Ч. Бхактиведанта Свами Прабхупада",
+            name: "А.Ч. Бхактиведанта Свами Прабхупада (1896-1977)",
+            description: "Основатель Международного общества сознания Кришны (ISKCON) и автор более 80 книг по ведической философии. Его перевод и комментарии к Бхагавад-Гите считаются наиболее аутентичными и полными, основанными на парампаре (ученической преемственности) от самого Господа Кришны.",
+            keyAchievements: "Ключевые достижения:",
             achievements: [
                 "Перевел и прокомментировал основные ведические тексты",
                 "Основал более 100 храмов по всему миру",
-                "Получил официальное разрешение на издание от Bhaktivedanta Book Trust"
-            ]
+                "Получил официальное разрешение на издание от Bhaktivedanta Book Trust",
+                "Представил ведическую мудрость западному миру",
+                "Приплыл в Америку в возрасте 69 лет для выполнения миссии",
+                "Создал издательство Bhaktivedanta Book Trust"
+            ],
+            earlyLife: "Ранние годы и образование",
+            childhood: "Детство и юность",
+            childhoodDesc: "Абхай Чаран Де родился 1 сентября 1896 года в Калькутте, Индия, в семье торговца тканями. С детства он проявлял глубокий интерес к духовности и ведической культуре. В возрасте 22 лет он встретил своего духовного учителя Шрилу Бхактисиддханту Сарасвати Тхакура.",
+            meetingGuru: "Встреча с духовным учителем",
+            meetingGuruDesc: "В 1922 году Шрила Бхактисиддханта Сарасвати Тхакура дал ему наставление: \"Если у тебя есть деньги, напечатай книги\". Это стало поворотным моментом в жизни Абхая Чарана, определившим его будущую миссию по распространению ведического знания.",
+            renunciation: "Принятие отречения",
+            renunciationDesc: "В 1959 году Абхай Чаран принял отречение (санньясу) и получил имя А.Ч. Бхактиведанта Свами Прабхупада. С этого момента он полностью посвятил себя написанию книг и подготовке к миссии на Западе.",
+            foreword: "Предисловие к изданию 1972 года",
+            missionWest: "Миссия на Западе",
+            journeyAmerica: "Путешествие в Америку",
+            journeyAmericaDesc: "В 1965 году, в возрасте 69 лет, Шрила Прабхупада отправился в Америку на грузовом корабле \"Джаладута\" с миссией распространить ведическое знание на Западе. У него было всего 40 рупий и несколько экземпляров его переводов.",
+            foundingIskcon: "Основание ISKCON",
+            foundingIskconDesc: "13 июля 1966 года в Нью-Йорке Шрила Прабхупада официально основал Международное общество сознания Кришны (ISKCON). Это общество стало центром распространения ведической культуры и философии по всему миру.",
+            publishing: "Издательская деятельность",
+            publishingDesc: "В 1972 году Шрила Прабхупада основал Bhaktivedanta Book Trust (BBT) для издания и распространения ведической литературы. Первой книгой, изданной BBT, стала \"Бхагавад-Гита как она есть\" от Macmillan Publishing.",
+            preface: "Предисловие с описанием миссии",
+            literaryHeritage: "Литературное наследие",
+            mainWorks: "Основные труды",
+            mainWorksDesc: "За 12 лет активной деятельности на Западе Шрила Прабхупада написал, перевел и прокомментировал более 80 книг по ведической философии, включая:",
+            basicTexts: "Основные тексты",
+            philosophicalWorks: "Философские труды",
+            translationFeatures: "Особенности переводов",
+            translationFeaturesDesc: "Все переводы Шрилы Прабхупады характеризуются:",
+            authenticity: "Аутентичностью — основаны на парампаре",
+            completeness: "Полнотой — включают оригинальный текст, транслитерацию и перевод",
+            commentaries: "Комментариями — подробные объяснения каждого стиха",
+            practicality: "Практичностью — применимы в современной жизни",
+            introduction: "Введение с философией автора",
+            philosophy: "Философия и учения",
+            mainPrinciples: "Основные принципы",
+            mainPrinciplesDesc: "Философия Шрилы Прабхупады основана на Бхагавад-Гите и других ведических текстах. Ключевые принципы включают:",
+            krishnaConsciousness: "Сознание Кришны",
+            krishnaConsciousnessDesc: "Высшая цель человеческой жизни — развитие любовных отношений с Верховной Личностью Бога",
+            bhaktiYoga: "Бхакти-йога",
+            bhaktiYogaDesc: "Путь преданного служения как наиболее эффективный метод духовного развития",
+            vedicKnowledge: "Ведическое знание",
+            vedicKnowledgeDesc: "Изучение священных текстов для понимания природы души и материального мира",
+            universality: "Универсальность",
+            universalityDesc: "Ведическая мудрость предназначена для всех людей, независимо от происхождения",
+            westernInfluence: "Влияние на западную культуру",
+            westernInfluenceDesc: "Благодаря трудам Шрилы Прабхупады ведическая философия стала доступна миллионам людей на Западе. Его книги переведены на более чем 80 языков и используются в университетах по всему миру.",
+            legacy: "Наследие",
+            modernInfluence: "Влияние на современный мир",
+            modernInfluenceDesc: "Сегодня ISKCON насчитывает более 600 храмов, 100 сельскохозяйственных общин и 50 школ по всему миру. Книги Шрилы Прабхупады продолжают вдохновлять людей на духовный путь.",
+            academicRecognition: "Признание академическим сообществом",
+            academicRecognitionDesc: "Работы Шрилы Прабхупады получили признание ведущих ученых и университетов, включая Гарвард, Оксфорд и Сорбонну. Его переводы считаются стандартом в изучении ведической литературы.",
+            continuingMission: "Продолжение миссии",
+            continuingMissionDesc: "После ухода Шрилы Прабхупады в 1977 году его ученики продолжают его миссию по распространению ведического знания. Bhaktivedanta Book Trust продолжает издавать его книги на многих языках.",
+            studyWorks: "Изучите труды великого учителя",
+            studyWorksDesc: "Погрузитесь в глубокую мудрость Бхагавад-Гиты с комментариями А.Ч. Бхактиведанты Свами Прабхупады"
         },
         
         // Контакты
@@ -91,32 +221,162 @@ const translations = {
         // Home page
         home: {
             title: "Bhagavad-Gita As It Is",
-            subtitle: "Licensed reprint of the original 1972 edition",
-            price: "Price: 1500 RUB",
+            subtitle: "Original 1972 Edition from Macmillan Publishing",
+            description: "Exact reproduction of the legendary 1972 edition with complete text, commentaries by A.C. Bhaktivedanta Swami Prabhupada and 44 original illustrations",
+            features: {
+                fullText: "Complete text with commentaries",
+                illustrations: "44 original illustrations",
+                license: "Official BBT license"
+            },
+            price: "1500 RUB",
+            priceNote: "Delivery across Russia",
             orderButton: "Order Book",
-            description: "Exact reproduction of the original 1972 edition. Delivery across Russia. Official permission from Bhaktivedanta Book Trust."
+            learnMore: "Learn More"
         },
         
         // About the book
         about: {
             title: "About the Book",
-            description: "This is an exact reprint of the original 1972 edition, approved by Bhaktivedanta Book Trust. The book preserves:",
+            subtitle: "Original 1972 Edition from Macmillan Publishing",
+            history: "History of Creation",
+            description: "This is an exact reprint of the original 1972 edition, approved by Bhaktivedanta Book Trust. The book represents the complete version with the original text that was shortened in the first edition.",
+            whatIncludes: "What the complete edition includes:",
             features: [
-                "Original format and design",
-                "Commentaries by A.C. Bhaktivedanta Swami Prabhupada",
-                "1972 printing quality"
-            ]
+                "Original Sanskrit text in Devanagari",
+                "Roman transliteration for pronunciation",
+                "English equivalents for each word",
+                "Complete English translation",
+                "Detailed commentaries by A.C. Bhaktivedanta Swami Prabhupada",
+                "44 original color illustrations",
+                "Complete indexes and cross-references",
+                "Glossary and Sanskrit pronunciation guide"
+            ],
+            academicRecognition: "Academic Recognition",
+            academicQuote: "By bringing us a new and living interpretation of a text already known to many, A.C. Bhaktivedanta Swami Prabhupada has increased our understanding manyfold.",
+            academicCite: "— Professor Edward C. Dimock, Jr.",
+            academicDepartment: "Department of South Asian Languages and Civilization",
+            academicUniversity: "University of Chicago",
+            backCover: "Back cover with complete edition description",
+            publicationDetails: "Publication Details",
+            publisherInfo: "Publisher Information",
+            originalPublisher: "Original Publisher: Macmillan Publishing Co., Inc.",
+            firstEdition: "First Edition Year: 1972",
+            editionType: "Edition Type: Hardcover",
+            license: "License: Bhaktivedanta Book Trust",
+            isbn: "ISBN: 72-79319 (Library of Congress)",
+            designFeatures: "Design Features",
+            illustrations: "Illustrations: 44 original color paintings",
+            artists: "Artists: American devotees",
+            style: "Style: Traditional Indian art",
+            printQuality: "Print Quality: High, as in the original 1972 edition",
+            bookStructure: "Book Structure",
+            preface: "Preface and Introduction",
+            chapters: "18 chapters with complete text",
+            commentaries: "Commentaries for each verse",
+            appendices: "Appendices and reference materials",
+            fullContents: "Complete Contents",
+            mainChapters: "Main Chapters",
+            additionalMaterials: "Additional Materials",
+            chapters1to9: "Main Chapters (1-9)",
+            chapters10to18: "Main Chapters (10-18)",
+            chapter1: "Chapter 1: Observing the Armies on the Battlefield of Kurukṣetra",
+            chapter2: "Chapter 2: Contents of the Gītā Summarized",
+            chapter3: "Chapter 3: Karma-yoga",
+            chapter4: "Chapter 4: Transcendental Knowledge",
+            chapter5: "Chapter 5: Karma-yoga — Action in Kṛṣṇa Consciousness",
+            chapter6: "Chapter 6: Sāṅkhya-yoga",
+            chapter7: "Chapter 7: Knowledge of the Absolute",
+            chapter8: "Chapter 8: Attaining the Supreme",
+            chapter9: "Chapter 9: The Most Confidential Knowledge",
+            chapter10: "Chapter 10: The Opulence of the Absolute",
+            chapter11: "Chapter 11: The Universal Form",
+            chapter12: "Chapter 12: Devotional Service",
+            chapter13: "Chapter 13: Nature, the Enjoyer, and Consciousness",
+            chapter14: "Chapter 14: The Three Modes of Material Nature",
+            chapter15: "Chapter 15: The Yoga of the Supreme Person",
+            chapter16: "Chapter 16: The Divine and Demoniac Natures",
+            chapter17: "Chapter 17: The Divisions of Faith",
+            chapter18: "Chapter 18: Conclusion — The Perfection of Renunciation",
+            prefaceIntro: "Preface and Introduction",
+            originalIllustrations: "44 Original Illustrations",
+            illustrationIndex: "Illustration Index",
+            references: "References and Glossary",
+            sanskritGuide: "Sanskrit Pronunciation Guide",
+            whyThisEdition: "Why This Edition?",
+            authenticity: "Authenticity and Completeness",
+            authenticityDesc: "This edition represents the complete version of the original manuscript that was shortened in the first 1972 edition. Now readers have access to all materials that the author originally planned to include in the book.",
+            philosophicalAccuracy: "Philosophical Accuracy",
+            philosophicalDesc: "A.C. Bhaktivedanta Swami Prabhupada's commentaries are based on authentic Vedic tradition and transmitted through paramparā (disciple succession). This guarantees the accuracy of philosophical interpretations.",
+            historicalValue: "Historical Value",
+            historicalDesc: "The 1972 edition became cult for the Western world, presenting Vedic wisdom in an accessible form. This reprint preserves the historical significance of the original edition.",
+            titlePage: "Title page with complete publication information"
         },
         
         // About the author
         author: {
             title: "About the Author",
-            description: "A.C. Bhaktivedanta Swami Prabhupada (1896-1977) is the founder of the International Society for Krishna Consciousness (ISKCON) and the author of more than 80 books on Vedic philosophy.",
+            subtitle: "A.C. Bhaktivedanta Swami Prabhupada",
+            name: "A.C. Bhaktivedanta Swami Prabhupada (1896-1977)",
+            description: "Founder of the International Society for Krishna Consciousness (ISKCON) and author of more than 80 books on Vedic philosophy. His translation and commentaries on the Bhagavad-Gita are considered the most authentic and complete, based on paramparā (disciple succession) from Lord Krishna Himself.",
+            keyAchievements: "Key Achievements:",
             achievements: [
                 "Translated and commented on major Vedic texts",
                 "Founded more than 100 temples worldwide",
-                "Received official permission for publication from Bhaktivedanta Book Trust"
-            ]
+                "Received official permission for publication from Bhaktivedanta Book Trust",
+                "Presented Vedic wisdom to the Western world",
+                "Sailed to America at age 69 to fulfill his mission",
+                "Created Bhaktivedanta Book Trust publishing house"
+            ],
+            earlyLife: "Early Years and Education",
+            childhood: "Childhood and Youth",
+            childhoodDesc: "Abhay Charan De was born on September 1, 1896, in Calcutta, India, to a cloth merchant family. From childhood, he showed deep interest in spirituality and Vedic culture. At the age of 22, he met his spiritual master Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura.",
+            meetingGuru: "Meeting the Spiritual Master",
+            meetingGuruDesc: "In 1922, Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura gave him the instruction: \"If you have money, print books.\" This became a turning point in Abhay Charan's life, determining his future mission to spread Vedic knowledge.",
+            renunciation: "Accepting Renunciation",
+            renunciationDesc: "In 1959, Abhay Charan accepted renunciation (sannyāsa) and received the name A.C. Bhaktivedanta Swami Prabhupada. From that moment, he completely dedicated himself to writing books and preparing for his mission to the West.",
+            foreword: "Foreword to the 1972 edition",
+            missionWest: "Mission to the West",
+            journeyAmerica: "Journey to America",
+            journeyAmericaDesc: "In 1965, at the age of 69, Śrīla Prabhupada set out for America on the cargo ship \"Jaladuta\" with the mission to spread Vedic knowledge in the West. He had only 40 rupees and several copies of his translations.",
+            foundingIskcon: "Founding ISKCON",
+            foundingIskconDesc: "On July 13, 1966, in New York, Śrīla Prabhupada officially founded the International Society for Krishna Consciousness (ISKCON). This society became the center for spreading Vedic culture and philosophy throughout the world.",
+            publishing: "Publishing Activity",
+            publishingDesc: "In 1972, Śrīla Prabhupada founded Bhaktivedanta Book Trust (BBT) for publishing and distributing Vedic literature. The first book published by BBT was \"Bhagavad-Gita As It Is\" from Macmillan Publishing.",
+            preface: "Preface describing the mission",
+            literaryHeritage: "Literary Heritage",
+            mainWorks: "Main Works",
+            mainWorksDesc: "Over 12 years of active work in the West, Śrīla Prabhupada wrote, translated, and commented on more than 80 books on Vedic philosophy, including:",
+            basicTexts: "Basic Texts",
+            philosophicalWorks: "Philosophical Works",
+            translationFeatures: "Translation Features",
+            translationFeaturesDesc: "All of Śrīla Prabhupada's translations are characterized by:",
+            authenticity: "Authenticity — based on paramparā",
+            completeness: "Completeness — including original text, transliteration, and translation",
+            commentaries: "Commentaries — detailed explanations of each verse",
+            practicality: "Practicality — applicable in modern life",
+            introduction: "Introduction with author's philosophy",
+            philosophy: "Philosophy and Teachings",
+            mainPrinciples: "Main Principles",
+            mainPrinciplesDesc: "Śrīla Prabhupada's philosophy is based on the Bhagavad-Gita and other Vedic texts. Key principles include:",
+            krishnaConsciousness: "Krishna Consciousness",
+            krishnaConsciousnessDesc: "The highest goal of human life is to develop loving relationships with the Supreme Personality of Godhead",
+            bhaktiYoga: "Bhakti-yoga",
+            bhaktiYogaDesc: "The path of devotional service as the most effective method of spiritual development",
+            vedicKnowledge: "Vedic Knowledge",
+            vedicKnowledgeDesc: "Study of sacred texts to understand the nature of the soul and material world",
+            universality: "Universality",
+            universalityDesc: "Vedic wisdom is intended for all people, regardless of origin",
+            westernInfluence: "Influence on Western Culture",
+            westernInfluenceDesc: "Thanks to Śrīla Prabhupada's works, Vedic philosophy became accessible to millions of people in the West. His books have been translated into more than 80 languages and are used in universities around the world.",
+            legacy: "Legacy",
+            modernInfluence: "Influence on the Modern World",
+            modernInfluenceDesc: "Today, ISKCON has more than 600 temples, 100 agricultural communities, and 50 schools worldwide. Śrīla Prabhupada's books continue to inspire people on the spiritual path.",
+            academicRecognition: "Academic Recognition",
+            academicRecognitionDesc: "Śrīla Prabhupada's works have received recognition from leading scholars and universities, including Harvard, Oxford, and the Sorbonne. His translations are considered the standard in the study of Vedic literature.",
+            continuingMission: "Continuing the Mission",
+            continuingMissionDesc: "After Śrīla Prabhupada's departure in 1977, his disciples continue his mission to spread Vedic knowledge. Bhaktivedanta Book Trust continues to publish his books in many languages.",
+            studyWorks: "Study the Works of the Great Teacher",
+            studyWorksDesc: "Immerse yourself in the deep wisdom of the Bhagavad-Gita with commentaries by A.C. Bhaktivedanta Swami Prabhupada"
         },
         
         // Contacts
@@ -299,6 +559,23 @@ class UniversalTranslator {
         const main = document.querySelector('main');
         if (!main) return;
         
+        // Определяем тип страницы
+        const pageType = this.detectPageType();
+        console.log(`📄 Тип страницы: ${pageType}`);
+        
+        // Вызываем специфичные для страницы функции обновления
+        switch (pageType) {
+            case 'home':
+                this.updateHomePage(main);
+                break;
+            case 'about':
+                this.updateAboutPage(main);
+                break;
+            case 'author':
+                this.updateAuthorPage(main);
+                break;
+        }
+        
         // Переводим заголовки
         this.translateHeadings(main);
         
@@ -425,6 +702,199 @@ class UniversalTranslator {
         });
     }
     
+    // Обновляет главную страницу
+    updateHomePage(main) {
+        console.log('🏠 Обновляем главную страницу...');
+        
+        // Обновляем заголовок
+        const title = main.querySelector('.hero-title');
+        if (title) {
+            title.textContent = this.getTranslation('home.title');
+            console.log(`✅ Заголовок обновлен: "${this.getTranslation('home.title')}"`);
+        }
+        
+        // Обновляем подзаголовок
+        const subtitle = main.querySelector('.hero-subtitle');
+        if (subtitle) {
+            subtitle.textContent = this.getTranslation('home.subtitle');
+            console.log(`✅ Подзаголовок обновлен: "${this.getTranslation('home.subtitle')}"`);
+        }
+        
+        // Обновляем описание
+        const description = main.querySelector('.hero-description');
+        if (description) {
+            description.textContent = this.getTranslation('home.description');
+            console.log(`✅ Описание обновлено: "${this.getTranslation('home.description')}"`);
+        }
+        
+        // Обновляем кнопки
+        const orderButton = main.querySelector('.cta-button.primary');
+        if (orderButton) {
+            orderButton.textContent = this.getTranslation('home.orderButton');
+            console.log(`✅ Кнопка заказа обновлена: "${this.getTranslation('home.orderButton')}"`);
+        }
+        
+        const learnMoreButton = main.querySelector('.cta-button.secondary');
+        if (learnMoreButton) {
+            learnMoreButton.textContent = this.getTranslation('home.learnMore');
+            console.log(`✅ Кнопка "Узнать больше" обновлена: "${this.getTranslation('home.learnMore')}"`);
+        }
+        
+        // Обновляем цену
+        const price = main.querySelector('.price');
+        if (price) {
+            price.textContent = this.getTranslation('home.price');
+            console.log(`✅ Цена обновлена: "${this.getTranslation('home.price')}"`);
+        }
+        
+        const priceNote = main.querySelector('.price-note');
+        if (priceNote) {
+            priceNote.textContent = this.getTranslation('home.priceNote');
+            console.log(`✅ Примечание о цене обновлено: "${this.getTranslation('home.priceNote')}"`);
+        }
+        
+        // Обновляем особенности
+        const features = main.querySelectorAll('.feature span:last-child');
+        if (features.length >= 3) {
+            features[0].textContent = this.getTranslation('home.features.fullText');
+            features[1].textContent = this.getTranslation('home.features.illustrations');
+            features[2].textContent = this.getTranslation('home.features.license');
+            console.log(`✅ Особенности обновлены`);
+        }
+        
+        console.log('✅ Главная страница обновлена');
+    }
+    
+    // Обновляет страницу "О книге"
+    updateAboutPage(main) {
+        console.log('📚 Обновляем страницу "О книге"...');
+        
+        // Обновляем заголовки секций
+        const sectionTitles = main.querySelectorAll('.section-title');
+        sectionTitles.forEach(title => {
+            if (title.textContent.includes('О книге')) {
+                title.textContent = this.getTranslation('about.title');
+            } else if (title.textContent.includes('История создания')) {
+                title.textContent = this.getTranslation('about.history');
+            } else if (title.textContent.includes('Детали издания')) {
+                title.textContent = this.getTranslation('about.publicationDetails');
+            } else if (title.textContent.includes('Полное содержание')) {
+                title.textContent = this.getTranslation('about.fullContents');
+            } else if (title.textContent.includes('Почему именно это издание')) {
+                title.textContent = this.getTranslation('about.whyThisEdition');
+            }
+        });
+        
+        // Обновляем подзаголовок
+        const subtitle = main.querySelector('.hero-subtitle');
+        if (subtitle) {
+            subtitle.textContent = this.getTranslation('about.subtitle');
+        }
+        
+        // Обновляем описание
+        const description = main.querySelector('.about-description');
+        if (description) {
+            description.innerHTML = description.innerHTML.replace(
+                /Это <strong>точный репринт оригинального издания 1972 года<\/strong>/,
+                `Это <strong>${this.getTranslation('about.description').split('Это ')[1].split(' ')[0]} точный репринт оригинального издания 1972 года</strong>`
+            );
+        }
+        
+        // Обновляем заголовок "Что включает полное издание"
+        const whatIncludes = main.querySelector('.book-details h3');
+        if (whatIncludes) {
+            whatIncludes.textContent = this.getTranslation('about.whatIncludes');
+        }
+        
+        // Обновляем список особенностей
+        const featuresList = main.querySelectorAll('.features-list li');
+        if (featuresList.length >= 8) {
+            featuresList.forEach((item, index) => {
+                if (index < 8) {
+                    item.innerHTML = `✅ <strong>${this.getTranslation(`about.features.${index}`)}</strong>`;
+                }
+            });
+        }
+        
+        // Обновляем академическое признание
+        const academicTitle = main.querySelector('.academic-endorsement h3');
+        if (academicTitle) {
+            academicTitle.textContent = this.getTranslation('about.academicRecognition');
+        }
+        
+        const academicQuote = main.querySelector('.academic-endorsement blockquote p');
+        if (academicQuote) {
+            academicQuote.textContent = this.getTranslation('about.academicQuote');
+        }
+        
+        const academicCite = main.querySelector('.academic-endorsement cite');
+        if (academicCite) {
+            academicCite.innerHTML = `${this.getTranslation('about.academicCite')}<br>${this.getTranslation('about.academicDepartment')}<br>${this.getTranslation('about.academicUniversity')}`;
+        }
+        
+        console.log('✅ Страница "О книге" обновлена');
+    }
+    
+    // Обновляет страницу "Об авторе"
+    updateAuthorPage(main) {
+        console.log('👤 Обновляем страницу "Об авторе"...');
+        
+        // Обновляем заголовки секций
+        const sectionTitles = main.querySelectorAll('.section-title');
+        sectionTitles.forEach(title => {
+            if (title.textContent.includes('Об авторе')) {
+                title.textContent = this.getTranslation('author.title');
+            } else if (title.textContent.includes('Ранние годы и образование')) {
+                title.textContent = this.getTranslation('author.earlyLife');
+            } else if (title.textContent.includes('Миссия на Западе')) {
+                title.textContent = this.getTranslation('author.missionWest');
+            } else if (title.textContent.includes('Литературное наследие')) {
+                title.textContent = this.getTranslation('author.literaryHeritage');
+            } else if (title.textContent.includes('Философия и учения')) {
+                title.textContent = this.getTranslation('author.philosophy');
+            } else if (title.textContent.includes('Наследие')) {
+                title.textContent = this.getTranslation('author.legacy');
+            }
+        });
+        
+        // Обновляем подзаголовок
+        const subtitle = main.querySelector('.hero-subtitle');
+        if (subtitle) {
+            subtitle.textContent = this.getTranslation('author.subtitle');
+        }
+        
+        // Обновляем имя автора
+        const authorName = main.querySelector('.author-text h2');
+        if (authorName) {
+            authorName.textContent = this.getTranslation('author.name');
+        }
+        
+        // Обновляем описание автора
+        const authorDescription = main.querySelector('.author-description');
+        if (authorDescription) {
+            authorDescription.textContent = this.getTranslation('author.description');
+        }
+        
+        // Обновляем заголовок достижений
+        const achievementsTitle = main.querySelector('.author-achievements h3');
+        if (achievementsTitle) {
+            achievementsTitle.textContent = this.getTranslation('author.keyAchievements');
+        }
+        
+        // Обновляем список достижений
+        const achievementsList = main.querySelectorAll('.achievements-list li');
+        if (achievementsList.length >= 6) {
+            achievementsList.forEach((item, index) => {
+                if (index < 6) {
+                    item.innerHTML = item.innerHTML.replace(/^[🎯🌍📖🎓🚢📚]\s*/, '');
+                    item.innerHTML = `${item.innerHTML.split(' ')[0]} <strong>${this.getTranslation(`author.achievements.${index}`)}</strong>`;
+                }
+            });
+        }
+        
+        console.log('✅ Страница "Об авторе" обновлена');
+    }
+    
     // Находит перевод для текста
     findTranslationForText(text) {
         // Создаем карту соответствий русский текст -> ключ перевода
@@ -535,6 +1005,53 @@ class UniversalTranslator {
         // Ключевые слова для кнопок
         map['заказать'] = 'home.orderButton';
         map['проверить'] = 'orderStatus.checkButton';
+        
+        // Ключевые слова для главной страницы
+        map['оригинальное издание'] = 'home.subtitle';
+        map['макмиллан'] = 'home.subtitle';
+        map['полный текст'] = 'home.features.fullText';
+        map['иллюстрации'] = 'home.features.illustrations';
+        map['лицензия'] = 'home.features.license';
+        map['доставка'] = 'home.priceNote';
+        
+        // Ключевые слова для страницы "О книге"
+        map['история создания'] = 'about.history';
+        map['детали издания'] = 'about.publicationDetails';
+        map['полное содержание'] = 'about.fullContents';
+        map['почему именно это издание'] = 'about.whyThisEdition';
+        map['академическое признание'] = 'about.academicRecognition';
+        map['санскритский текст'] = 'about.features.0';
+        map['транслитерация'] = 'about.features.1';
+        map['английские эквиваленты'] = 'about.features.2';
+        map['перевод'] = 'about.features.3';
+        map['комментарии'] = 'about.features.4';
+        map['цветные иллюстрации'] = 'about.features.5';
+        map['индексы'] = 'about.features.6';
+        map['глоссарий'] = 'about.features.7';
+        
+        // Ключевые слова для страницы "Об авторе"
+        map['ранние годы'] = 'author.earlyLife';
+        map['миссия на западе'] = 'author.missionWest';
+        map['литературное наследие'] = 'author.literaryHeritage';
+        map['философия и учения'] = 'author.philosophy';
+        map['наследие'] = 'author.legacy';
+        map['детство и юность'] = 'author.childhood';
+        map['встреча с духовным учителем'] = 'author.meetingGuru';
+        map['принятие отречения'] = 'author.renunciation';
+        map['путешествие в америку'] = 'author.journeyAmerica';
+        map['основание iskcon'] = 'author.foundingIskcon';
+        map['издательская деятельность'] = 'author.publishing';
+        map['основные труды'] = 'author.mainWorks';
+        map['особенности переводов'] = 'author.translationFeatures';
+        map['основные принципы'] = 'author.mainPrinciples';
+        map['сознание кришны'] = 'author.krishnaConsciousness';
+        map['бхакти-йога'] = 'author.bhaktiYoga';
+        map['ведическое знание'] = 'author.vedicKnowledge';
+        map['универсальность'] = 'author.universality';
+        map['влияние на западную культуру'] = 'author.westernInfluence';
+        map['влияние на современный мир'] = 'author.modernInfluence';
+        map['признание академическим сообществом'] = 'author.academicRecognition';
+        map['продолжение миссии'] = 'author.continuingMission';
         
         return map;
     }
