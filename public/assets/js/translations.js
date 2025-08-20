@@ -174,7 +174,13 @@ function switchLanguage(lang) {
 // Функция для обновления языка страницы
 function updatePageLanguage(lang) {
     const t = translations[lang];
-    if (!t) return;
+    if (!t) {
+        console.error('Переводы для языка', lang, 'не найдены');
+        return;
+    }
+    
+    console.log('Обновляем язык на:', lang);
+    console.log('Текущий путь:', window.location.pathname);
     
     // Обновляем заголовок страницы
     const title = document.querySelector('title');
@@ -202,6 +208,7 @@ function updatePageLanguage(lang) {
     
     // Обновляем навигацию
     const navLinks = document.querySelectorAll('nav a');
+    console.log('Найдено навигационных ссылок:', navLinks.length);
     navLinks.forEach((link, index) => {
         if (index === 0) link.textContent = t.nav.home;
         else if (index === 1) link.textContent = t.nav.about;
@@ -210,20 +217,30 @@ function updatePageLanguage(lang) {
     });
     
     // Обновляем основной контент в зависимости от страницы
+    console.log('Определяем тип страницы...');
     if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
+        console.log('Обновляем главную страницу');
         updateHomePage(t);
     } else if (window.location.pathname.includes('about.html')) {
+        console.log('Обновляем страницу "О книге"');
         updateAboutPage(t);
     } else if (window.location.pathname.includes('author.html')) {
+        console.log('Обновляем страницу "Об авторе"');
         updateAuthorPage(t);
     } else if (window.location.pathname.includes('contacts.html')) {
+        console.log('Обновляем страницу "Контакты"');
         updateContactsPage(t);
     } else if (window.location.pathname.includes('order-status.html')) {
+        console.log('Обновляем страницу "Статус заказа"');
         updateOrderStatusPage(t);
     } else if (window.location.pathname.includes('thanks.html')) {
+        console.log('Обновляем страницу "Благодарность"');
         updateThanksPage(t);
     } else if (window.location.pathname.includes('test-i18n.html')) {
+        console.log('Обновляем тестовую страницу');
         updateTestPage(t);
+    } else {
+        console.log('Тип страницы не определен');
     }
     
     // Обновляем alt атрибуты изображений
@@ -232,145 +249,203 @@ function updatePageLanguage(lang) {
     
     const cover = document.querySelector('.book-cover');
     if (cover) cover.alt = t.common.coverAlt;
+    
+    console.log('Обновление языка завершено');
 }
 
 // Функции обновления для каждой страницы
 function updateHomePage(t) {
-    const h1 = document.querySelector('h1');
-    if (h1) h1.textContent = t.home.title;
-    
-    const subtitle = document.querySelector('p');
-    if (subtitle) {
-        subtitle.innerHTML = `${t.home.subtitle}<br>${t.home.price}`;
+    console.log('Обновляем главную страницу...');
+    const h1 = document.querySelector('main h1');
+    if (h1) {
+        h1.textContent = t.home.title;
+        console.log('Обновлен заголовок:', t.home.title);
+    } else {
+        console.log('Заголовок h1 не найден');
     }
     
-    const orderButton = document.querySelector('button');
-    if (orderButton) orderButton.textContent = t.home.orderButton;
+    const subtitle = document.querySelector('main p');
+    if (subtitle) {
+        subtitle.innerHTML = `${t.home.subtitle}<br>${t.home.price}`;
+        console.log('Обновлен подзаголовок');
+    } else {
+        console.log('Подзаголовок не найден');
+    }
+    
+    const orderButton = document.querySelector('main button');
+    if (orderButton) {
+        orderButton.textContent = t.home.orderButton;
+        console.log('Обновлена кнопка заказа:', t.home.orderButton);
+    } else {
+        console.log('Кнопка заказа не найдена');
+    }
 }
 
 function updateAboutPage(t) {
-    const h2 = document.querySelector('h2');
-    if (h2) h2.textContent = t.about.title;
+    console.log('Обновляем страницу "О книге"...');
+    const h2 = document.querySelector('main h2');
+    if (h2) {
+        h2.textContent = t.about.title;
+        console.log('Обновлен заголовок:', t.about.title);
+    } else {
+        console.log('Заголовок h2 не найден');
+    }
     
-    const description = document.querySelector('p');
-    if (description) description.innerHTML = `${t.about.description}`;
+    const description = document.querySelector('main p');
+    if (description) {
+        description.innerHTML = t.about.description;
+        console.log('Обновлено описание');
+    } else {
+        console.log('Описание не найдено');
+    }
     
-    const features = document.querySelectorAll('li');
+    const features = document.querySelectorAll('main ul li');
+    console.log('Найдено элементов списка:', features.length);
     if (features.length >= 3) {
         features[0].textContent = t.about.features[0];
         features[1].textContent = t.about.features[1];
         features[2].textContent = t.about.features[2];
+        console.log('Обновлены элементы списка');
+    } else {
+        console.log('Недостаточно элементов списка для обновления');
     }
 }
 
 function updateAuthorPage(t) {
-    const h2 = document.querySelector('h2');
-    if (h2) h2.textContent = t.author.title;
+    console.log('Обновляем страницу "Об авторе"...');
+    const h2 = document.querySelector('main h2');
+    if (h2) {
+        h2.textContent = t.author.title;
+        console.log('Обновлен заголовок:', t.author.title);
+    } else {
+        console.log('Заголовок h2 не найден');
+    }
     
-    const description = document.querySelector('p');
-    if (description) description.textContent = t.author.description;
+    const description = document.querySelector('main p');
+    if (description) {
+        description.textContent = t.author.description;
+        console.log('Обновлено описание');
+    } else {
+        console.log('Описание не найдено');
+    }
     
-    const achievements = document.querySelectorAll('li');
+    const achievements = document.querySelectorAll('main ul li');
+    console.log('Найдено достижений:', achievements.length);
     if (achievements.length >= 3) {
         achievements[0].textContent = t.author.achievements[0];
         achievements[1].textContent = t.author.achievements[1];
         achievements[2].textContent = t.author.achievements[2];
+        console.log('Обновлены достижения');
+    } else {
+        console.log('Недостаточно достижений для обновления');
     }
 }
 
 function updateContactsPage(t) {
-    const h2 = document.querySelector('h2');
+    const h2 = document.querySelector('main h2');
     if (h2) h2.textContent = t.contacts.title;
     
-    const description = document.querySelector('p');
+    const description = document.querySelector('main p');
     if (description) description.textContent = t.contacts.description;
     
-    const contactInfo = document.querySelectorAll('p');
+    const contactInfo = document.querySelectorAll('main p');
     if (contactInfo.length >= 4) {
         contactInfo[1].textContent = t.contacts.phone;
         contactInfo[2].textContent = t.contacts.email;
         contactInfo[3].textContent = t.contacts.address;
     }
+    
+    // Обновляем форму
+    const formLabels = document.querySelectorAll('main label');
+    if (formLabels.length >= 4) {
+        formLabels[0].textContent = t.contacts.name + ':';
+        formLabels[1].textContent = t.contacts.email + ':';
+        formLabels[2].textContent = t.contacts.phone + ':';
+        formLabels[3].textContent = t.contacts.message + ':';
+    }
+    
+    const submitButton = document.querySelector('main button[type="submit"]');
+    if (submitButton) submitButton.textContent = t.contacts.sendButton;
 }
 
 function updateOrderStatusPage(t) {
-    const h2 = document.querySelector('h2');
+    const h2 = document.querySelector('main h2');
     if (h2) h2.textContent = t.orderStatus.title;
     
-    const description = document.querySelector('p');
+    const description = document.querySelector('main p');
     if (description) description.textContent = t.orderStatus.description;
     
-    const orderNumber = document.querySelector('input[placeholder]');
+    const orderNumber = document.querySelector('main input[placeholder]');
     if (orderNumber) orderNumber.placeholder = t.orderStatus.orderNumber;
     
-    const checkButton = document.querySelector('button');
+    const checkButton = document.querySelector('main button[type="submit"]');
     if (checkButton) checkButton.textContent = t.orderStatus.checkButton;
 }
 
 function updateThanksPage(t) {
-    const h2 = document.querySelector('h2');
+    const h2 = document.querySelector('main h2');
     if (h2) h2.textContent = t.thanks.title;
     
-    const description = document.querySelector('p');
+    const description = document.querySelector('main p');
     if (description) description.textContent = t.thanks.description;
     
-    const backLink = document.querySelector('a');
+    const backLink = document.querySelector('main a');
     if (backLink) backLink.textContent = t.thanks.backToHome;
 }
 
 function updateTestPage(t) {
-    const h1 = document.querySelector('h1');
-    if (h1) h1.textContent = lang === 'ru' ? 'Тест многоязычности' : 'Language Test';
+    const h1 = document.querySelector('main h1');
+    if (h1) h1.textContent = t.home.title === 'Bhagavad-Gita As It Is' ? 'Language Test' : 'Тест многоязычности';
     
-    const h2Elements = document.querySelectorAll('h2');
+    const h2Elements = document.querySelectorAll('main h2');
     if (h2Elements.length >= 2) {
-        h2Elements[0].textContent = lang === 'ru' ? 'Навигация' : 'Navigation';
-        h2Elements[1].textContent = lang === 'ru' ? 'Основной контент' : 'Main Content';
+        h2Elements[0].textContent = t.nav.home === 'Home' ? 'Navigation' : 'Навигация';
+        h2Elements[1].textContent = t.nav.home === 'Home' ? 'Main Content' : 'Основной контент';
     }
     
-    const h3 = document.querySelector('h3');
-    if (h3) h3.textContent = lang === 'ru' ? 'Информация о языках' : 'Language Information';
+    const h3 = document.querySelector('main h3');
+    if (h3) h3.textContent = t.nav.home === 'Home' ? 'Language Information' : 'Информация о языках';
     
-    const paragraphs = document.querySelectorAll('p');
+    const paragraphs = document.querySelectorAll('main p');
     if (paragraphs.length >= 3) {
-        paragraphs[1].textContent = lang === 'ru' ? 'Проверьте, как меняется навигационное меню при переключении языка.' : 'Check how the navigation menu changes when switching languages.';
-        paragraphs[2].textContent = lang === 'ru' ? 'Этот текст должен меняться при переключении языка.' : 'This text should change when switching languages.';
+        paragraphs[1].textContent = t.nav.home === 'Home' ? 'Check how the navigation menu changes when switching languages.' : 'Проверьте, как меняется навигационное меню при переключении языка.';
+        paragraphs[2].textContent = t.nav.home === 'Home' ? 'This text should change when switching languages.' : 'Этот текст должен меняться при переключении языка.';
     }
     
-    const priceText = document.querySelector('p:nth-of-type(3)');
-    if (priceText) priceText.textContent = lang === 'ru' ? 'Цена: 1500 руб.' : 'Price: 1500 RUB';
+    const priceText = document.querySelector('main p:nth-of-type(3)');
+    if (priceText) priceText.textContent = t.home.price;
     
-    const orderButton = document.querySelector('button:not(.language-switch)');
-    if (orderButton) orderButton.textContent = lang === 'ru' ? 'Заказать книгу' : 'Order Book';
+    const orderButton = document.querySelector('main button:not(.language-switch)');
+    if (orderButton) orderButton.textContent = t.home.orderButton;
     
     const languageInfo = document.querySelector('.language-info ul');
     if (languageInfo) {
         const listItems = languageInfo.querySelectorAll('li');
         if (listItems.length >= 2) {
-            listItems[0].innerHTML = lang === 'ru' ? '<strong>Русский (RU):</strong> Основной язык сайта' : '<strong>Russian (RU):</strong> Main site language';
-            listItems[1].innerHTML = lang === 'ru' ? '<strong>English (EN):</strong> Английская версия' : '<strong>English (EN):</strong> English version';
+            listItems[0].innerHTML = t.nav.home === 'Home' ? '<strong>Russian (RU):</strong> Main site language' : '<strong>Русский (RU):</strong> Основной язык сайта';
+            listItems[1].innerHTML = t.nav.home === 'Home' ? '<strong>English (EN):</strong> English version' : '<strong>English (EN):</strong> Английская версия';
         }
     }
     
     const note = document.querySelector('.language-info p');
-    if (note) note.innerHTML = lang === 'ru' ? '<strong>Примечание:</strong> Выбранный язык сохраняется в браузере и автоматически применяется при следующих посещениях.' : '<strong>Note:</strong> The selected language is saved in the browser and automatically applied on subsequent visits.';
+    if (note) note.innerHTML = t.nav.home === 'Home' ? '<strong>Note:</strong> The selected language is saved in the browser and automatically applied on subsequent visits.' : '<strong>Примечание:</strong> Выбранный язык сохраняется в браузере и автоматически применяется при следующих посещениях.';
     
     const testSection = document.querySelector('.test-section:last-child');
     if (testSection) {
         const testH2 = testSection.querySelector('h2');
-        if (testH2) testH2.textContent = lang === 'ru' ? 'Тестирование функций' : 'Function Testing';
+        if (testH2) testH2.textContent = t.nav.home === 'Home' ? 'Function Testing' : 'Тестирование функций';
         
         const testP = testSection.querySelector('p');
-        if (testP) testP.textContent = lang === 'ru' ? 'Попробуйте:' : 'Try:';
+        if (testP) testP.textContent = t.nav.home === 'Home' ? 'Try:' : 'Попробуйте:';
         
         const testList = testSection.querySelector('ol');
         if (testList) {
             const listItems = testList.querySelectorAll('li');
             if (listItems.length >= 4) {
-                listItems[0].textContent = lang === 'ru' ? 'Переключить язык на английский' : 'Switch language to English';
-                listItems[1].textContent = lang === 'ru' ? 'Переключить обратно на русский' : 'Switch back to Russian';
-                listItems[2].textContent = lang === 'ru' ? 'Обновить страницу (язык должен сохраниться)' : 'Refresh the page (language should be preserved)';
-                listItems[3].textContent = lang === 'ru' ? 'Перейти на другие страницы сайта' : 'Navigate to other site pages';
+                listItems[0].textContent = t.nav.home === 'Home' ? 'Switch language to English' : 'Переключить язык на английский';
+                listItems[1].textContent = t.nav.home === 'Home' ? 'Switch back to Russian' : 'Переключить обратно на русский';
+                listItems[2].textContent = t.nav.home === 'Home' ? 'Refresh the page (language should be preserved)' : 'Обновить страницу (язык должен сохраниться)';
+                listItems[3].textContent = t.nav.home === 'Home' ? 'Navigate to other site pages' : 'Перейти на другие страницы сайта';
             }
         }
     }
