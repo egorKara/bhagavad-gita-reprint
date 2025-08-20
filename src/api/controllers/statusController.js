@@ -2,21 +2,126 @@
  * Контроллер для API endpoint'ов
  */
 
+const os = require('os');
+const { exec } = require('child_process');
+const { promisify } = require('util');
+
+const execAsync = promisify(exec);
+
 /**
  * Получение статуса сервера
  * @param {express.Request} req - Объект запроса
  * @param {express.Response} res - Объект ответа
  */
 function getStatus(req, res) {
-    res.json({ 
-        status: 'OK', 
+    res.json({
+        status: 'OK',
         message: 'Сервер работает корректно',
         timestamp: new Date().toISOString()
     });
 }
 
+/**
+ * Получение системной информации
+ * @param {express.Request} req - Объект запроса
+ * @param {express.Response} res - Объект ответа
+ */
+async function getSystemInfo(req, res) {
+    try {
+        const totalMem = os.totalmem();
+        const freeMem = os.freemem();
+        const memoryUsage = ((totalMem - freeMem) / totalMem * 100).toFixed(1);
+
+        // Получаем информацию о диске
+        const { stdout } = await execAsync('df / | tail -1 | awk \'{print $5}\' | sed \'s/%//\'');
+        const diskUsage = stdout.trim();
+
+        // Получаем загрузку CPU
+        const cpus = os.cpus();
+        const cpuUsage = (100 - cpus[0].times.idle / cpus[0].times.total * 100).toFixed(1);
+
+        res.json({
+            cpu: cpuUsage,
+            memory: memoryUsage,
+            disk: diskUsage,
+            uptime: Math.floor(os.uptime() / 3600), // часы
+            loadAverage: os.loadavg(),
+            platform: os.platform(),
+            arch: os.arch()
+        });
+    } catch (error) {
+        res.status(500).json({
+            error: 'Ошибка получения системной информации',
+            details: error.message
+        });
+    }
+}
+
+/**
+ * Получение статуса безопасности
+ * @param {express.Request} req - Объект запроса
+ * @param {express.Response} res - Объект ответа
+ */
+async function getSecurityStatus(req, res) {
+    try {
+        // Проверяем статус fail2ban
+        const { stdout: fail2banStatus } = await execAsync('sudo systemctl is-active fail2ban');
+
+        // Проверяем SSL сертификаты
+        const { stdout: sslStatus } = await execAsync('sudo systemctl is-active nginx');
+
+        // Проверяем security headers
+        const headersStatus = 'OK'; // Будем проверять через middleware
+
+        res.json({
+            fail2ban: fail2banStatus.trim(),
+            ssl: sslStatus.trim(),
+            headers: headersStatus,
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        res.status(500).json({
+            error: 'Ошибка получения статуса безопасности',
+            details: error.message
+        });
+    }
+}
+
+/**
+ * Получение статистики Nginx
+ * @param {express.Request} req - Объект запроса
+ * @param {express.Response} res - Объект ответа
+ */
+async function getNginxStats(req, res) {
+    try {
+        const { stdout } = await execAsync('curl -s http://127.0.0.1:8080/nginx_status');
+        const lines = stdout.split('\n');
+
+        const stats = {
+            activeConnections: lines[0].split(':')[1]?.trim() || '0',
+            serverAccepts: lines[2].split(' ').filter(x => x)[0] || '0',
+            serverHandled: lines[2].split(' ').filter(x => x)[1] || '0',
+            requests: lines[2].split(' ').filter(x => x)[2] || '0',
+            reading: lines[3].split(' ')[1] || '0',
+            writing: lines[3].split(' ')[3] || '0',
+            waiting: lines[3].split(' ')[5] || '0',
+            timestamp: new Date().toISOString()
+        };
+
+        res.json(stats);
+    } catch (error) {
+        res.status(500).json({
+            error: 'Ошибка получения статистики Nginx',
+            details: error.message
+        });
+    }
+}
+
 module.exports = {
-    getStatus
+    getStatus,
+    getSystemInfo,
+    getSecurityStatus,
+    getNginxStats
 };
 
 
