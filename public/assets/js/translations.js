@@ -222,6 +222,8 @@ function updatePageLanguage(lang) {
         updateOrderStatusPage(t);
     } else if (window.location.pathname.includes('thanks.html')) {
         updateThanksPage(t);
+    } else if (window.location.pathname.includes('test-i18n.html')) {
+        updateTestPage(t);
     }
     
     // Обновляем alt атрибуты изображений
@@ -314,6 +316,64 @@ function updateThanksPage(t) {
     
     const backLink = document.querySelector('a');
     if (backLink) backLink.textContent = t.thanks.backToHome;
+}
+
+function updateTestPage(t) {
+    const h1 = document.querySelector('h1');
+    if (h1) h1.textContent = lang === 'ru' ? 'Тест многоязычности' : 'Language Test';
+    
+    const h2Elements = document.querySelectorAll('h2');
+    if (h2Elements.length >= 2) {
+        h2Elements[0].textContent = lang === 'ru' ? 'Навигация' : 'Navigation';
+        h2Elements[1].textContent = lang === 'ru' ? 'Основной контент' : 'Main Content';
+    }
+    
+    const h3 = document.querySelector('h3');
+    if (h3) h3.textContent = lang === 'ru' ? 'Информация о языках' : 'Language Information';
+    
+    const paragraphs = document.querySelectorAll('p');
+    if (paragraphs.length >= 3) {
+        paragraphs[1].textContent = lang === 'ru' ? 'Проверьте, как меняется навигационное меню при переключении языка.' : 'Check how the navigation menu changes when switching languages.';
+        paragraphs[2].textContent = lang === 'ru' ? 'Этот текст должен меняться при переключении языка.' : 'This text should change when switching languages.';
+    }
+    
+    const priceText = document.querySelector('p:nth-of-type(3)');
+    if (priceText) priceText.textContent = lang === 'ru' ? 'Цена: 1500 руб.' : 'Price: 1500 RUB';
+    
+    const orderButton = document.querySelector('button:not(.language-switch)');
+    if (orderButton) orderButton.textContent = lang === 'ru' ? 'Заказать книгу' : 'Order Book';
+    
+    const languageInfo = document.querySelector('.language-info ul');
+    if (languageInfo) {
+        const listItems = languageInfo.querySelectorAll('li');
+        if (listItems.length >= 2) {
+            listItems[0].innerHTML = lang === 'ru' ? '<strong>Русский (RU):</strong> Основной язык сайта' : '<strong>Russian (RU):</strong> Main site language';
+            listItems[1].innerHTML = lang === 'ru' ? '<strong>English (EN):</strong> Английская версия' : '<strong>English (EN):</strong> English version';
+        }
+    }
+    
+    const note = document.querySelector('.language-info p');
+    if (note) note.innerHTML = lang === 'ru' ? '<strong>Примечание:</strong> Выбранный язык сохраняется в браузере и автоматически применяется при следующих посещениях.' : '<strong>Note:</strong> The selected language is saved in the browser and automatically applied on subsequent visits.';
+    
+    const testSection = document.querySelector('.test-section:last-child');
+    if (testSection) {
+        const testH2 = testSection.querySelector('h2');
+        if (testH2) testH2.textContent = lang === 'ru' ? 'Тестирование функций' : 'Function Testing';
+        
+        const testP = testSection.querySelector('p');
+        if (testP) testP.textContent = lang === 'ru' ? 'Попробуйте:' : 'Try:';
+        
+        const testList = testSection.querySelector('ol');
+        if (testList) {
+            const listItems = testList.querySelectorAll('li');
+            if (listItems.length >= 4) {
+                listItems[0].textContent = lang === 'ru' ? 'Переключить язык на английский' : 'Switch language to English';
+                listItems[1].textContent = lang === 'ru' ? 'Переключить обратно на русский' : 'Switch back to Russian';
+                listItems[2].textContent = lang === 'ru' ? 'Обновить страницу (язык должен сохраниться)' : 'Refresh the page (language should be preserved)';
+                listItems[3].textContent = lang === 'ru' ? 'Перейти на другие страницы сайта' : 'Navigate to other site pages';
+            }
+        }
+    }
 }
 
 // Функция для обновления переключателя языка
