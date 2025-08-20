@@ -31,21 +31,21 @@ async function getSystemInfo(req, res) {
         const totalMem = os.totalmem();
         const freeMem = os.freemem();
         const memoryUsage = ((totalMem - freeMem) / totalMem * 100).toFixed(1);
-
+        
         // Получаем информацию о диске
         const { stdout } = await execAsync('df / | tail -1 | awk \'{print $5}\' | sed \'s/%//\'');
         const diskUsage = stdout.trim();
-
-        // Получаем загрузку CPU
-        const cpus = os.cpus();
-        const cpuUsage = (100 - cpus[0].times.idle / cpus[0].times.total * 100).toFixed(1);
-
+        
+        // Получаем загрузку CPU через load average
+        const loadAvg = os.loadavg();
+        const cpuUsage = Math.min(100, (loadAvg[0] / os.cpus().length * 100)).toFixed(1);
+        
         res.json({
             cpu: cpuUsage,
             memory: memoryUsage,
             disk: diskUsage,
             uptime: Math.floor(os.uptime() / 3600), // часы
-            loadAverage: os.loadavg(),
+            loadAverage: loadAvg,
             platform: os.platform(),
             arch: os.arch()
         });
