@@ -159,320 +159,383 @@ const translations = {
     }
 };
 
-// Функция для переключения языка
-function switchLanguage(lang) {
-    // Сохраняем выбранный язык в localStorage
-    localStorage.setItem('selectedLanguage', lang);
-    
-    // Обновляем все элементы на странице
-    updatePageLanguage(lang);
-    
-    // Обновляем переключатель языка
-    updateLanguageSwitch(lang);
-}
-
-// Функция для обновления языка страницы
-function updatePageLanguage(lang) {
-    const t = translations[lang];
-    if (!t) {
-        console.error('Переводы для языка', lang, 'не найдены');
-        return;
+// Универсальная система перевода
+class UniversalTranslator {
+    constructor() {
+        this.currentLang = 'ru';
+        this.translations = translations;
     }
     
-    console.log('Обновляем язык на:', lang);
-    console.log('Текущий путь:', window.location.pathname);
-    
-    // Обновляем заголовок страницы
-    const title = document.querySelector('title');
-    if (title) {
-        if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
-            title.textContent = `Bhagavad-Gita 1972 — ${lang === 'ru' ? 'Лицензированный репринт' : 'Licensed Reprint'}`;
-        } else if (window.location.pathname.includes('about.html')) {
-            title.textContent = `About the Book — Bhagavad-Gita 1972`;
-        } else if (window.location.pathname.includes('author.html')) {
-            title.textContent = `About the Author — Bhagavad-Gita 1972`;
-        } else if (window.location.pathname.includes('contacts.html')) {
-            title.textContent = `Buy the Book — Bhagavad-Gita 1972`;
-        } else if (window.location.pathname.includes('order-status.html')) {
-            title.textContent = `Order Status — Bhagavad-Gita 1972`;
-        } else if (window.location.pathname.includes('thanks.html')) {
-            title.textContent = `Thank You — Bhagavad-Gita 1972`;
-        }
+    // Устанавливает язык
+    setLanguage(lang) {
+        this.currentLang = lang;
+        this.translatePage();
     }
     
-    // Обновляем meta description
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-        metaDescription.content = t.home.description;
-    }
-    
-    // Обновляем навигацию
-    const navLinks = document.querySelectorAll('nav a');
-    console.log('Найдено навигационных ссылок:', navLinks.length);
-    navLinks.forEach((link, index) => {
-        if (index === 0) link.textContent = t.nav.home;
-        else if (index === 1) link.textContent = t.nav.about;
-        else if (index === 2) link.textContent = t.nav.author;
-        else if (index === 3) link.textContent = t.nav.buy;
-    });
-    
-    // Обновляем основной контент в зависимости от страницы
-    console.log('Определяем тип страницы...');
-    if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
-        console.log('Обновляем главную страницу');
-        updateHomePage(t);
-    } else if (window.location.pathname.includes('about.html')) {
-        console.log('Обновляем страницу "О книге"');
-        updateAboutPage(t);
-    } else if (window.location.pathname.includes('author.html')) {
-        console.log('Обновляем страницу "Об авторе"');
-        updateAuthorPage(t);
-    } else if (window.location.pathname.includes('contacts.html')) {
-        console.log('Обновляем страницу "Контакты"');
-        updateContactsPage(t);
-    } else if (window.location.pathname.includes('order-status.html')) {
-        console.log('Обновляем страницу "Статус заказа"');
-        updateOrderStatusPage(t);
-    } else if (window.location.pathname.includes('thanks.html')) {
-        console.log('Обновляем страницу "Благодарность"');
-        updateThanksPage(t);
-    } else if (window.location.pathname.includes('test-i18n.html')) {
-        console.log('Обновляем тестовую страницу');
-        updateTestPage(t);
-    } else {
-        console.log('Тип страницы не определен');
-    }
-    
-    // Обновляем alt атрибуты изображений
-    const logo = document.querySelector('.logo');
-    if (logo) logo.alt = t.common.logoAlt;
-    
-    const cover = document.querySelector('.book-cover');
-    if (cover) cover.alt = t.common.coverAlt;
-    
-    console.log('Обновление языка завершено');
-}
-
-// Функции обновления для каждой страницы
-function updateHomePage(t) {
-    console.log('Обновляем главную страницу...');
-    const h1 = document.querySelector('main h1');
-    if (h1) {
-        h1.textContent = t.home.title;
-        console.log('Обновлен заголовок:', t.home.title);
-    } else {
-        console.log('Заголовок h1 не найден');
-    }
-    
-    const subtitle = document.querySelector('main p');
-    if (subtitle) {
-        subtitle.innerHTML = `${t.home.subtitle}<br>${t.home.price}`;
-        console.log('Обновлен подзаголовок');
-    } else {
-        console.log('Подзаголовок не найден');
-    }
-    
-    const orderButton = document.querySelector('main button');
-    if (orderButton) {
-        orderButton.textContent = t.home.orderButton;
-        console.log('Обновлена кнопка заказа:', t.home.orderButton);
-    } else {
-        console.log('Кнопка заказа не найдена');
-    }
-}
-
-function updateAboutPage(t) {
-    console.log('Обновляем страницу "О книге"...');
-    const h2 = document.querySelector('main h2');
-    if (h2) {
-        h2.textContent = t.about.title;
-        console.log('Обновлен заголовок:', t.about.title);
-    } else {
-        console.log('Заголовок h2 не найден');
-    }
-    
-    const description = document.querySelector('main p');
-    if (description) {
-        description.innerHTML = t.about.description;
-        console.log('Обновлено описание');
-    } else {
-        console.log('Описание не найдено');
-    }
-    
-    const features = document.querySelectorAll('main ul li');
-    console.log('Найдено элементов списка:', features.length);
-    if (features.length >= 3) {
-        features[0].textContent = t.about.features[0];
-        features[1].textContent = t.about.features[1];
-        features[2].textContent = t.about.features[2];
-        console.log('Обновлены элементы списка');
-    } else {
-        console.log('Недостаточно элементов списка для обновления');
-    }
-}
-
-function updateAuthorPage(t) {
-    console.log('Обновляем страницу "Об авторе"...');
-    const h2 = document.querySelector('main h2');
-    if (h2) {
-        h2.textContent = t.author.title;
-        console.log('Обновлен заголовок:', t.author.title);
-    } else {
-        console.log('Заголовок h2 не найден');
-    }
-    
-    const description = document.querySelector('main p');
-    if (description) {
-        description.textContent = t.author.description;
-        console.log('Обновлено описание');
-    } else {
-        console.log('Описание не найдено');
-    }
-    
-    const achievements = document.querySelectorAll('main ul li');
-    console.log('Найдено достижений:', achievements.length);
-    if (achievements.length >= 3) {
-        achievements[0].textContent = t.author.achievements[0];
-        achievements[1].textContent = t.author.achievements[1];
-        achievements[2].textContent = t.author.achievements[2];
-        console.log('Обновлены достижения');
-    } else {
-        console.log('Недостаточно достижений для обновления');
-    }
-}
-
-function updateContactsPage(t) {
-    const h2 = document.querySelector('main h2');
-    if (h2) h2.textContent = t.contacts.title;
-    
-    const description = document.querySelector('main p');
-    if (description) description.textContent = t.contacts.description;
-    
-    const contactInfo = document.querySelectorAll('main p');
-    if (contactInfo.length >= 4) {
-        contactInfo[1].textContent = t.contacts.phone;
-        contactInfo[2].textContent = t.contacts.email;
-        contactInfo[3].textContent = t.contacts.address;
-    }
-    
-    // Обновляем форму
-    const formLabels = document.querySelectorAll('main label');
-    if (formLabels.length >= 4) {
-        formLabels[0].textContent = t.contacts.name + ':';
-        formLabels[1].textContent = t.contacts.email + ':';
-        formLabels[2].textContent = t.contacts.phone + ':';
-        formLabels[3].textContent = t.contacts.message + ':';
-    }
-    
-    const submitButton = document.querySelector('main button[type="submit"]');
-    if (submitButton) submitButton.textContent = t.contacts.sendButton;
-}
-
-function updateOrderStatusPage(t) {
-    const h2 = document.querySelector('main h2');
-    if (h2) h2.textContent = t.orderStatus.title;
-    
-    const description = document.querySelector('main p');
-    if (description) description.textContent = t.orderStatus.description;
-    
-    const orderNumber = document.querySelector('main input[placeholder]');
-    if (orderNumber) orderNumber.placeholder = t.orderStatus.orderNumber;
-    
-    const checkButton = document.querySelector('main button[type="submit"]');
-    if (checkButton) checkButton.textContent = t.orderStatus.checkButton;
-}
-
-function updateThanksPage(t) {
-    const h2 = document.querySelector('main h2');
-    if (h2) h2.textContent = t.thanks.title;
-    
-    const description = document.querySelector('main p');
-    if (description) description.textContent = t.thanks.description;
-    
-    const backLink = document.querySelector('main a');
-    if (backLink) backLink.textContent = t.thanks.backToHome;
-}
-
-function updateTestPage(t) {
-    const h1 = document.querySelector('main h1');
-    if (h1) h1.textContent = t.home.title === 'Bhagavad-Gita As It Is' ? 'Language Test' : 'Тест многоязычности';
-    
-    const h2Elements = document.querySelectorAll('main h2');
-    if (h2Elements.length >= 2) {
-        h2Elements[0].textContent = t.nav.home === 'Home' ? 'Navigation' : 'Навигация';
-        h2Elements[1].textContent = t.nav.home === 'Home' ? 'Main Content' : 'Основной контент';
-    }
-    
-    const h3 = document.querySelector('main h3');
-    if (h3) h3.textContent = t.nav.home === 'Home' ? 'Language Information' : 'Информация о языках';
-    
-    const paragraphs = document.querySelectorAll('main p');
-    if (paragraphs.length >= 3) {
-        paragraphs[1].textContent = t.nav.home === 'Home' ? 'Check how the navigation menu changes when switching languages.' : 'Проверьте, как меняется навигационное меню при переключении языка.';
-        paragraphs[2].textContent = t.nav.home === 'Home' ? 'This text should change when switching languages.' : 'Этот текст должен меняться при переключении языка.';
-    }
-    
-    const priceText = document.querySelector('main p:nth-of-type(3)');
-    if (priceText) priceText.textContent = t.home.price;
-    
-    const orderButton = document.querySelector('main button:not(.language-switch)');
-    if (orderButton) orderButton.textContent = t.home.orderButton;
-    
-    const languageInfo = document.querySelector('.language-info ul');
-    if (languageInfo) {
-        const listItems = languageInfo.querySelectorAll('li');
-        if (listItems.length >= 2) {
-            listItems[0].innerHTML = t.nav.home === 'Home' ? '<strong>Russian (RU):</strong> Main site language' : '<strong>Русский (RU):</strong> Основной язык сайта';
-            listItems[1].innerHTML = t.nav.home === 'Home' ? '<strong>English (EN):</strong> English version' : '<strong>English (EN):</strong> Английская версия';
-        }
-    }
-    
-    const note = document.querySelector('.language-info p');
-    if (note) note.innerHTML = t.nav.home === 'Home' ? '<strong>Note:</strong> The selected language is saved in the browser and automatically applied on subsequent visits.' : '<strong>Примечание:</strong> Выбранный язык сохраняется в браузере и автоматически применяется при следующих посещениях.';
-    
-    const testSection = document.querySelector('.test-section:last-child');
-    if (testSection) {
-        const testH2 = testSection.querySelector('h2');
-        if (testH2) testH2.textContent = t.nav.home === 'Home' ? 'Function Testing' : 'Тестирование функций';
+    // Получает перевод по ключу
+    getTranslation(key, fallback = '') {
+        const keys = key.split('.');
+        let value = this.translations[this.currentLang];
         
-        const testP = testSection.querySelector('p');
-        if (testP) testP.textContent = t.nav.home === 'Home' ? 'Try:' : 'Попробуйте:';
-        
-        const testList = testSection.querySelector('ol');
-        if (testList) {
-            const listItems = testList.querySelectorAll('li');
-            if (listItems.length >= 4) {
-                listItems[0].textContent = t.nav.home === 'Home' ? 'Switch language to English' : 'Переключить язык на английский';
-                listItems[1].textContent = t.nav.home === 'Home' ? 'Switch back to Russian' : 'Переключить обратно на русский';
-                listItems[2].textContent = t.nav.home === 'Home' ? 'Refresh the page (language should be preserved)' : 'Обновить страницу (язык должен сохраниться)';
-                listItems[3].textContent = t.nav.home === 'Home' ? 'Navigate to other site pages' : 'Перейти на другие страницы сайта';
+        for (const k of keys) {
+            if (value && value[k] !== undefined) {
+                value = value[k];
+            } else {
+                return fallback;
             }
         }
+        
+        return value;
+    }
+    
+    // Универсальный перевод страницы
+    translatePage() {
+        console.log(`🌍 Переводим страницу на язык: ${this.currentLang}`);
+        
+        // Обновляем заголовок страницы
+        this.updatePageTitle();
+        
+        // Обновляем meta description
+        this.updateMetaDescription();
+        
+        // Обновляем навигацию
+        this.updateNavigation();
+        
+        // Универсальный перевод основного контента
+        this.translateMainContent();
+        
+        // Обновляем alt атрибуты изображений
+        this.updateImageAlt();
+        
+        // Обновляем переключатель языка
+        this.updateLanguageSwitch();
+        
+        console.log('✅ Перевод страницы завершен');
+    }
+    
+    // Обновляет заголовок страницы
+    updatePageTitle() {
+        const title = document.querySelector('title');
+        if (!title) return;
+        
+        const pageType = this.detectPageType();
+        let newTitle = '';
+        
+        switch (pageType) {
+            case 'home':
+                newTitle = this.currentLang === 'ru' ? 
+                    'Бхагавад-Гита 1972 — Лицензированный репринт' : 
+                    'Bhagavad-Gita 1972 — Licensed Reprint';
+                break;
+            case 'about':
+                newTitle = this.currentLang === 'ru' ? 
+                    'О книге — Бхагавад-Гита 1972' : 
+                    'About the Book — Bhagavad-Gita 1972';
+                break;
+            case 'author':
+                newTitle = this.currentLang === 'ru' ? 
+                    'Об авторе — Бхагавад-Гита 1972' : 
+                    'About the Author — Bhagavad-Gita 1972';
+                break;
+            case 'contacts':
+                newTitle = this.currentLang === 'ru' ? 
+                    'Купить книгу — Бхагавад-Гита 1972' : 
+                    'Buy the Book — Bhagavad-Gita 1972';
+                break;
+            case 'order-status':
+                newTitle = this.currentLang === 'ru' ? 
+                    'Статус заказа — Бхагавад-Гита 1972' : 
+                    'Order Status — Bhagavad-Gita 1972';
+                break;
+            case 'thanks':
+                newTitle = this.currentLang === 'ru' ? 
+                    'Спасибо — Бхагавад-Гита 1972' : 
+                    'Thank You — Bhagavad-Gita 1972';
+                break;
+            default:
+                newTitle = this.currentLang === 'ru' ? 
+                    'Бхагавад-Гита 1972' : 
+                    'Bhagavad-Gita 1972';
+        }
+        
+        title.textContent = newTitle;
+    }
+    
+    // Определяет тип страницы
+    detectPageType() {
+        const path = window.location.pathname;
+        if (path.includes('index.html') || path === '/') return 'home';
+        if (path.includes('about.html')) return 'about';
+        if (path.includes('author.html')) return 'author';
+        if (path.includes('contacts.html')) return 'contacts';
+        if (path.includes('order-status.html')) return 'order-status';
+        if (path.includes('thanks.html')) return 'thanks';
+        if (path.includes('test-i18n.html')) return 'test';
+        return 'unknown';
+    }
+    
+    // Обновляет meta description
+    updateMetaDescription() {
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+            metaDescription.content = this.getTranslation('home.description');
+        }
+    }
+    
+    // Обновляет навигацию
+    updateNavigation() {
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach((link, index) => {
+            if (index === 0) link.textContent = this.getTranslation('nav.home');
+            else if (index === 1) link.textContent = this.getTranslation('nav.about');
+            else if (index === 2) link.textContent = this.getTranslation('nav.author');
+            else if (index === 3) link.textContent = this.getTranslation('nav.buy');
+        });
+    }
+    
+    // Универсальный перевод основного контента
+    translateMainContent() {
+        const main = document.querySelector('main');
+        if (!main) return;
+        
+        // Переводим заголовки
+        this.translateHeadings(main);
+        
+        // Переводим параграфы
+        this.translateParagraphs(main);
+        
+        // Переводим списки
+        this.translateLists(main);
+        
+        // Переводим кнопки
+        this.translateButtons(main);
+        
+        // Переводим формы
+        this.translateForms(main);
+        
+        // Переводим ссылки
+        this.translateLinks(main);
+    }
+    
+    // Переводит заголовки
+    translateHeadings(main) {
+        const headings = main.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        headings.forEach(heading => {
+            const text = heading.textContent.trim();
+            const translation = this.findTranslationForText(text);
+            if (translation) {
+                heading.textContent = translation;
+                console.log(`📝 Заголовок переведен: "${text}" → "${translation}"`);
+            }
+        });
+    }
+    
+    // Переводит параграфы
+    translateParagraphs(main) {
+        const paragraphs = main.querySelectorAll('p');
+        paragraphs.forEach(p => {
+            const text = p.textContent.trim();
+            const translation = this.findTranslationForText(text);
+            if (translation) {
+                p.textContent = translation;
+                console.log(`📝 Параграф переведен: "${text}" → "${translation}"`);
+            }
+        });
+    }
+    
+    // Переводит списки
+    translateLists(main) {
+        const listItems = main.querySelectorAll('li');
+        listItems.forEach(li => {
+            const text = li.textContent.trim();
+            const translation = this.findTranslationForText(text);
+            if (translation) {
+                li.textContent = translation;
+                console.log(`📝 Элемент списка переведен: "${text}" → "${translation}"`);
+            }
+        });
+    }
+    
+    // Переводит кнопки
+    translateButtons(main) {
+        const buttons = main.querySelectorAll('button:not(.language-switch)');
+        buttons.forEach(button => {
+            const text = button.textContent.trim();
+            const translation = this.findTranslationForText(text);
+            if (translation) {
+                button.textContent = translation;
+                console.log(`📝 Кнопка переведена: "${text}" → "${translation}"`);
+            }
+        });
+    }
+    
+    // Переводит формы
+    translateForms(main) {
+        const labels = main.querySelectorAll('label');
+        labels.forEach(label => {
+            const text = label.textContent.replace(':', '').trim();
+            const translation = this.findTranslationForText(text);
+            if (translation) {
+                label.textContent = translation + ':';
+                console.log(`📝 Метка формы переведена: "${text}" → "${translation}"`);
+            }
+        });
+        
+        const placeholders = main.querySelectorAll('input[placeholder], textarea[placeholder]');
+        placeholders.forEach(input => {
+            const text = input.placeholder;
+            const translation = this.findTranslationForText(text);
+            if (translation) {
+                input.placeholder = translation;
+                console.log(`📝 Placeholder переведен: "${text}" → "${translation}"`);
+            }
+        });
+    }
+    
+    // Переводит ссылки
+    translateLinks(main) {
+        const links = main.querySelectorAll('a');
+        links.forEach(link => {
+            const text = link.textContent.trim();
+            const translation = this.findTranslationForText(text);
+            if (translation) {
+                link.textContent = translation;
+                console.log(`📝 Ссылка переведена: "${text}" → "${translation}"`);
+            }
+        });
+    }
+    
+    // Находит перевод для текста
+    findTranslationForText(text) {
+        // Создаем карту соответствий русский текст -> ключ перевода
+        const textMap = this.createTextMap();
+        
+        // Ищем точное совпадение
+        if (textMap[text]) {
+            return this.getTranslation(textMap[text]);
+        }
+        
+        // Ищем частичное совпадение
+        for (const [russianText, translationKey] of Object.entries(textMap)) {
+            if (russianText.includes(text) || text.includes(russianText)) {
+                return this.getTranslation(translationKey);
+            }
+        }
+        
+        return null;
+    }
+    
+    // Создает карту соответствий русский текст -> ключ перевода
+    createTextMap() {
+        const map = {};
+        
+        // Навигация
+        map['Главная'] = 'nav.home';
+        map['О книге'] = 'nav.about';
+        map['Автор'] = 'nav.author';
+        map['Купить'] = 'nav.buy';
+        
+        // Главная страница
+        map['Бхагавад-Гита как она есть'] = 'home.title';
+        map['Лицензированный репринт оригинального издания'] = 'home.subtitle';
+        map['Цена: 1500 руб.'] = 'home.price';
+        map['Заказать книгу'] = 'home.orderButton';
+        
+        // О книге
+        map['О книге'] = 'about.title';
+        map['Это точный репринт оригинального издания 1972 года, одобренный Bhaktivedanta Book Trust. Книга сохраняет:'] = 'about.description';
+        map['Формат и дизайн оригинала'] = 'about.features.0';
+        map['Комментарии А.Ч. Бхактиведанты Свами Прабхупады'] = 'about.features.1';
+        map['Качество печати 1972 года'] = 'about.features.2';
+        
+        // Об авторе
+        map['Об авторе'] = 'author.title';
+        map['А.Ч. Бхактиведанта Свами Прабхупада (1896-1977) - основатель Международного общества сознания Кришны (ISKCON) и автор более 80 книг по ведической философии.'] = 'author.description';
+        map['Перевел и прокомментировал основные ведические тексты'] = 'author.achievements.0';
+        map['Основал более 100 храмов по всему миру'] = 'author.achievements.1';
+        map['Получил официальное разрешение на издание от Bhaktivedanta Book Trust'] = 'author.achievements.2';
+        
+        // Контакты
+        map['Купить книгу'] = 'contacts.title';
+        map['Для заказа книги свяжитесь с нами:'] = 'contacts.description';
+        map['Телефон: +7 (XXX) XXX-XX-XX'] = 'contacts.phone';
+        map['Email: info@gita-1972-reprint.ru'] = 'contacts.email';
+        map['Адрес: Россия, Москва'] = 'contacts.address';
+        map['Форма заказа'] = 'contacts.orderForm';
+        map['Имя'] = 'contacts.name';
+        map['Телефон'] = 'contacts.phone';
+        map['Сообщение'] = 'contacts.message';
+        map['Отправить заказ'] = 'contacts.sendButton';
+        
+        // Статус заказа
+        map['Статус заказа'] = 'orderStatus.title';
+        map['Введите номер заказа для проверки статуса:'] = 'orderStatus.description';
+        map['Номер заказа'] = 'orderStatus.orderNumber';
+        map['Проверить статус'] = 'orderStatus.checkButton';
+        
+        // Благодарность
+        map['Спасибо за заказ!'] = 'thanks.title';
+        map['Ваш заказ принят. Мы свяжемся с вами в ближайшее время для подтверждения деталей доставки.'] = 'thanks.description';
+        map['Вернуться на главную'] = 'thanks.backToHome';
+        
+        return map;
+    }
+    
+    // Обновляет alt атрибуты изображений
+    updateImageAlt() {
+        const logo = document.querySelector('.logo');
+        if (logo) logo.alt = this.getTranslation('common.logoAlt');
+        
+        const cover = document.querySelector('.book-cover');
+        if (cover) cover.alt = this.getTranslation('common.coverAlt');
+    }
+    
+    // Обновляет переключатель языка
+    updateLanguageSwitch() {
+        const switchBtn = document.querySelector('.language-switch');
+        if (switchBtn) {
+            switchBtn.textContent = this.currentLang === 'ru' ? 'EN' : 'RU';
+            switchBtn.onclick = () => this.switchLanguage();
+            
+            // Добавляем анимацию при смене языка
+            switchBtn.classList.add('changing');
+            setTimeout(() => {
+                switchBtn.classList.remove('changing');
+            }, 300);
+        }
+    }
+    
+    // Переключает язык
+    switchLanguage() {
+        const newLang = this.currentLang === 'ru' ? 'en' : 'ru';
+        this.setLanguage(newLang);
+        
+        // Сохраняем в localStorage
+        localStorage.setItem('selectedLanguage', newLang);
+        
+        console.log(`🔄 Язык переключен на: ${newLang}`);
+    }
+    
+    // Инициализирует перевод
+    init() {
+        // Получаем сохраненный язык
+        const savedLang = localStorage.getItem('selectedLanguage') || 'ru';
+        this.setLanguage(savedLang);
     }
 }
 
-// Функция для обновления переключателя языка
-function updateLanguageSwitch(lang) {
-    const switchBtn = document.querySelector('.language-switch');
-    if (switchBtn) {
-        switchBtn.textContent = lang === 'ru' ? 'EN' : 'RU';
-        switchBtn.onclick = () => switchLanguage(lang === 'ru' ? 'en' : 'ru');
-        
-        // Добавляем анимацию при смене языка
-        switchBtn.classList.add('changing');
-        setTimeout(() => {
-            switchBtn.classList.remove('changing');
-        }, 300);
-    }
+// Создаем глобальный экземпляр переводчика
+const translator = new UniversalTranslator();
+
+// Функция для переключения языка (для обратной совместимости)
+function switchLanguage(lang) {
+    translator.setLanguage(lang);
+    localStorage.setItem('selectedLanguage', lang);
 }
 
 // Функция для инициализации языка при загрузке страницы
 function initializeLanguage() {
-    // Получаем сохраненный язык или определяем по умолчанию
-    const savedLang = localStorage.getItem('selectedLanguage') || 'ru';
-    
-    // Устанавливаем язык
-    switchLanguage(savedLang);
+    translator.init();
 }
 
 // Запускаем инициализацию при загрузке страницы
