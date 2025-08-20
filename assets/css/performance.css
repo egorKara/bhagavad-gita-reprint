@@ -1,0 +1,357 @@
+/* CSS оптимизации для производительности */
+
+/* Оптимизация рендеринга */
+* {
+    /* Включаем аппаратное ускорение для трансформаций */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Оптимизация анимаций */
+.cta-button,
+.nav-link,
+.language-switch,
+.publication-card,
+.material-item,
+.principle-item {
+    /* Используем transform вместо изменения layout свойств */
+    will-change: transform;
+    /* Оптимизируем композитный слой */
+    transform: translateZ(0);
+}
+
+/* Оптимизация изображений */
+img {
+    /* Предотвращаем layout shift */
+    max-width: 100%;
+    height: auto;
+    /* Оптимизируем рендеринг */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* Оптимизация шрифтов */
+body {
+    /* Предотвращаем FOUT (Flash of Unstyled Text) */
+    font-display: swap;
+    /* Оптимизируем рендеринг текста */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Оптимизация скролла */
+html {
+    /* Плавный скролл */
+    scroll-behavior: smooth;
+    /* Оптимизация для мобильных устройств */
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Оптимизация фокуса */
+*:focus {
+    /* Убираем стандартный outline для лучшего UX */
+    outline: none;
+}
+
+/* Кастомный focus для клавиатурной навигации */
+.keyboard-navigation *:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Оптимизация для печати */
+@media print {
+    .hero-header,
+    .cta-section,
+    .language-switch {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .section-title::after {
+        display: none !important;
+    }
+}
+
+/* Оптимизация для высоких DPI экранов */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .logo,
+    .book-cover-hero,
+    .back-cover,
+    .author-photo {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Оптимизация для мобильных устройств */
+@media (max-width: 768px) {
+    /* Уменьшаем тени для лучшей производительности */
+    .publication-card,
+    .material-item,
+    .principle-item {
+        box-shadow: 0 2px 8px rgba(139, 69, 19, 0.1);
+    }
+    
+    /* Упрощаем анимации */
+    .cta-button:hover {
+        transform: translateY(-2px);
+    }
+}
+
+/* Оптимизация для устройств с ограниченными возможностями */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Оптимизация для темной темы */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-light: #1a1a1a;
+        --background-white: #2d2d2d;
+        --text-dark: #ffffff;
+        --text-light: #cccccc;
+        --border-color: #444444;
+    }
+    
+    body {
+        background-color: var(--background-light);
+        color: var(--text-dark);
+    }
+    
+    .publication-card,
+    .material-item,
+    .principle-item {
+        background-color: var(--background-white);
+        border-color: var(--border-color);
+    }
+}
+
+/* Оптимизация для устройств с высоким контрастом */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-color: #000000;
+        --secondary-color: #000000;
+        --accent-color: #ffffff;
+        --text-dark: #000000;
+        --text-light: #000000;
+        --background-light: #ffffff;
+        --background-white: #ffffff;
+        --border-color: #000000;
+    }
+    
+    .cta-button.primary {
+        background: #000000;
+        color: #ffffff;
+        border: 2px solid #000000;
+    }
+    
+    .cta-button.secondary {
+        background: #ffffff;
+        color: #000000;
+        border: 2px solid #000000;
+    }
+}
+
+/* Оптимизация для устройств с ограниченным цветовым восприятием */
+@media (prefers-color-scheme: no-preference) {
+    /* Дополнительные стили для устройств без предпочтений */
+}
+
+/* Оптимизация для устройств с ограниченным зрением */
+@media (prefers-reduced-motion: no-preference) {
+    /* Дополнительные анимации для пользователей без ограничений */
+}
+
+/* Оптимизация для устройств с сенсорным экраном */
+@media (hover: none) and (pointer: coarse) {
+    /* Убираем hover эффекты для сенсорных устройств */
+    .cta-button:hover,
+    .nav-link:hover,
+    .publication-card:hover,
+    .material-item:hover,
+    .principle-item:hover {
+        transform: none;
+        box-shadow: inherit;
+    }
+    
+    /* Увеличиваем размеры кнопок для сенсорных устройств */
+    .cta-button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .nav-link {
+        min-height: 44px;
+        padding: 12px 20px;
+    }
+}
+
+/* Оптимизация для устройств с точным указателем */
+@media (hover: hover) and (pointer: fine) {
+    /* Дополнительные hover эффекты для устройств с мышью */
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
+    }
+}
+
+/* Оптимизация для устройств с ограниченной шириной экрана */
+@media (max-width: 480px) {
+    /* Упрощаем layout для очень маленьких экранов */
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .about-content,
+    .author-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .publication-grid,
+    .materials-grid,
+    .principles-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* Оптимизация для устройств с ограниченной высотой экрана */
+@media (max-height: 600px) {
+    /* Уменьшаем отступы для устройств с маленькой высотой */
+    .hero-section,
+    .about-section,
+    .author-section,
+    .contents-section,
+    .cta-section,
+    .publication-section,
+    .why-section,
+    .early-life-section,
+    .mission-section,
+    .literary-section,
+    .philosophy-section,
+    .legacy-section {
+        padding: 40px 0;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+/* Оптимизация для устройств с ограниченной памятью */
+@media (max-width: 320px) {
+    /* Минимальные стили для очень старых устройств */
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+    
+    .cta-button {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+}
+
+/* Оптимизация для устройств с высоким DPI и ограниченной производительностью */
+@media (-webkit-min-device-pixel-ratio: 2) and (max-width: 768px) {
+    /* Упрощаем эффекты для высоких DPI мобильных устройств */
+    .cta-button::before {
+        display: none;
+    }
+    
+    .publication-card:hover,
+    .material-item:hover,
+    .principle-item:hover {
+        transform: none;
+        box-shadow: inherit;
+    }
+}
+
+/* Стили для breadcrumbs */
+.breadcrumbs {
+    background: var(--background-white);
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.breadcrumbs ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.breadcrumbs li {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumbs li:not(:last-child)::after {
+    content: '›';
+    margin-left: 10px;
+    color: var(--text-light);
+    font-weight: bold;
+}
+
+.breadcrumbs a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.breadcrumbs a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+.breadcrumbs li:last-child {
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+/* Адаптивность для breadcrumbs */
+@media (max-width: 768px) {
+    .breadcrumbs {
+        padding: 10px 15px;
+    }
+    
+    .breadcrumbs ol {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    
+    .breadcrumbs li:not(:last-child)::after {
+        margin-left: 5px;
+    }
+}
