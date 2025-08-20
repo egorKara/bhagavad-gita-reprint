@@ -6,9 +6,13 @@
     <meta name="description" content="Точное воспроизведение оригинального издания 1972 года. Доставка по России. Официальное разрешение Bhaktivedanta Book Trust.">
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/language-switch.css">
     <link rel="icon" href="favicon.ico">
 </head>
 <body>
+    <!-- Переключатель языка -->
+    <button class="language-switch" onclick="switchLanguage('en')">EN</button>
+    
     <header>
         <img src="assets/images/logo.png" alt="Логотип" class="logo">
         <nav>
@@ -28,5 +32,8 @@
   </button>
 </a>
     </main>
+    
+    <!-- Подключаем скрипт многоязычности -->
+    <script src="assets/js/translations.js"></script>
 </body>
 </html>

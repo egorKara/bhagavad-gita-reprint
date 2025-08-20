@@ -5,8 +5,12 @@
     <title>О книге — Бхагавад-Гита 1972</title>
     <meta name="description" content="История создания репринта, отличия от других изданий. Лицензия от Bhaktivedanta Book Trust.">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/language-switch.css">
 </head>
 <body>
+    <!-- Переключатель языка -->
+    <button class="language-switch" onclick="switchLanguage('en')">EN</button>
+    
     <header>
         <img src="assets/images/logo.png" alt="Логотип" class="logo">
         <nav>
@@ -25,5 +29,8 @@
             <li>Качество печати 1972 года</li>
         </ul>
     </main>
+    
+    <!-- Подключаем скрипт многоязычности -->
+    <script src="assets/js/translations.js"></script>
 </body>
 </html>
