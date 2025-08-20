@@ -271,6 +271,7 @@ class UniversalTranslator {
         if (path.includes('order-status.html')) return 'order-status';
         if (path.includes('thanks.html')) return 'thanks';
         if (path.includes('test-i18n.html')) return 'test';
+        if (path.includes('demo-i18n.html')) return 'demo';
         return 'unknown';
     }
     
@@ -315,6 +316,9 @@ class UniversalTranslator {
         
         // Переводим ссылки
         this.translateLinks(main);
+        
+        // Переводим div элементы (для дополнительного контента)
+        this.translateDivs(main);
     }
     
     // Переводит заголовки
@@ -405,6 +409,22 @@ class UniversalTranslator {
         });
     }
     
+    // Переводит div элементы (для дополнительного контента)
+    translateDivs(main) {
+        const divs = main.querySelectorAll('div');
+        divs.forEach(div => {
+            // Переводим только div с текстовым содержимым (без дочерних элементов)
+            if (div.children.length === 0 && div.textContent.trim()) {
+                const text = div.textContent.trim();
+                const translation = this.findTranslationForText(text);
+                if (translation) {
+                    div.textContent = translation;
+                    console.log(`📝 Div переведен: "${text}" → "${translation}"`);
+                }
+            }
+        });
+    }
+    
     // Находит перевод для текста
     findTranslationForText(text) {
         // Создаем карту соответствий русский текст -> ключ перевода
@@ -415,9 +435,17 @@ class UniversalTranslator {
             return this.getTranslation(textMap[text]);
         }
         
-        // Ищем частичное совпадение
+        // Ищем частичное совпадение (для более гибкого поиска)
         for (const [russianText, translationKey] of Object.entries(textMap)) {
             if (russianText.includes(text) || text.includes(russianText)) {
+                return this.getTranslation(translationKey);
+            }
+        }
+        
+        // Ищем по ключевым словам (для более умного поиска)
+        const keywordMap = this.createKeywordMap();
+        for (const [keyword, translationKey] of Object.entries(keywordMap)) {
+            if (text.toLowerCase().includes(keyword.toLowerCase())) {
                 return this.getTranslation(translationKey);
             }
         }
@@ -477,6 +505,36 @@ class UniversalTranslator {
         map['Спасибо за заказ!'] = 'thanks.title';
         map['Ваш заказ принят. Мы свяжемся с вами в ближайшее время для подтверждения деталей доставки.'] = 'thanks.description';
         map['Вернуться на главную'] = 'thanks.backToHome';
+        
+        return map;
+    }
+    
+    // Создает карту ключевых слов для умного поиска
+    createKeywordMap() {
+        const map = {};
+        
+        // Ключевые слова для навигации
+        map['главная'] = 'nav.home';
+        map['книге'] = 'nav.about';
+        map['автор'] = 'nav.author';
+        map['купить'] = 'nav.buy';
+        
+        // Ключевые слова для заголовков
+        map['авторе'] = 'author.title';
+        map['книгу'] = 'contacts.title';
+        map['заказа'] = 'orderStatus.title';
+        map['спасибо'] = 'thanks.title';
+        
+        // Ключевые слова для форм
+        map['имя'] = 'contacts.name';
+        map['телефон'] = 'contacts.phone';
+        map['сообщение'] = 'contacts.message';
+        map['отправить'] = 'contacts.sendButton';
+        map['форма'] = 'contacts.orderForm';
+        
+        // Ключевые слова для кнопок
+        map['заказать'] = 'home.orderButton';
+        map['проверить'] = 'orderStatus.checkButton';
         
         return map;
     }
