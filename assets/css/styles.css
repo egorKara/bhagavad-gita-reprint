@@ -97,6 +97,17 @@ body {
     width: 100%;
 }
 
+.nav-link.active {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.nav-link.active::after {
+    width: 100%;
+    background-color: var(--accent-color);
+}
+
 /* Hero Section */
 .hero-section {
     background: linear-gradient(135deg, var(--background-light) 0%, var(--background-white) 100%);
@@ -1384,4 +1395,88 @@ nav a {
     .order-hero {
         padding: 60px 0;
     }
+}
+
+/* ===== СТИЛИ ДЛЯ ТЕСТОВОЙ СТРАНИЦЫ ===== */
+
+.test-section {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    margin-bottom: 30px;
+}
+
+.test-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.test-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.test-section li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.test-section li:last-child {
+    border-bottom: none;
+}
+
+.test-section a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.test-section a:hover {
+    color: var(--secondary-color);
+}
+
+.test-section button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.test-section button:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+#testResult {
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--background-light);
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--primary-color);
+}
+
+#testResult h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+#testResult ul {
+    margin: 0;
+}
+
+#testResult li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-dark);
+}
+
+#testResult li:last-child {
+    border-bottom: none;
 }
