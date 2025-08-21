@@ -7,334 +7,288 @@ class OrderFormValidator {
     constructor() {
         this.form = document.getElementById('orderForm');
         this.submitBtn = document.getElementById('submitBtn');
-        this.quantitySelect = document.getElementById('quantity');
-        this.totalPriceElement = document.getElementById('totalPrice');
+        this.isSubmitting = false;
+        
+        this.deliveryPrices = {
+            'post': 300,
+            'courier': 500,
+            'pickup': 0
+        };
+        
+        this.bookPrice = 1500;
         
         this.init();
     }
-
+    
     init() {
         if (this.form) {
-            this.bindEvents();
-            this.updateTotalPrice();
+            this.setupEventListeners();
+            this.updateSummary();
         }
     }
-
-    bindEvents() {
-        // Валидация при вводе
-        this.form.querySelectorAll('input, textarea, select').forEach(field => {
-            field.addEventListener('input', (e) => this.validateField(e.target));
-            field.addEventListener('blur', (e) => this.validateField(e.target));
+    
+    setupEventListeners() {
+        // Валидация в реальном времени
+        this.form.querySelectorAll('input, select, textarea').forEach(field => {
+            field.addEventListener('input', () => this.validateField(field));
+            field.addEventListener('blur', () => this.validateField(field));
         });
-
-        // Валидация при отправке
+        
+        // Обработка отправки формы
         this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-
-        // Обновление общей цены при изменении количества
-        if (this.quantitySelect) {
-            this.quantitySelect.addEventListener('change', () => this.updateTotalPrice());
+        
+        // Обновление сводки при изменении количества или способа доставки
+        const quantitySelect = document.getElementById('quantity');
+        const deliverySelect = document.getElementById('deliveryMethod');
+        
+        if (quantitySelect) {
+            quantitySelect.addEventListener('change', () => this.updateSummary());
+        }
+        
+        if (deliverySelect) {
+            deliverySelect.addEventListener('change', () => this.updateSummary());
         }
     }
-
-    /**
-     * Валидация отдельного поля
-     */
+    
     validateField(field) {
-        const fieldId = field.id;
-        const errorElement = document.getElementById(fieldId + 'Error');
+        const fieldName = field.name;
+        const errorElement = document.getElementById(fieldName + 'Error');
+        
+        if (!errorElement) return;
+        
         let isValid = true;
         let errorMessage = '';
-
-        // Очистка предыдущих ошибок
-        this.clearFieldError(fieldId);
-
+        
         // Проверка обязательных полей
-        if (field.hasAttribute('required') && !field.value.trim()) {
+        if (field.required && !field.value.trim()) {
             isValid = false;
             errorMessage = 'Это поле обязательно для заполнения';
         }
-
-        // Специфичная валидация для каждого типа поля
-        if (isValid && field.value.trim()) {
-            switch (fieldId) {
-                case 'firstName':
-                case 'lastName':
-                    isValid = this.validateName(field.value);
-                    if (!isValid) {
-                        errorMessage = 'Имя должно содержать от 2 до 50 символов, только буквы, пробелы, дефисы и апострофы';
-                    }
-                    break;
-
-                case 'email':
-                    isValid = this.validateEmail(field.value);
-                    if (!isValid) {
-                        errorMessage = 'Введите корректный email адрес';
-                    }
-                    break;
-
-                case 'phone':
-                    isValid = this.validatePhone(field.value);
-                    if (!isValid) {
-                        errorMessage = 'Введите номер телефона в формате: +7 (XXX) XXX-XX-XX или 8 XXX XXX-XX-XX';
-                    }
-                    break;
-
-                case 'address':
-                    isValid = this.validateAddress(field.value);
-                    if (!isValid) {
-                        errorMessage = 'Адрес должен содержать от 10 до 200 символов';
-                    }
-                    break;
-
-                case 'quantity':
-                    isValid = this.validateQuantity(field.value);
-                    if (!isValid) {
-                        errorMessage = 'Выберите количество книг';
-                    }
-                    break;
-
-                case 'agreement':
-                    isValid = field.checked;
-                    if (!isValid) {
-                        errorMessage = 'Необходимо согласие с условиями заказа';
-                    }
-                    break;
+        
+        // Специфичные проверки
+        if (field.value.trim() && field.pattern) {
+            const regex = new RegExp(field.pattern);
+            if (!regex.test(field.value)) {
+                isValid = false;
+                errorMessage = field.title || 'Неверный формат';
             }
         }
-
-        // Применение стилей и сообщений об ошибках
-        if (!isValid) {
-            this.showFieldError(fieldId, errorMessage);
-            field.classList.add('error');
-        } else {
-            field.classList.remove('error');
+        
+        // Дополнительные проверки
+        if (fieldName === 'firstName' || fieldName === 'lastName') {
+            if (field.value.trim() && field.value.trim().length < 2) {
+                isValid = false;
+                errorMessage = 'Минимальная длина 2 символа';
+            }
         }
-
+        
+        if (fieldName === 'phone') {
+            if (field.value.trim() && !this.isValidPhone(field.value)) {
+                isValid = false;
+                errorMessage = 'Неверный формат номера телефона';
+            }
+        }
+        
+        if (fieldName === 'postalCode') {
+            if (field.value.trim() && !/^[0-9]{6}$/.test(field.value)) {
+                isValid = false;
+                errorMessage = 'Индекс должен содержать 6 цифр';
+            }
+        }
+        
+        // Отображение ошибки
+        this.showFieldError(field, errorElement, isValid, errorMessage);
+        
         return isValid;
     }
-
-    /**
-     * Валидация имени (защита от XSS и проверка формата)
-     */
-    validateName(name) {
-        // Проверка длины
-        if (name.length < 2 || name.length > 50) {
-            return false;
-        }
-
-        // Проверка на только цифры
-        if (/^\d+$/.test(name)) {
-            return false;
-        }
-
-        // Проверка на исполняемые последовательности
-        const dangerousPatterns = [
-            /<script/i,
-            /javascript:/i,
-            /on\w+\s*=/i,
-            /data:text\/html/i,
-            /vbscript:/i,
-            /expression\(/i
-        ];
-
-        for (const pattern of dangerousPatterns) {
-            if (pattern.test(name)) {
-                return false;
-            }
-        }
-
-        // Проверка на допустимые символы
-        const validNamePattern = /^[А-Яа-яЁёA-Za-z\s\-']+$/;
-        return validNamePattern.test(name);
+    
+    isValidPhone(phone) {
+        // Проверка российского номера телефона
+        const phoneRegex = /^(\+7|8)[\s\(]?(\d{3})[\)\s-]?(\d{3})[\s-]?(\d{2})[\s-]?(\d{2})$/;
+        return phoneRegex.test(phone);
     }
-
-    /**
-     * Валидация email
-     */
-    validateEmail(email) {
-        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        return emailPattern.test(email);
-    }
-
-    /**
-     * Валидация телефона (российский формат)
-     */
-    validatePhone(phone) {
-        // Удаление всех пробелов и дефисов для проверки
-        const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
-        
-        // Проверка на только цифры
-        if (!/^\d+$/.test(cleanPhone)) {
-            return false;
-        }
-
-        // Проверка длины (10 или 11 цифр)
-        if (cleanPhone.length !== 10 && cleanPhone.length !== 11) {
-            return false;
-        }
-
-        // Проверка формата
-        const phonePattern = /^(\+7|8)[\s\-]?\(?(\d{3})\)?[\s\-]?(\d{3})[\s\-]?(\d{2})[\s\-]?(\d{2})$/;
-        return phonePattern.test(phone);
-    }
-
-    /**
-     * Валидация адреса
-     */
-    validateAddress(address) {
-        if (address.length < 10 || address.length > 200) {
-            return false;
-        }
-
-        // Проверка на исполняемые последовательности
-        const dangerousPatterns = [
-            /<script/i,
-            /javascript:/i,
-            /on\w+\s*=/i,
-            /data:text\/html/i
-        ];
-
-        for (const pattern of dangerousPatterns) {
-            if (pattern.test(address)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Валидация количества
-     */
-    validateQuantity(quantity) {
-        return quantity && quantity !== '';
-    }
-
-    /**
-     * Показ ошибки для поля
-     */
-    showFieldError(fieldId, message) {
-        const errorElement = document.getElementById(fieldId + 'Error');
-        if (errorElement) {
-            errorElement.textContent = message;
+    
+    showFieldError(field, errorElement, isValid, errorMessage) {
+        if (isValid) {
+            field.classList.remove('error');
+            errorElement.textContent = '';
+            errorElement.style.display = 'none';
+        } else {
+            field.classList.add('error');
+            errorElement.textContent = errorMessage;
             errorElement.style.display = 'block';
         }
     }
-
-    /**
-     * Очистка ошибки для поля
-     */
-    clearFieldError(fieldId) {
-        const errorElement = document.getElementById(fieldId + 'Error');
-        if (errorElement) {
-            errorElement.textContent = '';
-            errorElement.style.display = 'none';
+    
+    updateSummary() {
+        const quantity = document.getElementById('quantity').value;
+        const deliveryMethod = document.getElementById('deliveryMethod').value;
+        
+        if (quantity && deliveryMethod) {
+            const quantityNum = quantity === 'more' ? 1 : parseInt(quantity);
+            const booksPrice = quantityNum * this.bookPrice;
+            const deliveryPrice = this.deliveryPrices[deliveryMethod] || 0;
+            
+            // Применение скидки
+            let discount = 0;
+            if (quantityNum >= 3) {
+                discount = booksPrice * 0.1;
+            }
+            
+            // Бесплатная доставка при заказе от 5000 ₽
+            let finalDeliveryPrice = deliveryPrice;
+            if (booksPrice >= 5000) {
+                finalDeliveryPrice = 0;
+            }
+            
+            const total = booksPrice - discount + finalDeliveryPrice;
+            
+            // Обновление сводки
+            this.updateSummaryField('summaryQuantity', quantityNum === 1 ? '1 книга' : `${quantityNum} книг`);
+            this.updateSummaryField('summaryBooksPrice', `${booksPrice} ₽`);
+            this.updateSummaryField('summaryDelivery', this.getDeliveryText(deliveryMethod));
+            this.updateSummaryField('summaryDeliveryPrice', finalDeliveryPrice === 0 ? 'Бесплатно' : `${finalDeliveryPrice} ₽`);
+            this.updateSummaryField('totalPrice', `${total} ₽`);
+            
+            // Обновление информации о скидке
+            if (discount > 0) {
+                this.updateSummaryField('summaryBooksPrice', `${booksPrice} ₽ (скидка ${discount} ₽)`);
+            }
         }
     }
-
-    /**
-     * Валидация всей формы
-     */
+    
+    getDeliveryText(method) {
+        const deliveryTexts = {
+            'post': 'Почта России',
+            'courier': 'Курьерская доставка',
+            'pickup': 'Самовывоз'
+        };
+        return deliveryTexts[method] || method;
+    }
+    
+    updateSummaryField(id, text) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = text;
+        }
+    }
+    
     validateForm() {
         let isValid = true;
-        const fields = this.form.querySelectorAll('input, textarea, select');
-
-        fields.forEach(field => {
+        
+        // Валидация всех полей
+        this.form.querySelectorAll('input[required], select[required], textarea[required]').forEach(field => {
             if (!this.validateField(field)) {
                 isValid = false;
             }
         });
-
+        
         return isValid;
     }
-
-    /**
-     * Обработка отправки формы
-     */
+    
     async handleSubmit(e) {
         e.preventDefault();
-
+        
+        if (this.isSubmitting) return;
+        
         if (!this.validateForm()) {
-            this.showFormError('Пожалуйста, исправьте ошибки в форме');
+            this.showMessage('Пожалуйста, исправьте ошибки в форме', 'error');
             return;
         }
-
-        // Показ состояния загрузки
-        this.setLoadingState(true);
-
+        
+        this.setSubmitting(true);
+        
         try {
-            // Сбор данных формы
             const formData = this.collectFormData();
-            
-            // Отправка данных (здесь будет интеграция с API)
             await this.submitOrder(formData);
-            
-            // Успешная отправка
-            this.showSuccessMessage();
-            this.resetForm();
-            
         } catch (error) {
             console.error('Ошибка отправки заказа:', error);
-            this.showFormError('Произошла ошибка при отправке заказа. Попробуйте еще раз.');
+            this.showMessage('Произошла ошибка при отправке заказа. Попробуйте еще раз.', 'error');
         } finally {
-            this.setLoadingState(false);
+            this.setSubmitting(false);
         }
     }
-
-    /**
-     * Сбор данных формы
-     */
+    
     collectFormData() {
         const formData = new FormData(this.form);
         const data = {};
-
-        for (const [key, value] of formData.entries()) {
-            data[key] = value.trim();
+        
+        // Сбор данных из формы
+        for (let [key, value] of formData.entries()) {
+            data[key] = value;
         }
-
+        
         // Добавление дополнительной информации
-        data.timestamp = new Date().toISOString();
-        data.userAgent = navigator.userAgent;
-        data.language = document.documentElement.lang;
-
+        data.orderDate = new Date().toISOString();
+        data.totalPrice = this.calculateTotalPrice();
+        data.deliveryPrice = this.getDeliveryPrice();
+        
         return data;
     }
-
-    /**
-     * Отправка заказа на сервер
-     */
+    
+    calculateTotalPrice() {
+        const quantity = document.getElementById('quantity').value;
+        const deliveryMethod = document.getElementById('deliveryMethod').value;
+        
+        if (!quantity || !deliveryMethod) return 0;
+        
+        const quantityNum = quantity === 'more' ? 1 : parseInt(quantity);
+        const booksPrice = quantityNum * this.bookPrice;
+        const deliveryPrice = this.deliveryPrices[deliveryMethod] || 0;
+        
+        let discount = 0;
+        if (quantityNum >= 3) {
+            discount = booksPrice * 0.1;
+        }
+        
+        let finalDeliveryPrice = deliveryPrice;
+        if (booksPrice >= 5000) {
+            finalDeliveryPrice = 0;
+        }
+        
+        return booksPrice - discount + finalDeliveryPrice;
+    }
+    
+    getDeliveryPrice() {
+        const deliveryMethod = document.getElementById('deliveryMethod').value;
+        return this.deliveryPrices[deliveryMethod] || 0;
+    }
+    
     async submitOrder(data) {
         try {
             const response = await fetch('/api/orders/create', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data)
             });
-
-            const result = await response.json();
             
-            if (result.success) {
-                console.log('Заказ успешно отправлен на сервер:', result);
-                return result;
+            if (response.ok) {
+                const result = await response.json();
+                this.showMessage('Заказ успешно отправлен! Мы свяжемся с вами в ближайшее время.', 'success');
+                this.form.reset();
+                this.updateSummary();
+                
+                // Перенаправление на страницу благодарности
+                setTimeout(() => {
+                    window.location.href = 'thanks.html';
+                }, 2000);
             } else {
-                throw new Error(result.error || 'Ошибка отправки заказа');
+                const error = await response.json();
+                throw new Error(error.message || 'Ошибка сервера');
             }
         } catch (error) {
-            console.error('Ошибка отправки заказа:', error);
             throw error;
         }
     }
-
-    /**
-     * Установка состояния загрузки
-     */
-    setLoadingState(loading) {
+    
+    setSubmitting(submitting) {
+        this.isSubmitting = submitting;
         const buttonText = this.submitBtn.querySelector('.button-text');
         const buttonLoading = this.submitBtn.querySelector('.button-loading');
         
-        if (loading) {
+        if (submitting) {
             buttonText.style.display = 'none';
             buttonLoading.style.display = 'inline';
             this.submitBtn.disabled = true;
@@ -344,86 +298,26 @@ class OrderFormValidator {
             this.submitBtn.disabled = false;
         }
     }
-
-    /**
-     * Показ сообщения об ошибке формы
-     */
-    showFormError(message) {
-        // Создание элемента для ошибки формы
-        let formError = document.getElementById('formError');
-        if (!formError) {
-            formError = document.createElement('div');
-            formError.id = 'formError';
-            formError.className = 'form-error';
-            this.form.insertBefore(formError, this.form.firstChild);
-        }
+    
+    showMessage(message, type = 'info') {
+        // Создание элемента сообщения
+        const messageElement = document.createElement('div');
+        messageElement.className = `form-message ${type}`;
+        messageElement.textContent = message;
         
-        formError.textContent = message;
-        formError.style.display = 'block';
+        // Вставка сообщения перед формой
+        this.form.parentNode.insertBefore(messageElement, this.form);
         
-        // Автоматическое скрытие через 5 секунд
+        // Автоматическое удаление через 5 секунд
         setTimeout(() => {
-            formError.style.display = 'none';
+            if (messageElement.parentNode) {
+                messageElement.parentNode.removeChild(messageElement);
+            }
         }, 5000);
-    }
-
-    /**
-     * Показ сообщения об успехе
-     */
-    showSuccessMessage() {
-        // Создание элемента для успешного сообщения
-        let successMessage = document.getElementById('successMessage');
-        if (!successMessage) {
-            successMessage = document.createElement('div');
-            successMessage.id = 'successMessage';
-            successMessage.className = 'success-message';
-            this.form.insertBefore(successMessage, this.form.firstChild);
-        }
-        
-        successMessage.textContent = 'Заказ успешно отправлен! Мы свяжемся с вами в ближайшее время.';
-        successMessage.style.display = 'block';
-        
-        // Автоматическое скрытие через 10 секунд
-        setTimeout(() => {
-            successMessage.style.display = 'none';
-        }, 10000);
-    }
-
-    /**
-     * Сброс формы
-     */
-    resetForm() {
-        this.form.reset();
-        this.form.querySelectorAll('.error').forEach(field => {
-            field.classList.remove('error');
-        });
-        this.form.querySelectorAll('.error-message').forEach(error => {
-            error.style.display = 'none';
-        });
-        this.updateTotalPrice();
-    }
-
-    /**
-     * Обновление общей цены
-     */
-    updateTotalPrice() {
-        if (this.quantitySelect && this.totalPriceElement) {
-            const quantity = parseInt(this.quantitySelect.value) || 0;
-            const bookPrice = 1500;
-            const deliveryPrice = 300;
-            const total = quantity * bookPrice + deliveryPrice;
-            
-            this.totalPriceElement.textContent = total + ' ₽';
-        }
     }
 }
 
-// Инициализация валидатора при загрузке страницы
+// Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     new OrderFormValidator();
 });
-
-// Экспорт для использования в других модулях
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = OrderFormValidator;
-}
