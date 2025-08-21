@@ -61,151 +61,217 @@
                 </div>
             </section>
 
-            <!-- Contact Information -->
-            <section class="contact-info">
-                <h2>Контактная информация</h2>
-                <div class="contact-grid">
-                    <div class="contact-item">
-                        <span class="contact-icon">📞</span>
-                        <div>
-                            <h3>Телефон</h3>
-                            <p>+7 (XXX) XXX-XX-XX</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">✉️</span>
-                        <div>
-                            <h3>Email</h3>
-                            <p>info@gita-1972-reprint.ru</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">📍</span>
-                        <div>
-                            <h3>Адрес</h3>
-                            <p>Россия, Москва</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <!-- Order Form -->
             <section class="order-form-section">
                 <h2>Ваши контактные данные</h2>
                 <p class="form-description">Заполните форму ниже для оформления заказа. Все поля обязательны для заполнения.</p>
                 
                 <form id="orderForm" class="order-form" novalidate>
-                    <div class="form-row">
+                    <!-- Личные данные -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">Личные данные</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName" class="form-label">Имя *</label>
+                                <input 
+                                    type="text" 
+                                    id="firstName" 
+                                    name="firstName" 
+                                    class="form-input" 
+                                    required
+                                    pattern="^[А-Яа-яЁё\s-]{2,50}$"
+                                    title="Имя должно содержать от 2 до 50 символов, только русские буквы, пробелы и дефисы"
+                                    placeholder="Введите ваше имя"
+                                >
+                                <div class="error-message" id="firstNameError"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName" class="form-label">Фамилия *</label>
+                                <input 
+                                    type="text" 
+                                    id="lastName" 
+                                    name="lastName" 
+                                    class="form-input" 
+                                    required
+                                    pattern="^[А-Яа-яЁё\s-]{2,50}$"
+                                    title="Фамилия должна содержать от 2 до 50 символов, только русские буквы, пробелы и дефисы"
+                                    placeholder="Введите вашу фамилию"
+                                >
+                                <div class="error-message" id="lastNameError"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email *</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    class="form-input" 
+                                    required
+                                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                                    title="Введите корректный email адрес"
+                                    placeholder="example@email.com"
+                                >
+                                <div class="error-message" id="emailError"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Телефон *</label>
+                                <input 
+                                    type="tel" 
+                                    id="phone" 
+                                    name="phone" 
+                                    class="form-input" 
+                                    required
+                                    pattern="^(\+7|8)[\s\(]?(\d{3})[\)\s-]?(\d{3})[\s-]?(\d{2})[\s-]?(\d{2})$"
+                                    title="Введите номер телефона в формате: +7 (XXX) XXX-XX-XX или 8 XXX XXX-XX-XX"
+                                    placeholder="+7 (XXX) XXX-XX-XX"
+                                >
+                                <div class="error-message" id="phoneError"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Адрес доставки -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">Адрес доставки</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="postalCode" class="form-label">Индекс *</label>
+                                <input 
+                                    type="text" 
+                                    id="postalCode" 
+                                    name="postalCode" 
+                                    class="form-input" 
+                                    required
+                                    pattern="^[0-9]{6}$"
+                                    title="Индекс должен содержать 6 цифр"
+                                    placeholder="123456"
+                                >
+                                <div class="error-message" id="postalCodeError"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="city" class="form-label">Город *</label>
+                                <input 
+                                    type="text" 
+                                    id="city" 
+                                    name="city" 
+                                    class="form-input" 
+                                    required
+                                    pattern="^[А-Яа-яЁё\s-]{2,50}$"
+                                    title="Название города должно содержать от 2 до 50 символов"
+                                    placeholder="Москва"
+                                >
+                                <div class="error-message" id="cityError"></div>
+                            </div>
+                        </div>
+
                         <div class="form-group">
-                            <label for="firstName" class="form-label">Имя *</label>
+                            <label for="street" class="form-label">Улица *</label>
                             <input 
                                 type="text" 
-                                id="firstName" 
-                                name="firstName" 
+                                id="street" 
+                                name="street" 
                                 class="form-input" 
                                 required
-                                pattern="^[А-Яа-яЁёA-Za-z\s\-']{2,50}$"
-                                title="Имя должно содержать от 2 до 50 символов, только буквы, пробелы, дефисы и апострофы"
-                                autocomplete="given-name"
+                                pattern="^[А-Яа-яЁё0-9\s\.-]{5,100}$"
+                                title="Название улицы должно содержать от 5 до 100 символов"
+                                placeholder="ул. Примерная"
                             >
-                            <div class="error-message" id="firstNameError"></div>
+                            <div class="error-message" id="streetError"></div>
                         </div>
-                        
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="house" class="form-label">Дом *</label>
+                                <input 
+                                    type="text" 
+                                    id="house" 
+                                    name="house" 
+                                    class="form-input" 
+                                    required
+                                    pattern="^[0-9А-Яа-яЁё\s/\\-]{1,10}$"
+                                    title="Номер дома должен содержать от 1 до 10 символов"
+                                    placeholder="123"
+                                >
+                                <div class="error-message" id="houseError"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="apartment" class="form-label">Квартира</label>
+                                <input 
+                                    type="text" 
+                                    id="apartment" 
+                                    name="apartment" 
+                                    class="form-input" 
+                                    pattern="^[0-9А-Яа-яЁё\s/\\-]{1,10}$"
+                                    title="Номер квартиры должен содержать от 1 до 10 символов"
+                                    placeholder="45"
+                                >
+                                <div class="error-message" id="apartmentError"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Детали заказа -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">Детали заказа</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="quantity" class="form-label">Количество книг *</label>
+                                <select id="quantity" name="quantity" class="form-select" required>
+                                    <option value="">Выберите количество</option>
+                                    <option value="1">1 книга - 1500 ₽</option>
+                                    <option value="2">2 книги - 3000 ₽</option>
+                                    <option value="3">3 книги - 4500 ₽</option>
+                                    <option value="4">4 книги - 6000 ₽</option>
+                                    <option value="5">5 книг - 7500 ₽</option>
+                                    <option value="more">Больше 5 (уточните в комментарии)</option>
+                                </select>
+                                <div class="error-message" id="quantityError"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="deliveryMethod" class="form-label">Способ доставки *</label>
+                                <select id="deliveryMethod" name="deliveryMethod" class="form-select" required>
+                                    <option value="">Выберите способ доставки</option>
+                                    <option value="post">Почта России - 300 ₽</option>
+                                    <option value="courier">Курьерская доставка - 500 ₽</option>
+                                    <option value="pickup">Самовывоз - 0 ₽</option>
+                                </select>
+                                <div class="error-message" id="deliveryMethodError"></div>
+                            </div>
+                        </div>
+
                         <div class="form-group">
-                            <label for="lastName" class="form-label">Фамилия *</label>
-                            <input 
-                                type="text" 
-                                id="lastName" 
-                                name="lastName" 
-                                class="form-input" 
-                                required
-                                pattern="^[А-Яа-яЁёA-Za-z\s\-']{2,50}$"
-                                title="Фамилия должна содержать от 2 до 50 символов, только буквы, пробелы, дефисы и апострофы"
-                                autocomplete="family-name"
-                            >
-                            <div class="error-message" id="lastNameError"></div>
+                            <label for="message" class="form-label">Дополнительная информация</label>
+                            <textarea 
+                                id="message" 
+                                name="message" 
+                                class="form-textarea" 
+                                rows="4"
+                                placeholder="Укажите любую дополнительную информацию по заказу, особые пожелания или вопросы"
+                            ></textarea>
                         </div>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="email" class="form-label">Email *</label>
-                            <input 
-                                type="email" 
-                                id="email" 
-                                name="email" 
-                                class="form-input" 
-                                required
-                                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                                title="Введите корректный email адрес"
-                                autocomplete="email"
-                            >
-                            <div class="error-message" id="emailError"></div>
+                    <!-- Согласие -->
+                    <div class="form-section">
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="agreement" name="agreement" required>
+                                <span class="checkmark"></span>
+                                Я согласен с <a href="#" class="link">условиями заказа</a> и <a href="#" class="link">политикой конфиденциальности</a> *
+                            </label>
+                            <div class="error-message" id="agreementError"></div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="phone" class="form-label">Телефон *</label>
-                            <input 
-                                type="tel" 
-                                id="phone" 
-                                name="phone" 
-                                class="form-input" 
-                                required
-                                pattern="^(\+7|8)[\s\-]?\(?(\d{3})\)?[\s\-]?(\d{3})[\s\-]?(\d{2})[\s\-]?(\d{2})$"
-                                title="Введите номер телефона в формате: +7 (XXX) XXX-XX-XX или 8 XXX XXX-XX-XX"
-                                autocomplete="tel"
-                                placeholder="+7 (XXX) XXX-XX-XX"
-                            >
-                            <div class="error-message" id="phoneError"></div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="newsletter" name="newsletter">
+                                <span class="checkmark"></span>
+                                Подписаться на новости о новых изданиях и специальных предложениях
+                            </label>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="address" class="form-label">Адрес доставки *</label>
-                        <textarea 
-                            id="address" 
-                            name="address" 
-                            class="form-textarea" 
-                            rows="3" 
-                            required
-                            title="Укажите полный адрес доставки"
-                            placeholder="Индекс, город, улица, дом, квартира"
-                        ></textarea>
-                        <div class="error-message" id="addressError"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="quantity" class="form-label">Количество книг *</label>
-                        <select id="quantity" name="quantity" class="form-select" required>
-                            <option value="">Выберите количество</option>
-                            <option value="1">1 книга</option>
-                            <option value="2">2 книги</option>
-                            <option value="3">3 книги</option>
-                            <option value="4">4 книги</option>
-                            <option value="5">5 книг</option>
-                            <option value="more">Больше 5</option>
-                        </select>
-                        <div class="error-message" id="quantityError"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message" class="form-label">Дополнительная информация</label>
-                        <textarea 
-                            id="message" 
-                            name="message" 
-                            class="form-textarea" 
-                            rows="4"
-                            placeholder="Укажите любую дополнительную информацию по заказу"
-                        ></textarea>
-                    </div>
-
-                    <div class="form-group checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="agreement" name="agreement" required>
-                            <span class="checkmark"></span>
-                            Я согласен с <a href="#" class="link">условиями заказа</a> и <a href="#" class="link">политикой конфиденциальности</a> *
-                        </label>
-                        <div class="error-message" id="agreementError"></div>
                     </div>
 
                     <div class="form-actions">
@@ -230,13 +296,29 @@
                         <span>1500 ₽</span>
                     </div>
                     <div class="summary-item">
-                        <span>Доставка:</span>
-                        <span>300 ₽</span>
+                        <span>Количество:</span>
+                        <span id="summaryQuantity">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Стоимость книг:</span>
+                        <span id="summaryBooksPrice">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Способ доставки:</span>
+                        <span id="summaryDelivery">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Стоимость доставки:</span>
+                        <span id="summaryDeliveryPrice">-</span>
                     </div>
                     <div class="summary-item total">
-                        <span>Итого:</span>
-                        <span id="totalPrice">1800 ₽</span>
+                        <span>Итого к оплате:</span>
+                        <span id="totalPrice">-</span>
                     </div>
+                </div>
+                <div class="summary-note">
+                    <p>💡 <strong>Скидка 10%</strong> при заказе от 3 книг!</p>
+                    <p>🚚 <strong>Бесплатная доставка</strong> при заказе от 5000 ₽</p>
                 </div>
             </section>
         </div>
@@ -244,7 +326,91 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2024 Бхагавад-Гита 1972. Все права защищены.</p>
+            <div class="footer-content">
+                <!-- Основная информация -->
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/images/logo.svg" alt="Логотип Бхагавад-Гита 1972" class="footer-logo-img">
+                        <h3>Бхагавад-Гита 1972</h3>
+                        <p>Лицензированный репринт оригинального издания</p>
+                    </div>
+                </div>
+
+                <!-- Контактная информация -->
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span class="contact-icon">📞</span>
+                            <div>
+                                <strong>Телефон:</strong>
+                                <a href="tel:+74951234567" class="contact-link">+7 (495) 123-45-67</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">✉️</span>
+                            <div>
+                                <strong>Email:</strong>
+                                <a href="mailto:info@gita-1972-reprint.ru" class="contact-link">info@gita-1972-reprint.ru</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <div>
+                                <strong>Адрес:</strong>
+                                <span>Россия, Москва, ул. Примерная, д. 123</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Быстрые способы связи -->
+                <div class="footer-section">
+                    <h4>Быстрая связь</h4>
+                    <div class="quick-contact">
+                        <a href="https://t.me/gita1972reprint" class="contact-button telegram" target="_blank" rel="noopener">
+                            <span class="contact-button-icon">📱</span>
+                            <span>Telegram</span>
+                        </a>
+                        <a href="https://wa.me/74951234567" class="contact-button whatsapp" target="_blank" rel="noopener">
+                            <span class="contact-button-icon">💬</span>
+                            <span>WhatsApp</span>
+                        </a>
+                        <a href="sms:+74951234567" class="contact-button sms">
+                            <span class="contact-button-icon">💬</span>
+                            <span>SMS</span>
+                        </a>
+                        <a href="tel:+74951234567" class="contact-button call">
+                            <span class="contact-button-icon">📞</span>
+                            <span>Позвонить</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Дополнительная информация -->
+                <div class="footer-section">
+                    <h4>Информация</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">О книге</a></li>
+                        <li><a href="author.html">Об авторе</a></li>
+                        <li><a href="order-status.html">Статус заказа</a></li>
+                        <li><a href="#" class="terms-link">Условия заказа</a></li>
+                        <li><a href="#" class="privacy-link">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Нижняя часть футера -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 Бхагавад-Гита 1972. Все права защищены.</p>
+                    <div class="footer-bottom-links">
+                        <span>Лицензия Bhaktivedanta Book Trust</span>
+                        <span>•</span>
+                        <span>Сертифицированный репринт</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
 
