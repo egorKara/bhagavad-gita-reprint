@@ -2,54 +2,256 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Купить книгу — Бхагавад-Гита 1972</title>
+    <title>Заказать книгу — Бхагавад-Гита 1972</title>
     <meta name="description" content="Заказать лицензированный репринт Бхагавад-Гиты 1972 года. Доставка по России.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/language-switch.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/performance.css">
+    <link rel="icon" href="favicon.ico">
+    
+    <!-- Open Graph мета-теги -->
+    <meta property="og:title" content="Заказать книгу — Бхагавад-Гита 1972">
+    <meta property="og:description" content="Заказать лицензированный репринт Бхагавад-Гиты 1972 года">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gita-1972-reprint.ru/contacts.html">
 </head>
-<body>
+<body class="page-load">
     <!-- Переключатель языка -->
     <button class="language-switch" onclick="switchLanguage('en')">EN</button>
     
-    <header>
-        <img src="assets/images/logo.png" alt="Логотип" class="logo">
-        <nav>
-            <a href="index.html">Главная</a>
-            <a href="about.html">О книге</a>
-            <a href="author.html">Автор</a>
-            <a href="contacts.html">Купить</a>
-        </nav>
+    <header class="hero-header">
+        <div class="header-content">
+            <img src="assets/images/logo.svg" alt="Логотип Бхагавад-Гита 1972" class="logo">
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Главная</a>
+                <a href="about.html" class="nav-link">О книге</a>
+                <a href="author.html" class="nav-link">Автор</a>
+                <a href="contacts.html" class="nav-link">Купить</a>
+            </nav>
+        </div>
     </header>
+
     <main>
-        <h2>Купить книгу</h2>
-        <p>Для заказа книги свяжитесь с нами:</p>
-        <p>Телефон: +7 (XXX) XXX-XX-XX</p>
-        <p>Email: info@gita-1972-reprint.ru</p>
-        <p>Адрес: Россия, Москва</p>
-        
-        <h3>Форма заказа</h3>
-        <form>
-            <div>
-                <label for="name">Имя:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div>
-                <label for="phone">Телефон:</label>
-                <input type="tel" id="phone" name="phone" required>
-            </div>
-            <div>
-                <label for="message">Сообщение:</label>
-                <textarea id="message" name="message" rows="4"></textarea>
-            </div>
-            <button type="submit">Отправить заказ</button>
-        </form>
+        <div class="container">
+            <!-- Breadcrumbs -->
+            <nav class="breadcrumbs" aria-label="Хлебные крошки">
+                <a href="index.html">Главная</a>
+                <span class="separator">/</span>
+                <span>Заказать книгу</span>
+            </nav>
+
+            <!-- Hero Section -->
+            <section class="order-hero">
+                <div class="order-hero-content">
+                    <div class="order-hero-text">
+                        <h1 class="order-title">Заказать книгу</h1>
+                        <p class="order-subtitle">Бхагавад-Гита как она есть — Оригинальное издание 1972 года</p>
+                        <div class="book-preview">
+                            <img src="assets/images/cover-preview.svg" alt="Обложка книги" class="cover-preview">
+                            <div class="book-info">
+                                <div class="price">1500 ₽</div>
+                                <div class="delivery">Доставка по России</div>
+                                <div class="availability">В наличии</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Information -->
+            <section class="contact-info">
+                <h2>Контактная информация</h2>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <div>
+                            <h3>Телефон</h3>
+                            <p>+7 (XXX) XXX-XX-XX</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">✉️</span>
+                        <div>
+                            <h3>Email</h3>
+                            <p>info@gita-1972-reprint.ru</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <div>
+                            <h3>Адрес</h3>
+                            <p>Россия, Москва</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Order Form -->
+            <section class="order-form-section">
+                <h2>Ваши контактные данные</h2>
+                <p class="form-description">Заполните форму ниже для оформления заказа. Все поля обязательны для заполнения.</p>
+                
+                <form id="orderForm" class="order-form" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName" class="form-label">Имя *</label>
+                            <input 
+                                type="text" 
+                                id="firstName" 
+                                name="firstName" 
+                                class="form-input" 
+                                required
+                                pattern="^[А-Яа-яЁёA-Za-z\s\-']{2,50}$"
+                                title="Имя должно содержать от 2 до 50 символов, только буквы, пробелы, дефисы и апострофы"
+                                autocomplete="given-name"
+                            >
+                            <div class="error-message" id="firstNameError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="lastName" class="form-label">Фамилия *</label>
+                            <input 
+                                type="text" 
+                                id="lastName" 
+                                name="lastName" 
+                                class="form-input" 
+                                required
+                                pattern="^[А-Яа-яЁёA-Za-z\s\-']{2,50}$"
+                                title="Фамилия должна содержать от 2 до 50 символов, только буквы, пробелы, дефисы и апострофы"
+                                autocomplete="family-name"
+                            >
+                            <div class="error-message" id="lastNameError"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email *</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                class="form-input" 
+                                required
+                                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                                title="Введите корректный email адрес"
+                                autocomplete="email"
+                            >
+                            <div class="error-message" id="emailError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Телефон *</label>
+                            <input 
+                                type="tel" 
+                                id="phone" 
+                                name="phone" 
+                                class="form-input" 
+                                required
+                                pattern="^(\+7|8)[\s\-]?\(?(\d{3})\)?[\s\-]?(\d{3})[\s\-]?(\d{2})[\s\-]?(\d{2})$"
+                                title="Введите номер телефона в формате: +7 (XXX) XXX-XX-XX или 8 XXX XXX-XX-XX"
+                                autocomplete="tel"
+                                placeholder="+7 (XXX) XXX-XX-XX"
+                            >
+                            <div class="error-message" id="phoneError"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address" class="form-label">Адрес доставки *</label>
+                        <textarea 
+                            id="address" 
+                            name="address" 
+                            class="form-textarea" 
+                            rows="3" 
+                            required
+                            title="Укажите полный адрес доставки"
+                            placeholder="Индекс, город, улица, дом, квартира"
+                        ></textarea>
+                        <div class="error-message" id="addressError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity" class="form-label">Количество книг *</label>
+                        <select id="quantity" name="quantity" class="form-select" required>
+                            <option value="">Выберите количество</option>
+                            <option value="1">1 книга</option>
+                            <option value="2">2 книги</option>
+                            <option value="3">3 книги</option>
+                            <option value="4">4 книги</option>
+                            <option value="5">5 книг</option>
+                            <option value="more">Больше 5</option>
+                        </select>
+                        <div class="error-message" id="quantityError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message" class="form-label">Дополнительная информация</label>
+                        <textarea 
+                            id="message" 
+                            name="message" 
+                            class="form-textarea" 
+                            rows="4"
+                            placeholder="Укажите любую дополнительную информацию по заказу"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="agreement" name="agreement" required>
+                            <span class="checkmark"></span>
+                            Я согласен с <a href="#" class="link">условиями заказа</a> и <a href="#" class="link">политикой конфиденциальности</a> *
+                        </label>
+                        <div class="error-message" id="agreementError"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="submit-button" id="submitBtn">
+                            <span class="button-text">Отправить заказ</span>
+                            <span class="button-loading" style="display: none;">Отправка...</span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Order Summary -->
+            <section class="order-summary">
+                <h3>Сводка заказа</h3>
+                <div class="summary-content">
+                    <div class="summary-item">
+                        <span>Книга:</span>
+                        <span>Бхагавад-Гита как она есть (1972)</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Цена за единицу:</span>
+                        <span>1500 ₽</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Доставка:</span>
+                        <span>300 ₽</span>
+                    </div>
+                    <div class="summary-item total">
+                        <span>Итого:</span>
+                        <span id="totalPrice">1800 ₽</span>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
-    
-    <!-- Подключаем скрипт многоязычности -->
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Бхагавад-Гита 1972. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- Подключаем скрипты -->
     <script src="assets/js/translations.js"></script>
+    <script src="assets/js/form-validation.js"></script>
+    <script src="assets/js/interactive.js"></script>
+    <script src="assets/js/seo.js"></script>
 </body>
 </html>
