@@ -43,7 +43,16 @@
             <div class="test-section">
                 <h2>Проверка JavaScript:</h2>
                 <button onclick="testNavigation()">Тест навигации</button>
+                <button onclick="testSwitchLanguage()">Тест переключения языка</button>
                 <div id="testResult"></div>
+            </div>
+
+            <div class="test-section">
+                <h2>Проверка функции switchLanguage:</h2>
+                <p>Текущий язык: <span id="currentLanguage">Русский</span></p>
+                <button onclick="switchLanguage('en')">Переключить на английский</button>
+                <button onclick="switchLanguage('ru')">Переключить на русский</button>
+                <div id="languageTestResult"></div>
             </div>
 
             <div class="test-section">
@@ -71,6 +80,23 @@
                 testOutput += `<li>${index + 1}. "${text}" → ${href}</li>`;
             });
             
+            testOutput += '</ul>';
+            result.innerHTML = testOutput;
+        }
+
+        // Тест переключения языка
+        function testSwitchLanguage() {
+            const currentLang = document.getElementById('currentLanguage').textContent;
+            const result = document.getElementById('languageTestResult');
+            let testOutput = '<h3>Результаты теста переключения языка:</h3><ul>';
+
+            if (currentLang === 'Русский') {
+                switchLanguage('en');
+                testOutput += '<li>Переключен на английский</li>';
+            } else {
+                switchLanguage('ru');
+                testOutput += '<li>Переключен на русский</li>';
+            }
             testOutput += '</ul>';
             result.innerHTML = testOutput;
         }

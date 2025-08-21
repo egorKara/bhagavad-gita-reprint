@@ -4,32 +4,47 @@
     <meta charset="UTF-8">
     <title>Статус заказа — Бхагавад-Гита 1972</title>
     <meta name="description" content="Проверить статус заказа лицензированного репринта Бхагавад-Гиты 1972 года.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/language-switch.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/performance.css">
+    <link rel="icon" href="favicon.ico">
 </head>
-<body>
+<body class="page-load">
     <!-- Переключатель языка -->
     <button class="language-switch" onclick="switchLanguage('en')">EN</button>
     
-    <header>
-        <img src="assets/images/logo.png" alt="Логотип" class="logo">
-        <nav>
-            <a href="index.html">Главная</a>
-            <a href="about.html">О книге</a>
-            <a href="author.html">Автор</a>
-            <a href="contacts.html">Купить</a>
-        </nav>
+    <header class="hero-header">
+        <div class="header-content">
+            <img src="assets/images/logo.svg" alt="Логотип Бхагавад-Гита 1972" class="logo">
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Главная</a>
+                <a href="about.html" class="nav-link">О книге</a>
+                <a href="author.html" class="nav-link">Автор</a>
+                <a href="contacts.html" class="nav-link">Купить</a>
+            </nav>
+        </div>
     </header>
+    
     <main>
-        <h2>Статус заказа</h2>
-        <p>Введите номер заказа для проверки статуса:</p>
-        <form>
-            <input type="text" placeholder="Номер заказа" required>
-            <button type="submit">Проверить статус</button>
-        </form>
+        <div class="container">
+            <h1 class="section-title">Статус заказа</h1>
+            <p>Введите номер заказа для проверки статуса:</p>
+            <form class="order-status-form">
+                <div class="form-group">
+                    <label for="orderNumber">Номер заказа:</label>
+                    <input type="text" id="orderNumber" name="orderNumber" placeholder="Введите номер заказа" required>
+                </div>
+                <button type="submit" class="submit-button">Проверить статус</button>
+            </form>
+        </div>
     </main>
     
-    <!-- Подключаем скрипт многоязычности -->
+    <!-- Подключаем скрипты -->
     <script src="assets/js/translations.js"></script>
+    <script src="assets/js/interactive.js"></script>
+    <script src="assets/js/seo.js"></script>
 </body>
 </html>
