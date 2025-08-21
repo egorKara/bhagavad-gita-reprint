@@ -301,22 +301,30 @@ class OrderFormValidator {
     }
 
     /**
-     * Отправка заказа (заглушка для будущей интеграции с API)
+     * Отправка заказа на сервер
      */
     async submitOrder(data) {
-        // Имитация отправки на сервер
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        
-        // Здесь будет реальная отправка на сервер
-        console.log('Данные заказа:', data);
-        
-        // Сохранение в localStorage для демонстрации
-        const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-        orders.push({
-            id: Date.now(),
-            ...data
-        });
-        localStorage.setItem('orders', JSON.stringify(orders));
+        try {
+            const response = await fetch('/api/orders/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            
+            if (result.success) {
+                console.log('Заказ успешно отправлен на сервер:', result);
+                return result;
+            } else {
+                throw new Error(result.error || 'Ошибка отправки заказа');
+            }
+        } catch (error) {
+            console.error('Ошибка отправки заказа:', error);
+            throw error;
+        }
     }
 
     /**

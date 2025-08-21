@@ -7,6 +7,7 @@ const rateLimit = require('express-rate-limit');
 const { randomUUID } = require('crypto');
 const client = require('prom-client');
 const statusRoutes = require('./api/routes/statusRoutes');
+const orderRoutes = require('./api/routes/orderRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -90,7 +91,8 @@ app.get('/healthz', (req, res) => {
 });
 
 // Маршруты API
-app.use('/api', statusRoutes);
+app.use('/api/status', statusRoutes);
+app.use('/api/orders', orderRoutes);
 
 // Экспорт приложения
 module.exports = app;
