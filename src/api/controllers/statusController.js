@@ -1,121 +1,42 @@
 /**
  * Контроллер для API endpoint'ов
+ * Теперь использует сервисный слой для бизнес-логики
  */
 
-const os = require('os');
-const { exec } = require('child_process');
-const { promisify } = require('util');
-
-const execAsync = promisify(exec);
+const systemService = require('../../services/systemService');
+const { asyncHandler } = require('../../middleware/errorHandler');
 
 /**
  * Получение статуса сервера
- * @param {express.Request} req - Объект запроса
- * @param {express.Response} res - Объект ответа
  */
-function getStatus(req, res) {
-    res.json({
-        status: 'OK',
-        message: 'Сервер работает корректно',
-        timestamp: new Date().toISOString()
-    });
-}
+const getStatus = (req, res) => {
+    const status = systemService.getStatus();
+    res.json(status);
+};
 
 /**
  * Получение системной информации
- * @param {express.Request} req - Объект запроса
- * @param {express.Response} res - Объект ответа
  */
-async function getSystemInfo(req, res) {
-    try {
-        const totalMem = os.totalmem();
-        const freeMem = os.freemem();
-        const memoryUsage = ((totalMem - freeMem) / totalMem * 100).toFixed(1);
-        
-        // Получаем информацию о диске
-        const { stdout } = await execAsync('df / | tail -1 | awk \'{print $5}\' | sed \'s/%//\'');
-        const diskUsage = stdout.trim();
-        
-        // Получаем загрузку CPU через load average
-        const loadAvg = os.loadavg();
-        const cpuUsage = Math.min(100, (loadAvg[0] / os.cpus().length * 100)).toFixed(1);
-        
-        res.json({
-            cpu: cpuUsage,
-            memory: memoryUsage,
-            disk: diskUsage,
-            uptime: Math.floor(os.uptime() / 3600), // часы
-            loadAverage: loadAvg,
-            platform: os.platform(),
-            arch: os.arch()
-        });
-    } catch (error) {
-        res.status(500).json({
-            error: 'Ошибка получения системной информации',
-            details: error.message
-        });
-    }
-}
+const getSystemInfo = asyncHandler(async (req, res) => {
+    const systemInfo = await systemService.getSystemInfo();
+    res.json(systemInfo);
+});
 
 /**
  * Получение статуса безопасности
- * @param {express.Request} req - Объект запроса
- * @param {express.Response} res - Объект ответа
  */
-async function getSecurityStatus(req, res) {
-    try {
-        // Проверяем статус fail2ban
-        const { stdout: fail2banStatus } = await execAsync('sudo systemctl is-active fail2ban');
-
-        // Проверяем SSL сертификаты
-        const { stdout: sslStatus } = await execAsync('sudo systemctl is-active nginx');
-
-        // Проверяем security headers
-        const headersStatus = 'OK'; // Будем проверять через middleware
-
-        res.json({
-            fail2ban: fail2banStatus.trim(),
-            ssl: sslStatus.trim(),
-            headers: headersStatus,
-            timestamp: new Date().toISOString()
-        });
-    } catch (error) {
-        res.status(500).json({
-            error: 'Ошибка получения статуса безопасности',
-            details: error.message
-        });
-    }
-}
+const getSecurityStatus = asyncHandler(async (req, res) => {
+    const securityStatus = await systemService.getSecurityStatus();
+    res.json(securityStatus);
+});
 
 /**
  * Получение статистики Nginx
- * @param {express.Request} req - Объект запроса
- * @param {express.Response} res - Объект ответа
  */
-async function getNginxStats(req, res) {
-    try {
-        const { stdout } = await execAsync('curl -s http://127.0.0.1:8080/nginx_status');
-        const lines = stdout.split('\n');
-
-        const stats = {
-            activeConnections: lines[0].split(':')[1]?.trim() || '0',
-            serverAccepts: lines[2].split(' ').filter(x => x)[0] || '0',
-            serverHandled: lines[2].split(' ').filter(x => x)[1] || '0',
-            requests: lines[2].split(' ').filter(x => x)[2] || '0',
-            reading: lines[3].split(' ')[1] || '0',
-            writing: lines[3].split(' ')[3] || '0',
-            waiting: lines[3].split(' ')[5] || '0',
-            timestamp: new Date().toISOString()
-        };
-
-        res.json(stats);
-    } catch (error) {
-        res.status(500).json({
-            error: 'Ошибка получения статистики Nginx',
-            details: error.message
-        });
-    }
-}
+const getNginxStats = asyncHandler(async (req, res) => {
+    const nginxStats = await systemService.getNginxStats();
+    res.json(nginxStats);
+});
 
 module.exports = {
     getStatus,

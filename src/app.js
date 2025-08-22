@@ -8,6 +8,11 @@ const { randomUUID } = require('crypto');
 const client = require('prom-client');
 const statusRoutes = require('./api/routes/statusRoutes');
 const orderRoutes = require('./api/routes/orderRoutes');
+const { 
+    validationErrorHandler, 
+    notFoundErrorHandler, 
+    generalErrorHandler 
+} = require('./middleware/errorHandler');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -93,6 +98,21 @@ app.get('/healthz', (req, res) => {
 // Маршруты API
 app.use('/api/status', statusRoutes);
 app.use('/api/orders', orderRoutes);
+
+// Middleware для обработки ошибок (должен быть последним)
+app.use(validationErrorHandler);
+app.use(notFoundErrorHandler);
+app.use(generalErrorHandler);
+
+// 404 handler для несуществующих маршрутов
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        error: 'Маршрут не найден',
+        path: req.originalUrl,
+        timestamp: new Date().toISOString()
+    });
+});
 
 // Экспорт приложения
 module.exports = app;
