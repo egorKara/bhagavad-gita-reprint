@@ -11,7 +11,8 @@ class ThemeSwitcher {
             { id: 'modern', name: 'Современная', description: 'Сине-серая схема для современного восприятия' },
             { id: 'warm', name: 'Теплая', description: 'Песочная схема с оранжевыми акцентами' },
             { id: 'elegant', name: 'Элегантная', description: 'Серо-золотая схема для изысканного дизайна' },
-            { id: 'calm', name: 'Спокойная', description: 'Оливково-зеленая схема для умиротворения' }
+            { id: 'calm', name: 'Спокойная', description: 'Оливково-зеленая схема для умиротворения' },
+            { id: 'krishna', name: 'Krishna', description: 'Сине-фиолетовая с золотыми акцентами' }
         ];
         
         this.currentTheme = 'classic';
@@ -276,7 +277,8 @@ class ThemeSwitcher {
             'modern': 'linear-gradient(135deg, #2C3E50, #34495E)',
             'warm': 'linear-gradient(135deg, #A0522D, #CD853F)',
             'elegant': 'linear-gradient(135deg, #2F4F4F, #696969)',
-            'calm': 'linear-gradient(135deg, #556B2F, #6B8E23)'
+            'calm': 'linear-gradient(135deg, #556B2F, #6B8E23)',
+            'krishna': 'linear-gradient(135deg, #2E4DA7, #6A3B90)'
         };
         return themeColors[themeId] || themeColors['classic'];
     }
@@ -400,6 +402,15 @@ class ThemeSwitcher {
     
     loadSavedTheme() {
         const savedTheme = localStorage.getItem('gita-theme');
+        // Поддержка параметра ?theme=...
+        try {
+            const params = new URLSearchParams(window.location.search);
+            const urlTheme = params.get('theme');
+            if (urlTheme && this.themes.some(t => t.id === urlTheme)) {
+                this.currentTheme = urlTheme;
+                return;
+            }
+        } catch (_) {}
         if (savedTheme && this.themes.some(t => t.id === savedTheme)) {
             this.currentTheme = savedTheme;
         }
