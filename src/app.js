@@ -90,15 +90,10 @@ app.use((req, res, next) => {
 
 function requireMetricsAuth(req, res, next) {
     const authHeader = req.headers['authorization'] || '';
-    if (metricsToken) {
-        if (authHeader === `Bearer ${metricsToken}`) {
-            return next();
-        }
-        return res.status(401).json({ error: 'Unauthorized' });
+    if (!metricsToken) {
+        return res.status(503).json({ error: 'Metrics are disabled. Set METRICS_TOKEN to enable.' });
     }
-    // Если токен не задан, разрешаем только с loopback
-    const ip = req.ip || '';
-    if (ip === '127.0.0.1' || ip === '::1') {
+    if (authHeader === `Bearer ${metricsToken}`) {
         return next();
     }
     return res.status(401).json({ error: 'Unauthorized' });
@@ -107,6 +102,16 @@ function requireMetricsAuth(req, res, next) {
 app.get('/metrics', requireMetricsAuth, async (req, res) => {
     res.set('Content-Type', client.register.contentType);
     res.end(await client.register.metrics());
+});
+
+// Liveness and Readiness endpoints
+app.get('/livez', (req, res) => {
+    res.status(200).send('ok');
+});
+
+app.get('/readyz', async (req, res) => {
+    // Add deeper checks here (e.g., DB connectivity) when available
+    res.status(200).send('ok');
 });
 
 // Endpoint для проверки состояния сервера (health check)
@@ -119,7 +124,6 @@ app.use('/api/status', statusRoutes);
 app.use('/api/orders', orderRoutes);
 
 // Централизованный обработчик ошибок
-// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, _next) => {
     console.error('Unhandled error:', err);
     res.status(500).json({ error: 'Internal Server Error', requestId: req.id });
