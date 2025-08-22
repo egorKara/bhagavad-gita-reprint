@@ -3,7 +3,12 @@ const fetch = global.fetch || require('node-fetch');
 class TranslatorProvider {
     constructor() {
         this.provider = process.env.TRANSLATOR_PROVIDER || 'none';
-        this.apiKey = process.env.TRANSLATOR_API_KEY || process.env.GOOGLE_TRANSLATE_KEY || process.env.DEEPL_API_KEY || process.env.YANDEX_API_KEY || null;
+        this.apiKey =
+            process.env.TRANSLATOR_API_KEY ||
+            process.env.GOOGLE_TRANSLATE_KEY ||
+            process.env.DEEPL_API_KEY ||
+            process.env.YANDEX_API_KEY ||
+            null;
         this.endpoint = process.env.TRANSLATOR_ENDPOINT || null;
     }
 
@@ -27,7 +32,12 @@ class TranslatorProvider {
                 case 'yandex':
                     return await this.translateWithYandex(text, sourceLang, targetLang);
                 case 'custom':
-                    return await this.translateWithCustomEndpoint(text, sourceLang, targetLang, context);
+                    return await this.translateWithCustomEndpoint(
+                        text,
+                        sourceLang,
+                        targetLang,
+                        context
+                    );
                 default:
                     return null;
             }
@@ -42,14 +52,14 @@ class TranslatorProvider {
         const res = await fetch('https://api-free.deepl.com/v2/translate', {
             method: 'POST',
             headers: {
-                'Authorization': `DeepL-Auth-Key ${this.apiKey}`,
-                'Content-Type': 'application/x-www-form-urlencoded'
+                Authorization: `DeepL-Auth-Key ${this.apiKey}`,
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: new URLSearchParams({
                 text,
                 target_lang: targetLang.toUpperCase(),
-                source_lang: sourceLang.toUpperCase()
-            })
+                source_lang: sourceLang.toUpperCase(),
+            }),
         });
         if (!res.ok) return null;
         const data = await res.json();
@@ -66,8 +76,8 @@ class TranslatorProvider {
                 q: [text],
                 source: sourceLang,
                 target: targetLang,
-                format: 'text'
-            })
+                format: 'text',
+            }),
         });
         if (!res.ok) return null;
         const data = await res.json();
@@ -80,13 +90,13 @@ class TranslatorProvider {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Api-Key ${this.apiKey}`
+                Authorization: `Api-Key ${this.apiKey}`,
             },
             body: JSON.stringify({
                 sourceLanguageCode: sourceLang,
                 targetLanguageCode: targetLang,
-                texts: [text]
-            })
+                texts: [text],
+            }),
         });
         if (!res.ok) return null;
         const data = await res.json();
@@ -97,8 +107,11 @@ class TranslatorProvider {
         if (!this.endpoint) return null;
         const res = await fetch(this.endpoint, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', ...(this.apiKey ? { Authorization: `Bearer ${this.apiKey}` } : {}) },
-            body: JSON.stringify({ text, sourceLang, targetLang, context })
+            headers: {
+                'Content-Type': 'application/json',
+                ...(this.apiKey ? { Authorization: `Bearer ${this.apiKey}` } : {}),
+            },
+            body: JSON.stringify({ text, sourceLang, targetLang, context }),
         });
         if (!res.ok) return null;
         const data = await res.json();

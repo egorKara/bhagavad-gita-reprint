@@ -9,10 +9,19 @@ function extractTextsFromHtml(html) {
     $('body *').each((_, el) => {
         const node = $(el);
         if (['script', 'style', 'noscript'].includes(el.tagName)) return;
-        const text = node.contents().filter(function () { return this.type === 'text'; }).text().trim();
+        const text = node
+            .contents()
+            .filter(function () {
+                return this.type === 'text';
+            })
+            .text()
+            .trim();
         if (text && text.length > 0) {
             // Split by newlines to reduce length
-            text.split('\n').map((t) => t.trim()).filter(Boolean).forEach((t) => texts.add(t));
+            text.split('\n')
+                .map((t) => t.trim())
+                .filter(Boolean)
+                .forEach((t) => texts.add(t));
         }
         // Attributes that may need translation
         const attrs = ['alt', 'title', 'placeholder', 'aria-label', 'value'];
@@ -48,9 +57,18 @@ exports.jobStatus = async (req, res) => {
 
 exports.submitFeedback = async (req, res) => {
     const { sourceLang, targetLang, text, corrected, url, selector, reason } = req.body || {};
-    if (!text || !targetLang || !sourceLang) return res.status(400).json({ error: 'sourceLang, targetLang, text required' });
+    if (!text || !targetLang || !sourceLang)
+        return res.status(400).json({ error: 'sourceLang, targetLang, text required' });
     try {
-        const id = queue.submitFeedback({ sourceLang, targetLang, text, corrected, url, selector, reason });
+        const id = queue.submitFeedback({
+            sourceLang,
+            targetLang,
+            text,
+            corrected,
+            url,
+            selector,
+            reason,
+        });
         return res.json({ id, ok: true });
     } catch (err) {
         console.error('submitFeedback error:', err);

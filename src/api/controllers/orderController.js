@@ -102,29 +102,33 @@ class OrderController {
         const secret = isRecaptcha ? recaptchaSecret : turnstileSecret;
         const body = new URLSearchParams({ secret, response: token }).toString();
 
-        const { ok, score } = await new Promise(resolve => {
-            const req = https.request(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Content-Length': Buffer.byteLength(body)
-                }
-            }, res => {
-                let data = '';
-                res.on('data', chunk => data += chunk);
-                res.on('end', () => {
-                    try {
-                        const parsed = JSON.parse(data);
-                        if (isRecaptcha) {
-                            resolve({ ok: !!parsed.success, score: parsed.score });
-                        } else {
-                            resolve({ ok: !!parsed.success, score: undefined });
+        const { ok, score } = await new Promise((resolve) => {
+            const req = https.request(
+                url,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Length': Buffer.byteLength(body),
+                    },
+                },
+                (res) => {
+                    let data = '';
+                    res.on('data', (chunk) => (data += chunk));
+                    res.on('end', () => {
+                        try {
+                            const parsed = JSON.parse(data);
+                            if (isRecaptcha) {
+                                resolve({ ok: !!parsed.success, score: parsed.score });
+                            } else {
+                                resolve({ ok: !!parsed.success, score: undefined });
+                            }
+                        } catch {
+                            resolve({ ok: false });
                         }
-                    } catch {
-                        resolve({ ok: false });
-                    }
-                });
-            });
+                    });
+                }
+            );
             req.on('error', () => resolve({ ok: false }));
             req.write(body);
             req.end();
@@ -150,7 +154,7 @@ class OrderController {
                     return {
                         success: true,
                         orderId: existing.orderId,
-                        message: 'Идемпотентная повторная отправка'
+                        message: 'Идемпотентная повторная отправка',
                     };
                 }
             }
@@ -168,11 +172,18 @@ class OrderController {
             }
 
             // Канонический адрес
-            const canonicalAddress = orderData.address && orderData.address.trim()
-                ? orderData.address.trim()
-                : [orderData.postalCode, orderData.city, orderData.street, orderData.house, orderData.apartment]
-                    .filter(Boolean)
-                    .join(', ');
+            const canonicalAddress =
+                orderData.address && orderData.address.trim()
+                    ? orderData.address.trim()
+                    : [
+                          orderData.postalCode,
+                          orderData.city,
+                          orderData.street,
+                          orderData.house,
+                          orderData.apartment,
+                      ]
+                          .filter(Boolean)
+                          .join(', ');
 
             // Количество (число)
             const quantityNum = Number.parseInt(orderData.quantity, 10);
@@ -185,7 +196,7 @@ class OrderController {
                 status: 'new',
                 createdAt: new Date().toISOString(),
                 updatedAt: new Date().toISOString(),
-                totalAmount: this.calculateTotal(quantityNum)
+                totalAmount: this.calculateTotal(quantityNum),
             };
 
             // Чтение существующих заказов
@@ -209,9 +220,8 @@ class OrderController {
             return {
                 success: true,
                 orderId: order.id,
-                message: 'Заказ успешно создан'
+                message: 'Заказ успешно создан',
             };
-
         } catch (error) {
             console.error('Ошибка создания заказа:', error);
             throw error;
@@ -233,7 +243,9 @@ class OrderController {
         // Адрес: либо цельное поле address, либо составные
         const hasAddress = data.address && String(data.address).trim() !== '';
         const requiredAddressParts = ['postalCode', 'city', 'street', 'house'];
-        const hasAddressParts = requiredAddressParts.every(k => data[k] && String(data[k]).trim() !== '');
+        const hasAddressParts = requiredAddressParts.every(
+            (k) => data[k] && String(data[k]).trim() !== ''
+        );
         if (!hasAddress && !hasAddressParts) {
             errors.push('Адрес обязателен: используйте address или postalCode/city/street/house');
         }
@@ -269,7 +281,7 @@ class OrderController {
 
         return {
             isValid: errors.length === 0,
-            errors
+            errors,
         };
     }
 
