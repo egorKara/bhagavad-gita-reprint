@@ -35,7 +35,12 @@ async function main() {
 
     const todoPath = path.join(process.cwd(), 'PROJECT_TODO.md');
     const tasks = parseTodo(todoPath);
-    const { data: issues } = await octokit.issues.listForRepo({ owner, repo, state: 'all', per_page: 100 });
+    const { data: issues } = await octokit.issues.listForRepo({
+        owner,
+        repo,
+        state: 'all',
+        per_page: 100,
+    });
 
     const issueMap = new Map();
     for (const is of issues) {
@@ -56,11 +61,18 @@ async function main() {
         } else if (existing) {
             const desiredState = task.done ? 'closed' : 'open';
             if (existing.state !== desiredState) {
-                await octokit.issues.update({ owner, repo, issue_number: existing.number, state: desiredState });
+                await octokit.issues.update({
+                    owner,
+                    repo,
+                    issue_number: existing.number,
+                    state: desiredState,
+                });
                 console.log('Updated issue state:', task.title, '->', desiredState);
             }
             // Обновляем labels
-            const labels = new Set(existing.labels.map((l) => (typeof l === 'string' ? l : l.name)));
+            const labels = new Set(
+                existing.labels.map((l) => (typeof l === 'string' ? l : l.name))
+            );
             labels.add('agent');
             if (task.done) {
                 labels.delete('todo');
@@ -69,7 +81,12 @@ async function main() {
                 labels.add('todo');
                 labels.delete('done');
             }
-            await octokit.issues.update({ owner, repo, issue_number: existing.number, labels: Array.from(labels) });
+            await octokit.issues.update({
+                owner,
+                repo,
+                issue_number: existing.number,
+                labels: Array.from(labels),
+            });
         }
     }
 }
@@ -78,5 +95,3 @@ main().catch((e) => {
     console.error(e);
     process.exit(1);
 });
-
-
