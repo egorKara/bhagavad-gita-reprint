@@ -1,0 +1,25 @@
+name: Sync PROJECT_TODO to Issues
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths: ["PROJECT_TODO.md", ".github/workflows/sync-project-todo.yml", "scripts/sync_todo_to_issues.js"]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install deps
+        run: npm i @octokit/rest@20
+      - name: Sync TODO to Issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/sync_todo_to_issues.js
+
+

@@ -1,0 +1,65 @@
+- name: agent
+  color: 5319e7
+  description: Created/managed by AI agent
+
+- name: todo
+  color: c2e0c6
+  description: Planned work item from PROJECT_TODO.md
+
+- name: done
+  color: bfdadc
+  description: Completed item synced from PROJECT_TODO.md
+
+- name: priority/high
+  color: d73a4a
+  description: High priority
+
+- name: priority/med
+  color: fbca04
+  description: Medium priority
+
+- name: priority/low
+  color: 0e8a16
+  description: Low priority
+
+- name: bug
+  color: d73a4a
+  description: Bug or regression
+
+- name: feature
+  color: 1d76db
+  description: New feature
+
+- name: chore
+  color: 96a0a8
+  description: Maintenance task
+
+- name: i18n
+  color: 5319e7
+  description: Internationalization
+
+- name: design
+  color: f9d0c4
+  description: UI/UX and visuals
+
+- name: backend
+  color: 0366d6
+  description: API/server tasks
+
+- name: security
+  color: 8b0000
+  description: Security hardening
+
+- name: monitoring
+  color: 5319e7
+  description: Metrics, alerts, logging
+
+- name: seo
+  color: 5319e7
+  description: SEO improvements
+
+- name: docs
+  color: 0052cc
+  description: Documentation
+
+
