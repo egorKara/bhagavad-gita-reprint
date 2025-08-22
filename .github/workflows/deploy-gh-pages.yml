@@ -5,12 +5,17 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+concurrency:
+  group: gh-pages-deploy
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 12
     steps:
       - name: Checkout
         uses: actions/checkout@v4

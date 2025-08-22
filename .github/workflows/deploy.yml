@@ -1,10 +1,11 @@
-name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages (self-hosted, disabled)
 
 on:
   workflow_dispatch:
 
 jobs:
   deploy:
+    if: false
     runs-on: self-hosted  # <--- Добавьте эту строку
     steps:
       - name: Checkout repository
