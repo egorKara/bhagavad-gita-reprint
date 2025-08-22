@@ -1,5 +1,6 @@
 /* Основные стили и переменные */
 :root {
+    /* ===== КЛАССИЧЕСКАЯ СХЕМА (ТЕКУЩАЯ) ===== */
     --primary-color: #8B4513;
     --secondary-color: #D2691E;
     --accent-color: #FFD700;
@@ -12,6 +13,102 @@
     --shadow-medium: 0 4px 20px rgba(139, 69, 19, 0.15);
     --border-radius: 8px;
     --transition: all 0.3s ease;
+    
+    /* ===== ДОПОЛНИТЕЛЬНЫЕ ЦВЕТА ===== */
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --error-color: #dc3545;
+    --info-color: #17a2b8;
+    
+    /* ===== ГРАДИЕНТЫ ===== */
+    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --gradient-accent: linear-gradient(135deg, var(--accent-color), #FFA500);
+    --gradient-light: linear-gradient(135deg, var(--background-light) 0%, var(--background-white) 100%);
+    
+    /* ===== ПРОЗРАЧНОСТЬ ===== */
+    --overlay-light: rgba(255, 255, 255, 0.1);
+    --overlay-dark: rgba(0, 0, 0, 0.1);
+    --overlay-accent: rgba(255, 215, 0, 0.1);
+}
+
+/* ===== АЛЬТЕРНАТИВНАЯ СХЕМА 1: ВЕДИЧЕСКАЯ ===== */
+[data-theme="vedic"] {
+    --primary-color: #8B0000;      /* Темно-красный */
+    --secondary-color: #B22222;    /* Огненно-красный */
+    --accent-color: #FFD700;       /* Золотой */
+    --text-dark: #1a0f0f;         /* Очень темный красновато-коричневый */
+    --text-light: #8B0000;         /* Темно-красный */
+    --background-light: #FFF5F5;   /* Очень светлый розоватый */
+    --background-white: #FFFFFF;   /* Белый */
+    --border-color: #FFE4E1;       /* Светло-розовый */
+    --shadow-light: 0 2px 10px rgba(139, 0, 0, 0.1);
+    --shadow-medium: 0 4px 20px rgba(139, 0, 0, 0.15);
+    --gradient-primary: linear-gradient(135deg, #8B0000, #B22222);
+    --gradient-light: linear-gradient(135deg, #FFF5F5 0%, #FFFFFF 100%);
+}
+
+/* ===== АЛЬТЕРНАТИВНАЯ СХЕМА 2: СОВРЕМЕННАЯ ===== */
+[data-theme="modern"] {
+    --primary-color: #2C3E50;      /* Темно-синий */
+    --secondary-color: #34495E;    /* Сине-серый */
+    --accent-color: #3498DB;       /* Голубой */
+    --text-dark: #2C3E50;          /* Темно-синий */
+    --text-light: #7F8C8D;         /* Серый */
+    --background-light: #ECF0F1;   /* Светло-серый */
+    --background-white: #FFFFFF;   /* Белый */
+    --border-color: #BDC3C7;       /* Серый */
+    --shadow-light: 0 2px 10px rgba(44, 62, 80, 0.1);
+    --shadow-medium: 0 4px 20px rgba(44, 62, 80, 0.15);
+    --gradient-primary: linear-gradient(135deg, #2C3E50, #34495E);
+    --gradient-light: linear-gradient(135deg, #ECF0F1 0%, #FFFFFF 100%);
+}
+
+/* ===== АЛЬТЕРНАТИВНАЯ СХЕМА 3: ТЕПЛАЯ ===== */
+[data-theme="warm"] {
+    --primary-color: #A0522D;      /* Сиена */
+    --secondary-color: #CD853F;    /* Песочный */
+    --accent-color: #FF8C00;       /* Темно-оранжевый */
+    --text-dark: #654321;          /* Темно-коричневый */
+    --text-light: #8B7355;         /* Коричневый */
+    --background-light: #FFF8DC;   /* Кукурузный */
+    --background-white: #FFFFFF;   /* Белый */
+    --border-color: #DEB887;       /* Бурвуд */
+    --shadow-light: 0 2px 10px rgba(160, 82, 45, 0.1);
+    --shadow-medium: 0 4px 20px rgba(160, 82, 45, 0.15);
+    --gradient-primary: linear-gradient(135deg, #A0522D, #CD853F);
+    --gradient-light: linear-gradient(135deg, #FFF8DC 0%, #FFFFFF 100%);
+}
+
+/* ===== АЛЬТЕРНАТИВНАЯ СХЕМА 4: ЭЛЕГАНТНАЯ ===== */
+[data-theme="elegant"] {
+    --primary-color: #2F4F4F;      /* Темно-сланцево-серый */
+    --secondary-color: #696969;    /* Тускло-серый */
+    --accent-color: #DAA520;       /* Золотисто-желтый */
+    --text-dark: #2F4F4F;          /* Темно-сланцево-серый */
+    --text-light: #708090;         /* Сланцево-серый */
+    --background-light: #F5F5F5;   /* Белый дым */
+    --background-white: #FFFFFF;   /* Белый */
+    --border-color: #C0C0C0;       /* Серебряный */
+    --shadow-light: 0 2px 10px rgba(47, 79, 79, 0.1);
+    --shadow-medium: 0 4px 20px rgba(47, 79, 79, 0.15);
+    --gradient-primary: linear-gradient(135deg, #2F4F4F, #696969);
+    --gradient-light: linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%);
+}
+
+/* ===== АЛЬТЕРНАТИВНАЯ СХЕМА 5: СПОКОЙНАЯ ===== */
+[data-theme="calm"] {
+    --primary-color: #556B2F;      /* Темно-оливковый */
+    --secondary-color: #6B8E23;    /* Оливковый */
+    --accent-color: #9ACD32;       /* Желто-зеленый */
+    --text-dark: #2F4F2F;          /* Темно-оливковый */
+    --text-light: #556B2F;         /* Темно-оливковый */
+    --background-light: #F0F8FF;   /* Алиса-синий */
+    --background-white: #FFFFFF;   /* Белый */
+    --border-color: #B0C4DE;       /* Светло-стальной-синий */
+    --shadow-light: 0 2px 10px rgba(85, 107, 47, 0.1);
+    --shadow-medium: 0 4px 20px rgba(85, 107, 47, 0.15);
+    --gradient-primary: linear-gradient(135deg, #556B2F, #6B8E23);
+    --gradient-light: linear-gradient(135deg, #F0F8FF 0%, #FFFFFF 100%);
 }
 
 * {
@@ -35,7 +132,7 @@ body {
 
 /* Header Styles */
 .hero-header {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: var(--gradient-primary);
     color: white;
     padding: 15px 0;
     position: sticky;
