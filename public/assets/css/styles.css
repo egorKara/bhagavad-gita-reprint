@@ -139,6 +139,7 @@ body {
     top: 0;
     z-index: 1000;
     box-shadow: var(--shadow-medium);
+    overflow: visible;
 }
 
 .header-content {
@@ -154,6 +155,8 @@ body {
 .logo {
     width: 60px;
     height: auto;
+    margin-right: 20px;
+    flex-shrink: 0;
 }
 
 .main-nav {

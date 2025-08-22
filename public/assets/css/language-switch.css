@@ -3,7 +3,7 @@
     position: fixed;
     top: 20px;
     right: 20px;
-    z-index: 9999;
+    z-index: 1000;
     background: var(--accent-color, #FFD700);
     color: var(--text-dark, #2C1810);
     border: 2px solid var(--primary-color, #8B4513);
@@ -62,6 +62,15 @@
         width: 45px;
         height: 45px;
         font-size: 12px;
+        z-index: 999;
+    }
+}
+
+/* Исправление наползания на другие элементы */
+@media (max-width: 1200px) {
+    .language-switch {
+        right: 25px;
+        z-index: 999;
     }
 }
 
