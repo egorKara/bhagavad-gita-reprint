@@ -6,11 +6,14 @@
 const fs = require('fs').promises;
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
+const https = require('https');
+const { recaptchaSecret, turnstileSecret } = require('../../config');
 
 class OrderController {
     constructor() {
         this.ordersFile = path.join(__dirname, '../../../data/orders.json');
         this.statsFile = path.join(__dirname, '../../../data/order-stats.json');
+        this.idempotencyFile = path.join(__dirname, '../../../data/idempotency.json');
         this.init();
     }
 
@@ -49,30 +52,140 @@ class OrderController {
                     )
                 );
             }
+
+            // Создание файла идемпотентности если не существует
+            try {
+                await fs.access(this.idempotencyFile);
+            } catch {
+                await fs.writeFile(this.idempotencyFile, JSON.stringify({}, null, 2));
+            }
         } catch (error) {
             console.error('Ошибка инициализации OrderController:', error);
         }
     }
 
+    async readJson(filePath, fallback) {
+        try {
+            const raw = await fs.readFile(filePath, 'utf8');
+            return JSON.parse(raw);
+        } catch {
+            return fallback;
+        }
+    }
+
+    async getIdempotencyMapping() {
+        return this.readJson(this.idempotencyFile, {});
+    }
+
+    async setIdempotencyRecord(key, orderId) {
+        const map = await this.getIdempotencyMapping();
+        map[key] = { orderId, createdAt: new Date().toISOString() };
+        await fs.writeFile(this.idempotencyFile, JSON.stringify(map, null, 2));
+    }
+
+    async verifyCaptchaIfRequired(token, provider) {
+        if (!recaptchaSecret && !turnstileSecret) {
+            return { ok: true };
+        }
+        if (!token || !provider) {
+            return { ok: false, error: 'captcha_required' };
+        }
+        const isRecaptcha = provider === 'recaptcha' && !!recaptchaSecret;
+        const isTurnstile = provider === 'turnstile' && !!turnstileSecret;
+        if (!isRecaptcha && !isTurnstile) {
+            return { ok: false, error: 'captcha_provider_unsupported' };
+        }
+
+        const url = isRecaptcha
+            ? 'https://www.google.com/recaptcha/api/siteverify'
+            : 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+        const secret = isRecaptcha ? recaptchaSecret : turnstileSecret;
+        const body = new URLSearchParams({ secret, response: token }).toString();
+
+        const { ok, score } = await new Promise(resolve => {
+            const req = https.request(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Length': Buffer.byteLength(body)
+                }
+            }, res => {
+                let data = '';
+                res.on('data', chunk => data += chunk);
+                res.on('end', () => {
+                    try {
+                        const parsed = JSON.parse(data);
+                        if (isRecaptcha) {
+                            resolve({ ok: !!parsed.success, score: parsed.score });
+                        } else {
+                            resolve({ ok: !!parsed.success, score: undefined });
+                        }
+                    } catch {
+                        resolve({ ok: false });
+                    }
+                });
+            });
+            req.on('error', () => resolve({ ok: false }));
+            req.write(body);
+            req.end();
+        });
+
+        if (!ok) {
+            return { ok: false, error: 'captcha_verification_failed' };
+        }
+        return { ok: true, score };
+    }
+
     /**
      * Создание нового заказа
      */
-    async createOrder(orderData) {
+    async createOrder(orderData, options = {}) {
+        const { idempotencyKey, captchaToken, captchaProvider } = options;
         try {
+            // Идемпотентность: если ключ уже использован, возвращаем прежний результат
+            if (idempotencyKey) {
+                const map = await this.getIdempotencyMapping();
+                const existing = map[idempotencyKey];
+                if (existing && existing.orderId) {
+                    return {
+                        success: true,
+                        orderId: existing.orderId,
+                        message: 'Идемпотентная повторная отправка'
+                    };
+                }
+            }
+
+            // CAPTCHA (опционально через переменные окружения)
+            const captchaResult = await this.verifyCaptchaIfRequired(captchaToken, captchaProvider);
+            if (!captchaResult.ok) {
+                throw new Error(captchaResult.error || 'captcha_failed');
+            }
+
             // Валидация данных
             const validationResult = this.validateOrderData(orderData);
             if (!validationResult.isValid) {
                 throw new Error(`Ошибка валидации: ${validationResult.errors.join(', ')}`);
             }
 
+            // Канонический адрес
+            const canonicalAddress = orderData.address && orderData.address.trim()
+                ? orderData.address.trim()
+                : [orderData.postalCode, orderData.city, orderData.street, orderData.house, orderData.apartment]
+                    .filter(Boolean)
+                    .join(', ');
+
+            // Количество (число)
+            const quantityNum = Number.parseInt(orderData.quantity, 10);
+
             // Создание объекта заказа
             const order = {
                 id: uuidv4(),
                 ...orderData,
+                address: canonicalAddress,
                 status: 'new',
                 createdAt: new Date().toISOString(),
                 updatedAt: new Date().toISOString(),
-                totalAmount: this.calculateTotal(orderData.quantity),
+                totalAmount: this.calculateTotal(quantityNum)
             };
 
             // Чтение существующих заказов
@@ -88,11 +201,17 @@ class OrderController {
             // Логирование
             console.log(`Новый заказ создан: ${order.id} от ${order.firstName} ${order.lastName}`);
 
+            // Сохраняем идемпотентную запись
+            if (idempotencyKey) {
+                await this.setIdempotencyRecord(idempotencyKey, order.id);
+            }
+
             return {
                 success: true,
                 orderId: order.id,
-                message: 'Заказ успешно создан',
+                message: 'Заказ успешно создан'
             };
+
         } catch (error) {
             console.error('Ошибка создания заказа:', error);
             throw error;
@@ -104,13 +223,19 @@ class OrderController {
      */
     validateOrderData(data) {
         const errors = [];
-        const required = ['firstName', 'lastName', 'email', 'phone', 'address', 'quantity'];
-
-        // Проверка обязательных полей
-        for (const field of required) {
-            if (!data[field] || data[field].trim() === '') {
+        const requiredBasic = ['firstName', 'lastName', 'email', 'phone', 'quantity'];
+        for (const field of requiredBasic) {
+            if (!data[field] || String(data[field]).trim() === '') {
                 errors.push(`Поле ${field} обязательно для заполнения`);
             }
+        }
+
+        // Адрес: либо цельное поле address, либо составные
+        const hasAddress = data.address && String(data.address).trim() !== '';
+        const requiredAddressParts = ['postalCode', 'city', 'street', 'house'];
+        const hasAddressParts = requiredAddressParts.every(k => data[k] && String(data[k]).trim() !== '');
+        if (!hasAddress && !hasAddressParts) {
+            errors.push('Адрес обязателен: используйте address или postalCode/city/street/house');
         }
 
         // Проверка email
@@ -120,14 +245,16 @@ class OrderController {
         }
 
         // Проверка телефона
-        const phoneRegex =
-            /^(\+7|8)[\s\-]?\(?(\d{3})\)?[\s\-]?(\d{3})[\s\-]?(\d{2})[\s\-]?(\d{2})$/;
+        const phoneRegex = /^(\+7|8)[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/;
         if (data.phone && !phoneRegex.test(data.phone)) {
             errors.push('Некорректный номер телефона');
         }
 
         // Проверка количества
-        if (data.quantity && (data.quantity < 1 || data.quantity > 100)) {
+        const quantityNum = Number.parseInt(data.quantity, 10);
+        if (!Number.isFinite(quantityNum)) {
+            errors.push('Количество должно быть числом');
+        } else if (quantityNum < 1 || quantityNum > 100) {
             errors.push('Количество должно быть от 1 до 100');
         }
 
@@ -142,7 +269,7 @@ class OrderController {
 
         return {
             isValid: errors.length === 0,
-            errors,
+            errors
         };
     }
 

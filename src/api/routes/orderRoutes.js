@@ -22,7 +22,11 @@ function requireAdminAuth(req, res, next) {
 // Создание нового заказа (публично)
 router.post('/create', async (req, res) => {
     try {
-        const result = await orderController.createOrder(req.body);
+        const idempotencyKey = req.headers['x-idempotency-key'];
+        const captchaToken = req.headers['x-captcha-token'] || req.body.captchaToken;
+        const captchaProvider = req.headers['x-captcha-provider'] || req.body.captchaProvider;
+        const options = { idempotencyKey, captchaToken, captchaProvider };
+        const result = await orderController.createOrder(req.body, options);
         res.json(result);
     } catch (error) {
         res.status(400).json({

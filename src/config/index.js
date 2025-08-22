@@ -21,6 +21,8 @@ const config = {
     corsOrigins: corsOrigins.length > 0 ? corsOrigins : defaultCorsOrigins,
     adminToken: process.env.ADMIN_TOKEN || null,
     metricsToken: process.env.METRICS_TOKEN || null,
+    recaptchaSecret: process.env.RECAPTCHA_SECRET || null,
+    turnstileSecret: process.env.TURNSTILE_SECRET || null,
 };
 
 module.exports = config;
