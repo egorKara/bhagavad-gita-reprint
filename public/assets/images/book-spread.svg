@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="pageGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFF8DC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F5F5DC;stop-opacity:1" />
+    </linearGradient>
+    <filter id="pageShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Левая страница -->
+  <g filter="url(#pageShadow)">
+    <rect x="50" y="50" width="300" height="500" fill="url(#pageGradient)" rx="5"/>
+    <rect x="60" y="60" width="280" height="480" fill="none" stroke="#D2B48C" stroke-width="1"/>
+    
+    <!-- Заголовок главы -->
+    <text x="200" y="100" text-anchor="middle" font-family="serif" font-size="20" fill="#8B0000" font-weight="bold">
+      ГЛАВА ПЕРВАЯ
+    </text>
+    <text x="200" y="125" text-anchor="middle" font-family="serif" font-size="16" fill="#654321">
+      Арджуна-вишада-йога
+    </text>
+    
+    <!-- Текст -->
+    <text x="80" y="160" font-family="serif" font-size="14" fill="#2F4F4F">
+      Дхритараштра сказал: О Санджая, что сделали мои сыновья и сыновья Панду,
+    </text>
+    <text x="80" y="180" font-family="serif" font-size="14" fill="#2F4F4F">
+      когда собрались на поле дхармы, на поле Курукшетра, желая сражаться?
+    </text>
+    
+    <text x="80" y="220" font-family="serif" font-size="14" fill="#2F4F4F">
+      Санджая сказал: Увидев армию Пандавов, выстроенную в боевом порядке,
+    </text>
+    <text x="80" y="240" font-family="serif" font-size="14" fill="#2F4F4F">
+      царь Дурьодхана подошел к своему учителю и произнес следующие слова.
+    </text>
+    
+    <text x="80" y="280" font-family="serif" font-size="14" fill="#2F4F4F">
+      О учитель, посмотри на огромную армию сыновей Панду, так искусно
+    </text>
+    <text x="80" y="300" font-family="serif" font-size="14" fill="#2F4F4F">
+      выстроенную сыном Друпады, твоим способным учеником.
+    </text>
+    
+    <!-- Номера стихов -->
+    <text x="70" y="160" font-family="serif" font-size="12" fill="#8B0000" font-weight="bold">1.</text>
+    <text x="70" y="220" font-family="serif" font-size="12" fill="#8B0000" font-weight="bold">2.</text>
+    <text x="70" y="280" font-family="serif" font-size="12" fill="#8B0000" font-weight="bold">3.</text>
+  </g>
+  
+  <!-- Правая страница -->
+  <g filter="url(#pageShadow)">
+    <rect x="450" y="50" width="300" height="500" fill="url(#pageGradient)" rx="5"/>
+    <rect x="460" y="60" width="280" height="480" fill="none" stroke="#D2B48C" stroke-width="1"/>
+    
+    <!-- Комментарий -->
+    <text x="600" y="100" text-anchor="middle" font-family="serif" font-size="16" fill="#8B0000" font-weight="bold">
+      КОММЕНТАРИЙ
+    </text>
+    
+    <text x="480" y="140" font-family="serif" font-size="12" fill="#2F4F4F">
+      Бхагавад-гита - это диалог между Господом Шри Кришной и Арджуной,
+    </text>
+    <text x="480" y="160" font-family="serif" font-size="12" fill="#2F4F4F">
+      Его другом и преданным, на поле битвы Курукшетра.
+    </text>
+    
+    <text x="480" y="200" font-family="serif" font-size="12" fill="#2F4F4F">
+      Поле Курукшетра - это святое место паломничества с древних времен.
+    </text>
+    <text x="480" y="220" font-family="serif" font-size="12" fill="#2F4F4F">
+      Здесь Господь Кришна поведал Бхагавад-гиту Своему другу Арджуне.
+    </text>
+    
+    <text x="480" y="260" font-family="serif" font-size="12" fill="#2F4F4F">
+      В этой главе описывается, как Арджуна, увидев своих родственников
+    </text>
+    <text x="480" y="280" font-family="serif" font-size="12" fill="#2F4F4F">
+      и друзей в рядах противника, пришел в отчаяние.
+    </text>
+    
+    <!-- Декоративные элементы -->
+    <circle cx="600" cy="350" r="40" fill="none" stroke="#D2691E" stroke-width="2"/>
+    <circle cx="600" cy="350" r="25" fill="none" stroke="#D2691E" stroke-width="1"/>
+    
+    <!-- Переплет -->
+    <rect x="350" y="50" width="100" height="500" fill="#8B4513" rx="5"/>
+    <rect x="360" y="60" width="80" height="480" fill="#654321" rx="3"/>
+    
+    <!-- Декоративные точки -->
+    <circle cx="400" cy="150" r="2" fill="#D2691E"/>
+    <circle cx="400" cy="250" r="2" fill="#D2691E"/>
+    <circle cx="400" cy="350" r="2" fill="#D2691E"/>
+    <circle cx="400" cy="450" r="2" fill="#D2691E"/>
+  </g>
+</svg>
