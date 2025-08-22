@@ -31,4 +31,35 @@ theming:
   use_css_variables: true
   respect_manual_theme_over_os: true
 
+agents:
+  background:
+    enabled: true
+    maintain_todos: true
+    non_interactive_flags: true
+    prefer_parallel_tool_calls: true
+  git:
+    default_pull: rebase_autostash
+    fast_forward_only: true
+    prevent_merge_commits: true
+  ci:
+    deploy_workflow: ".github/workflows/deploy-gh-pages.yml"
+    allow_manual_dispatch: true
+  snapshot:
+    include:
+      - public/**
+      - src/**
+      - docs/**
+      - .github/**
+      - package.json
+      - README.md
+    exclude:
+      - node_modules/**
+      - .git/**
+      - tests/**
+      - package-lock.json
+  conventions:
+    commit_prefixes: [feat, fix, chore, refactor, docs, ci]
+    branch_naming: "cursor/{short-task}"
+    pr_title_template: "[{type}] {summary}"
+
 

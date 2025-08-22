@@ -9,7 +9,9 @@
     "dev": "nodemon src/server.js",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "prepare": "husky install || true"
+    "prepare": "husky install || true",
+    "agent:setup": "bash scripts/agent_setup.sh",
+    "agent:snapshot": "bash scripts/agent_snapshot.sh"
   },
   "keywords": [],
   "author": "",

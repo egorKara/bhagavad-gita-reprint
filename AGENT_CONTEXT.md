@@ -27,4 +27,18 @@
 2) Заказ/оповещение: интеграция с Telegram/WhatsApp/SMS
 3) Мониторинг и безопасность: довести до production‑уровня
 
+### Быстрый старт (для бэкграунд‑агентов Cursor)
+1. Перед началом: `git fetch --all --prune && git pull --rebase --autostash`
+2. После изменений: `npm run lint` (по необходимости) и `git push`
+3. Деплой: пуш в `main` триггерит workflow `.github/workflows/deploy-gh-pages.yml`.
+4. Снапшот в Cursor: нажми "Take Snapshot" или запусти `scripts/agent_snapshot.sh`.
+
+### Настройки снапшота
+- Включаем: `public/**`, `src/**`, `docs/**`, `.github/**`, `package.json`, `README.md`
+- Исключаем: `.git/**`, `node_modules/**`, `tests/**`, `package-lock.json`
+
+### Коммиты
+- Префиксы: `feat|fix|chore|refactor|docs|ci`
+- Дробные атомарные коммиты, осмысленные сообщения
+
 
