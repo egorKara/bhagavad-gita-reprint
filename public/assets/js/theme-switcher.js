@@ -328,13 +328,8 @@ class ThemeSwitcher {
     }
     
     applyTheme(themeId) {
-        // Удаляем все предыдущие темы
-        document.documentElement.removeAttribute('data-theme');
-        
-        // Применяем новую тему
-        if (themeId !== 'classic') {
-            document.documentElement.setAttribute('data-theme', themeId);
-        }
+        // Явно проставляем тему всегда, включая 'classic', чтобы ОС-предпочтения не перекрывали ручной выбор
+        document.documentElement.setAttribute('data-theme', themeId);
         
         // Обновляем текущую тему
         this.currentTheme = themeId;
