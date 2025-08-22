@@ -21,7 +21,7 @@ class OrderController {
         try {
             const dataDir = path.dirname(this.ordersFile);
             await fs.mkdir(dataDir, { recursive: true });
-            
+
             // Создание файла заказов если не существует
             try {
                 await fs.access(this.ordersFile);
@@ -33,14 +33,21 @@ class OrderController {
             try {
                 await fs.access(this.statsFile);
             } catch {
-                await fs.writeFile(this.statsFile, JSON.stringify({
-                    totalOrders: 0,
-                    totalRevenue: 0,
-                    averageOrderValue: 0,
-                    ordersByMonth: {},
-                    topProducts: {},
-                    lastUpdated: new Date().toISOString()
-                }, null, 2));
+                await fs.writeFile(
+                    this.statsFile,
+                    JSON.stringify(
+                        {
+                            totalOrders: 0,
+                            totalRevenue: 0,
+                            averageOrderValue: 0,
+                            ordersByMonth: {},
+                            topProducts: {},
+                            lastUpdated: new Date().toISOString(),
+                        },
+                        null,
+                        2
+                    )
+                );
             }
         } catch (error) {
             console.error('Ошибка инициализации OrderController:', error);
@@ -65,7 +72,7 @@ class OrderController {
                 status: 'new',
                 createdAt: new Date().toISOString(),
                 updatedAt: new Date().toISOString(),
-                totalAmount: this.calculateTotal(orderData.quantity)
+                totalAmount: this.calculateTotal(orderData.quantity),
             };
 
             // Чтение существующих заказов
@@ -84,9 +91,8 @@ class OrderController {
             return {
                 success: true,
                 orderId: order.id,
-                message: 'Заказ успешно создан'
+                message: 'Заказ успешно создан',
             };
-
         } catch (error) {
             console.error('Ошибка создания заказа:', error);
             throw error;
@@ -114,7 +120,8 @@ class OrderController {
         }
 
         // Проверка телефона
-        const phoneRegex = /^(\+7|8)[\s\-]?\(?(\d{3})\)?[\s\-]?(\d{3})[\s\-]?(\d{2})[\s\-]?(\d{2})$/;
+        const phoneRegex =
+            /^(\+7|8)[\s\-]?\(?(\d{3})\)?[\s\-]?(\d{3})[\s\-]?(\d{2})[\s\-]?(\d{2})$/;
         if (data.phone && !phoneRegex.test(data.phone)) {
             errors.push('Некорректный номер телефона');
         }
@@ -135,7 +142,7 @@ class OrderController {
 
         return {
             isValid: errors.length === 0,
-            errors
+            errors,
         };
     }
 
@@ -167,7 +174,7 @@ class OrderController {
     async getOrderById(orderId) {
         try {
             const orders = await this.readOrders();
-            return orders.find(order => order.id === orderId);
+            return orders.find((order) => order.id === orderId);
         } catch (error) {
             console.error('Ошибка получения заказа:', error);
             return null;
@@ -180,8 +187,8 @@ class OrderController {
     async updateOrderStatus(orderId, newStatus) {
         try {
             const orders = await this.readOrders();
-            const orderIndex = orders.findIndex(order => order.id === orderId);
-            
+            const orderIndex = orders.findIndex((order) => order.id === orderId);
+
             if (orderIndex === -1) {
                 throw new Error('Заказ не найден');
             }
@@ -190,12 +197,11 @@ class OrderController {
             orders[orderIndex].updatedAt = new Date().toISOString();
 
             await fs.writeFile(this.ordersFile, JSON.stringify(orders, null, 2));
-            
+
             return {
                 success: true,
-                message: `Статус заказа ${orderId} обновлен на ${newStatus}`
+                message: `Статус заказа ${orderId} обновлен на ${newStatus}`,
             };
-
         } catch (error) {
             console.error('Ошибка обновления статуса заказа:', error);
             throw error;
@@ -221,7 +227,7 @@ class OrderController {
     async updateStats(newOrder) {
         try {
             const stats = await this.getOrderStats();
-            
+
             // Обновление базовых показателей
             stats.totalOrders += 1;
             stats.totalRevenue += newOrder.totalAmount;
@@ -232,7 +238,7 @@ class OrderController {
             if (!stats.ordersByMonth[month]) {
                 stats.ordersByMonth[month] = {
                     count: 0,
-                    revenue: 0
+                    revenue: 0,
                 };
             }
             stats.ordersByMonth[month].count += 1;
@@ -243,7 +249,7 @@ class OrderController {
                 stats.topProducts['bhagavad-gita-1972'] = {
                     name: 'Бхагавад-Гита как она есть (1972)',
                     quantity: 0,
-                    revenue: 0
+                    revenue: 0,
                 };
             }
             stats.topProducts['bhagavad-gita-1972'].quantity += parseInt(newOrder.quantity);
@@ -252,7 +258,6 @@ class OrderController {
             stats.lastUpdated = new Date().toISOString();
 
             await fs.writeFile(this.statsFile, JSON.stringify(stats, null, 2));
-
         } catch (error) {
             console.error('Ошибка обновления статистики:', error);
         }
@@ -266,14 +271,14 @@ class OrderController {
             const orders = await this.readOrders();
             const searchTerm = query.toLowerCase();
 
-            return orders.filter(order => 
-                order.firstName.toLowerCase().includes(searchTerm) ||
-                order.lastName.toLowerCase().includes(searchTerm) ||
-                order.email.toLowerCase().includes(searchTerm) ||
-                order.phone.includes(query) ||
-                order.id.includes(query)
+            return orders.filter(
+                (order) =>
+                    order.firstName.toLowerCase().includes(searchTerm) ||
+                    order.lastName.toLowerCase().includes(searchTerm) ||
+                    order.email.toLowerCase().includes(searchTerm) ||
+                    order.phone.includes(query) ||
+                    order.id.includes(query)
             );
-
         } catch (error) {
             console.error('Ошибка поиска заказов:', error);
             return [];
@@ -286,12 +291,23 @@ class OrderController {
     async exportOrdersToCSV() {
         try {
             const orders = await this.readOrders();
-            
+
             if (orders.length === 0) {
                 return '';
             }
 
-            const headers = ['ID', 'Дата', 'Имя', 'Фамилия', 'Email', 'Телефон', 'Адрес', 'Количество', 'Сумма', 'Статус'];
+            const headers = [
+                'ID',
+                'Дата',
+                'Имя',
+                'Фамилия',
+                'Email',
+                'Телефон',
+                'Адрес',
+                'Количество',
+                'Сумма',
+                'Статус',
+            ];
             const csvRows = [headers.join(',')];
 
             for (const order of orders) {
@@ -305,13 +321,12 @@ class OrderController {
                     `"${order.address}"`,
                     order.quantity,
                     order.totalAmount,
-                    order.status
+                    order.status,
                 ];
                 csvRows.push(row.join(','));
             }
 
             return csvRows.join('\n');
-
         } catch (error) {
             console.error('Ошибка экспорта в CSV:', error);
             return '';
@@ -324,19 +339,18 @@ class OrderController {
     async deleteOrder(orderId) {
         try {
             const orders = await this.readOrders();
-            const filteredOrders = orders.filter(order => order.id !== orderId);
-            
+            const filteredOrders = orders.filter((order) => order.id !== orderId);
+
             if (filteredOrders.length === orders.length) {
                 throw new Error('Заказ не найден');
             }
 
             await fs.writeFile(this.ordersFile, JSON.stringify(filteredOrders, null, 2));
-            
+
             return {
                 success: true,
-                message: `Заказ ${orderId} удален`
+                message: `Заказ ${orderId} удален`,
             };
-
         } catch (error) {
             console.error('Ошибка удаления заказа:', error);
             throw error;

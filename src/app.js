@@ -33,11 +33,13 @@ app.use((req, res, next) => {
 });
 
 // Access logs
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms id=:req[id]', {
-    stream: {
-        write: (message) => process.stdout.write(message)
-    }
-}));
+app.use(
+    morgan(':method :url :status :res[content-length] - :response-time ms id=:req[id]', {
+        stream: {
+            write: (message) => process.stdout.write(message),
+        },
+    })
+);
 
 // Basic rate limit for API
 const apiLimiter = rateLimit({
@@ -56,11 +58,13 @@ const createOrderLimiter = rateLimit({
 });
 
 // CORS (для фронта на другом домене)
-app.use(cors({
-    origin: corsOrigins,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    credentials: false
-}));
+app.use(
+    cors({
+        origin: corsOrigins,
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+        credentials: false,
+    })
+);
 
 // Применяем лимит только к API
 app.use('/api', apiLimiter);
@@ -74,7 +78,7 @@ const httpRequestDuration = new client.Histogram({
     name: 'http_request_duration_seconds',
     help: 'Duration of HTTP requests in seconds',
     labelNames: ['method', 'route', 'status_code'],
-    buckets: [0.05, 0.1, 0.3, 0.5, 1, 3, 5]
+    buckets: [0.05, 0.1, 0.3, 0.5, 1, 3, 5],
 });
 
 app.use((req, res, next) => {
@@ -91,7 +95,9 @@ app.use((req, res, next) => {
 function requireMetricsAuth(req, res, next) {
     const authHeader = req.headers['authorization'] || '';
     if (!metricsToken) {
-        return res.status(503).json({ error: 'Metrics are disabled. Set METRICS_TOKEN to enable.' });
+        return res
+            .status(503)
+            .json({ error: 'Metrics are disabled. Set METRICS_TOKEN to enable.' });
     }
     if (authHeader === `Bearer ${metricsToken}`) {
         return next();

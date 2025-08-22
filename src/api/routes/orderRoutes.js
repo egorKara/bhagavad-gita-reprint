@@ -15,7 +15,7 @@ function requireAdminAuth(req, res, next) {
     }
     return res.status(401).json({
         success: false,
-        error: 'Unauthorized'
+        error: 'Unauthorized',
     });
 }
 
@@ -27,7 +27,7 @@ router.post('/create', async (req, res) => {
     } catch (error) {
         res.status(400).json({
             success: false,
-            error: error.message
+            error: error.message,
         });
     }
 });
@@ -38,11 +38,11 @@ router.get('/list', requireAdminAuth, async (req, res) => {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 20;
         const orders = await orderController.readOrders();
-        
+
         const startIndex = (page - 1) * limit;
         const endIndex = page * limit;
         const paginatedOrders = orders.slice(startIndex, endIndex);
-        
+
         res.json({
             success: true,
             data: paginatedOrders,
@@ -51,13 +51,13 @@ router.get('/list', requireAdminAuth, async (req, res) => {
                 totalPages: Math.ceil(orders.length / limit),
                 totalOrders: orders.length,
                 hasNextPage: endIndex < orders.length,
-                hasPrevPage: page > 1
-            }
+                hasPrevPage: page > 1,
+            },
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            error: error.message
+            error: error.message,
         });
     }
 });
@@ -69,17 +69,17 @@ router.get('/:orderId', requireAdminAuth, async (req, res) => {
         if (!order) {
             return res.status(404).json({
                 success: false,
-                error: 'Заказ не найден'
+                error: 'Заказ не найден',
             });
         }
         res.json({
             success: true,
-            data: order
+            data: order,
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            error: error.message
+            error: error.message,
         });
     }
 });
@@ -91,16 +91,16 @@ router.patch('/:orderId/status', requireAdminAuth, async (req, res) => {
         if (!status) {
             return res.status(400).json({
                 success: false,
-                error: 'Статус не указан'
+                error: 'Статус не указан',
             });
         }
-        
+
         const result = await orderController.updateOrderStatus(req.params.orderId, status);
         res.json(result);
     } catch (error) {
         res.status(400).json({
             success: false,
-            error: error.message
+            error: error.message,
         });
     }
 });
@@ -112,12 +112,12 @@ router.get('/search/:query', requireAdminAuth, async (req, res) => {
         res.json({
             success: true,
             data: orders,
-            count: orders.length
+            count: orders.length,
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            error: error.message
+            error: error.message,
         });
     }
 });
@@ -128,12 +128,12 @@ router.get('/stats/overview', requireAdminAuth, async (req, res) => {
         const stats = await orderController.getOrderStats();
         res.json({
             success: true,
-            data: stats
+            data: stats,
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            error: error.message
+            error: error.message,
         });
     }
 });
@@ -142,21 +142,24 @@ router.get('/stats/overview', requireAdminAuth, async (req, res) => {
 router.get('/export/csv', requireAdminAuth, async (req, res) => {
     try {
         const csvData = await orderController.exportOrdersToCSV();
-        
+
         if (!csvData) {
             return res.status(404).json({
                 success: false,
-                error: 'Нет данных для экспорта'
+                error: 'Нет данных для экспорта',
             });
         }
 
         res.setHeader('Content-Type', 'text/csv');
-        res.setHeader('Content-Disposition', `attachment; filename="orders-${new Date().toISOString().slice(0, 10)}.csv"`);
+        res.setHeader(
+            'Content-Disposition',
+            `attachment; filename="orders-${new Date().toISOString().slice(0, 10)}.csv"`
+        );
         res.send(csvData);
     } catch (error) {
         res.status(500).json({
             success: false,
-            error: error.message
+            error: error.message,
         });
     }
 });
@@ -169,7 +172,7 @@ router.delete('/:orderId', requireAdminAuth, async (req, res) => {
     } catch (error) {
         res.status(400).json({
             success: false,
-            error: error.message
+            error: error.message,
         });
     }
 });
