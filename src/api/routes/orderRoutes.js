@@ -6,8 +6,20 @@
 const express = require('express');
 const router = express.Router();
 const orderController = require('../controllers/orderController');
+const { adminToken } = require('../../config');
 
-// Создание нового заказа
+function requireAdminAuth(req, res, next) {
+    const authHeader = req.headers['authorization'] || '';
+    if (adminToken && authHeader === `Bearer ${adminToken}`) {
+        return next();
+    }
+    return res.status(401).json({
+        success: false,
+        error: 'Unauthorized'
+    });
+}
+
+// Создание нового заказа (публично)
 router.post('/create', async (req, res) => {
     try {
         const result = await orderController.createOrder(req.body);
@@ -20,8 +32,8 @@ router.post('/create', async (req, res) => {
     }
 });
 
-// Получение всех заказов (с пагинацией)
-router.get('/list', async (req, res) => {
+// Получение всех заказов (админ, с пагинацией)
+router.get('/list', requireAdminAuth, async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 20;
@@ -50,8 +62,8 @@ router.get('/list', async (req, res) => {
     }
 });
 
-// Получение заказа по ID
-router.get('/:orderId', async (req, res) => {
+// Получение заказа по ID (админ)
+router.get('/:orderId', requireAdminAuth, async (req, res) => {
     try {
         const order = await orderController.getOrderById(req.params.orderId);
         if (!order) {
@@ -72,8 +84,8 @@ router.get('/:orderId', async (req, res) => {
     }
 });
 
-// Обновление статуса заказа
-router.patch('/:orderId/status', async (req, res) => {
+// Обновление статуса заказа (админ)
+router.patch('/:orderId/status', requireAdminAuth, async (req, res) => {
     try {
         const { status } = req.body;
         if (!status) {
@@ -93,8 +105,8 @@ router.patch('/:orderId/status', async (req, res) => {
     }
 });
 
-// Поиск заказов
-router.get('/search/:query', async (req, res) => {
+// Поиск заказов (админ)
+router.get('/search/:query', requireAdminAuth, async (req, res) => {
     try {
         const orders = await orderController.searchOrders(req.params.query);
         res.json({
@@ -110,8 +122,8 @@ router.get('/search/:query', async (req, res) => {
     }
 });
 
-// Получение статистики заказов
-router.get('/stats/overview', async (req, res) => {
+// Получение статистики заказов (админ)
+router.get('/stats/overview', requireAdminAuth, async (req, res) => {
     try {
         const stats = await orderController.getOrderStats();
         res.json({
@@ -126,8 +138,8 @@ router.get('/stats/overview', async (req, res) => {
     }
 });
 
-// Экспорт заказов в CSV
-router.get('/export/csv', async (req, res) => {
+// Экспорт заказов в CSV (админ)
+router.get('/export/csv', requireAdminAuth, async (req, res) => {
     try {
         const csvData = await orderController.exportOrdersToCSV();
         
@@ -149,8 +161,8 @@ router.get('/export/csv', async (req, res) => {
     }
 });
 
-// Удаление заказа
-router.delete('/:orderId', async (req, res) => {
+// Удаление заказа (админ)
+router.delete('/:orderId', requireAdminAuth, async (req, res) => {
     try {
         const result = await orderController.deleteOrder(req.params.orderId);
         res.json(result);

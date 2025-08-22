@@ -8,15 +8,19 @@ const { randomUUID } = require('crypto');
 const client = require('prom-client');
 const statusRoutes = require('./api/routes/statusRoutes');
 const orderRoutes = require('./api/routes/orderRoutes');
+const { corsOrigins, metricsToken } = require('./config');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+
+// Усиление настроек Express
+app.disable('x-powered-by');
+app.set('trust proxy', 1);
 
 // Middleware для обслуживания статических файлов
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// Middleware для парсинга JSON
-app.use(express.json());
+// Middleware для парсинга JSON (с лимитом)
+app.use(express.json({ limit: '100kb' }));
 
 // Security headers
 app.use(helmet());
@@ -43,20 +47,24 @@ const apiLimiter = rateLimit({
     legacyHeaders: false,
 });
 
+// Отдельный более строгий лимит на создание заказов
+const createOrderLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 минут
+    max: 20,
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
 // CORS (для фронта на другом домене)
 app.use(cors({
-    origin: [
-        'https://egorkara.github.io',
-        'https://gita-1972-reprint.ru',
-        'https://www.gita-1972-reprint.ru',
-        'https://api.gita-1972-reprint.ru'
-    ],
+    origin: corsOrigins,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     credentials: false
 }));
 
 // Применяем лимит только к API
 app.use('/api', apiLimiter);
+app.use('/api/orders/create', createOrderLimiter);
 
 // Prometheus metrics
 const collectDefaultMetrics = client.collectDefaultMetrics;
@@ -80,7 +88,23 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/metrics', async (req, res) => {
+function requireMetricsAuth(req, res, next) {
+    const authHeader = req.headers['authorization'] || '';
+    if (metricsToken) {
+        if (authHeader === `Bearer ${metricsToken}`) {
+            return next();
+        }
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+    // Если токен не задан, разрешаем только с loopback
+    const ip = req.ip || '';
+    if (ip === '127.0.0.1' || ip === '::1') {
+        return next();
+    }
+    return res.status(401).json({ error: 'Unauthorized' });
+}
+
+app.get('/metrics', requireMetricsAuth, async (req, res) => {
     res.set('Content-Type', client.register.contentType);
     res.end(await client.register.metrics());
 });
@@ -93,6 +117,13 @@ app.get('/healthz', (req, res) => {
 // Маршруты API
 app.use('/api/status', statusRoutes);
 app.use('/api/orders', orderRoutes);
+
+// Централизованный обработчик ошибок
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, _next) => {
+    console.error('Unhandled error:', err);
+    res.status(500).json({ error: 'Internal Server Error', requestId: req.id });
+});
 
 // Экспорт приложения
 module.exports = app;
