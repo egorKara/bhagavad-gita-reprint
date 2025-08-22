@@ -328,12 +328,13 @@ class ThemeSwitcher {
     }
     
     applyTheme(themeId) {
-        // Явно проставляем тему всегда, включая 'classic', чтобы ОС-предпочтения не перекрывали ручной выбор
+        // Всегда проставляем выбранную тему (включая 'classic') в data-theme,
+        // чтобы ручной выбор пользователя имел приоритет над prefers-color-scheme
         document.documentElement.setAttribute('data-theme', themeId);
-        
+
         // Обновляем текущую тему
         this.currentTheme = themeId;
-        
+
         // Показываем уведомление
         this.showThemeNotification(themeId);
     }
