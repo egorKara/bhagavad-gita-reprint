@@ -7,6 +7,14 @@
         return (document.documentElement.getAttribute('lang') || localStorage.getItem(SELECTED_LANG_KEY) || 'ru').toLowerCase();
     }
 
+    function getBaseLang() {
+        return (window.TranslationConfig && window.TranslationConfig.baseLang) ? window.TranslationConfig.baseLang : 'en';
+    }
+
+    function allowTranslateToBase() {
+        return !!(window.TranslationConfig && window.TranslationConfig.allowTranslateToBase);
+    }
+
     function getSourceLangForTarget(target) {
         // Heuristic: if page target is en, assume source ru, and vice versa
         return target === 'en' ? 'ru' : 'en';
@@ -26,6 +34,10 @@
         if (!clean) return false;
         // Avoid translating numbers, icons, or pure punctuation
         if (/^[\p{P}\p{S}\s0-9]+$/u.test(clean)) return false;
+        const base = getBaseLang();
+        if (targetLang === base && !allowTranslateToBase()) {
+            return false;
+        }
         // Heuristics by target
         if (targetLang === 'en') {
             // English is the base; we do not translate into English
@@ -126,9 +138,9 @@
     }
 
     async function progressiveTranslateCurrentPage(targetLang) {
+        const base = getBaseLang();
         const sourceLang = getSourceLangForTarget(targetLang);
-        if (targetLang === 'en') {
-            // No translation needed when target is base English
+        if (targetLang === base && !allowTranslateToBase()) {
             return;
         }
         // Pass 1: visible content
