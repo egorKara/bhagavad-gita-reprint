@@ -574,6 +574,16 @@ class UniversalTranslator {
         this.translations = translations;
     }
     
+    // Helper: read cookie
+    getCookie(name) {
+        try {
+            const cookie = document.cookie
+                .split('; ')
+                .find(row => row.startsWith(name + '='));
+            return cookie ? decodeURIComponent(cookie.split('=')[1]) : null;
+        } catch (e) { return null; }
+    }
+    
     // Устанавливает язык
     setLanguage(lang) {
         const fallbackLang = 'ru';
@@ -588,6 +598,8 @@ class UniversalTranslator {
         // Сохраняем выбор языка
         try {
             localStorage.setItem('selectedLanguage', newLang);
+            // 1 год
+            document.cookie = `selectedLanguage=${encodeURIComponent(newLang)}; path=/; max-age=31536000; samesite=lax`;
         } catch (e) {}
 
         this.translatePage();
@@ -1282,9 +1294,11 @@ class UniversalTranslator {
     init() {
         // Пытаемся получить язык из URL ?lang=xx
         const urlLang = this.getLangFromUrl();
+        // Из cookie
+        const cookieLang = this.getCookie('selectedLanguage');
         
         // Получаем сохраненный язык из localStorage или из атрибута html
-        const savedLang = urlLang || localStorage.getItem('selectedLanguage') || (document.documentElement.getAttribute('lang') || 'ru');
+        const savedLang = urlLang || cookieLang || localStorage.getItem('selectedLanguage') || (document.documentElement.getAttribute('lang') || 'ru');
         
         this.setLanguage(savedLang);
     }
