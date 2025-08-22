@@ -1,8 +1,6 @@
 name: Deploy to GitHub Pages (self-hosted, disabled)
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 concurrency:
