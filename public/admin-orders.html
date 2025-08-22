@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="assets/css/language-switch.css">
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="icon" href="favicon.ico">
+
 </head>
 <body class="page-load">
     <!-- Переключатель языка -->
@@ -126,6 +127,13 @@
                 <!-- Детали заказа будут загружены динамически -->
             </div>
             <div class="modal-actions">
+                <label for="orderStatusSelect" style="margin-right: 8px;">Статус:</label>
+                <select id="orderStatusSelect" class="filter-select" style="margin-right: 12px;">
+                    <option value="processing">В обработке</option>
+                    <option value="shipped">Отправлен</option>
+                    <option value="delivered">Доставлен</option>
+                    <option value="cancelled">Отменен</option>
+                </select>
                 <button onclick="updateOrderStatus()" class="action-button">Обновить статус</button>
                 <button onclick="deleteOrder()" class="action-button delete">Удалить заказ</button>
             </div>
