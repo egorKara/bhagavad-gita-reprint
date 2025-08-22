@@ -8,6 +8,7 @@ const { randomUUID } = require('crypto');
 const client = require('prom-client');
 const statusRoutes = require('./api/routes/statusRoutes');
 const orderRoutes = require('./api/routes/orderRoutes');
+const translationRoutes = require('./api/routes/translationRoutes');
 const { corsOrigins, metricsToken } = require('./config');
 
 const app = express();
@@ -128,6 +129,7 @@ app.get('/healthz', (req, res) => {
 // Маршруты API
 app.use('/api/status', statusRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/translate', translationRoutes);
 
 // Централизованный обработчик ошибок
 app.use((err, req, res, _next) => {

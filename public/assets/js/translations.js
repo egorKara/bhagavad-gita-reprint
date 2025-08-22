@@ -182,7 +182,15 @@ const translations = {
             email: "Email",
             phone: "Телефон",
             message: "Сообщение",
-            sendButton: "Отправить заказ"
+            sendButton: "Отправить заказ",
+            // Добавлено для корректного перевода страницы заказа
+            availability: "В наличии",
+            contactDetails: "Ваши контактные данные",
+            personalData: "Личные данные",
+            deliveryAddress: "Адрес доставки",
+            orderDetails: "Детали заказа",
+            formDescription: "Заполните форму ниже для оформления заказа. Все поля обязательны для заполнения.",
+            sending: "Отправка..."
         },
         
         // Статус заказа
@@ -523,7 +531,15 @@ const translations = {
             email: "Email",
             phone: "Phone",
             message: "Message",
-            sendButton: "Send Order"
+            sendButton: "Send Order",
+            // Added keys to support Contacts page translations
+            availability: "In Stock",
+            contactDetails: "Your Contact Details",
+            personalData: "Personal Details",
+            deliveryAddress: "Delivery Address",
+            orderDetails: "Order Details",
+            formDescription: "Fill out the form below to place your order. All fields are required.",
+            sending: "Sending..."
         },
         
         // Order status
@@ -558,10 +574,40 @@ class UniversalTranslator {
         this.translations = translations;
     }
     
+    // Helper: read cookie
+    getCookie(name) {
+        try {
+            const cookie = document.cookie
+                .split('; ')
+                .find(row => row.startsWith(name + '='));
+            return cookie ? decodeURIComponent(cookie.split('=')[1]) : null;
+        } catch (e) { return null; }
+    }
+    
     // Устанавливает язык
     setLanguage(lang) {
-        this.currentLang = lang;
+        const fallbackLang = 'ru';
+        const newLang = (lang && this.translations[lang]) ? lang : fallbackLang;
+        this.currentLang = newLang;
+
+        // Обновляем атрибут lang у корневого html
+        if (document && document.documentElement) {
+            document.documentElement.setAttribute('lang', newLang);
+        }
+
+        // Сохраняем выбор языка
+        try {
+            localStorage.setItem('selectedLanguage', newLang);
+            // 1 год
+            document.cookie = `selectedLanguage=${encodeURIComponent(newLang)}; path=/; max-age=31536000; samesite=lax`;
+        } catch (e) {}
+
         this.translatePage();
+
+        // Сообщаем остальным системам о смене языка
+        try {
+            document.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang: newLang } }));
+        } catch (e) {}
     }
     
     // Получает перевод по ключу
@@ -587,11 +633,14 @@ class UniversalTranslator {
         // Обновляем заголовок страницы
         this.updatePageTitle();
         
-        // Обновляем meta description
+        // Обновляем meta description в зависимости от страницы
         this.updateMetaDescription();
         
         // Обновляем навигацию
         this.updateNavigation();
+        
+        // Проставляем параметр lang во все внутренние ссылки
+        this.updateLinksWithLang();
         
         // Универсальный перевод основного контента
         this.translateMainContent();
@@ -656,7 +705,7 @@ class UniversalTranslator {
     // Определяет тип страницы
     detectPageType() {
         const path = window.location.pathname;
-        if (path.includes('index.html') || path === '/') return 'home';
+        if (path.includes('index.html') || path === '/' || path === '') return 'home';
         if (path.includes('about.html')) return 'about';
         if (path.includes('author.html')) return 'author';
         if (path.includes('contacts.html')) return 'contacts';
@@ -670,8 +719,13 @@ class UniversalTranslator {
     // Обновляет meta description
     updateMetaDescription() {
         const metaDescription = document.querySelector('meta[name="description"]');
-        if (metaDescription) {
-            metaDescription.content = this.getTranslation('home.description');
+        if (!metaDescription) return;
+        
+        const pageType = this.detectPageType();
+        const key = `${pageType}.description`;
+        const description = this.getTranslation(key, this.getTranslation('home.description'));
+        if (description) {
+            metaDescription.setAttribute('content', description);
         }
     }
     
@@ -705,6 +759,15 @@ class UniversalTranslator {
                 break;
             case 'author':
                 this.updateAuthorPage(main);
+                break;
+            case 'contacts':
+                this.updateContactsPage(main);
+                break;
+            case 'order-status':
+                this.updateOrderStatusPage(main);
+                break;
+            case 'thanks':
+                this.updateThanksPage(main);
                 break;
         }
         
@@ -1202,6 +1265,10 @@ class UniversalTranslator {
         const switchBtn = document.querySelector('.language-switch');
         if (switchBtn) {
             switchBtn.textContent = this.currentLang === 'ru' ? 'EN' : 'RU';
+            switchBtn.setAttribute('aria-label', this.currentLang === 'ru' ? 'Switch to English' : 'Переключить на русский');
+
+            // Убираем inline-обработчик и навешиваем актуальный
+            try { switchBtn.removeAttribute('onclick'); } catch (e) {}
             switchBtn.onclick = () => this.switchLanguage();
             
             // Добавляем анимацию при смене языка
@@ -1225,9 +1292,176 @@ class UniversalTranslator {
     
     // Инициализирует перевод
     init() {
-        // Получаем сохраненный язык
-        const savedLang = localStorage.getItem('selectedLanguage') || 'ru';
+        // Пытаемся получить язык из URL ?lang=xx
+        const urlLang = this.getLangFromUrl();
+        // Из cookie
+        const cookieLang = this.getCookie('selectedLanguage');
+        
+        // Получаем сохраненный язык из localStorage или из атрибута html
+        const savedLang = urlLang || cookieLang || localStorage.getItem('selectedLanguage') || (document.documentElement.getAttribute('lang') || 'ru');
+        
+        // Гибридный авто-редирект: на главной — жесткий, на внутренних — мягкий
+        try {
+            const cfg = window.TranslationConfig || {};
+            const mode = cfg.autoRedirect || 'off';
+            const pageType = this.detectPageType();
+            if (mode === 'hybrid' && !urlLang) {
+                const preferred = savedLang || (navigator.language || 'en').slice(0,2);
+                if (pageType === 'home') {
+                    const u = new URL(window.location.href);
+                    u.searchParams.set('lang', preferred);
+                    if (u.href !== window.location.href) {
+                        return window.location.replace(u.href);
+                    }
+                }
+                // На внутренних страницах — без изменения URL, просто применяем
+            }
+        } catch (e) {}
+        
         this.setLanguage(savedLang);
+    }
+
+    // Вспомогательное: получить язык из параметра URL
+    getLangFromUrl() {
+        try {
+            const params = new URLSearchParams(window.location.search);
+            const lang = params.get('lang');
+            if (lang && this.translations[lang]) return lang;
+        } catch (e) {}
+        return null;
+    }
+
+    // Вспомогательное: проставить текущий язык во все внутренние ссылки
+    updateLinksWithLang() {
+        const currentLang = this.currentLang;
+        const anchors = document.querySelectorAll('a[href]');
+        anchors.forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+            if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('sms:') || href.startsWith('#')) return;
+            try {
+                const url = new URL(href, window.location.origin);
+                url.searchParams.set('lang', currentLang);
+                link.setAttribute('href', url.pathname + url.search + url.hash);
+            } catch (e) {
+                // Простая обработка относительных ссылок
+                if (href.includes('.html') || href === '/' || href === 'index.html') {
+                    if (href.includes('?')) {
+                        const [path, query] = href.split('?');
+                        const params = new URLSearchParams(query);
+                        params.set('lang', currentLang);
+                        link.setAttribute('href', path + '?' + params.toString());
+                    } else {
+                        link.setAttribute('href', href + '?lang=' + currentLang);
+                    }
+                }
+            }
+        });
+    }
+
+    // Специфичное обновление страницы "Купить/Заказать" (contacts.html)
+    updateContactsPage(main) {
+        // Hero блок
+        const title = main.querySelector('.order-title');
+        if (title) title.textContent = this.getTranslation('contacts.title', title.textContent);
+        
+        const subtitle = main.querySelector('.order-subtitle');
+        if (subtitle) subtitle.textContent = this.getTranslation('about.subtitle', subtitle.textContent);
+        
+        const price = main.querySelector('.price');
+        if (price) price.textContent = this.getTranslation('home.price', price.textContent);
+        
+        const delivery = main.querySelector('.delivery');
+        if (delivery) delivery.textContent = this.getTranslation('home.priceNote', delivery.textContent);
+        
+        const availability = main.querySelector('.availability');
+        if (availability) availability.textContent = this.getTranslation('contacts.availability', availability.textContent);
+        
+        // Breadcrumbs
+        const bcHome = document.querySelector('.breadcrumbs a[href="index.html"]');
+        if (bcHome) bcHome.textContent = this.getTranslation('nav.home', bcHome.textContent);
+        const bcCurrent = document.querySelector('.breadcrumbs span:last-child');
+        if (bcCurrent) bcCurrent.textContent = this.getTranslation('contacts.title', bcCurrent.textContent);
+        
+        // Заголовки секций формы
+        const contactHeader = main.querySelector('.order-form-section h2');
+        if (contactHeader) contactHeader.textContent = this.getTranslation('contacts.contactDetails', contactHeader.textContent);
+        const formDesc = main.querySelector('.order-form-section .form-description');
+        if (formDesc) formDesc.textContent = this.getTranslation('contacts.formDescription', formDesc.textContent);
+        
+        const sectionTitles = main.querySelectorAll('.order-form-section .form-section-title');
+        if (sectionTitles[0]) sectionTitles[0].textContent = this.getTranslation('contacts.personalData', sectionTitles[0].textContent);
+        if (sectionTitles[1]) sectionTitles[1].textContent = this.getTranslation('contacts.deliveryAddress', sectionTitles[1].textContent);
+        if (sectionTitles[2]) sectionTitles[2].textContent = this.getTranslation('contacts.orderDetails', sectionTitles[2].textContent);
+        
+        // Кнопки формы
+        const submitBtn = document.getElementById('submitBtn');
+        if (submitBtn) {
+            const btnText = submitBtn.querySelector('.button-text');
+            const btnLoading = submitBtn.querySelector('.button-loading');
+            if (btnText) btnText.textContent = this.getTranslation('contacts.sendButton', btnText.textContent);
+            if (btnLoading) btnLoading.textContent = this.getTranslation('contacts.sending', btnLoading.textContent);
+        }
+        
+        // Селектор количества
+        const quantitySelect = main.querySelector('#quantity');
+        if (quantitySelect) {
+            quantitySelect.querySelectorAll('option').forEach(opt => {
+                if (opt.value === '') {
+                    opt.textContent = this.currentLang === 'ru' ? 'Выберите количество' : 'Select quantity';
+                } else if (opt.value === 'more') {
+                    opt.textContent = this.currentLang === 'ru' ? 'Больше 5' : 'More than 5';
+                } else {
+                    const num = parseInt(opt.value, 10);
+                    if (!isNaN(num)) {
+                        const word = this.currentLang === 'ru' ? (num === 1 ? 'книга' : 'книги') : (num === 1 ? 'book' : 'books');
+                        const priceSuffix = this.currentLang === 'ru' ? ` - ${num * 1500} ₽` : ` - ${num * 1500} RUB`;
+                        opt.textContent = `${num} ${word}${priceSuffix}`;
+                    }
+                }
+            });
+        }
+        
+        // Способ доставки
+        const deliveryMethod = main.querySelector('#deliveryMethod');
+        if (deliveryMethod) {
+            deliveryMethod.querySelectorAll('option').forEach(opt => {
+                if (opt.value === '') {
+                    opt.textContent = this.currentLang === 'ru' ? 'Выберите способ доставки' : 'Select delivery method';
+                }
+                if (opt.value === 'post') opt.textContent = this.currentLang === 'ru' ? 'Почта России - 300 ₽' : 'Russian Post - 300 RUB';
+                if (opt.value === 'courier') opt.textContent = this.currentLang === 'ru' ? 'Курьерская доставка - 500 ₽' : 'Courier delivery - 500 RUB';
+                if (opt.value === 'pickup') opt.textContent = this.currentLang === 'ru' ? 'Самовывоз - 0 ₽' : 'Pickup - 0 RUB';
+            });
+        }
+        
+        // Сводка заказа
+        const orderSummaryHeader = main.querySelector('.order-summary h3');
+        if (orderSummaryHeader) orderSummaryHeader.textContent = this.getTranslation('contacts.orderSummary', orderSummaryHeader.textContent);
+    }
+
+    // Специфичное обновление страницы статуса заказа
+    updateOrderStatusPage(main) {
+        const title = main.querySelector('.section-title');
+        if (title) title.textContent = this.getTranslation('orderStatus.title', title.textContent);
+        const p = main.querySelector('p');
+        if (p) p.textContent = this.getTranslation('orderStatus.description', p.textContent);
+        const label = main.querySelector('label[for="orderNumber"]');
+        if (label) label.textContent = this.getTranslation('orderStatus.orderNumber', label.textContent) + ':';
+        const input = main.querySelector('#orderNumber');
+        if (input) input.setAttribute('placeholder', this.currentLang === 'ru' ? 'Введите номер заказа' : 'Enter your order number');
+        const btn = main.querySelector('button[type="submit"]');
+        if (btn) btn.textContent = this.getTranslation('orderStatus.checkButton', btn.textContent);
+    }
+
+    // Специфичное обновление страницы благодарности
+    updateThanksPage(main) {
+        const title = main.querySelector('.section-title');
+        if (title) title.textContent = this.getTranslation('thanks.title', title.textContent);
+        const msg = main.querySelector('.thanks-message');
+        if (msg) msg.textContent = this.getTranslation('thanks.description', msg.textContent);
+        const backBtn = main.querySelector('.cta-button.primary');
+        if (backBtn) backBtn.textContent = this.getTranslation('thanks.backToHome', backBtn.textContent);
     }
 }
 
