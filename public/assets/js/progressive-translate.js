@@ -28,11 +28,12 @@
         if (/^[\p{P}\p{S}\s0-9]+$/u.test(clean)) return false;
         // Heuristics by target
         if (targetLang === 'en') {
-            return isCyrillic(clean);
+            // English is the base; we do not translate into English
+            return false;
         } else if (targetLang === 'ru') {
             return isLatin(clean);
         }
-        return false;
+        return true;
     }
 
     function collectTextUnits(root, targetLang, visibleOnly) {
@@ -45,6 +46,8 @@
         }
         elements.forEach(el => {
             if (['SCRIPT','STYLE','NOSCRIPT'].includes(el.tagName)) return;
+            // Respect notranslate/locks
+            if (el.matches('[translate="no"], .notranslate, [data-i18n-lock]')) return;
             if (visibleOnly && !isInViewport(el)) return;
             // Text nodes
             el.childNodes.forEach(node => {
@@ -123,6 +126,10 @@
 
     async function progressiveTranslateCurrentPage(targetLang) {
         const sourceLang = getSourceLangForTarget(targetLang);
+        if (targetLang === 'en') {
+            // No translation needed when target is base English
+            return;
+        }
         // Pass 1: visible content
         const { unique: visItems, groups: visGroups } = collectTextUnits(document, targetLang, true);
         if (visItems.length > 0) {
