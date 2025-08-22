@@ -8,11 +8,7 @@ module.exports = {
         ecmaVersion: 2022,
         sourceType: 'script',
     },
-    extends: [
-        'eslint:recommended',
-        'plugin:node/recommended',
-        'prettier',
-    ],
+    extends: ['eslint:recommended', 'plugin:node/recommended', 'prettier'],
     plugins: ['node'],
     rules: {
         'node/no-unsupported-features/es-syntax': 'off',
@@ -21,5 +17,3 @@ module.exports = {
     },
     ignorePatterns: ['public/**', 'node_modules/**', 'docs/**', '.github/**'],
 };
-
-

@@ -15,5 +15,3 @@ describe('API', () => {
         expect(res.body).toHaveProperty('timestamp');
     });
 });
-
-

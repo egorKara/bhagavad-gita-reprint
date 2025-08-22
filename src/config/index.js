@@ -7,12 +7,12 @@ const defaultCorsOrigins = [
     'https://egorkara.github.io',
     'https://gita-1972-reprint.ru',
     'https://www.gita-1972-reprint.ru',
-    'https://api.gita-1972-reprint.ru'
+    'https://api.gita-1972-reprint.ru',
 ];
 
 const corsOrigins = (process.env.CORS_ORIGINS || '')
     .split(',')
-    .map(s => s.trim())
+    .map((s) => s.trim())
     .filter(Boolean);
 
 const config = {
@@ -21,8 +21,8 @@ const config = {
     corsOrigins: corsOrigins.length > 0 ? corsOrigins : defaultCorsOrigins,
     adminToken: process.env.ADMIN_TOKEN || null,
     metricsToken: process.env.METRICS_TOKEN || null,
+    recaptchaSecret: process.env.RECAPTCHA_SECRET || null,
+    turnstileSecret: process.env.TURNSTILE_SECRET || null,
 };
 
 module.exports = config;
-
-
