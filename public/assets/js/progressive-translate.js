@@ -47,7 +47,8 @@
         elements.forEach(el => {
             if (['SCRIPT','STYLE','NOSCRIPT'].includes(el.tagName)) return;
             // Respect notranslate/locks
-            if (el.matches('[translate="no"], .notranslate, [data-i18n-lock]')) return;
+            if (el.matches('[translate="no"], .notranslate')) return;
+            if (el.matches('[data-i18n-lock]') && targetLang === 'en') return;
             if (visibleOnly && !isInViewport(el)) return;
             // Text nodes
             el.childNodes.forEach(node => {
