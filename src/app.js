@@ -119,7 +119,6 @@ app.use('/api/status', statusRoutes);
 app.use('/api/orders', orderRoutes);
 
 // Централизованный обработчик ошибок
-// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, _next) => {
     console.error('Unhandled error:', err);
     res.status(500).json({ error: 'Internal Server Error', requestId: req.id });
