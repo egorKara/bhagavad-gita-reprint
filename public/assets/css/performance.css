@@ -1,11 +1,10 @@
 /* CSS оптимизации для производительности */
 
 /* Оптимизация рендеринга */
+/* Убираем глобальные 3D-трансформации, чтобы не ломать fixed/sticky и контексты наложения */
+/* Аппаратное ускорение оставляем только на интерактивных элементах точечно (см. ниже) */
 * {
-    /* Включаем аппаратное ускорение для трансформаций */
-    transform: translateZ(0);
     backface-visibility: hidden;
-    perspective: 1000px;
 }
 
 /* Оптимизация анимаций */
@@ -14,11 +13,10 @@
 .language-switch,
 .publication-card,
 .material-item,
-.principle-item {
-    /* Используем transform вместо изменения layout свойств */
+.principle-item,
+.theme-switch {
+    /* Используем transform вместо изменения layout свойств, точечно включаем композитный слой */
     will-change: transform;
-    /* Оптимизируем композитный слой */
-    transform: translateZ(0);
 }
 
 /* Оптимизация изображений */
@@ -118,8 +116,9 @@ html {
 }
 
 /* Оптимизация для темной темы */
+/* Не переопределяем вручную выбранную тему: если установлен data-theme на <html>, ОС-тема не применяется */
 @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme]) {
         --background-light: #1a1a1a;
         --background-white: #2d2d2d;
         --text-dark: #ffffff;
@@ -142,7 +141,7 @@ html {
 
 /* Оптимизация для устройств с высоким контрастом */
 @media (prefers-contrast: high) {
-    :root {
+    :root:not([data-theme]) {
         --primary-color: #000000;
         --secondary-color: #000000;
         --accent-color: #ffffff;

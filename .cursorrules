@@ -1,0 +1,34 @@
+# Единые правила для Cursor-агентов
+
+communication:
+  language: ru
+  style: concise
+  code_blocks: only for relevant snippets
+
+workflow:
+  - always_pull_before_work: true
+  - run_lint_and_tests_before_commit: false
+  - prefer_small_atomic_commits: true
+  - update_PROJECT_TODO_after_changes: true
+
+coding:
+  js_ts:
+    eslint: true
+    prettier: true
+  html_css:
+    keep_indentation: true
+    avoid_inline_styles: true
+
+security:
+  avoid_exposing_secrets: true
+  use_env_and_github_secrets: true
+
+i18n:
+  default_lang: ru
+  persist_language_in_localStorage: true
+
+theming:
+  use_css_variables: true
+  respect_manual_theme_over_os: true
+
+
