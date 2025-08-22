@@ -1233,6 +1233,59 @@ nav a {
     margin: 0;
 }
 
+/* Галерея книги */
+.book-gallery-section {
+    background: var(--background-light);
+    padding: 80px 0;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.gallery-item {
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+    transition: var(--transition);
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-strong);
+}
+
+.gallery-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+.gallery-caption {
+    padding: 20px;
+    text-align: center;
+    font-weight: 600;
+    color: var(--primary-color);
+    background: var(--background-white);
+}
+
+/* Адаптивность галереи */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .gallery-image {
+        height: 200px;
+    }
+}
+
 /* Секция формы заказа */
 .order-form-section {
     margin-bottom: 60px;
@@ -2024,4 +2077,33 @@ nav a {
 
 .checkbox-label .link:hover {
     color: var(--secondary-color);
+}
+
+/* ===== СТИЛИ ДЛЯ ИЗОБРАЖЕНИЙ ===== */
+
+.about-image {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.about-image img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    transition: var(--transition);
+}
+
+.about-image img:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-strong);
+}
+
+.image-caption {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-style: italic;
 }
