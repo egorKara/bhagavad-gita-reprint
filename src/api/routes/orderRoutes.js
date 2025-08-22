@@ -6,31 +6,47 @@
 const express = require('express');
 const router = express.Router();
 const orderController = require('../controllers/orderController');
+const { adminToken } = require('../../config');
 
-// Создание нового заказа
+function requireAdminAuth(req, res, next) {
+    const authHeader = req.headers['authorization'] || '';
+    if (adminToken && authHeader === `Bearer ${adminToken}`) {
+        return next();
+    }
+    return res.status(401).json({
+        success: false,
+        error: 'Unauthorized',
+    });
+}
+
+// Создание нового заказа (публично)
 router.post('/create', async (req, res) => {
     try {
-        const result = await orderController.createOrder(req.body);
+        const idempotencyKey = req.headers['x-idempotency-key'];
+        const captchaToken = req.headers['x-captcha-token'] || req.body.captchaToken;
+        const captchaProvider = req.headers['x-captcha-provider'] || req.body.captchaProvider;
+        const options = { idempotencyKey, captchaToken, captchaProvider };
+        const result = await orderController.createOrder(req.body, options);
         res.json(result);
     } catch (error) {
         res.status(400).json({
             success: false,
-            error: error.message
+            error: error.message,
         });
     }
 });
 
-// Получение всех заказов (с пагинацией)
-router.get('/list', async (req, res) => {
+// Получение всех заказов (админ, с пагинацией)
+router.get('/list', requireAdminAuth, async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 20;
         const orders = await orderController.readOrders();
-        
+
         const startIndex = (page - 1) * limit;
         const endIndex = page * limit;
         const paginatedOrders = orders.slice(startIndex, endIndex);
-        
+
         res.json({
             success: true,
             data: paginatedOrders,
@@ -39,125 +55,128 @@ router.get('/list', async (req, res) => {
                 totalPages: Math.ceil(orders.length / limit),
                 totalOrders: orders.length,
                 hasNextPage: endIndex < orders.length,
-                hasPrevPage: page > 1
-            }
+                hasPrevPage: page > 1,
+            },
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            error: error.message
+            error: error.message,
         });
     }
 });
 
-// Получение заказа по ID
-router.get('/:orderId', async (req, res) => {
+// Получение заказа по ID (админ)
+router.get('/:orderId', requireAdminAuth, async (req, res) => {
     try {
         const order = await orderController.getOrderById(req.params.orderId);
         if (!order) {
             return res.status(404).json({
                 success: false,
-                error: 'Заказ не найден'
+                error: 'Заказ не найден',
             });
         }
         res.json({
             success: true,
-            data: order
+            data: order,
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            error: error.message
+            error: error.message,
         });
     }
 });
 
-// Обновление статуса заказа
-router.patch('/:orderId/status', async (req, res) => {
+// Обновление статуса заказа (админ)
+router.patch('/:orderId/status', requireAdminAuth, async (req, res) => {
     try {
         const { status } = req.body;
         if (!status) {
             return res.status(400).json({
                 success: false,
-                error: 'Статус не указан'
+                error: 'Статус не указан',
             });
         }
-        
+
         const result = await orderController.updateOrderStatus(req.params.orderId, status);
         res.json(result);
     } catch (error) {
         res.status(400).json({
             success: false,
-            error: error.message
+            error: error.message,
         });
     }
 });
 
-// Поиск заказов
-router.get('/search/:query', async (req, res) => {
+// Поиск заказов (админ)
+router.get('/search/:query', requireAdminAuth, async (req, res) => {
     try {
         const orders = await orderController.searchOrders(req.params.query);
         res.json({
             success: true,
             data: orders,
-            count: orders.length
+            count: orders.length,
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            error: error.message
+            error: error.message,
         });
     }
 });
 
-// Получение статистики заказов
-router.get('/stats/overview', async (req, res) => {
+// Получение статистики заказов (админ)
+router.get('/stats/overview', requireAdminAuth, async (req, res) => {
     try {
         const stats = await orderController.getOrderStats();
         res.json({
             success: true,
-            data: stats
+            data: stats,
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            error: error.message
+            error: error.message,
         });
     }
 });
 
-// Экспорт заказов в CSV
-router.get('/export/csv', async (req, res) => {
+// Экспорт заказов в CSV (админ)
+router.get('/export/csv', requireAdminAuth, async (req, res) => {
     try {
         const csvData = await orderController.exportOrdersToCSV();
-        
+
         if (!csvData) {
             return res.status(404).json({
                 success: false,
-                error: 'Нет данных для экспорта'
+                error: 'Нет данных для экспорта',
             });
         }
 
         res.setHeader('Content-Type', 'text/csv');
-        res.setHeader('Content-Disposition', `attachment; filename="orders-${new Date().toISOString().slice(0, 10)}.csv"`);
+        res.setHeader(
+            'Content-Disposition',
+            `attachment; filename="orders-${new Date().toISOString().slice(0, 10)}.csv"`
+        );
         res.send(csvData);
     } catch (error) {
         res.status(500).json({
             success: false,
-            error: error.message
+            error: error.message,
         });
     }
 });
 
-// Удаление заказа
-router.delete('/:orderId', async (req, res) => {
+// Удаление заказа (админ)
+router.delete('/:orderId', requireAdminAuth, async (req, res) => {
     try {
         const result = await orderController.deleteOrder(req.params.orderId);
         res.json(result);
     } catch (error) {
         res.status(400).json({
             success: false,
-            error: error.message
+            error: error.message,
         });
     }
 });

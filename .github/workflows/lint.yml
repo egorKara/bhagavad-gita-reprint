@@ -5,8 +5,7 @@ on:
     branches: ["main"]
     paths:
       - '**/*.js'
-      - '.eslintrc.cjs'
-      - '.eslintignore'
+      - 'eslint.config.js'
       - '.prettierrc'
       - '.prettierignore'
       - 'package.json'

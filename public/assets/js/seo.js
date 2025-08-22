@@ -153,7 +153,7 @@ function improveTwitterCards() {
         { name: 'twitter:creator', content: '@gita1972reprint' },
         { name: 'twitter:title', content: document.title },
         { name: 'twitter:description', content: document.querySelector('meta[name="description"]')?.getAttribute('content') || '' },
-        { name: 'twitter:image', content: 'https://gita-1972-reprint.ru/assets/images/cover-hero.jpg' },
+        { name: 'twitter:image', content: 'https://gita-1972-reprint.ru/assets/images/share-cover-1972-1200x630.jpg' },
         { name: 'twitter:image:alt', content: 'Обложка Бхагавад-Гиты 1972 года' }
     ];
     
