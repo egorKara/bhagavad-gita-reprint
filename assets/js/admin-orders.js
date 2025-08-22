@@ -10,13 +10,32 @@ class AdminOrdersManager {
         this.allOrders = [];
         this.filteredOrders = [];
         this.currentOrder = null;
+        this.adminToken = null;
         
         this.init();
     }
 
     init() {
+        this.ensureAuth();
         this.loadOrders();
         this.bindEvents();
+    }
+
+    ensureAuth() {
+        const stored = sessionStorage.getItem('admin_token');
+        if (stored) {
+            this.adminToken = stored;
+            return;
+        }
+        const token = window.prompt('Введите токен администратора');
+        if (token && token.trim()) {
+            this.adminToken = token.trim();
+            sessionStorage.setItem('admin_token', this.adminToken);
+        }
+    }
+
+    getAuthHeaders() {
+        return this.adminToken ? { 'Authorization': `Bearer ${this.adminToken}` } : {};
     }
 
     bindEvents() {
@@ -43,7 +62,9 @@ class AdminOrdersManager {
      */
     async loadOrders() {
         try {
-            const response = await fetch('/api/orders/list');
+            const response = await fetch('/api/orders/list', {
+                headers: this.getAuthHeaders()
+            });
             const data = await response.json();
             
             if (data.success) {
@@ -312,7 +333,9 @@ class AdminOrdersManager {
             
             if (typeof orderId === 'string') {
                 // Если передан ID, загружаем заказ
-                const response = await fetch(`/api/orders/${orderId}`);
+                const response = await fetch(`/api/orders/${orderId}`, {
+                    headers: this.getAuthHeaders()
+                });
                 const data = await response.json();
                 
                 if (data.success) {
@@ -414,24 +437,22 @@ class AdminOrdersManager {
     async updateOrderStatus() {
         if (!this.currentOrder) return;
 
-        const newStatus = prompt('Введите новый статус (new, processing, shipped, delivered, cancelled):');
-        if (!newStatus) return;
+        const newStatus = document.getElementById('orderStatusSelect')?.value || 'processing';
 
         try {
             const response = await fetch(`/api/orders/${this.currentOrder.id}/status`, {
                 method: 'PATCH',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    ...this.getAuthHeaders(),
                 },
                 body: JSON.stringify({ status: newStatus })
             });
-
             const data = await response.json();
-            
+
             if (data.success) {
-                this.showSuccess('Статус заказа обновлен');
-                this.closeOrderModal();
-                this.loadOrders(); // Перезагружаем заказы
+                this.showSuccess('Статус обновлен');
+                this.refreshOrders();
             } else {
                 this.showError('Ошибка обновления статуса: ' + data.error);
             }
@@ -449,23 +470,16 @@ class AdminOrdersManager {
             orderId = this.currentOrder.id;
         }
 
-        if (!orderId) return;
-
-        if (!confirm('Вы уверены, что хотите удалить этот заказ? Это действие нельзя отменить.')) {
-            return;
-        }
-
         try {
             const response = await fetch(`/api/orders/${orderId}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: this.getAuthHeaders(),
             });
-
             const data = await response.json();
-            
+
             if (data.success) {
                 this.showSuccess('Заказ удален');
-                this.closeOrderModal();
-                this.loadOrders(); // Перезагружаем заказы
+                this.refreshOrders();
             } else {
                 this.showError('Ошибка удаления заказа: ' + data.error);
             }
@@ -480,7 +494,9 @@ class AdminOrdersManager {
      */
     async exportToCSV() {
         try {
-            const response = await fetch('/api/orders/export/csv');
+            const response = await fetch('/api/orders/export/csv', {
+                headers: this.getAuthHeaders(),
+            });
             
             if (response.ok) {
                 const blob = await response.blob();
@@ -509,7 +525,9 @@ class AdminOrdersManager {
      */
     async loadStats() {
         try {
-            const response = await fetch('/api/orders/stats/overview');
+            const response = await fetch('/api/orders/stats/overview', {
+                headers: this.getAuthHeaders(),
+            });
             const data = await response.json();
             
             if (data.success) {
