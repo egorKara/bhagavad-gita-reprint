@@ -48,74 +48,18 @@
         return true;
     }
 
-    function collectTextUnits(root, targetLang, visibleOnly) {
-        const items = [];
-        const elements = root.querySelectorAll('*');
-        const viewport = root === document ? { top: 0, left: 0, right: window.innerWidth, bottom: window.innerHeight } : null;
-        function isInViewport(el) {
-            const r = el.getBoundingClientRect();
-            return r.bottom >= 0 && r.right >= 0 && r.top <= (window.innerHeight || 0) && r.left <= (window.innerWidth || 0);
-        }
-        elements.forEach(el => {
-            if (['SCRIPT','STYLE','NOSCRIPT'].includes(el.tagName)) return;
-            // Respect notranslate/locks
-            if (el.matches('[translate="no"], .notranslate')) return;
-            if (el.matches('[data-i18n-lock]') && targetLang === 'en') return;
-            if (visibleOnly && !isInViewport(el)) return;
-            // Text nodes
-            el.childNodes.forEach(node => {
-                if (node.nodeType === Node.TEXT_NODE) {
-                    const text = node.nodeValue;
-                    if (shouldTranslateText(text, targetLang)) {
-                        items.push({ text: text.trim(), apply: (t) => node.nodeValue = t });
-                    }
-                }
-            });
-            // Attributes
-            const attrs = ['alt','title','placeholder','aria-label','value'];
-            attrs.forEach(attr => {
-                const v = el.getAttribute && el.getAttribute(attr);
-                if (v && shouldTranslateText(v, targetLang)) {
-                    items.push({ text: v.trim(), apply: (t) => el.setAttribute(attr, t) });
-                }
-            });
-        });
-        // De-duplicate by text
-        const seen = new Map();
-        const unique = [];
-        for (const it of items) {
-            if (!seen.has(it.text)) {
-                seen.set(it.text, [it]);
-                unique.push(it);
-            } else {
-                seen.get(it.text).push(it);
-            }
-        }
-        return { unique, groups: seen };
-    }
-
-    async function postJSON(url, body) {
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
-        if (!res.ok) throw new Error(await res.text());
-        return res.json();
-    }
-
-    async function getJSON(url) {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(await res.text());
-        return res.json();
-    }
-
     async function applyImmediateResults(groups, results) {
         const map = new Map(results.map(r => [r.text, r.translation]));
         for (const [text, targets] of groups.entries()) {
             const tr = map.get(text);
             if (tr) {
-                targets.forEach(unit => unit.apply(tr));
+                targets.forEach(unit => {
+                    if (unit.apply && window.TranslationAnimation && window.TranslationAnimation.dustSwap && unit.node) {
+                        try { window.TranslationAnimation.dustSwap(unit, tr); } catch(_) { unit.apply(tr); }
+                    } else {
+                        unit.apply(tr);
+                    }
+                });
             }
         }
     }
