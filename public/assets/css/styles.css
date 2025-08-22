@@ -111,6 +111,30 @@
     --gradient-light: linear-gradient(135deg, #F0F8FF 0%, #FFFFFF 100%);
 }
 
+/* ===== НОВАЯ ТЕМА: KRISHNA ===== */
+[data-theme="krishna"] {
+    --primary-color: #2E4DA7; /* Primary Blue (Кришна) */
+    --secondary-color: #6A3B90; /* Deep Violet */
+    --accent-color: #E5B92E; /* Sacred Gold */
+    --text-dark: #1E2140;
+    --text-light: #5C6388;
+    --background-light: #FAF9F6; /* Lotus White */
+    --background-white: #FFFFFF;
+    --border-color: #E8E4D8;
+
+    --success-color: #3A6B4F; /* Forest Green */
+    --warning-color: #E47B2D; /* Accent Orange */
+    --info-color: #E27DA6;    /* Divine Pink */
+
+    --gradient-primary: linear-gradient(135deg, #2E4DA7, #6A3B90);
+    --gradient-accent: linear-gradient(135deg, #E5B92E, #E47B2D);
+    --overlay-accent: rgba(229, 185, 46, 0.12);
+
+    --border-radius: 12px;
+    --shadow-light: 0 4px 14px rgba(46, 77, 167, 0.12);
+    --shadow-medium: 0 10px 30px rgba(46, 77, 167, 0.16);
+}
+
 * {
     box-sizing: border-box;
 }
@@ -122,6 +146,86 @@ body {
     background-color: var(--background-light);
     margin: 0;
     padding: 0;
+}
+
+/* ===== Типографика для дизайн-системы (без ломки существующего) ===== */
+body {
+    font-family: 'Lato', 'Open Sans', Arial, sans-serif;
+}
+
+h1, h2, h3, .display {
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+blockquote, .shloka {
+    font-family: 'Merriweather', Georgia, serif;
+    font-style: italic;
+}
+
+/* ===== Кнопки под систему Krishna ===== */
+.cta-button.primary {
+    background: var(--primary-color);
+    color: #fff;
+    box-shadow: var(--shadow-light);
+}
+
+.cta-button.primary:hover {
+    box-shadow: 0 8px 30px rgba(229, 185, 46, 0.35);
+    transform: translateY(-2px);
+}
+
+.cta-button.secondary {
+    background: #fff;
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+}
+
+.cta-button.secondary:hover {
+    background: var(--accent-color);
+    color: #1b1a15;
+}
+
+/* Икон-кнопка (лотос/флейта) */
+.icon-button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--background-white);
+    border: 2px solid var(--border-color);
+    color: var(--primary-color);
+    box-shadow: var(--shadow-light);
+}
+
+.icon-button:hover {
+    border-color: var(--accent-color);
+    color: var(--secondary-color);
+}
+
+/* ===== Формы под систему Krishna ===== */
+.form-input,
+.form-textarea,
+.form-select {
+    background: #fff;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(226, 125, 166, 0.14); /* Divine Pink glow */
+}
+
+/* Карточки/блоки с мягкой золотой рамкой */
+.card-krishna {
+    background: var(--background-white);
+    border: 2px solid var(--accent-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
 }
 
 .container {
