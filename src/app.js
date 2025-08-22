@@ -33,11 +33,13 @@ app.use((req, res, next) => {
 });
 
 // Access logs
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms id=:req[id]', {
-    stream: {
-        write: (message) => process.stdout.write(message)
-    }
-}));
+app.use(
+    morgan(':method :url :status :res[content-length] - :response-time ms id=:req[id]', {
+        stream: {
+            write: (message) => process.stdout.write(message),
+        },
+    })
+);
 
 // Basic rate limit for API
 const apiLimiter = rateLimit({
@@ -56,11 +58,13 @@ const createOrderLimiter = rateLimit({
 });
 
 // CORS (для фронта на другом домене)
-app.use(cors({
-    origin: corsOrigins,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    credentials: false
-}));
+app.use(
+    cors({
+        origin: corsOrigins,
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+        credentials: false,
+    })
+);
 
 // Применяем лимит только к API
 app.use('/api', apiLimiter);
@@ -74,7 +78,7 @@ const httpRequestDuration = new client.Histogram({
     name: 'http_request_duration_seconds',
     help: 'Duration of HTTP requests in seconds',
     labelNames: ['method', 'route', 'status_code'],
-    buckets: [0.05, 0.1, 0.3, 0.5, 1, 3, 5]
+    buckets: [0.05, 0.1, 0.3, 0.5, 1, 3, 5],
 });
 
 app.use((req, res, next) => {
@@ -90,15 +94,12 @@ app.use((req, res, next) => {
 
 function requireMetricsAuth(req, res, next) {
     const authHeader = req.headers['authorization'] || '';
-    if (metricsToken) {
-        if (authHeader === `Bearer ${metricsToken}`) {
-            return next();
-        }
-        return res.status(401).json({ error: 'Unauthorized' });
+    if (!metricsToken) {
+        return res
+            .status(503)
+            .json({ error: 'Metrics are disabled. Set METRICS_TOKEN to enable.' });
     }
-    // Если токен не задан, разрешаем только с loopback
-    const ip = req.ip || '';
-    if (ip === '127.0.0.1' || ip === '::1') {
+    if (authHeader === `Bearer ${metricsToken}`) {
         return next();
     }
     return res.status(401).json({ error: 'Unauthorized' });
@@ -107,6 +108,16 @@ function requireMetricsAuth(req, res, next) {
 app.get('/metrics', requireMetricsAuth, async (req, res) => {
     res.set('Content-Type', client.register.contentType);
     res.end(await client.register.metrics());
+});
+
+// Liveness and Readiness endpoints
+app.get('/livez', (req, res) => {
+    res.status(200).send('ok');
+});
+
+app.get('/readyz', async (req, res) => {
+    // Add deeper checks here (e.g., DB connectivity) when available
+    res.status(200).send('ok');
 });
 
 // Endpoint для проверки состояния сервера (health check)
@@ -119,7 +130,6 @@ app.use('/api/status', statusRoutes);
 app.use('/api/orders', orderRoutes);
 
 // Централизованный обработчик ошибок
-// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, _next) => {
     console.error('Unhandled error:', err);
     res.status(500).json({ error: 'Internal Server Error', requestId: req.id });

@@ -1,5 +1,10 @@
 const express = require('express');
-const { getStatus, getSystemInfo, getSecurityStatus, getNginxStats } = require('../controllers/statusController');
+const {
+    getStatus,
+    getSystemInfo,
+    getSecurityStatus,
+    getNginxStats,
+} = require('../controllers/statusController');
 const { adminToken } = require('../../config');
 const router = express.Router();
 
@@ -18,5 +23,3 @@ router.get('/security-status', requireAdminAuth, getSecurityStatus);
 router.get('/nginx-stats', requireAdminAuth, getNginxStats);
 
 module.exports = router;
-
-
