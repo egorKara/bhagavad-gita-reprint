@@ -1,4 +1,5 @@
 window.TranslationConfig = {
     baseLang: 'en',
-    allowTranslateToBase: true
+    allowTranslateToBase: true,
+    autoRedirect: 'hybrid'
 };

@@ -705,7 +705,7 @@ class UniversalTranslator {
     // Определяет тип страницы
     detectPageType() {
         const path = window.location.pathname;
-        if (path.includes('index.html') || path === '/') return 'home';
+        if (path.includes('index.html') || path === '/' || path === '') return 'home';
         if (path.includes('about.html')) return 'about';
         if (path.includes('author.html')) return 'author';
         if (path.includes('contacts.html')) return 'contacts';
@@ -1299,6 +1299,24 @@ class UniversalTranslator {
         
         // Получаем сохраненный язык из localStorage или из атрибута html
         const savedLang = urlLang || cookieLang || localStorage.getItem('selectedLanguage') || (document.documentElement.getAttribute('lang') || 'ru');
+        
+        // Гибридный авто-редирект: на главной — жесткий, на внутренних — мягкий
+        try {
+            const cfg = window.TranslationConfig || {};
+            const mode = cfg.autoRedirect || 'off';
+            const pageType = this.detectPageType();
+            if (mode === 'hybrid' && !urlLang) {
+                const preferred = savedLang || (navigator.language || 'en').slice(0,2);
+                if (pageType === 'home') {
+                    const u = new URL(window.location.href);
+                    u.searchParams.set('lang', preferred);
+                    if (u.href !== window.location.href) {
+                        return window.location.replace(u.href);
+                    }
+                }
+                // На внутренних страницах — без изменения URL, просто применяем
+            }
+        } catch (e) {}
         
         this.setLanguage(savedLang);
     }
