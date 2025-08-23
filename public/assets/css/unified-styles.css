@@ -16,6 +16,17 @@ body {
     background: var(--color-background);
 }
 
+/* ===== ВЫДЕЛЕНИЕ ТЕКСТА ===== */
+::selection {
+    background: var(--color-accent);
+    color: var(--color-text);
+}
+
+::-moz-selection {
+    background: var(--color-accent);
+    color: var(--color-text);
+}
+
 /* ===== ЦВЕТОВЫЕ СХЕМЫ (МАКСИМУМ 4 ЦВЕТА) ===== */
 
 /* СХЕМА 1: КЛАССИЧЕСКАЯ */
