@@ -19,6 +19,7 @@ const translations = {
                 illustrations: "44 оригинальные иллюстрации",
                 license: "Официальная лицензия BBT"
             },
+            priceLabel: "Цена:",
             price: "1500 ₽",
             priceNote: "Доставка по России",
             orderButton: "Заказать книгу",
@@ -368,6 +369,7 @@ const translations = {
                 illustrations: "44 original illustrations",
                 license: "Official BBT license"
             },
+            priceLabel: "Price:",
             price: "1500 RUB",
             priceNote: "Delivery across Russia",
             orderButton: "Order Book",
@@ -796,12 +798,18 @@ class UniversalTranslator {
     // Переводит заголовки
     translateHeadings(main) {
         const headings = main.querySelectorAll('h1, h2, h3, h4, h5, h6');
-        headings.forEach(heading => {
+        console.log(`🔍 Найдено заголовков для перевода: ${headings.length}`);
+        
+        headings.forEach((heading, index) => {
             const text = heading.textContent.trim();
+            console.log(`📝 Обрабатываю заголовок ${index + 1}: "${text}"`);
+            
             const translation = this.findTranslationForText(text);
             if (translation) {
                 heading.textContent = translation;
-                console.log(`📝 Заголовок переведен: "${text}" → "${translation}"`);
+                console.log(`✅ Заголовок переведен: "${text}" → "${translation}"`);
+            } else {
+                console.log(`⚠️ Перевод не найден для: "${text}"`);
             }
         });
     }
@@ -936,6 +944,12 @@ class UniversalTranslator {
         }
         
         // Обновляем цену
+        const priceLabel = main.querySelector('.price-label');
+        if (priceLabel) {
+            priceLabel.textContent = this.getTranslation('home.priceLabel');
+            console.log(`✅ Подпись цены обновлена: "${this.getTranslation('home.priceLabel')}"`);
+        }
+        
         const price = main.querySelector('.price');
         if (price) {
             price.textContent = this.getTranslation('home.price');

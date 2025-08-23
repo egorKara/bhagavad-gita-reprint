@@ -264,6 +264,9 @@ class ThemeSwitcher {
                 <div class="theme-actions">
                     <button class="theme-apply-btn">Применить схему</button>
                     <button class="theme-close-btn">Закрыть</button>
+                    <p style="margin-top: 15px; color: var(--text-light); font-size: 0.9rem; text-align: center;">
+                        💡 Подсказка: Кликните за пределами окна или нажмите Escape для закрытия
+                    </p>
                 </div>
             </div>
         `;
@@ -282,37 +285,48 @@ class ThemeSwitcher {
     }
     
     bindModalEvents(modal) {
-        // Выбор темы
+        // Сохраняем текущую тему для возможности отмены
+        const originalTheme = this.currentTheme;
+        
+        // Выбор темы с мгновенным предварительным просмотром
         modal.querySelectorAll('.theme-option').forEach(option => {
             option.addEventListener('click', () => {
                 modal.querySelectorAll('.theme-option').forEach(opt => opt.classList.remove('active'));
                 option.classList.add('active');
-                this.currentTheme = option.dataset.theme;
+                const selectedTheme = option.dataset.theme;
+                
+                // Мгновенно применяем тему для предварительного просмотра
+                this.applyTheme(selectedTheme);
+                this.currentTheme = selectedTheme;
             });
         });
         
-        // Применение темы
+        // Применение темы (сохранение выбора)
         modal.querySelector('.theme-apply-btn').addEventListener('click', () => {
-            this.applyTheme(this.currentTheme);
+            this.saveTheme();
+            this.showThemeNotification(this.currentTheme);
+            this.closeModal(modal);
+        });
+        
+        // Закрытие модального окна (сохраняем выбранную тему)
+        modal.querySelector('.theme-close-btn').addEventListener('click', () => {
             this.saveTheme();
             this.closeModal(modal);
         });
         
-        // Закрытие модального окна
-        modal.querySelector('.theme-close-btn').addEventListener('click', () => {
-            this.closeModal(modal);
-        });
-        
-        // Закрытие по клику вне модального окна
+        // Закрытие по клику вне модального окна (сохраняем выбранную тему)
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
+                this.saveTheme();
                 this.closeModal(modal);
             }
         });
         
-        // Закрытие по Escape
+        // Закрытие по Escape (возвращаем исходную тему)
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
+                this.applyTheme(originalTheme);
+                this.currentTheme = originalTheme;
                 this.closeModal(modal);
             }
         });
