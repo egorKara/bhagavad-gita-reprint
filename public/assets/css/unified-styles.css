@@ -112,6 +112,19 @@ body {
     --color-light-text: var(--color-primary);   /* Темно-оливковый */
 }
 
+/* СХЕМА 7: ТЁМНАЯ (ДЕМОНСТРАЦИЯ ПРИНЦИПА) */
+[data-theme="dark"] {
+    --color-primary: #4A5568;      /* Средне-серый */
+    --color-secondary: #718096;    /* Светло-серый */
+    --color-accent: #F6AD55;       /* Тёплый оранжевый */
+    --color-text: #F7FAFC;         /* Почти белый (СВЕТЛЫЙ на тёмном!) */
+    
+    /* Производные из основных 4-х */
+    --color-background: #1A202C;   /* Очень тёмный фон */
+    --color-border: var(--color-secondary);     /* Светло-серый */
+    --color-light-text: var(--color-secondary); /* Светло-серый */
+}
+
 /* ===== КОМПОНЕНТЫ ===== */
 
 /* ===== СОВРЕМЕННАЯ СИСТЕМА КОНТЕЙНЕРОВ ===== */
