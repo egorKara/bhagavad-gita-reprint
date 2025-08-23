@@ -19,6 +19,7 @@
         "docs": "jsdoc -c jsdoc.conf.json",
         "docs:watch": "jsdoc -c jsdoc.conf.json --watch",
         "lighthouse": "lhci autorun",
+        "lighthouse:legacy": "lhci autorun --config=lighthouserc-legacy.cjs",
         "dev": "python3 -m http.server 8000 --bind 127.0.0.1 --directory public",
         "serve": "python3 -m http.server 8002 --bind 127.0.0.1 --directory public",
         "prepare": "husky"

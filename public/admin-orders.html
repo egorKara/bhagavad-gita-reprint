@@ -30,7 +30,7 @@
                     <div class="search-box">
                         <input
                             type="text"
-                            id="searchInput"
+                            id="search-input"
                             placeholder="Поиск по имени, email, телефону..."
                             class="search-input"
                         />
@@ -46,7 +46,7 @@
 
                 <!-- Фильтры -->
                 <div class="filters">
-                    <select id="statusFilter" onchange="filterOrders()" class="filter-select">
+                    <select id="status-filter" onchange="filterOrders()" class="filter-select">
                         <option value="">Все статусы</option>
                         <option value="new">Новый</option>
                         <option value="processing">В обработке</option>
@@ -55,7 +55,7 @@
                         <option value="cancelled">Отменен</option>
                     </select>
 
-                    <select id="dateFilter" onchange="filterOrders()" class="filter-select">
+                    <select id="date-filter" onchange="filterOrders()" class="filter-select">
                         <option value="">Все даты</option>
                         <option value="today">Сегодня</option>
                         <option value="week">За неделю</option>
@@ -65,7 +65,7 @@
 
                 <!-- Таблица заказов -->
                 <div class="orders-table-container">
-                    <table class="orders-table" id="ordersTable">
+                    <table class="orders-table" id="orders-table">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -79,7 +79,7 @@
                                 <th>Действия</th>
                             </tr>
                         </thead>
-                        <tbody id="ordersTableBody">
+                        <tbody id="orders-table-body">
                             <!-- Заказы будут загружены динамически -->
                         </tbody>
                     </table>
@@ -91,24 +91,24 @@
                 </div>
 
                 <!-- Статистика -->
-                <div class="stats-overview" id="statsOverview" style="display: none">
+                <div class="stats-overview" id="stats-overview" style="display: none">
                     <h2>Общая статистика</h2>
                     <div class="stats-grid">
                         <div class="stat-card">
                             <h3>Всего заказов</h3>
-                            <p id="totalOrders">0</p>
+                            <p id="total-orders">0</p>
                         </div>
                         <div class="stat-card">
                             <h3>Общая выручка</h3>
-                            <p id="totalRevenue">0 ₽</p>
+                            <p id="total-revenue">0 ₽</p>
                         </div>
                         <div class="stat-card">
                             <h3>Средний чек</h3>
-                            <p id="averageOrder">0 ₽</p>
+                            <p id="average-order">0 ₽</p>
                         </div>
                         <div class="stat-card">
                             <h3>Заказов сегодня</h3>
-                            <p id="todayOrders">0</p>
+                            <p id="today-orders">0</p>
                         </div>
                     </div>
                 </div>
@@ -116,16 +116,16 @@
         </main>
 
         <!-- Модальное окно для просмотра заказа -->
-        <div id="orderModal" class="modal" style="display: none">
+        <div id="order-modal" class="modal" style="display: none">
             <div class="modal-content">
                 <span class="close" onclick="closeOrderModal()">&times;</span>
                 <h2>Детали заказа</h2>
-                <div id="orderDetails">
+                <div id="order-details">
                     <!-- Детали заказа будут загружены динамически -->
                 </div>
                 <div class="modal-actions">
                     <label for="orderStatusSelect" style="margin-right: 8px">Статус:</label>
-                    <select id="orderStatusSelect" class="filter-select" style="margin-right: 12px">
+                    <select id="order-status-select" class="filter-select" style="margin-right: 12px">
                         <option value="processing">В обработке</option>
                         <option value="shipped">Отправлен</option>
                         <option value="delivered">Доставлен</option>
