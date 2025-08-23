@@ -213,17 +213,32 @@ class OrderFormValidator {
         const formData = new FormData(this.form);
         const data = {};
         
-        // Сбор данных из формы
+        // Сбор данных из формы с санитизацией
         for (let [key, value] of formData.entries()) {
-            data[key] = value;
+            data[key] = this.sanitizeInput(value);
         }
         
         // Добавление дополнительной информации
         data.orderDate = new Date().toISOString();
         data.totalPrice = this.calculateTotalPrice();
         data.deliveryPrice = this.getDeliveryPrice();
+        data.userAgent = navigator.userAgent;
+        data.timestamp = Date.now();
         
         return data;
+    }
+    
+    // Санитизация входящих данных для защиты от XSS
+    sanitizeInput(input) {
+        if (typeof input !== 'string') return input;
+        
+        return input
+            .trim()
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#x27;')
+            .replace(/\//g, '&#x2F;');
     }
     
     calculateTotalPrice() {
@@ -256,13 +271,28 @@ class OrderFormValidator {
     
     async submitOrder(data) {
         try {
+            // Добавляем CSRF токен (если доступен)
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+            const headers = {
+                'Content-Type': 'application/json',
+            };
+            
+            if (csrfToken) {
+                headers['X-CSRF-Token'] = csrfToken;
+            }
+            
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 секунд таймаут
+            
             const response = await fetch('/api/orders/create', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
+                headers: headers,
+                body: JSON.stringify(data),
+                signal: controller.signal,
+                credentials: 'same-origin', // Отправка cookies для сессии
             });
+            
+            clearTimeout(timeoutId);
             
             if (response.ok) {
                 const result = await response.json();
@@ -274,11 +304,18 @@ class OrderFormValidator {
                 setTimeout(() => {
                     window.location.href = 'thanks.html';
                 }, 2000);
+            } else if (response.status === 429) {
+                throw new Error('Слишком много запросов. Попробуйте позже.');
+            } else if (response.status >= 500) {
+                throw new Error('Ошибка сервера. Попробуйте позже.');
             } else {
-                const error = await response.json();
-                throw new Error(error.message || 'Ошибка сервера');
+                const error = await response.json().catch(() => ({ message: 'Неизвестная ошибка' }));
+                throw new Error(error.message || 'Ошибка при отправке заказа');
             }
         } catch (error) {
+            if (error.name === 'AbortError') {
+                throw new Error('Время ожидания истекло. Проверьте интернет-соединение.');
+            }
             throw error;
         }
     }

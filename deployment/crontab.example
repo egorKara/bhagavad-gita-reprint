@@ -1,0 +1,100 @@
+# Crontab для автоматизации задач сервера Gita 1972
+# Установка: sudo crontab -e
+# Затем добавить нужные строки из этого файла
+
+# ===== ОЧИСТКА И ОБСЛУЖИВАНИЕ =====
+
+# Еженедельная очистка сервера (воскресенье в 2:00)
+0 2 * * 0 /var/www/gita-1972-reprint/deployment/server-cleanup.sh >> /var/log/server-cleanup.log 2>&1
+
+# Ежедневная очистка логов старше 7 дней (в 3:00)
+0 3 * * * find /var/log -name "*.log" -type f -mtime +7 -delete
+
+# Очистка временных файлов (каждые 6 часов)
+0 */6 * * * find /tmp -type f -atime +1 -delete
+
+# ===== МОНИТОРИНГ =====
+
+# Проверка состояния сервера каждые 15 минут
+*/15 * * * * /var/www/gita-1972-reprint/deployment/server-monitor.sh > /var/log/server-monitor.log
+
+# Ежедневный отчет о состоянии (в 9:00)
+0 9 * * * /var/www/gita-1972-reprint/deployment/server-monitor.sh | mail -s "Daily Server Report" admin@gita-1972-reprint.ru
+
+# ===== РЕЗЕРВНОЕ КОПИРОВАНИЕ =====
+
+# Ежедневный бэкап проекта (в 1:00)
+0 1 * * * tar -czf /backup/gita-$(date +\%Y\%m\%d).tar.gz /var/www/gita-1972-reprint
+
+# Очистка старых бэкапов (старше 30 дней)
+0 4 * * * find /backup -name "gita-*.tar.gz" -type f -mtime +30 -delete
+
+# ===== SSL СЕРТИФИКАТЫ =====
+
+# Проверка и обновление Let's Encrypt сертификатов (дважды в день)
+0 0,12 * * * certbot renew --quiet
+
+# ===== БЕЗОПАСНОСТЬ =====
+
+# Обновление системы безопасности (ежедневно в 5:00)
+0 5 * * * apt-get update && apt-get upgrade -y --only-upgrade $(apt-get --just-print upgrade | grep -i security | awk '{print $2}')
+
+# Перезапуск fail2ban (еженедельно)
+0 6 * * 1 systemctl restart fail2ban
+
+# ===== ПРОИЗВОДИТЕЛЬНОСТЬ =====
+
+# Оптимизация MySQL (если используется, еженедельно)
+# 0 7 * * 1 mysqlcheck --optimize --all-databases
+
+# Очистка npm кэша (еженедельно)
+0 8 * * 1 npm cache clean --force
+
+# ===== ПРОВЕРКИ API =====
+
+# Проверка работы API каждые 5 минут
+*/5 * * * * curl -f http://localhost:3000/api/status > /dev/null 2>&1 || systemctl restart gita-api
+
+# Мониторинг использования API (каждый час)
+0 * * * * echo "$(date): API calls in last hour: $(grep "$(date -d '1 hour ago' '+%d/%b/%Y:%H')" /var/log/nginx/access.log | grep '/api/' | wc -l)" >> /var/log/api-usage.log
+
+# ===== ОТЧЕТЫ =====
+
+# Еженедельный отчет о дисковом пространстве (понедельник в 10:00)
+0 10 * * 1 df -h | mail -s "Weekly Disk Usage Report" admin@gita-1972-reprint.ru
+
+# Ежемесячный отчет о трафике (1 числа в 11:00)
+0 11 1 * * /usr/bin/goaccess /var/log/nginx/access.log -o /var/www/reports/monthly-traffic.html --log-format=COMBINED
+
+# ===== ДОПОЛНИТЕЛЬНЫЕ ЗАДАЧИ =====
+
+# Проверка целостности файлов проекта (ежедневно в 6:00)
+0 6 * * * find /var/www/gita-1972-reprint -name "*.js" -o -name "*.json" -o -name "*.html" | xargs -I {} sh -c 'if [ ! -r "{}" ]; then echo "Unreadable file: {}" | mail -s "File integrity alert" admin@gita-1972-reprint.ru; fi'
+
+# Обновление статистики веб-сайта (ежедневно в 23:00)
+0 23 * * * /usr/local/bin/awstats.pl -config=gita-1972-reprint.ru -update
+
+# Архивирование логов (ежемесячно, 1 числа в 2:00)
+0 2 1 * * tar -czf /var/log/archive/nginx-$(date +\%Y\%m).tar.gz /var/log/nginx/*.log && > /var/log/nginx/access.log && > /var/log/nginx/error.log
+
+# ===== ПРИМЕЧАНИЯ =====
+# 
+# Формат cron: минута час день_месяца месяц день_недели команда
+# 
+# Специальные символы:
+# * - любое значение
+# */N - каждые N единиц
+# N-M - диапазон от N до M
+# N,M - конкретные значения N и M
+#
+# Перенаправление вывода:
+# >> file.log 2>&1 - добавить в лог с ошибками
+# > /dev/null 2>&1 - игнорировать вывод
+#
+# Для тестирования cron задач:
+# sudo crontab -l - показать текущие задачи
+# sudo service cron status - статус cron сервиса
+# grep CRON /var/log/syslog - логи cron
+#
+# ВАЖНО: Настройте email для получения уведомлений!
+# Добавьте в начало crontab: MAILTO=admin@gita-1972-reprint.ru

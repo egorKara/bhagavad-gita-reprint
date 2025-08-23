@@ -154,9 +154,10 @@
         btn.textContent = '⚑';
         btn.title = 'Сообщить об ошибке перевода';
         Object.assign(btn.style, {
-            position: 'fixed', right: '80px', top: '20px', zIndex: 10000,
+            position: 'fixed', right: '20px', bottom: '20px', zIndex: 10000,
             width: '40px', height: '40px', borderRadius: '50%',
-            background: '#fff', border: '2px solid #8B4513', cursor: 'pointer'
+            background: '#fff', border: '2px solid #8B4513', cursor: 'pointer',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.2)', fontSize: '18px'
         });
         btn.addEventListener('click', openFeedbackModal);
         document.body.appendChild(btn);
