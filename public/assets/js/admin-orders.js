@@ -153,6 +153,13 @@ class AdminOrdersManager {
      * Получение текста статуса
      */
     getStatusText(status) {
+        // Безопасная проверка статуса без Generic Object Injection Sink
+        const validStatuses = ['new', 'processing', 'shipped', 'delivered', 'cancelled'];
+        
+        if (!validStatuses.includes(status)) {
+            return status; // Возвращаем оригинальный статус если невалидный
+        }
+        
         const statusMap = {
             new: 'Новый',
             processing: 'В обработке',
@@ -160,7 +167,20 @@ class AdminOrdersManager {
             delivered: 'Доставлен',
             cancelled: 'Отменен'
         };
-        return statusMap[status] || status;
+        
+        // Безопасный доступ к statusMap
+        if (validStatuses.includes(status)) {
+            // Используем switch для безопасного доступа
+            switch (status) {
+                case 'new': return 'Новый';
+                case 'processing': return 'В обработке';
+                case 'shipped': return 'Отправлен';
+                case 'delivered': return 'Доставлен';
+                case 'cancelled': return 'Отменен';
+                default: return status;
+            }
+        }
+        return status;
     }
 
     /**
@@ -170,26 +190,26 @@ class AdminOrdersManager {
         // Безопасное создание кнопок без inline onclick
         const actionDiv = document.createElement('div');
         actionDiv.className = 'action-buttons';
-        
+
         const viewBtn = document.createElement('button');
         viewBtn.className = 'action-btn view';
         viewBtn.textContent = '👁️ Просмотр';
         viewBtn.addEventListener('click', () => adminManager.showOrderDetails(order.id));
-        
+
         const editBtn = document.createElement('button');
         editBtn.className = 'action-btn edit';
         editBtn.textContent = '✏️ Изменить';
         editBtn.addEventListener('click', () => adminManager.editOrder(order.id));
-        
+
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'action-btn delete';
         deleteBtn.textContent = '🗑️ Удалить';
         deleteBtn.addEventListener('click', () => adminManager.deleteOrder(order.id));
-        
+
         actionDiv.appendChild(viewBtn);
         actionDiv.appendChild(editBtn);
         actionDiv.appendChild(deleteBtn);
-        
+
         return actionDiv.outerHTML;
     }
 
@@ -563,7 +583,21 @@ class AdminOrdersManager {
 
         // Подсчет заказов за сегодня
         const today = new Date().toISOString().slice(0, 10);
-        const todayOrders = stats.ordersByMonth[today] ? stats.ordersByMonth[today].count : 0;
+        // Безопасный доступ к данным без Generic Object Injection Sink
+        let todayOrders = 0;
+        if (stats.ordersByMonth && typeof stats.ordersByMonth === 'object') {
+            // Проверяем что ключ безопасен (только дата в формате YYYY-MM-DD)
+            if (typeof today === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(today)) {
+                // Используем безопасный доступ через Object.prototype.hasOwnProperty
+                if (Object.prototype.hasOwnProperty.call(stats.ordersByMonth, today)) {
+                    // Безопасное получение данных через Object.getOwnPropertyDescriptor
+                    const todayData = Object.getOwnPropertyDescriptor(stats.ordersByMonth, today)?.value;
+                    if (todayData && typeof todayData === 'object' && typeof todayData.count === 'number') {
+                        todayOrders = todayData.count;
+                    }
+                }
+            }
+        }
         document.getElementById('todayOrders').textContent = todayOrders;
     }
 
