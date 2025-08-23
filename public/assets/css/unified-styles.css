@@ -1204,6 +1204,87 @@ a:hover {
     color: #000000 !important;
 }
 
+/* КНОПКА ЦЕНЫ - КРУПНАЯ И КЛИКАБЕЛЬНАЯ */
+.price-button {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: var(--color-accent) !important; /* Золотой фон */
+    color: #000000 !important;
+    padding: var(--space-xl) var(--space-2xl) !important;
+    border-radius: var(--border-radius) !important;
+    cursor: pointer !important;
+    transition: var(--transition) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
+    margin-top: var(--space-lg) !important;
+    min-height: 100px !important;
+}
+
+.price-button:hover {
+    background: var(--color-secondary) !important; /* Малиновый при наведении */
+    transform: translateY(-4px) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+.price-button__value {
+    font-size: 2.5rem !important; /* КРУПНАЯ ЦЕНА */
+    font-weight: 800 !important;
+    line-height: 1.1 !important;
+    color: #000000 !important;
+}
+
+.price-button__note {
+    font-size: 1.1rem !important;
+    font-weight: 500 !important;
+    color: #000000 !important;
+    margin-top: var(--space-sm) !important;
+}
+
+/* ПЛАШКИ СОДЕРЖАНИЯ - ОДИНАКОВЫЕ И КРУПНЫЕ */
+.content-block {
+    background: var(--white) !important;
+    padding: var(--space-2xl) !important;
+    border-radius: var(--border-radius) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    flex: 1 !important;
+    min-height: 400px !important; /* Одинаковая высота */
+}
+
+.content-block__title {
+    font-size: 1.6rem !important;
+    font-weight: 700 !important;
+    color: #000000 !important;
+    margin-bottom: var(--space-lg) !important;
+    text-align: center !important;
+}
+
+.content-block__list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.content-block__item {
+    font-size: 1.2rem !important; /* КРУПНЫЙ ШРИФТ */
+    font-weight: 500 !important;
+    color: #000000 !important;
+    padding: var(--space-md) 0 !important;
+    line-height: 1.4 !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.content-block__item:last-child {
+    border-bottom: none !important;
+}
+
+/* СЕТКА СОДЕРЖАНИЯ - БЕЗ ЛИШНЕГО ПРОСТРАНСТВА */
+.section__content--grid {
+    display: flex !important;
+    gap: var(--space-xl) !important;
+    align-items: stretch !important;
+}
+
 /* СЕРВИСНЫЕ КНОПКИ С ВИДИМЫМ ФОНОМ */
 .service-feature,
 .service-item,
@@ -1213,6 +1294,38 @@ a:hover {
     border-radius: var(--border-radius) !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
     margin-bottom: var(--space-md) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    transition: var(--transition) !important;
+    cursor: pointer !important;
+    min-height: 120px !important;
+    justify-content: center !important;
+}
+
+.service-feature:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* GRID ДЛЯ СЕРВИСНЫХ КНОПОК */
+.features-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+    gap: var(--space-lg) !important;
+    margin-top: var(--space-2xl) !important;
+}
+
+.feature__icon {
+    font-size: 2rem !important;
+    margin-bottom: var(--space-md) !important;
+}
+
+.feature__text {
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    color: #000000 !important;
 }
 
 /* ===== КНОПКИ УПРАВЛЕНИЯ ===== */
