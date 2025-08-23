@@ -363,6 +363,14 @@ body {
     box-shadow: var(--shadow-light);
 }
 
+.price-label {
+    color: var(--text-light);
+    font-size: 1rem;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 2px;
+}
+
 .price {
     display: block;
     font-size: 2rem;

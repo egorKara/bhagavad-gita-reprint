@@ -2,7 +2,7 @@
 
 Single source of truth for tasks managed by agents across all devices (Desktop/Mobile). Update, commit and push changes. 
 
-**Language Policy:** English primary, Russian secondary. All code, comments, and commit messages in English.
+**Language Policy:** Russian primary, English secondary. All code, comments, and commit messages in Russian.
 
 ### Активные задачи
 

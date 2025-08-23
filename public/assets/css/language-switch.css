@@ -3,13 +3,13 @@
     position: fixed;
     top: 20px;
     right: 20px;
-    z-index: 1000;
+    z-index: 9998;
     background: var(--accent-color, #FFD700);
     color: var(--text-dark, #2C1810);
     border: 2px solid var(--primary-color, #8B4513);
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
@@ -20,6 +20,7 @@
     justify-content: center;
     text-decoration: none;
     font-family: 'Georgia', 'Times New Roman', serif;
+    margin: 5px;
 }
 
 .language-switch:hover {
@@ -59,10 +60,10 @@
     .language-switch {
         top: 15px;
         right: 15px;
-        width: 45px;
-        height: 45px;
+        width: 50px;
+        height: 50px;
         font-size: 12px;
-        z-index: 999;
+        z-index: 9998;
     }
 }
 
@@ -70,7 +71,7 @@
 @media (max-width: 1200px) {
     .language-switch {
         right: 25px;
-        z-index: 999;
+        z-index: 9998;
     }
 }
 
@@ -78,9 +79,10 @@
     .language-switch {
         top: 10px;
         right: 10px;
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
         font-size: 11px;
+        z-index: 9998;
     }
 }
 
