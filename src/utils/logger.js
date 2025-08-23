@@ -1,4 +1,8 @@
 const util = require('util');
+const { logLevel } = require('../config');
+
+const levels = ['error', 'warn', 'info', 'debug'];
+const levelIndex = Math.max(0, levels.indexOf((logLevel || 'info').toLowerCase()));
 
 function formatMessage(level, message, meta) {
     const base = {
@@ -18,16 +22,22 @@ function toMeta(args) {
 
 const logger = {
     info(message, ...args) {
-        process.stdout.write(formatMessage('info', message, toMeta(args)) + '\n');
+        if (levelIndex >= levels.indexOf('info')) {
+            process.stdout.write(formatMessage('info', message, toMeta(args)) + '\n');
+        }
     },
     warn(message, ...args) {
-        process.stdout.write(formatMessage('warn', message, toMeta(args)) + '\n');
+        if (levelIndex >= levels.indexOf('warn')) {
+            process.stdout.write(formatMessage('warn', message, toMeta(args)) + '\n');
+        }
     },
     error(message, ...args) {
-        process.stderr.write(formatMessage('error', message, toMeta(args)) + '\n');
+        if (levelIndex >= levels.indexOf('error')) {
+            process.stderr.write(formatMessage('error', message, toMeta(args)) + '\n');
+        }
     },
     debug(message, ...args) {
-        if (process.env.DEBUG) {
+        if (levelIndex >= levels.indexOf('debug')) {
             process.stdout.write(formatMessage('debug', message, toMeta(args)) + '\n');
         }
     },

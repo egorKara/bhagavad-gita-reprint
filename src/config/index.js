@@ -15,6 +15,12 @@ const corsOrigins = (process.env.CORS_ORIGINS || '')
     .map((s) => s.trim())
     .filter(Boolean);
 
+function resolveDataDir() {
+    const fromEnv = process.env.DATA_DIR;
+    if (!fromEnv) return path.resolve(process.cwd(), 'data');
+    return path.isAbsolute(fromEnv) ? fromEnv : path.resolve(process.cwd(), fromEnv);
+}
+
 const config = {
     env: process.env.NODE_ENV || 'development',
     port: Number(process.env.PORT) || 3000,
@@ -23,7 +29,7 @@ const config = {
     metricsToken: process.env.METRICS_TOKEN || null,
     recaptchaSecret: process.env.RECAPTCHA_SECRET || null,
     turnstileSecret: process.env.TURNSTILE_SECRET || null,
-    dataDir: path.resolve(process.cwd(), 'data'),
+    dataDir: resolveDataDir(),
     translator: {
         provider: process.env.TRANSLATOR_PROVIDER || 'none',
         apiKey:
@@ -34,6 +40,7 @@ const config = {
             null,
         endpoint: process.env.TRANSLATOR_ENDPOINT || null,
     },
+    logLevel: process.env.LOG_LEVEL || (process.env.NODE_ENV === 'development' ? 'debug' : 'info'),
 };
 
 module.exports = config;
