@@ -27,53 +27,21 @@ class ThemeSwitcher {
     createThemeSwitcher() {
         // Создаем кнопку переключателя тем
         const themeButton = document.createElement('button');
-        themeButton.className = 'theme-switch';
+        themeButton.className = 'theme-switch control-btn control-btn--theme';
         themeButton.innerHTML = 'Тема';
         themeButton.title = 'Сменить цветовую схему';
         themeButton.onclick = () => this.showThemeModal();
         
-        // Добавляем кнопку рядом с переключателем языка
-        const languageSwitch = document.querySelector('.language-switch');
-        if (languageSwitch && languageSwitch.parentNode) {
-            languageSwitch.parentNode.insertBefore(themeButton, languageSwitch.nextSibling);
-        } else {
-            document.body.appendChild(themeButton);
-        }
+        // Добавляем кнопку к body
+        document.body.appendChild(themeButton);
         
-        // Добавляем стили для кнопки
+        // Добавляем стили для модального окна
         this.addThemeSwitchStyles();
     }
     
     addThemeSwitchStyles() {
         const style = document.createElement('style');
         style.textContent = `
-            .theme-switch {
-                position: fixed;
-                top: 20px;
-                right: 100px;
-                z-index: 9999;
-                background: var(--accent-color);
-                color: var(--text-dark);
-                border: 2px solid var(--primary-color);
-                border-radius: var(--border-radius);
-                padding: var(--space-xs) var(--space-sm);
-                min-width: 60px;
-                height: 36px;
-                font-size: 12px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .theme-switch:hover {
-                transform: scale(1.1);
-                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-                background: var(--primary-color);
-                color: white;
-            }
             
             .theme-modal {
                 position: fixed;
