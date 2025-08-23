@@ -135,7 +135,11 @@ app.use('/api/translate', translationRoutes);
 
 // Централизованный обработчик ошибок
 app.use((err, req, res, _next) => {
-    logger.error('Unhandled error', { error: String(err), requestId: req.id });
+    logger.error('Unhandled error', {
+        message: err && err.message,
+        stack: err && err.stack,
+        requestId: req.id,
+    });
     res.status(500).json({ error: 'Internal Server Error', requestId: req.id });
 });
 

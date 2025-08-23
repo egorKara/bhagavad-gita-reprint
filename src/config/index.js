@@ -24,6 +24,16 @@ const config = {
     recaptchaSecret: process.env.RECAPTCHA_SECRET || null,
     turnstileSecret: process.env.TURNSTILE_SECRET || null,
     dataDir: path.resolve(process.cwd(), 'data'),
+    translator: {
+        provider: process.env.TRANSLATOR_PROVIDER || 'none',
+        apiKey:
+            process.env.TRANSLATOR_API_KEY ||
+            process.env.GOOGLE_TRANSLATE_KEY ||
+            process.env.DEEPL_API_KEY ||
+            process.env.YANDEX_API_KEY ||
+            null,
+        endpoint: process.env.TRANSLATOR_ENDPOINT || null,
+    },
 };
 
 module.exports = config;
