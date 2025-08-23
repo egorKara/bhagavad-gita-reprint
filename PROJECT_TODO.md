@@ -35,9 +35,29 @@ Single source of truth for tasks managed by agents across all devices (Desktop/M
 - [x] Вынесен общий middleware `requireAdminAuth` (`src/middleware/auth.js`)
 - [x] Исправлен `parseInt` с явной `radix=10` в подсчёте статистики
 - [x] Прогнан ESLint, устранены предупреждения; тесты проходят
+- [x] Критические исправления безопасности: RegExp, FormData, AbortController
+- [x] CSS структура: унифицированы основные классы на kebab-case
+- [x] HTML структура: index.html полностью обновлён
+- [ ] Системный рефакторинг CSS (166+ проблем no-descending-specificity)
+- [ ] Исправление Generic Object Injection Sink в admin-orders.js
+- [ ] Настройка Lighthouse CI для производительности
+- [ ] Оптимизация размера бандла (translations.js: 96K)
 
 ### Готово (отмечайте галочками)
 
 - [x] Добавлен переключатель цветовых схем и fallback
 - [x] Удалены глобальные 3D-трансформации, исправлены конфликты наложения
 - [x] Отключено переопределение темы ОС при ручном выборе
+
+### Ежедневные проверки (23.08.2025)
+
+- [x] Безопасность: npm audit (4 уязвимости низкой критичности)
+- [x] Безопасность: ESLint Security (114 проблем)
+- [x] Структура: CSS Stylelint (166+ проблем)
+- [x] Структура: HTML HTMLHint (137+ проблем)
+- [x] Качество: Prettier форматирование
+- [x] Производительность: Анализ размера бандла
+- [x] Мониторинг: Проверка метрик
+- [ ] Критично: Generic Object Injection Sink
+- [ ] Важно: Системный рефакторинг CSS
+- [ ] Средне: Настройка Lighthouse CI
