@@ -76,6 +76,58 @@ button {
     --border-radius: 8px;
     --transition: all 0.3s ease;
     --shadow: 0 2px 10px rgb(0 0 0 / 10%);
+
+    /* ===== ДОПОЛНИТЕЛЬНЫЕ ПЕРЕМЕННЫЕ ===== */
+    /* Модульная шкала отступов (8px grid) */
+    --space-xs: 4px; /* 0.25rem */
+    --space-sm: 8px; /* 0.5rem */
+    --space-md: 16px; /* 1rem */
+    --space-lg: 24px; /* 1.5rem */
+    --space-xl: 32px; /* 2rem */
+    --space-2xl: 48px; /* 3rem */
+    --space-3xl: 64px; /* 4rem */
+    --space-4xl: 80px; /* 5rem */
+    --space-5xl: 120px; /* 7.5rem */
+
+    /* Типографика (масштаб Major Third 1.25) */
+    --font-xs: 0.8rem; /* 12.8px */
+    --font-sm: 0.875rem; /* 14px */
+    --font-base: 1rem; /* 16px */
+    --font-lg: 1.125rem; /* 18px */
+    --font-xl: 1.25rem; /* 20px */
+    --font-2xl: 1.563rem; /* 25px */
+    --font-3xl: 1.953rem; /* 31.25px */
+    --font-4xl: 2.441rem; /* 39px */
+    --font-5xl: 3.052rem; /* 48.8px */
+
+    /* Высоты строк */
+    --leading-tight: 1.25;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.75;
+
+    /* Современная система контейнеров */
+    --container-xs: 480px;
+    --container-sm: 640px;
+    --container-md: 768px;
+    --container-lg: 1024px;
+    --container-xl: 1280px;
+    --container-2xl: 1536px;
+
+    /* Оптимальные ширины контента */
+    --max-width-reading: 65ch; /* Чтение */
+    --max-width-content: 75ch; /* Контент */
+    --max-width-layout: 1200px; /* Основной макет */
+    --max-width-wide: 1400px; /* Широкий макет */
+
+    /* Переходы */
+    --transition-fast: 150ms ease-out;
+    --transition-base: 200ms ease-out;
+    --transition-slow: 300ms ease-out;
+
+    /* Сетка */
+    --grid-gap: var(--space-lg);
+    --grid-gap-sm: var(--space-md);
+    --grid-gap-lg: var(--space-xl);
 }
 
 /* СХЕМА 2: ВЕДИЧЕСКАЯ (4 ЦВЕТА) */
@@ -227,9 +279,11 @@ h6 {
 h1 {
     font-size: 2.5rem;
 }
+
 h2 {
     font-size: 2rem;
 }
+
 h3 {
     font-size: 1.5rem;
 }
@@ -311,58 +365,8 @@ a:hover {
 
 /* ===== СОВРЕМЕННАЯ СИСТЕМА ДИЗАЙНА ===== */
 
-/* Модульная шкала отступов (8px grid) */
-:root {
-    --space-xs: 4px; /* 0.25rem */
-    --space-sm: 8px; /* 0.5rem */
-    --space-md: 16px; /* 1rem */
-    --space-lg: 24px; /* 1.5rem */
-    --space-xl: 32px; /* 2rem */
-    --space-2xl: 48px; /* 3rem */
-    --space-3xl: 64px; /* 4rem */
-    --space-4xl: 80px; /* 5rem */
-    --space-5xl: 120px; /* 7.5rem */
-
-    /* Типографика (масштаб Major Third 1.25) */
-    --font-xs: 0.8rem; /* 12.8px */
-    --font-sm: 0.875rem; /* 14px */
-    --font-base: 1rem; /* 16px */
-    --font-lg: 1.125rem; /* 18px */
-    --font-xl: 1.25rem; /* 20px */
-    --font-2xl: 1.563rem; /* 25px */
-    --font-3xl: 1.953rem; /* 31.25px */
-    --font-4xl: 2.441rem; /* 39px */
-    --font-5xl: 3.052rem; /* 48.8px */
-
-    /* Высоты строк */
-    --leading-tight: 1.25;
-    --leading-normal: 1.5;
-    --leading-relaxed: 1.75;
-
-    /* Современная система контейнеров */
-    --container-xs: 480px;
-    --container-sm: 640px;
-    --container-md: 768px;
-    --container-lg: 1024px;
-    --container-xl: 1280px;
-    --container-2xl: 1536px;
-
-    /* Оптимальные ширины контента */
-    --max-width-reading: 65ch; /* Чтение */
-    --max-width-content: 75ch; /* Контент */
-    --max-width-layout: 1200px; /* Основной макет */
-    --max-width-wide: 1400px; /* Широкий макет */
-
-    /* Переходы */
-    --transition-fast: 150ms ease-out;
-    --transition-base: 200ms ease-out;
-    --transition-slow: 300ms ease-out;
-
-    /* Сетка */
-    --grid-gap: var(--space-lg);
-    --grid-gap-sm: var(--space-md);
-    --grid-gap-lg: var(--space-xl);
-}
+/* Модульная шкала отступов (8px grid) - объединено с основным :root */
+/* ПЕРЕМЕННЫЕ ПЕРЕНЕСЕНЫ В ОСНОВНОЙ :root БЛОК (СТРОКА 65) */
 
 /* ===== МАКЕТ ===== */
 
@@ -1452,10 +1456,10 @@ a:hover {
 }
 
 .language-switch.changing {
-    animation: languageSwitch 0.4s ease-in-out;
+    animation: language-switch 0.4s ease-in-out;
 }
 
-@keyframes languageSwitch {
+@keyframes language-switch {
     0% {
         transform: scale(1) rotate(0deg);
         opacity: 1;
@@ -1521,7 +1525,7 @@ a:hover {
 
 /* ===== АНИМАЦИИ ===== */
 
-@keyframes fadeInUp {
+@keyframes fade-in-up {
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -1534,7 +1538,7 @@ a:hover {
 }
 
 .fade-in-up {
-    animation: fadeInUp 0.6s ease-out;
+    animation: fade-in-up 0.6s ease-out;
 }
 
 /* ===== АДАПТИВНОСТЬ ===== */
@@ -1713,7 +1717,7 @@ a:hover {
 }
 
 /* Отключение сложных эффектов на слабых устройствах */
-@media (maxwidth: 768px) and (-webkit-min-device-pixel-ratio: 1) {
+@media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
     .hero-section,
     .cta-section {
         background: var(--color-primary);
