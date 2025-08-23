@@ -1,15 +1,12 @@
 const fetch = global.fetch || require('node-fetch');
+const logger = require('../utils/logger');
+const { translator } = require('../config');
 
 class TranslatorProvider {
     constructor() {
-        this.provider = process.env.TRANSLATOR_PROVIDER || 'none';
-        this.apiKey =
-            process.env.TRANSLATOR_API_KEY ||
-            process.env.GOOGLE_TRANSLATE_KEY ||
-            process.env.DEEPL_API_KEY ||
-            process.env.YANDEX_API_KEY ||
-            null;
-        this.endpoint = process.env.TRANSLATOR_ENDPOINT || null;
+        this.provider = translator.provider;
+        this.apiKey = translator.apiKey;
+        this.endpoint = translator.endpoint;
     }
 
     async translateText(text, sourceLang, targetLang, context = null) {
@@ -20,10 +17,8 @@ class TranslatorProvider {
             switch ((this.provider || 'none').toLowerCase()) {
                 case 'none':
                 case 'offline':
-                    // No external translation, return null so caller can fall back (keep original)
                     return null;
                 case 'echo':
-                    // Useful for testing pipeline
                     return `[${targetLang}] ${text}`;
                 case 'deepl':
                     return await this.translateWithDeepL(text, sourceLang, targetLang);
@@ -42,7 +37,7 @@ class TranslatorProvider {
                     return null;
             }
         } catch (err) {
-            console.error('Translator provider error:', err);
+            logger.error('Translator provider error', { error: String(err) });
             return null;
         }
     }

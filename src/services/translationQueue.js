@@ -2,8 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const translatorProvider = require('./translatorProvider');
+const logger = require('../utils/logger');
 
-const DATA_DIR = path.join(__dirname, '..', 'data');
+const { dataDir } = require('../config');
+const DATA_DIR = dataDir;
 const CACHE_FILE = path.join(DATA_DIR, 'translation-cache.json');
 const JOBS_FILE = path.join(DATA_DIR, 'translation-jobs.json');
 const FEEDBACK_FILE = path.join(DATA_DIR, 'translation-feedback.json');
@@ -18,7 +20,7 @@ function ensureDataFiles() {
 function readJSON(file) {
     try {
         return JSON.parse(fs.readFileSync(file, 'utf-8'));
-    } catch (e) {
+    } catch {
         return file === FEEDBACK_FILE ? [] : {};
     }
 }
@@ -131,7 +133,7 @@ class TranslationQueue {
                 job.done += 1;
                 job.status = job.done >= job.total ? 'completed' : 'processing';
             } catch (err) {
-                console.error('Translation task failed:', err);
+                logger.error('Translation task failed', { error: String(err), text: task.text });
                 job.items[task.index].status = 'error';
                 job.items[task.index].error = String(err);
                 job.status = 'processing';
@@ -187,7 +189,7 @@ class TranslationQueue {
                 selector,
             });
         }
-        console.log('Translation feedback received:', record);
+        logger.info('Translation feedback received', { id: record.id, url: record.url });
         return record.id;
     }
 }

@@ -6,27 +6,27 @@
 
 const app = require('./app');
 const { port } = require('./config');
+const logger = require('./utils/logger');
 
 // Запуск сервера
 const server = app.listen(port, () => {
-    console.log(`Сервер запущен на порту ${port}`);
-    console.log(`Фронтенд доступен по адресу: http://localhost:${port}`);
-    console.log(`API endpoint: http://localhost:${port}/api/status`);
+    logger.info('Server started', { port, url: `http://localhost:${port}` });
+    logger.info('API endpoint', { url: `http://localhost:${port}/api/status` });
 });
 
 // Обработка сигналов завершения для корректного закрытия сервера
 process.on('SIGTERM', () => {
-    console.log('SIGTERM получен. Начало graceful shutdown...');
+    logger.warn('SIGTERM received. Starting graceful shutdown...');
     server.close(() => {
-        console.log('Сервер остановлен.');
+        logger.info('Server stopped.');
         process.exit(0);
     });
 });
 
 process.on('SIGINT', () => {
-    console.log('SIGINT получен. Начало graceful shutdown...');
+    logger.warn('SIGINT received. Starting graceful shutdown...');
     server.close(() => {
-        console.log('Сервер остановлен.');
+        logger.info('Server stopped.');
         process.exit(0);
     });
 });

@@ -8,13 +8,26 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const https = require('https');
 const { recaptchaSecret, turnstileSecret } = require('../../config');
+const logger = require('../../utils/logger');
+
+function getDefaultStats() {
+    return {
+        totalOrders: 0,
+        totalRevenue: 0,
+        averageOrderValue: 0,
+        ordersByMonth: {},
+        topProducts: {},
+        lastUpdated: new Date().toISOString(),
+    };
+}
 
 class OrderController {
     constructor() {
-        this.ordersFile = path.join(__dirname, '../../../data/orders.json');
-        this.statsFile = path.join(__dirname, '../../../data/order-stats.json');
-        this.idempotencyFile = path.join(__dirname, '../../../data/idempotency.json');
-        this.init();
+        const { dataDir } = require('../../config');
+        this.ordersFile = path.join(dataDir, 'orders.json');
+        this.statsFile = path.join(dataDir, 'order-stats.json');
+        this.idempotencyFile = path.join(dataDir, 'idempotency.json');
+        this.ready = this.init();
     }
 
     /**
@@ -36,21 +49,7 @@ class OrderController {
             try {
                 await fs.access(this.statsFile);
             } catch {
-                await fs.writeFile(
-                    this.statsFile,
-                    JSON.stringify(
-                        {
-                            totalOrders: 0,
-                            totalRevenue: 0,
-                            averageOrderValue: 0,
-                            ordersByMonth: {},
-                            topProducts: {},
-                            lastUpdated: new Date().toISOString(),
-                        },
-                        null,
-                        2
-                    )
-                );
+                await fs.writeFile(this.statsFile, JSON.stringify(getDefaultStats(), null, 2));
             }
 
             // Создание файла идемпотентности если не существует
@@ -60,7 +59,7 @@ class OrderController {
                 await fs.writeFile(this.idempotencyFile, JSON.stringify({}, null, 2));
             }
         } catch (error) {
-            console.error('Ошибка инициализации OrderController:', error);
+            logger.error('Ошибка инициализации OrderController', { error: String(error) });
         }
     }
 
@@ -68,16 +67,19 @@ class OrderController {
         try {
             const raw = await fs.readFile(filePath, 'utf8');
             return JSON.parse(raw);
-        } catch {
+        } catch (err) {
+            if (err && err.code === 'ENOENT') return fallback;
             return fallback;
         }
     }
 
     async getIdempotencyMapping() {
+        await this.ready;
         return this.readJson(this.idempotencyFile, {});
     }
 
     async setIdempotencyRecord(key, orderId) {
+        await this.ready;
         const map = await this.getIdempotencyMapping();
         map[key] = { orderId, createdAt: new Date().toISOString() };
         await fs.writeFile(this.idempotencyFile, JSON.stringify(map, null, 2));
@@ -144,6 +146,7 @@ class OrderController {
      * Создание нового заказа
      */
     async createOrder(orderData, options = {}) {
+        await this.ready;
         const { idempotencyKey, captchaToken, captchaProvider } = options;
         try {
             // Идемпотентность: если ключ уже использован, возвращаем прежний результат
@@ -210,7 +213,10 @@ class OrderController {
             await this.updateStats(order);
 
             // Логирование
-            console.log(`Новый заказ создан: ${order.id} от ${order.firstName} ${order.lastName}`);
+            logger.info('Новый заказ создан', {
+                orderId: order.id,
+                customer: `${order.firstName} ${order.lastName}`,
+            });
 
             // Сохраняем идемпотентную запись
             if (idempotencyKey) {
@@ -223,7 +229,7 @@ class OrderController {
                 message: 'Заказ успешно создан',
             };
         } catch (error) {
-            console.error('Ошибка создания заказа:', error);
+            logger.error('Ошибка создания заказа', { error: String(error) });
             throw error;
         }
     }
@@ -298,11 +304,13 @@ class OrderController {
      * Чтение всех заказов
      */
     async readOrders() {
+        await this.ready;
         try {
             const data = await fs.readFile(this.ordersFile, 'utf8');
             return JSON.parse(data);
         } catch (error) {
-            console.error('Ошибка чтения заказов:', error);
+            if (error && error.code === 'ENOENT') return [];
+            logger.error('Ошибка чтения заказов', { error: String(error) });
             return [];
         }
     }
@@ -311,11 +319,12 @@ class OrderController {
      * Получение заказа по ID
      */
     async getOrderById(orderId) {
+        await this.ready;
         try {
             const orders = await this.readOrders();
             return orders.find((order) => order.id === orderId);
         } catch (error) {
-            console.error('Ошибка получения заказа:', error);
+            logger.error('Ошибка получения заказа', { error: String(error) });
             return null;
         }
     }
@@ -324,6 +333,7 @@ class OrderController {
      * Обновление статуса заказа
      */
     async updateOrderStatus(orderId, newStatus) {
+        await this.ready;
         try {
             const orders = await this.readOrders();
             const orderIndex = orders.findIndex((order) => order.id === orderId);
@@ -342,7 +352,7 @@ class OrderController {
                 message: `Статус заказа ${orderId} обновлен на ${newStatus}`,
             };
         } catch (error) {
-            console.error('Ошибка обновления статуса заказа:', error);
+            logger.error('Ошибка обновления статуса заказа', { error: String(error) });
             throw error;
         }
     }
@@ -351,12 +361,14 @@ class OrderController {
      * Получение статистики заказов
      */
     async getOrderStats() {
+        await this.ready;
         try {
             const data = await fs.readFile(this.statsFile, 'utf8');
             return JSON.parse(data);
         } catch (error) {
-            console.error('Ошибка чтения статистики:', error);
-            return null;
+            if (error && error.code === 'ENOENT') return getDefaultStats();
+            logger.error('Ошибка чтения статистики', { error: String(error) });
+            return getDefaultStats();
         }
     }
 
@@ -364,6 +376,7 @@ class OrderController {
      * Обновление статистики
      */
     async updateStats(newOrder) {
+        await this.ready;
         try {
             const stats = await this.getOrderStats();
 
@@ -391,14 +404,17 @@ class OrderController {
                     revenue: 0,
                 };
             }
-            stats.topProducts['bhagavad-gita-1972'].quantity += parseInt(newOrder.quantity);
+            stats.topProducts['bhagavad-gita-1972'].quantity += Number.parseInt(
+                newOrder.quantity,
+                10
+            );
             stats.topProducts['bhagavad-gita-1972'].revenue += newOrder.totalAmount;
 
             stats.lastUpdated = new Date().toISOString();
 
             await fs.writeFile(this.statsFile, JSON.stringify(stats, null, 2));
         } catch (error) {
-            console.error('Ошибка обновления статистики:', error);
+            logger.error('Ошибка обновления статистики', { error: String(error) });
         }
     }
 
@@ -406,6 +422,7 @@ class OrderController {
      * Поиск заказов
      */
     async searchOrders(query) {
+        await this.ready;
         try {
             const orders = await this.readOrders();
             const searchTerm = query.toLowerCase();
@@ -419,7 +436,7 @@ class OrderController {
                     order.id.includes(query)
             );
         } catch (error) {
-            console.error('Ошибка поиска заказов:', error);
+            logger.error('Ошибка поиска заказов', { error: String(error) });
             return [];
         }
     }
@@ -428,6 +445,7 @@ class OrderController {
      * Экспорт заказов в CSV
      */
     async exportOrdersToCSV() {
+        await this.ready;
         try {
             const orders = await this.readOrders();
 
@@ -467,7 +485,7 @@ class OrderController {
 
             return csvRows.join('\n');
         } catch (error) {
-            console.error('Ошибка экспорта в CSV:', error);
+            logger.error('Ошибка экспорта в CSV', { error: String(error) });
             return '';
         }
     }
@@ -476,6 +494,7 @@ class OrderController {
      * Удаление заказа
      */
     async deleteOrder(orderId) {
+        await this.ready;
         try {
             const orders = await this.readOrders();
             const filteredOrders = orders.filter((order) => order.id !== orderId);
@@ -491,7 +510,7 @@ class OrderController {
                 message: `Заказ ${orderId} удален`,
             };
         } catch (error) {
-            console.error('Ошибка удаления заказа:', error);
+            logger.error('Ошибка удаления заказа', { error: String(error) });
             throw error;
         }
     }

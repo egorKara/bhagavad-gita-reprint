@@ -5,16 +5,8 @@ const {
     getSecurityStatus,
     getNginxStats,
 } = require('../controllers/statusController');
-const { adminToken } = require('../../config');
+const { requireAdminAuth } = require('../../middleware/auth');
 const router = express.Router();
-
-function requireAdminAuth(req, res, next) {
-    const authHeader = req.headers['authorization'] || '';
-    if (adminToken && authHeader === `Bearer ${adminToken}`) {
-        return next();
-    }
-    return res.status(401).json({ error: 'Unauthorized' });
-}
 
 // Определение маршрутов
 router.get('/', getStatus);

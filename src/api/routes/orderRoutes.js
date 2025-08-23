@@ -6,18 +6,7 @@
 const express = require('express');
 const router = express.Router();
 const orderController = require('../controllers/orderController');
-const { adminToken } = require('../../config');
-
-function requireAdminAuth(req, res, next) {
-    const authHeader = req.headers['authorization'] || '';
-    if (adminToken && authHeader === `Bearer ${adminToken}`) {
-        return next();
-    }
-    return res.status(401).json({
-        success: false,
-        error: 'Unauthorized',
-    });
-}
+const { requireAdminAuth } = require('../../middleware/auth');
 
 // Создание нового заказа (публично)
 router.post('/create', async (req, res) => {
