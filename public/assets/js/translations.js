@@ -20,7 +20,7 @@ const translations = {
                 license: "Официальная лицензия BBT"
             },
             priceLabel: "Цена:",
-            price: "1500 ₽",
+            price: "Уточняйте",
             priceNote: "Доставка по России",
             orderButton: "Заказать книгу",
             learnMore: "Узнать больше"
@@ -370,7 +370,7 @@ const translations = {
                 license: "Official BBT license"
             },
             priceLabel: "Price:",
-            price: "1500 RUB",
+            price: "Contact us",
             priceNote: "Delivery across Russia",
             orderButton: "Order Book",
             learnMore: "Learn More"
@@ -1181,7 +1181,7 @@ class UniversalTranslator {
         map['Оригинальное издание 1972 года от Macmillan Publishing'] = 'home.subtitle';
         map['Точное воспроизведение легендарного издания с полным текстом, комментариями А.Ч. Бхактиведанты Свами Прабхупады и 44 оригинальными иллюстрациями'] = 'home.description';
         map['Цена:'] = 'home.priceLabel';
-        map['1500 ₽'] = 'home.price';
+        map['Уточняйте'] = 'home.price';
         map['Доставка по России'] = 'home.priceNote';
         map['Заказать книгу'] = 'home.orderButton';
         map['Узнать больше'] = 'home.learnMore';
@@ -1476,7 +1476,7 @@ class UniversalTranslator {
                     const num = parseInt(opt.value, 10);
                     if (!isNaN(num)) {
                         const word = this.currentLang === 'ru' ? (num === 1 ? 'книга' : 'книги') : (num === 1 ? 'book' : 'books');
-                        const priceSuffix = this.currentLang === 'ru' ? ` - ${num * 1500} ₽` : ` - ${num * 1500} RUB`;
+                        const priceSuffix = this.currentLang === 'ru' ? ` - уточняйте цену` : ` - contact for price`;
                         opt.textContent = `${num} ${word}${priceSuffix}`;
                     }
                 }

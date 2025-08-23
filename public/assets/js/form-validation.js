@@ -15,7 +15,7 @@ class OrderFormValidator {
             'pickup': 0
         };
         
-        this.bookPrice = 1500;
+        this.bookPrice = 0; // Цена уточняется
         
         this.init();
     }
