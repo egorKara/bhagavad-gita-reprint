@@ -1,0 +1,77 @@
+name: Cursor BugBot
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  pull_request_review:
+    types: [submitted]
+
+concurrency:
+  group: bugbot-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: read
+
+jobs:
+  bugbot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci --omit=optional --no-audit --no-fund
+        
+      - name: Run ESLint
+        run: npm run lint
+        continue-on-error: true
+        
+      - name: Run tests
+        run: npm test
+        continue-on-error: true
+        
+      - name: Analyze PR changes
+        run: |
+          echo "Analyzing changes in PR #${{ github.event.pull_request.number }}"
+          git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD
+          
+      # Placeholder for Cursor BugBot integration
+      # This will be replaced with actual Cursor BugBot action when available
+      - name: Cursor BugBot Analysis
+        run: |
+          echo "🤖 BugBot Analysis for PR #${{ github.event.pull_request.number }}"
+          echo "Files changed:"
+          git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD
+          
+          # Check for common issues
+          echo "Checking for potential issues..."
+          
+          # Check for hardcoded secrets
+          if git diff origin/${{ github.event.pull_request.base.ref }}...HEAD | grep -E "(password|secret|key|token)" -i; then
+            echo "⚠️  Potential secrets detected in changes"
+          fi
+          
+          # Check for console.log statements
+          if git diff origin/${{ github.event.pull_request.base.ref }}...HEAD -- '*.js' | grep -E "console\.(log|error|warn)"; then
+            echo "⚠️  Console statements detected - consider removing for production"
+          fi
+          
+          # Check for TODO comments
+          if git diff origin/${{ github.event.pull_request.base.ref }}...HEAD | grep -E "(TODO|FIXME|HACK)" -i; then
+            echo "📝 TODO/FIXME comments detected - ensure they are tracked"
+          fi
+          
+          echo "✅ BugBot analysis complete"

@@ -1,35 +1,58 @@
-# Единые правила для Cursor-агентов
+# Unified Rules for Cursor Agents (v2.1)
 
 communication:
-  language: ru
+  language: en
+  secondary_language: ru
   style: concise
   code_blocks: only for relevant snippets
+  max_response_length: medium
+
+memory:
+  enabled: true
+  persistence: project-level
+  auto_update: true
 
 workflow:
   - always_pull_before_work: true
   - run_lint_and_tests_before_commit: false
   - prefer_small_atomic_commits: true
   - update_PROJECT_TODO_after_changes: true
+  - create_memory_snapshots: true
 
 coding:
   js_ts:
     eslint: true
     prettier: true
+    style_guide: airbnb-base
   html_css:
     keep_indentation: true
     avoid_inline_styles: true
+    use_css_variables: true
+    mobile_first: true
 
 security:
   avoid_exposing_secrets: true
   use_env_and_github_secrets: true
+  validate_input: true
+  cors_strict: true
 
 i18n:
-  default_lang: ru
+  default_lang: en
+  secondary_lang: ru
+  supported_langs: [en, ru]
   persist_language_in_localStorage: true
+  fallback_behavior: graceful
+
+performance:
+  lazy_loading: true
+  image_optimization: true
+  css_minification: true
+  core_web_vitals: priority
 
 theming:
   use_css_variables: true
   respect_manual_theme_over_os: true
+  dark_mode_support: true
 
 agents:
   background:
@@ -37,29 +60,48 @@ agents:
     maintain_todos: true
     non_interactive_flags: true
     prefer_parallel_tool_calls: true
+    auto_fix_linter: true
+    memory_integration: true
   git:
     default_pull: rebase_autostash
     fast_forward_only: true
     prevent_merge_commits: true
+    auto_prune: true
   ci:
     deploy_workflow: ".github/workflows/deploy-gh-pages.yml"
     allow_manual_dispatch: true
+    bugbot_integration: true
   snapshot:
     include:
       - public/**
       - src/**
       - docs/**
       - .github/**
+      - .cursor/**
       - package.json
       - README.md
+      - .cursorrules
     exclude:
       - node_modules/**
       - .git/**
       - tests/**
       - package-lock.json
+      - .env*
   conventions:
-    commit_prefixes: [feat, fix, chore, refactor, docs, ci]
+    commit_prefixes: [feat, fix, chore, refactor, docs, ci, perf, test]
     branch_naming: "cursor/{short-task}"
     pr_title_template: "[{type}] {summary}"
+    semantic_versioning: true
+
+quality:
+  automated_testing: false
+  linting: true
+  type_checking: false
+  accessibility: wcag_aa
+  
+monitoring:
+  performance_tracking: true
+  error_logging: structured
+  metrics_endpoint: "/metrics"
 
 

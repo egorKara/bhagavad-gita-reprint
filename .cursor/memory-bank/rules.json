@@ -1,0 +1,106 @@
+{
+  "project": {
+    "name": "Bhagavad Gita Reprint 1972",
+    "version": "2.0.0",
+    "status": "completed",
+    "primary_language": "en",
+    "secondary_language": "ru"
+  },
+  "communication": {
+    "default_language": "en",
+    "code_comments": "en_only",
+    "documentation": "en_primary_ru_secondary",
+    "user_interface": "bilingual",
+    "commit_messages": "en_only"
+  },
+  "architecture": {
+    "frontend": "static_jamstack",
+    "backend": "nodejs_express",
+    "database": "none_stateless",
+    "hosting": {
+      "frontend": "github_pages",
+      "backend": "yandex_cloud"
+    }
+  },
+  "coding_standards": {
+    "javascript": {
+      "version": "es6+",
+      "linting": "eslint_v9_flat",
+      "formatting": "prettier",
+      "style_guide": "airbnb_base"
+    },
+    "css": {
+      "methodology": "bem_inspired",
+      "variables": "css_custom_properties",
+      "layout": "grid_flexbox",
+      "approach": "mobile_first"
+    },
+    "html": {
+      "version": "html5_semantic",
+      "accessibility": "wcag_2_1_aa",
+      "seo": "structured_data_json_ld"
+    }
+  },
+  "git_workflow": {
+    "commit_prefixes": ["feat", "fix", "chore", "refactor", "docs", "ci", "perf", "test"],
+    "branch_naming": "cursor/{task-description}",
+    "merge_strategy": "rebase_only",
+    "atomic_commits": true
+  },
+  "deployment": {
+    "ci_cd": "github_actions",
+    "frontend_trigger": "push_to_main",
+    "backend_deployment": "manual_with_scripts",
+    "monitoring": "prometheus_nginx_systemd"
+  },
+  "security": {
+    "secrets_management": "github_secrets_env",
+    "cors_policy": "strict_origins",
+    "headers": "helmet_js",
+    "rate_limiting": "express_rate_limit",
+    "ssl": "lets_encrypt_auto_renewal"
+  },
+  "performance": {
+    "core_web_vitals": "optimized",
+    "lazy_loading": "enabled",
+    "minification": "css_js",
+    "caching": "appropriate_headers",
+    "images": "webp_optimized"
+  },
+  "accessibility": {
+    "standard": "wcag_2_1_aa",
+    "features": ["aria_labels", "keyboard_navigation", "screen_reader_support"],
+    "testing": "manual_verification_required"
+  },
+  "seo": {
+    "structured_data": "json_ld",
+    "meta_tags": "comprehensive",
+    "sitemap": "xml_format",
+    "robots_txt": "search_engine_optimized",
+    "performance": "core_web_vitals_green"
+  },
+  "testing": {
+    "framework": "jest",
+    "coverage": "minimal_api_only",
+    "e2e": "not_implemented",
+    "manual_qa": "cross_browser_required"
+  },
+  "monitoring": {
+    "metrics": "prometheus_endpoint",
+    "logging": "structured_json",
+    "health_checks": "systemd_nginx_status",
+    "security": "fail2ban_intrusion_detection"
+  },
+  "current_priorities": [
+    "replace_author_image_placeholder",
+    "add_real_book_photographs",
+    "implement_notification_integration",
+    "enhance_monitoring_completeness",
+    "improve_seo_structured_data"
+  ],
+  "technical_debt": {
+    "level": "low",
+    "areas": ["test_coverage", "error_handling_robustness"],
+    "maintainability": "high"
+  }
+}

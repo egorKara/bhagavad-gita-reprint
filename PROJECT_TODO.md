@@ -1,6 +1,8 @@
-## Проектные задачи (единый список)
+## Project Tasks (Unified List)
 
-Источник правды для задач, которыми управляют агенты на всех устройствах (Desktop/Mobile). Обновляйте, коммитьте и пушьте изменения.
+Single source of truth for tasks managed by agents across all devices (Desktop/Mobile). Update, commit and push changes. 
+
+**Language Policy:** English primary, Russian secondary. All code, comments, and commit messages in English.
 
 ### Активные задачи
 
