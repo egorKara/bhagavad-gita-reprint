@@ -23,6 +23,7 @@ const config = {
     metricsToken: process.env.METRICS_TOKEN || null,
     recaptchaSecret: process.env.RECAPTCHA_SECRET || null,
     turnstileSecret: process.env.TURNSTILE_SECRET || null,
+    dataDir: path.resolve(process.cwd(), 'data'),
 };
 
 module.exports = config;

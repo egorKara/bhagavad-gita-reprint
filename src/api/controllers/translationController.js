@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
 const queue = require('../../services/translationQueue');
+const logger = require('../../utils/logger');
 
 function extractTextsFromHtml(html) {
     const $ = cheerio.load(html);
@@ -42,7 +43,7 @@ exports.batchTranslate = async (req, res) => {
         const result = await queue.batchTranslate(items, sourceLang, targetLang);
         return res.json(result);
     } catch (err) {
-        console.error('batchTranslate error:', err);
+        logger.error('batchTranslate error', { error: String(err), requestId: req.id });
         return res.status(500).json({ error: 'Internal error' });
     }
 };
@@ -71,7 +72,7 @@ exports.submitFeedback = async (req, res) => {
         });
         return res.json({ id, ok: true });
     } catch (err) {
-        console.error('submitFeedback error:', err);
+        logger.error('submitFeedback error', { error: String(err), requestId: req.id });
         return res.status(500).json({ error: 'Internal error' });
     }
 };
@@ -90,7 +91,7 @@ exports.prewarmSite = async (_req, res) => {
         const ruToEn = await queue.batchTranslate(items, 'ru', 'en');
         return res.json({ queued: ruToEn.queuedCount, jobId: ruToEn.jobId });
     } catch (err) {
-        console.error('prewarmSite error:', err);
+        logger.error('prewarmSite error', { error: String(err), requestId: _req.id });
         return res.status(500).json({ error: 'Internal error' });
     }
 };

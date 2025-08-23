@@ -47,7 +47,7 @@ function requestJson({ method, pathname, token, body }) {
           const json = JSON.parse(data);
           if (ok) resolve({ status, json });
           else reject(new Error(`HTTP ${status}: ${JSON.stringify(json)}`));
-        } catch (e) {
+        } catch {
           if (ok) resolve({ status, json: {} });
           else reject(new Error(`HTTP ${status}: ${data}`));
         }
@@ -82,15 +82,15 @@ async function cancelRun(owner, repo, runId, token) {
   try {
     await requestJson({ method: 'POST', pathname: `/repos/${owner}/${repo}/actions/runs/${runId}/cancel`, token });
     return 'canceled';
-  } catch (e) {
-    // Try delete as fallback for queued
-    try {
-      await requestJson({ method: 'DELETE', pathname: `/repos/${owner}/${repo}/actions/runs/${runId}`, token });
-      return 'deleted';
-    } catch (e2) {
-      return 'failed';
+      } catch {
+      // Try delete as fallback for queued
+      try {
+        await requestJson({ method: 'DELETE', pathname: `/repos/${owner}/${repo}/actions/runs/${runId}`, token });
+        return 'deleted';
+      } catch {
+        return 'failed';
+      }
     }
-  }
 }
 
 (async () => {
