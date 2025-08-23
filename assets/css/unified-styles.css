@@ -78,6 +78,7 @@ button {
     --shadow: 0 2px 10px rgb(0 0 0 / 10%);
 
     /* ===== ДОПОЛНИТЕЛЬНЫЕ ПЕРЕМЕННЫЕ ===== */
+
     /* Модульная шкала отступов (8px grid) */
     --space-xs: 4px; /* 0.25rem */
     --space-sm: 8px; /* 0.5rem */
@@ -221,46 +222,46 @@ button {
 }
 
 /* Контейнеры для разных целей */
-.container--narrow {
+.container-narrow {
     max-width: var(--container-md);
 }
 
-.container--reading {
+.container-reading {
     max-width: var(--max-width-reading);
 }
 
-.container--content {
+.container-content {
     max-width: var(--max-width-content);
 }
 
-.container--wide {
+.container-wide {
     max-width: var(--max-width-wide);
 }
 
-.container--full {
+.container-full {
     max-width: none;
     padding: 0;
 }
 
 /* Контейнер с адаптивным паддингом */
-.container--responsive {
+.container-responsive {
     padding: 0 var(--space-md);
 }
 
 @media (width >= 640px) {
-    .container--responsive {
+    .container-responsive {
         padding: 0 var(--space-lg);
     }
 }
 
 @media (width >= 1024px) {
-    .container--responsive {
+    .container-responsive {
         padding: 0 var(--space-xl);
     }
 }
 
 @media (width >= 1280px) {
-    .container--responsive {
+    .container-responsive {
         padding: 0 var(--space-2xl);
     }
 }
@@ -366,6 +367,7 @@ a:hover {
 /* ===== СОВРЕМЕННАЯ СИСТЕМА ДИЗАЙНА ===== */
 
 /* Модульная шкала отступов (8px grid) - объединено с основным :root */
+
 /* ПЕРЕМЕННЫЕ ПЕРЕНЕСЕНЫ В ОСНОВНОЙ :root БЛОК (СТРОКА 65) */
 
 /* ===== МАКЕТ ===== */
@@ -380,20 +382,20 @@ a:hover {
     box-shadow: 0 4px 15px rgb(0 0 0 / 10%);
 }
 
-.header__content {
+.header-content {
     max-width: var(--max-width-layout);
     margin: 0 auto;
     padding: 0 var(--space-lg);
 }
 
-.header__nav {
+.header-nav {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: var(--space-3xl);
 }
 
-.header__nav-link {
+.header-nav-link {
     color: #000 !important; /* Чёрный текст */
     padding: var(--space-lg) var(--space-2xl);
     border-radius: var(--border-radius);
@@ -407,14 +409,14 @@ a:hover {
     text-align: center;
 }
 
-.header__nav-link:hover {
+.header-nav-link:hover {
     background: var(--color-accent); /* Золотой фон при наведении */
     color: #000 !important;
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgb(0 0 0 / 20%);
 }
 
-.header__nav-link--active {
+.header-nav-link-active {
     background: var(--color-accent); /* Активная ссылка золотая */
 }
 
@@ -470,7 +472,7 @@ a:hover {
     overflow: hidden;
 }
 
-.hero__content {
+.hero-content {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-3xl);
@@ -482,7 +484,7 @@ a:hover {
 }
 
 @media (width >= 768px) {
-    .hero__content {
+    .hero-content {
         grid-template-columns: 1.618fr 1fr; /* Золотое сечение */
         gap: var(--space-4xl);
         padding: 0 var(--space-xl);
@@ -490,18 +492,18 @@ a:hover {
 }
 
 @media (width >= 1024px) {
-    .hero__content {
+    .hero-content {
         gap: var(--space-5xl);
         padding: 0 var(--space-2xl);
     }
 }
 
-.hero__text {
+.hero-text {
     max-width: var(--max-width-content);
     z-index: 2;
 }
 
-.hero__title {
+.hero-title {
     font-size: clamp(var(--font-3xl), 4vw, var(--font-5xl));
     margin-bottom: var(--space-lg);
     color: var(--color-text);
@@ -567,61 +569,61 @@ a:hover {
     padding: var(--space-4xl) 0;
 }
 
-.section--hero {
+.section-hero {
     padding: var(--space-5xl) 0;
     min-height: 80vh;
     display: flex;
     align-items: center;
 }
 
-.section--compact {
+.section-compact {
     padding: var(--space-3xl) 0;
 }
 
-.section--spacious {
+.section-spacious {
     padding: var(--space-5xl) 0;
 }
 
-.section--dark {
+.section-dark {
     background: var(--color-primary);
     color: var(--white);
 }
 
-.section--light {
+.section-light {
     background: var(--color-background);
 }
 
-.section--gray {
+.section-gray {
     background: #f8f9fa;
 }
 
 /* Модификатор grid-контента */
-.section__content--grid {
+.section-content-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-xl);
 }
 
 @media (width >= 768px) {
-    .section__content--grid {
+    .section-content-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--space-2xl);
     }
 }
 
 /* Дополнительные элементы секции */
-.section__text {
+.section-text {
     max-width: var(--max-width-content);
 }
 
-.section__description {
+.section-description {
     font-size: clamp(var(--font-base), 1.5vw, var(--font-lg));
     line-height: var(--leading-relaxed);
     color: var(--color-text);
     margin-bottom: var(--space-xl);
 }
 
-.section__img {
+.section-img {
     width: 100%;
     height: auto;
     border-radius: var(--border-radius);
@@ -629,12 +631,12 @@ a:hover {
     transition: var(--transition-base);
 }
 
-.section__img:hover {
+.section-img:hover {
     transform: scale(1.02);
     box-shadow: 0 12px 40px rgb(0 0 0 / 15%);
 }
 
-.section__image-caption {
+.section-image-caption {
     text-align: center;
     font-size: var(--font-sm);
     color: var(--color-light-text);
@@ -642,30 +644,30 @@ a:hover {
     font-style: italic;
 }
 
-.section__cta {
+.section-cta {
     margin-top: var(--space-xl);
     text-align: center;
 }
 
-.section__container {
+.section-container {
     max-width: var(--max-width-layout);
     margin: 0 auto;
     padding: 0 var(--space-lg);
 }
 
 @media (width >= 768px) {
-    .section__container {
+    .section-container {
         padding: 0 var(--space-xl);
     }
 }
 
 @media (width >= 1024px) {
-    .section__container {
+    .section-container {
         padding: 0 var(--space-2xl);
     }
 }
 
-.section__header {
+.section-header {
     text-align: center;
     margin-bottom: var(--space-4xl);
     max-width: var(--max-width-content);
@@ -673,7 +675,7 @@ a:hover {
     margin-right: auto;
 }
 
-.section__title {
+.section-title {
     font-size: clamp(var(--font-2xl), 3vw, var(--font-4xl));
     margin-bottom: var(--space-lg);
     color: var(--color-text);
@@ -681,14 +683,14 @@ a:hover {
     font-weight: 700;
 }
 
-.section__subtitle {
+.section-subtitle {
     font-size: clamp(var(--font-lg), 2vw, var(--font-xl));
     color: var(--color-light-text);
     line-height: var(--leading-normal);
     margin-bottom: var(--space-xl);
 }
 
-.section__content {
+.section-content {
     display: grid;
     gap: var(--space-xl);
 }
@@ -748,33 +750,33 @@ a:hover {
     white-space: nowrap;
 }
 
-.btn--primary {
+.btn-primary {
     background: var(--color-primary);
     color: var(--white);
     border-color: var(--color-primary);
 }
 
-.btn--primary:hover {
+.btn-primary:hover {
     background: var(--color-secondary);
     border-color: var(--color-secondary);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgb(0 0 0 / 15%);
 }
 
-.btn--secondary {
+.btn-secondary {
     background: transparent;
     color: var(--color-primary);
     border-color: var(--color-primary);
 }
 
-.btn--secondary:hover {
+.btn-secondary:hover {
     background: var(--color-primary);
     color: var(--white);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgb(0 0 0 / 15%);
 }
 
-.btn--large {
+.btn-large {
     padding: var(--space-lg) var(--space-2xl);
     font-size: var(--font-lg);
     min-height: 56px;
@@ -797,8 +799,8 @@ a:hover {
     }
 }
 
-.cta-buttons--center,
-.btn-group--center {
+.cta-buttons-center,
+.btn-group-center {
     align-items: center;
     justify-content: center;
 }
@@ -823,7 +825,7 @@ a:hover {
     border-color: var(--color-accent);
 }
 
-.feature__icon {
+.feature-icon {
     font-size: var(--font-2xl);
     color: var(--color-accent);
     min-width: 40px;
@@ -836,7 +838,7 @@ a:hover {
     flex-shrink: 0;
 }
 
-.feature__text {
+.feature-text {
     font-size: var(--font-base);
     color: var(--color-text);
     line-height: var(--leading-normal);
@@ -862,14 +864,14 @@ a:hover {
     margin-bottom: var(--space-xl);
 }
 
-.features__title {
+.features-title {
     font-size: var(--font-xl);
     color: var(--color-text);
     margin-bottom: var(--space-lg);
     font-weight: 600;
 }
 
-.features__list {
+.features-list {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -877,7 +879,7 @@ a:hover {
     gap: var(--space-md);
 }
 
-.features__item {
+.features-item {
     font-size: var(--font-base);
     line-height: var(--leading-normal);
     color: var(--color-text);
@@ -894,7 +896,7 @@ a:hover {
     border-radius: var(--border-radius);
 }
 
-.quote__text {
+.quote-text {
     margin: 0;
     font-size: var(--font-lg);
     font-style: italic;
@@ -902,11 +904,11 @@ a:hover {
     color: var(--color-text);
 }
 
-.quote__text p {
+.quote-text p {
     margin: 0 0 var(--space-md) 0;
 }
 
-.quote__author {
+.quote-author {
     display: block;
     margin-top: var(--space-lg);
     font-size: var(--font-sm);
@@ -924,14 +926,14 @@ a:hover {
     box-shadow: var(--shadow);
 }
 
-.content-block__title {
+.content-block-title {
     font-size: var(--font-xl);
     color: var(--color-text);
     margin-bottom: var(--space-lg);
     font-weight: 600;
 }
 
-.content-block__list {
+.content-block-list {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -939,7 +941,7 @@ a:hover {
     gap: var(--space-md);
 }
 
-.content-block__item {
+.content-block-item {
     font-size: var(--font-base);
     line-height: var(--leading-normal);
     color: var(--color-text);
@@ -947,7 +949,7 @@ a:hover {
     border-bottom: 1px solid var(--color-border);
 }
 
-.content-block__item:last-child {
+.content-block-item:last-child {
     border-bottom: none;
 }
 
@@ -989,7 +991,7 @@ a:hover {
     margin-top: var(--space-lg);
 }
 
-.price__label {
+.price-label {
     display: block;
     font-size: var(--font-base);
     font-weight: 500;
@@ -997,15 +999,15 @@ a:hover {
     color: var(--color-light-text);
 }
 
-.price__value {
+.price-value {
     display: block;
-    font-size: var(--font-3xl);
+    font-size: var(--font-xl);
     font-weight: 700;
     margin-bottom: var(--space-xs);
     color: var(--color-text);
 }
 
-.price__note {
+.price-note {
     font-size: var(--font-sm);
     color: var(--color-light-text);
 }
@@ -1259,14 +1261,14 @@ a:hover {
     box-shadow: 0 10px 30px rgb(0 0 0 / 30%) !important;
 }
 
-.price-button__value {
+.price-button-value {
     font-size: 2.5rem !important; /* КРУПНАЯ ЦЕНА */
     font-weight: 800 !important;
     line-height: 1.1 !important;
     color: #000 !important;
 }
 
-.price-button__note {
+.price-button-note {
     font-size: 1.1rem !important;
     font-weight: 500 !important;
     color: #000 !important;
@@ -1283,7 +1285,7 @@ a:hover {
     min-height: 400px !important; /* Одинаковая высота */
 }
 
-.content-block__title {
+.content-block-title {
     font-size: 1.6rem !important;
     font-weight: 700 !important;
     color: #000 !important;
@@ -1291,13 +1293,13 @@ a:hover {
     text-align: center !important;
 }
 
-.content-block__list {
+.content-block-list {
     list-style: none !important;
     padding: 0 !important;
     margin: 0 !important;
 }
 
-.content-block__item {
+.content-block-item {
     font-size: 1.2rem !important; /* КРУПНЫЙ ШРИФТ */
     font-weight: 500 !important;
     color: #000 !important;
@@ -1306,12 +1308,12 @@ a:hover {
     border-bottom: 1px solid rgb(0 0 0 / 10%) !important;
 }
 
-.content-block__item:last-child {
+.content-block-item:last-child {
     border-bottom: none !important;
 }
 
 /* СЕТКА СОДЕРЖАНИЯ - БЕЗ ЛИШНЕГО ПРОСТРАНСТВА */
-.section__content--grid {
+.section-content-grid {
     display: flex !important;
     gap: var(--space-xl) !important;
     align-items: stretch !important;
@@ -1349,12 +1351,12 @@ a:hover {
     margin-top: var(--space-2xl) !important;
 }
 
-.feature__icon {
+.feature-icon {
     font-size: 2rem !important;
     margin-bottom: var(--space-md) !important;
 }
 
-.feature__text {
+.feature-text {
     font-size: 1.1rem !important;
     font-weight: 600 !important;
     color: #000 !important;
@@ -1717,7 +1719,7 @@ a:hover {
 }
 
 /* Отключение сложных эффектов на слабых устройствах */
-@media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
+@media (width <= 768px) and (min-device-pixel-ratio: 1) {
     .hero-section,
     .cta-section {
         background: var(--color-primary);

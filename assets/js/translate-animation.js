@@ -84,7 +84,7 @@
                     color: Math.random() < 0.5 ? colors.sand : colors.base
                 });
             }
-            let start = performance.now();
+            const start = performance.now();
             const duration = 650;
             // Fade out old text quickly
             textSpan.style.transition = 'opacity 160ms ease-out, filter 200ms ease-out';

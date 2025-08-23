@@ -1676,7 +1676,7 @@ function initializeLanguage() {
 }
 
 // Запускаем инициализацию при загрузке страницы
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     initializeLanguage();
     // Создаем кнопку языка с небольшой задержкой, чтобы переводчик успел инициализироваться
     setTimeout(createLanguageSwitch, 100);
