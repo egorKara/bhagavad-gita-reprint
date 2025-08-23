@@ -1546,7 +1546,10 @@ function createLanguageSwitch() {
     // Создаем кнопку переключения языка
     const languageButton = document.createElement('button');
     languageButton.className = 'language-switch control-btn control-btn--language';
-    languageButton.innerHTML = translator.currentLang === 'ru' ? 'EN' : 'RU';
+    
+    // Безопасно получаем текущий язык
+    const currentLang = translator.currentLang || document.documentElement.lang || 'ru';
+    languageButton.innerHTML = currentLang === 'ru' ? 'EN' : 'RU';
     languageButton.title = 'Переключить язык / Switch language';
     languageButton.onclick = () => translator.switchLanguage();
     
@@ -1568,5 +1571,6 @@ function initializeLanguage() {
 // Запускаем инициализацию при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     initializeLanguage();
-    createLanguageSwitch();
+    // Создаем кнопку языка с небольшой задержкой, чтобы переводчик успел инициализироваться
+    setTimeout(createLanguageSwitch, 100);
 });

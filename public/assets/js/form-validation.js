@@ -82,12 +82,7 @@ class OrderFormValidator {
             }
         }
         
-        if (fieldName === 'phone') {
-            if (field.value.trim() && !this.isValidPhone(field.value)) {
-                isValid = false;
-                errorMessage = 'Неверный формат номера телефона';
-            }
-        }
+        // Проверка телефона удалена, так как поле телефона больше не используется
         
         if (fieldName === 'postalCode') {
             if (field.value.trim() && !/^[0-9]{6}$/.test(field.value)) {
@@ -102,11 +97,7 @@ class OrderFormValidator {
         return isValid;
     }
     
-    isValidPhone(phone) {
-        // Проверка российского номера телефона
-        const phoneRegex = /^(\+7|8)[\s\(]?(\d{3})[\)\s-]?(\d{3})[\s-]?(\d{2})[\s-]?(\d{2})$/;
-        return phoneRegex.test(phone);
-    }
+
     
     showFieldError(field, errorElement, isValid, errorMessage) {
         if (isValid) {
