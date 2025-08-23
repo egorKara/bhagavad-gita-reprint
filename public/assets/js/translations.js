@@ -1538,6 +1538,22 @@ class UniversalTranslator {
 // Создаем глобальный экземпляр переводчика
 const translator = new UniversalTranslator();
 
+// Функция для создания кнопки переключения языка
+function createLanguageSwitch() {
+    // Проверяем, не создана ли уже кнопка
+    if (document.querySelector('.language-switch')) return;
+    
+    // Создаем кнопку переключения языка
+    const languageButton = document.createElement('button');
+    languageButton.className = 'language-switch control-btn control-btn--language';
+    languageButton.innerHTML = translator.currentLang === 'ru' ? 'EN' : 'RU';
+    languageButton.title = 'Переключить язык / Switch language';
+    languageButton.onclick = () => translator.switchLanguage();
+    
+    // Добавляем кнопку к body
+    document.body.appendChild(languageButton);
+}
+
 // Функция для переключения языка (для обратной совместимости)
 function switchLanguage(lang) {
     translator.setLanguage(lang);
@@ -1550,4 +1566,7 @@ function initializeLanguage() {
 }
 
 // Запускаем инициализацию при загрузке страницы
-document.addEventListener('DOMContentLoaded', initializeLanguage);
+document.addEventListener('DOMContentLoaded', function() {
+    initializeLanguage();
+    createLanguageSwitch();
+});
