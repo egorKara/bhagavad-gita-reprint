@@ -532,7 +532,7 @@ p {
 }
 
 /* Оптимизация для слабых устройств */
-@media (maxwidth: 768px) and (-webkit-min-device-pixel-ratio: 1) {
+@media (maxwidth: 768px) and (min-device-pixel-ratio: 1) {
     .hero-section {
         background: var(--color-background);
     }

@@ -23,5 +23,5 @@
         "at-rule-no-vendor-prefix": null,
         "selector-no-vendor-prefix": null
     },
-    "ignoreFiles": ["node_modules/**", "dist/**", "build/**", "public/assets/css/archived/**/*.css"]
+    "ignoreFiles": ["node_modules/**", "dist/**", "build/**"]
 }
