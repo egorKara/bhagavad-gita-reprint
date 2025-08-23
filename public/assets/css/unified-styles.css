@@ -27,18 +27,19 @@ body {
     color: var(--color-text);
 }
 
-/* ===== ЦВЕТОВЫЕ СХЕМЫ (МАКСИМУМ 4 ЦВЕТА) ===== */
+/* ===== ОПТИМИЗИРОВАННЫЕ ЦВЕТОВЫЕ СХЕМЫ (МАКСИМУМ 4 ЦВЕТА) ===== */
 
-/* СХЕМА 1: КЛАССИЧЕСКАЯ */
+/* СХЕМА ПО УМОЛЧАНИЮ: ЭЛЕГАНТНАЯ (ЛУЧШАЯ КОНТРАСТНОСТЬ) */
 :root {
-    --color-primary: #8B4513;      /* Седло-коричневый */
-    --color-secondary: #D2691E;    /* Шоколадный */
-    --color-accent: #FFD700;       /* Золотой */
-    --color-text: #1a0f0f;         /* Очень темно-коричневый */
+    --color-primary: #2F4F4F;      /* Темно-сланцевый */
+    --color-secondary: #708090;    /* Сланцевый */
+    --color-accent: #B8860B;       /* Темно-золотой (улучшенный контраст) */
+    --color-text: #2F4F4F;         /* Темно-сланцевый */
     
-    --color-background: #FFF8F0;   /* Кремовый */
-    --color-border: #E6D7C3;       /* Бежевый */
-    --color-light-text: #6B4423;   /* Средне-коричневый */
+    /* Производные цвета из основных 4-х */
+    --color-background: #F5F5F5;   /* Белый дым */
+    --color-border: var(--color-secondary);     /* Используем secondary */
+    --color-light-text: var(--color-secondary); /* Используем secondary */
     --white: #FFFFFF;
     
     --border-radius: 8px;
@@ -46,59 +47,69 @@ body {
     --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* СХЕМА 2: ВЕДИЧЕСКАЯ */
+/* СХЕМА 2: ВЕДИЧЕСКАЯ (4 ЦВЕТА) */
 [data-theme="vedic"] {
     --color-primary: #8B0000;      /* Темно-красный */
     --color-secondary: #DC143C;    /* Малиновый */
-    --color-accent: #FFD700;       /* Золотой */
+    --color-accent: #DAA520;       /* Золотисто-желтый (лучший контраст) */
     --color-text: #1a0f0f;         /* Очень темный */
+    
+    /* Производные из основных 4-х */
     --color-background: #FFF5F5;   /* Светло-розовый */
-    --color-border: #FFE4E1;       /* Розовый */
-    --color-light-text: #8B0000;   /* Темно-красный */
+    --color-border: var(--color-secondary);     /* Малиновый */
+    --color-light-text: var(--color-primary);   /* Темно-красный */
 }
 
-/* СХЕМА 3: СОВРЕМЕННАЯ */
+/* СХЕМА 3: СОВРЕМЕННАЯ (4 ЦВЕТА) */
 [data-theme="modern"] {
     --color-primary: #2C3E50;      /* Темно-синий */
     --color-secondary: #3498DB;    /* Ярко-синий */
     --color-accent: #E74C3C;       /* Алый */
     --color-text: #2C3E50;         /* Темно-синий */
+    
+    /* Производные из основных 4-х */
     --color-background: #ECF0F1;   /* Светло-серый */
-    --color-border: #BDC3C7;       /* Серый */
-    --color-light-text: #7F8C8D;   /* Средне-серый */
+    --color-border: var(--color-secondary);     /* Ярко-синий */
+    --color-light-text: var(--color-secondary); /* Ярко-синий */
 }
 
-/* СХЕМА 4: ТЕПЛАЯ */
+/* СХЕМА 4: ТЕПЛАЯ (4 ЦВЕТА) */
 [data-theme="warm"] {
     --color-primary: #A0522D;      /* Сиена */
     --color-secondary: #FF8C00;    /* Темно-оранжевый */
-    --color-accent: #FFD700;       /* Золотой */
+    --color-accent: #B8860B;       /* Темно-золотой (лучший контраст) */
     --color-text: #654321;         /* Темно-коричневый */
+    
+    /* Производные из основных 4-х */
     --color-background: #FFF8DC;   /* Кукурузный */
-    --color-border: #DEB887;       /* Бурвуд */
-    --color-light-text: #8B7355;   /* Средне-коричневый */
+    --color-border: var(--color-primary);      /* Сиена */
+    --color-light-text: var(--color-primary);  /* Сиена */
 }
 
-/* СХЕМА 5: ЭЛЕГАНТНАЯ */
+/* СХЕМА 5: ЭЛЕГАНТНАЯ (4 ЦВЕТА) - ДУБЛИРУЕТ БАЗОВУЮ */
 [data-theme="elegant"] {
     --color-primary: #2F4F4F;      /* Темно-сланцевый */
     --color-secondary: #708090;    /* Сланцевый */
-    --color-accent: #DAA520;       /* Золотисто-желтый */
+    --color-accent: #B8860B;       /* Темно-золотой */
     --color-text: #2F4F4F;         /* Темно-сланцевый */
+    
+    /* Производные из основных 4-х */
     --color-background: #F5F5F5;   /* Белый дым */
-    --color-border: #C0C0C0;       /* Серебряный */
-    --color-light-text: #708090;   /* Сланцевый */
+    --color-border: var(--color-secondary);     /* Сланцевый */
+    --color-light-text: var(--color-secondary); /* Сланцевый */
 }
 
-/* СХЕМА 6: СПОКОЙНАЯ */
+/* СХЕМА 6: СПОКОЙНАЯ (4 ЦВЕТА) */
 [data-theme="calm"] {
     --color-primary: #556B2F;      /* Темно-оливковый */
-    --color-secondary: #9ACD32;    /* Желто-зеленый */
+    --color-secondary: #6B8E23;    /* Оливково-землистый (улучшенный контраст) */
     --color-accent: #4682B4;       /* Стальной синий */
     --color-text: #2F4F2F;         /* Темно-оливковый */
+    
+    /* Производные из основных 4-х */
     --color-background: #F0F8FF;   /* Алиса-синий */
-    --color-border: #B0C4DE;       /* Светло-стальной */
-    --color-light-text: #556B2F;   /* Темно-оливковый */
+    --color-border: var(--color-accent);        /* Стальной синий */
+    --color-light-text: var(--color-primary);   /* Темно-оливковый */
 }
 
 /* ===== КОМПОНЕНТЫ ===== */
