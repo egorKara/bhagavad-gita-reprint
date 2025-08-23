@@ -3,7 +3,7 @@
     position: fixed;
     top: 20px;
     right: 20px;
-    z-index: 9998;
+    z-index: 10001;
     background: var(--accent-color, #FFD700);
     color: var(--text-dark, #2C1810);
     border: 2px solid var(--primary-color, #8B4513);
@@ -20,7 +20,9 @@
     justify-content: center;
     text-decoration: none;
     font-family: 'Georgia', 'Times New Roman', serif;
-    margin: 5px;
+    /* Обеспечиваем постоянную видимость */
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .language-switch:hover {
@@ -63,7 +65,10 @@
         width: 50px;
         height: 50px;
         font-size: 12px;
-        z-index: 9998;
+        z-index: 10001;
+        /* Всегда видим на мобильных */
+        visibility: visible !important;
+        opacity: 1 !important;
     }
 }
 
