@@ -50,15 +50,15 @@ class ThemeSwitcher {
             .theme-switch {
                 position: fixed;
                 top: 20px;
-                right: 80px;
+                right: 90px;
                 z-index: 9999;
                 background: var(--accent-color);
                 color: var(--text-dark);
                 border: 2px solid var(--primary-color);
                 border-radius: 50%;
-                width: 50px;
-                height: 50px;
-                font-size: 18px;
+                width: 56px;
+                height: 56px;
+                font-size: 20px;
                 cursor: pointer;
                 transition: all 0.3s ease;
                 box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);

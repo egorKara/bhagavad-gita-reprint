@@ -21,55 +21,53 @@
     <!-- Переключатель языка -->
     <button class="language-switch" onclick="switchLanguage('en')">EN</button>
     
-    <header class="hero-header">
-        <div class="header-content">
-            <nav class="main-nav">
-                <a href="index.html" class="nav-link">Главная</a>
-                <a href="about.html" class="nav-link">О книге</a>
-                <a href="author.html" class="nav-link">Автор</a>
-                <a href="contacts.html" class="nav-link">Купить</a>
+    <header class="header">
+        <div class="header__content">
+            <nav class="header__nav">
+                <a href="index.html" class="header__nav-link header__nav-link--active">Главная</a>
+                <a href="about.html" class="header__nav-link">О книге</a>
+                <a href="author.html" class="header__nav-link">Автор</a>
+                <a href="contacts.html" class="header__nav-link">Купить</a>
             </nav>
         </div>
     </header>
     
     <main>
         <!-- Hero Section -->
-        <section class="hero-section">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1 class="hero-title">Бхагавад-Гита как она есть</h1>
-                    <p class="hero-subtitle">Оригинальное издание 1972 года от Macmillan Publishing</p>
-                    <p class="hero-description">Точное воспроизведение легендарного издания с полным текстом, комментариями А.Ч. Бхактиведанты Свами Прабхупады и 44 оригинальными иллюстрациями</p>
+        <section class="hero">
+            <div class="hero__content">
+                <div class="hero__text">
+                    <h1 class="hero__title">Бхагавад-Гита как она есть</h1>
+                    <p class="hero__subtitle">Оригинальное издание 1972 года от Macmillan Publishing</p>
+                    <p class="hero__description">Точное воспроизведение легендарного издания с полным текстом, комментариями А.Ч. Бхактиведанты Свами Прабхупады и 44 оригинальными иллюстрациями</p>
                     
-                    <div class="hero-features">
+                    <div class="hero__features">
                         <div class="feature">
-                            <span class="feature-icon">📚</span>
-                            <span>Полный текст с комментариями</span>
+                            <span class="feature__icon">📚</span>
+                            <span class="feature__text">Полный текст с комментариями</span>
                         </div>
                         <div class="feature">
-                            <span class="feature-icon">🎨</span>
-                            <span>44 оригинальные иллюстрации</span>
+                            <span class="feature__icon">🎨</span>
+                            <span class="feature__text">44 оригинальные иллюстрации</span>
                         </div>
                         <div class="feature">
-                            <span class="feature-icon">🔒</span>
-                            <span>Официальная лицензия BBT</span>
+                            <span class="feature__icon">🔒</span>
+                            <span class="feature__text">Официальная лицензия BBT</span>
                         </div>
                     </div>
                     
-                    <div class="hero-cta">
-                        <a href="contacts.html" class="cta-button primary">Заказать книгу</a>
-                        <a href="about.html" class="cta-button secondary">Узнать больше</a>
+                    <div class="hero__cta-buttons">
+                        <a href="contacts.html" class="btn btn--primary">Заказать книгу</a>
+                        <a href="about.html" class="btn btn--secondary">Узнать больше</a>
                     </div>
                 </div>
                 
-                <div class="hero-image">
-                    <img src="assets/images/gita-1972-cover-complete.jpg" alt="Настоящая обложка Бхагавад-Гиты 1972 года" class="book-cover-hero" loading="lazy">
-                    <div class="price-info">
-                        <div class="price-badge">
-                            <span class="price-label">Цена:</span>
-                            <span class="price">Уточняйте</span>
-                            <span class="price-note">Доставка по России</span>
-                        </div>
+                <div class="hero__image">
+                    <img src="assets/images/gita-1972-cover-complete.jpg" alt="Настоящая обложка Бхагавад-Гиты 1972 года" class="book__cover book__cover--large" loading="lazy">
+                    <div class="price">
+                        <span class="price__label">Цена:</span>
+                        <span class="price__value">Уточняйте</span>
+                        <span class="price__note">Доставка по России</span>
                     </div>
                 </div>
             </div>

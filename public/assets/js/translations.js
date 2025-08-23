@@ -943,20 +943,27 @@ class UniversalTranslator {
             console.log(`✅ Кнопка "Узнать больше" обновлена: "${this.getTranslation('home.learnMore')}"`);
         }
         
-        // Обновляем цену
-        const priceLabel = main.querySelector('.price-label');
+        // Обновляем цену (БЭМ + обратная совместимость)
+        const priceLabel = main.querySelector('.price__label') || main.querySelector('.price-label');
         if (priceLabel) {
             priceLabel.textContent = this.getTranslation('home.priceLabel');
             console.log(`✅ Подпись цены обновлена: "${this.getTranslation('home.priceLabel')}"`);
         }
         
-        const price = main.querySelector('.price');
-        if (price) {
-            price.textContent = this.getTranslation('home.price');
-            console.log(`✅ Цена обновлена: "${this.getTranslation('home.price')}"`);
+        const priceValue = main.querySelector('.price__value');
+        if (priceValue) {
+            priceValue.textContent = this.getTranslation('home.price');
+            console.log(`✅ Цена обновлена (БЭМ): "${this.getTranslation('home.price')}"`);
         }
         
-        const priceNote = main.querySelector('.price-note');
+        // Обратная совместимость для старых классов
+        const price = main.querySelector('.price:not(.price__value)');
+        if (price && !price.querySelector('.price__value')) {
+            price.textContent = this.getTranslation('home.price');
+            console.log(`✅ Цена обновлена (старый класс): "${this.getTranslation('home.price')}"`);
+        }
+        
+        const priceNote = main.querySelector('.price__note') || main.querySelector('.price-note');
         if (priceNote) {
             priceNote.textContent = this.getTranslation('home.priceNote');
             console.log(`✅ Примечание о цене обновлено: "${this.getTranslation('home.priceNote')}"`);
@@ -1430,7 +1437,9 @@ class UniversalTranslator {
         if (subtitle) subtitle.textContent = this.getTranslation('about.subtitle', subtitle.textContent);
         
         const price = main.querySelector('.price');
-        if (price) price.textContent = this.getTranslation('home.price', price.textContent);
+        if (price && !price.querySelector('.price__value')) {
+            price.textContent = this.getTranslation('home.price', price.textContent);
+        }
         
         const delivery = main.querySelector('.delivery');
         if (delivery) delivery.textContent = this.getTranslation('home.priceNote', delivery.textContent);

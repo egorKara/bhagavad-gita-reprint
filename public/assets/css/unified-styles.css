@@ -339,7 +339,39 @@ a:hover {
     color: var(--color-accent);
 }
 
-/* Цена */
+/* ===== БЭМ: PRICE БЛОК ===== */
+.price {
+    background: var(--color-accent);
+    color: var(--color-text);
+    padding: var(--space-md);
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: var(--shadow);
+    margin-top: var(--space-lg);
+}
+
+.price__label {
+    display: block;
+    font-size: var(--font-base);
+    font-weight: 500;
+    margin-bottom: var(--space-xs);
+    color: var(--color-light-text);
+}
+
+.price__value {
+    display: block;
+    font-size: var(--font-3xl);
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+    color: var(--color-text);
+}
+
+.price__note {
+    font-size: var(--font-sm);
+    color: var(--color-light-text);
+}
+
+/* Обратная совместимость для старых классов */
 .price-info {
     margin-top: 20px;
 }
@@ -358,13 +390,6 @@ a:hover {
     font-size: 1rem;
     color: var(--color-light-text);
     margin-bottom: 5px;
-}
-
-.price {
-    display: block;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-text);
 }
 
 .price-note {
@@ -436,7 +461,66 @@ a:hover {
 
 /* ===== КНОПКИ УПРАВЛЕНИЯ ===== */
 
-/* Переключатель языка */
+/* ===== БЭМ: CONTROL BUTTONS (УНИФИЦИРОВАННЫЕ КНОПКИ) ===== */
+
+/* Базовый класс для всех управляющих кнопок */
+.control-btn {
+    position: fixed;
+    top: 20px;
+    z-index: 10000;
+    background: var(--color-accent);
+    color: var(--color-text);
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: visible !important;
+    opacity: 1 !important;
+    font-family: inherit;
+}
+
+.control-btn:hover {
+    background: var(--color-primary);
+    color: var(--white);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+}
+
+.control-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+/* Модификаторы позиции */
+.control-btn--language {
+    right: 20px;
+    z-index: 10001;
+    font-size: 14px;
+}
+
+.control-btn--theme {
+    right: 90px;
+    font-size: 20px;
+}
+
+.control-btn--feedback {
+    right: 160px;
+    font-size: 18px;
+}
+
+/* Переключатель языка (обратная совместимость) */
 .language-switch {
     position: fixed;
     top: 20px;
@@ -446,10 +530,10 @@ a:hover {
     color: var(--color-text);
     border: 2px solid var(--color-primary);
     border-radius: 50%;
-    width: 55px;
-    height: 55px;
+    width: 56px;
+    height: 56px;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
     box-shadow: var(--shadow);
@@ -464,6 +548,7 @@ a:hover {
     background: var(--color-primary);
     color: var(--white);
     transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 .language-switch.changing {
@@ -489,31 +574,43 @@ a:hover {
     }
 }
 
-/* Переключатель тем */
+/* Переключатель тем (унифицированный) */
 .theme-switch {
     position: fixed;
     top: 20px;
-    right: 80px;
-    z-index: 9999;
+    right: 90px;
+    z-index: 10000;
     background: var(--color-accent);
     color: var(--color-text);
     border: 2px solid var(--color-primary);
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    font-size: 18px;
+    width: 56px;
+    height: 56px;
+    font-size: 20px;
+    font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
     box-shadow: var(--shadow);
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: inherit;
 }
 
 .theme-switch:hover {
     background: var(--color-primary);
     color: var(--white);
     transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.theme-switch:active {
+    transform: scale(0.95);
+}
+
+.theme-switch:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
 }
 
 /* ===== АНИМАЦИИ ===== */
@@ -534,6 +631,69 @@ a:hover {
 }
 
 /* ===== АДАПТИВНОСТЬ ===== */
+
+/* Адаптивные стили для контрольных кнопок */
+@media (max-width: 768px) {
+    .control-btn,
+    .language-switch,
+    .theme-switch,
+    .translation-feedback-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 14px;
+    }
+    
+    .control-btn--language,
+    .language-switch {
+        top: 15px;
+        right: 15px;
+    }
+    
+    .control-btn--theme,
+    .theme-switch {
+        top: 15px;
+        right: 75px;
+        font-size: 16px;
+    }
+    
+    .control-btn--feedback,
+    .translation-feedback-btn {
+        top: 15px;
+        right: 135px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .control-btn,
+    .language-switch,
+    .theme-switch,
+    .translation-feedback-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 12px;
+    }
+    
+    .control-btn--language,
+    .language-switch {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .control-btn--theme,
+    .theme-switch {
+        top: 10px;
+        right: 65px;
+        font-size: 14px;
+    }
+    
+    .control-btn--feedback,
+    .translation-feedback-btn {
+        top: 10px;
+        right: 120px;
+        font-size: 12px;
+    }
+}
 
 @media (max-width: 768px) {
     .container {
