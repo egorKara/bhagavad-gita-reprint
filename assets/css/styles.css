@@ -349,10 +349,13 @@ body {
     box-shadow: 0 8px 30px rgba(139, 69, 19, 0.25);
 }
 
+.price-info {
+    margin-top: 20px;
+    text-align: center;
+}
+
 .price-badge {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    display: inline-block;
     background: var(--accent-color);
     padding: 15px 20px;
     border-radius: var(--border-radius);
@@ -1033,20 +1036,58 @@ body {
         gap: 20px;
     }
     
+    .hero-header {
+        padding: 8px 0; /* Уменьшен с 15px */
+    }
+    
     .main-nav {
-        flex-direction: column;
-        gap: 15px;
+        flex-direction: row; /* Горизонтальная раскладка */
+        gap: 8px; /* Уменьшен с 15px */
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 8px; /* Уменьшен с 20px */
         width: 100%;
-        margin-top: 20px;
+    }
+    
+    .nav-link {
+        padding: 4px 8px; /* Уменьшены отступы с 6px 12px */
+        font-size: 0.9rem; /* Уменьшен размер текста */
+        border-radius: 4px;
     }
     
     .header-content {
         flex-direction: column;
         text-align: center;
+        padding: 0 10px; /* Добавлены боковые отступы */
+    }
+    
+    .logo {
+        width: 45px; /* Уменьшен размер с 60px */
+        margin-right: 0; /* Убран правый отступ */
+        margin-bottom: 4px;
     }
 }
 
 @media (max-width: 480px) {
+    .hero-header {
+        padding: 6px 0; /* Еще меньше для маленьких экранов */
+    }
+    
+    .main-nav {
+        gap: 6px; /* Еще меньший отступ */
+        margin-top: 6px;
+    }
+    
+    .nav-link {
+        padding: 3px 6px; /* Минимальные отступы */
+        font-size: 0.85rem; /* Еще меньший шрифт */
+    }
+    
+    .logo {
+        width: 40px; /* Еще меньше */
+        margin-bottom: 2px;
+    }
+    
     .hero-title {
         font-size: 2rem;
     }
@@ -1059,6 +1100,7 @@ body {
         padding: 0 15px;
     }
     
+    /* Улучшенные отступы между секциями */
     .hero-section,
     .about-section,
     .author-section,
@@ -1071,13 +1113,40 @@ body {
     .literary-section,
     .philosophy-section,
     .legacy-section {
-        padding: 60px 0;
+        margin-bottom: 60px; /* Увеличены отступы */
+        padding: 40px 0; /* Увеличен внутренний отступ */
     }
     
-    .material-item,
-    .principle-item {
-        flex-direction: column;
-        text-align: center;
+    /* Увеличенные размеры кнопок для сенсорного ввода */
+    .cta-button,
+    .nav-link,
+    .form-button,
+    .contact-button {
+        min-height: 48px; /* Стандарт Apple/Google для касаний */
+        min-width: 48px;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .cta-button.large {
+        min-height: 56px; /* Еще больше для основных действий */
+        padding: 16px 24px;
+        font-size: 1.1rem;
+    }
+    
+    /* Улучшенные отступы для форм */
+    .form-input,
+    .form-textarea,
+    .form-select {
+        padding: 16px; /* Увеличено с 15px */
+        font-size: 1rem; /* Предотвращает зум на iOS */
+        min-height: 48px;
+    }
+    
+    .form-group {
+        margin-bottom: 30px; /* Увеличено с 25px */
     }
 }
 
@@ -2014,6 +2083,7 @@ nav a {
 .form-select.error {
     border-color: #dc3545;
     box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+    animation: shake 0.5s ease-in-out;
 }
 
 .form-input:focus,
@@ -2022,6 +2092,92 @@ nav a {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+}
+
+.form-input:valid,
+.form-textarea:valid,
+.form-select:valid {
+    border-color: #28a745;
+}
+
+/* Анимация тряски для ошибок */
+@keyframes shake {
+    0%, 20%, 40%, 60%, 80% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-3px);
+    }
+}
+
+/* Улучшенные стили для checkbox и radio */
+.checkbox-group,
+.radio-group {
+    margin: 20px 0;
+}
+
+.checkbox-label,
+.radio-label {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    font-weight: normal;
+    line-height: 1.4;
+    gap: 10px;
+}
+
+.checkmark,
+.radiomark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: var(--transition);
+}
+
+.radiomark {
+    border-radius: 50%;
+}
+
+input[type="checkbox"]:checked + .checkmark,
+input[type="radio"]:checked + .radiomark {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+input[type="checkbox"]:checked + .checkmark:after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input[type="radio"]:checked + .radiomark:after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: white;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Скрываем стандартные checkbox и radio */
+input[type="checkbox"],
+input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
 }
 
 /* ===== АНИМАЦИИ ===== */
