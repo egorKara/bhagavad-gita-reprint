@@ -221,7 +221,7 @@ function initAnalytics() {
     });
 
     // Отслеживаем время на странице
-    let startTime = Date.now();
+    const startTime = Date.now();
     window.addEventListener('beforeunload', () => {
         const timeSpent = Date.now() - startTime;
         trackEvent('page_exit', {

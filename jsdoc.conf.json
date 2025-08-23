@@ -1,0 +1,25 @@
+{
+    "source": {
+        "include": ["./public/assets/js/"],
+        "includePattern": "\\.(js)$",
+        "exclude": ["node_modules/"]
+    },
+    "opts": {
+        "destination": "./docs/",
+        "recurse": true,
+        "readme": "./README.md"
+    },
+    "plugins": ["plugins/markdown"],
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false
+    },
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc", "closure"]
+    },
+    "metadata": {
+        "title": "Bhagavad-Gita 1972 - JavaScript Documentation",
+        "version": "1.0.0"
+    }
+}

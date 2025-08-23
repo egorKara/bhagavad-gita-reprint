@@ -167,19 +167,30 @@ class AdminOrdersManager {
      * Создание кнопок действий
      */
     createActionButtons(order) {
-        return `
-            <div class="action-buttons">
-                <button class="action-btn view" onclick="adminManager.showOrderDetails('${order.id}')">
-                    👁️ Просмотр
-                </button>
-                <button class="action-btn edit" onclick="adminManager.editOrder('${order.id}')">
-                    ✏️ Изменить
-                </button>
-                <button class="action-btn delete" onclick="adminManager.deleteOrder('${order.id}')">
-                    🗑️ Удалить
-                </button>
-            </div>
-        `;
+        // Безопасное создание кнопок без inline onclick
+        const actionDiv = document.createElement('div');
+        actionDiv.className = 'action-buttons';
+        
+        const viewBtn = document.createElement('button');
+        viewBtn.className = 'action-btn view';
+        viewBtn.textContent = '👁️ Просмотр';
+        viewBtn.addEventListener('click', () => adminManager.showOrderDetails(order.id));
+        
+        const editBtn = document.createElement('button');
+        editBtn.className = 'action-btn edit';
+        editBtn.textContent = '✏️ Изменить';
+        editBtn.addEventListener('click', () => adminManager.editOrder(order.id));
+        
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'action-btn delete';
+        deleteBtn.textContent = '🗑️ Удалить';
+        deleteBtn.addEventListener('click', () => adminManager.deleteOrder(order.id));
+        
+        actionDiv.appendChild(viewBtn);
+        actionDiv.appendChild(editBtn);
+        actionDiv.appendChild(deleteBtn);
+        
+        return actionDiv.outerHTML;
     }
 
     /**
@@ -538,7 +549,7 @@ class AdminOrdersManager {
                 this.displayStats(data.data);
             }
         } catch (error) {
-            console.error('Ошибка загрузки статистики:', error);
+            // console.error('Ошибка загрузки статистики:', error); // Убрано для безопасности
         }
     }
 

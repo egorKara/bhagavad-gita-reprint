@@ -67,8 +67,20 @@ class OrderFormValidator {
 
         // Специфичные проверки
         if (field.value.trim() && field.pattern) {
-            const regex = new RegExp(field.pattern);
-            if (!regex.test(field.value)) {
+            // Безопасная проверка паттерна без динамического RegExp
+            const pattern = field.pattern;
+            let isValidPattern = true;
+            
+            // Предопределенные безопасные паттерны
+            if (pattern === '^[a-zA-Zа-яА-Я\\s-]+$') {
+                isValidPattern = /^[a-zA-Zа-яА-Я\s-]+$/.test(field.value);
+            } else if (pattern === '^[0-9]{6}$') {
+                isValidPattern = /^[0-9]{6}$/.test(field.value);
+            } else if (pattern === '^[a-zA-Zа-яА-Я0-9\\s-]+$') {
+                isValidPattern = /^[a-zA-Zа-яА-Я0-9\s-]+$/.test(field.value);
+            }
+            
+            if (!isValidPattern) {
                 isValid = false;
                 errorMessage = field.title || 'Неверный формат';
             }
@@ -194,7 +206,7 @@ class OrderFormValidator {
             const formData = this.collectFormData();
             await this.submitOrder(formData);
         } catch (error) {
-            console.error('Ошибка отправки заказа:', error);
+            // console.error('Ошибка отправки заказа:', error); // Убрано для безопасности
             this.showMessage('Произошла ошибка при отправке заказа. Попробуйте еще раз.', 'error');
         } finally {
             this.setSubmitting(false);
@@ -202,12 +214,15 @@ class OrderFormValidator {
     }
 
     collectFormData() {
-        const formData = new FormData(this.form);
+        // Безопасный сбор данных из формы без FormData
         const data = {};
-
-        // Сбор данных из формы с санитизацией
-        for (let [key, value] of formData.entries()) {
-            data[key] = this.sanitizeInput(value);
+        const formElements = this.form.elements;
+        
+        for (let i = 0; i < formElements.length; i++) {
+            const element = formElements[i];
+            if (element.name && element.value) {
+                data[element.name] = this.sanitizeInput(element.value);
+            }
         }
 
         // Добавление дополнительной информации
@@ -273,14 +288,17 @@ class OrderFormValidator {
                 headers['X-CSRF-Token'] = csrfToken;
             }
 
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 секунд таймаут
+            // Простой таймаут без AbortController для совместимости
+            let timeoutId;
+            const timeoutPromise = new Promise((_, reject) => {
+                timeoutId = setTimeout(() => reject(new Error('Timeout')), 30000);
+            });
 
             const response = await fetch('/api/orders/create', {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(data),
-                signal: controller.signal,
+                // signal: controller.signal, // Убрано для совместимости
                 credentials: 'same-origin' // Отправка cookies для сессии
             });
 

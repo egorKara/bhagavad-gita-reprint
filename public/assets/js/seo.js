@@ -234,7 +234,7 @@ function improveAccessibility() {
 // Функция для улучшения производительности и Core Web Vitals
 function improveCoreWebVitals() {
     // Отслеживаем LCP (Largest Contentful Paint)
-    let lcpElement = null;
+    const lcpElement = null;
     let lcpValue = 0;
 
     const observer = new PerformanceObserver((list) => {
