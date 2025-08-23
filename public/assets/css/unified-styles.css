@@ -338,7 +338,50 @@ a:hover {
 
 /* ===== МАКЕТ ===== */
 
-/* Шапка - оптимизированная */
+/* ===== НОВЫЙ ХЕДЕР (СВЕТЛЫЙ, ЦЕНТРИРОВАННЫЙ) ===== */
+.header {
+    background: var(--color-background); /* Светлый фон */
+    color: var(--color-text);
+    padding: var(--space-lg) 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header__content {
+    max-width: var(--max-width-layout);
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+}
+
+.header__nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-2xl);
+}
+
+.header__nav-link {
+    color: var(--color-text);
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: var(--font-xl); /* Крупный шрифт */
+    background: var(--white);
+    box-shadow: var(--shadow);
+}
+
+.header__nav-link:hover {
+    background: var(--color-accent);
+    color: var(--color-text);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Шапка - оптимизированная (старая) */
 .hero-header {
     background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     color: var(--white);
@@ -1427,4 +1470,78 @@ a:hover {
     .cta-section {
         background: var(--color-primary);
     }
+}
+
+/* ===== НОВЫЙ ДИЗАЙН КНОПОК И ФУТЕРА ===== */
+
+/* КНОПКИ: ЗОЛОТОЙ ФОН, ЧЁРНЫЙ ТЕКСТ */
+.btn,
+.cta-button,
+.cta-button.primary,
+.cta-button.secondary,
+.btn--primary,
+.btn--secondary,
+.btn-primary,
+.btn-secondary {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: var(--space-lg) var(--space-2xl) !important;
+    border-radius: var(--border-radius) !important;
+    font-weight: 700 !important;
+    font-size: var(--font-lg) !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    transition: var(--transition) !important;
+    line-height: 1.4 !important;
+    min-height: 60px !important;
+    background: var(--color-accent) !important; /* Золотой фон */
+    color: #000000 !important; /* Чёрный текст */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+.btn:hover,
+.cta-button:hover,
+.cta-button.primary:hover,
+.cta-button.secondary:hover,
+.btn--primary:hover,
+.btn--secondary:hover,
+.btn-primary:hover,
+.btn-secondary:hover {
+    background: var(--color-secondary) !important; /* Малиновый при наведении */
+    color: #000000 !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ФУТЕР: СВЕТЛЫЙ ФОН, ЧЁРНЫЙ ТЕКСТ */
+.main-footer,
+.site-footer {
+    background: var(--color-background) !important; /* Светлый фон */
+    color: #000000 !important; /* Чёрный текст */
+    padding: 60px 0 20px !important;
+}
+
+.footer-section h4,
+.footer-section p,
+.footer-section span,
+.footer-section div,
+.contact-link,
+.contact-item,
+.contact-button {
+    color: #000000 !important; /* Весь текст чёрный */
+}
+
+.contact-link:hover {
+    color: var(--color-primary) !important; /* Красный при наведении */
+}
+
+.contact-button {
+    background: var(--color-accent) !important; /* Золотой фон для кнопок */
+    color: #000000 !important;
+}
+
+.contact-button:hover {
+    background: var(--color-secondary) !important;
+    color: #000000 !important;
 }
