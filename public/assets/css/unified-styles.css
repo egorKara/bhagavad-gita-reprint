@@ -950,10 +950,10 @@ a:hover {
     color: var(--white);
 }
 
-/* Футер */
+/* ===== ФУТЕР (ЕДИНЫЙ СТИЛЬ) ===== */
 .main-footer,
 .site-footer {
-    background: var(--color-text);
+    background: var(--color-primary);
     color: var(--white);
     padding: 60px 0 20px;
 }
@@ -963,32 +963,85 @@ a:hover {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 40px;
     margin-bottom: 40px;
+    max-width: var(--max-width-layout);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--space-lg);
 }
 
+/* Заголовки секций футера */
 .footer-section h4 {
     color: var(--color-accent);
-    margin-bottom: 20px;
+    margin-bottom: var(--space-lg);
+    font-size: var(--font-lg);
+    font-weight: 600;
 }
 
-/* Контакты */
+/* Единый стиль для всех элементов контактов */
 .contact-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+    padding: var(--space-xs);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
 }
 
+.contact-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Иконки контактов */
 .contact-icon {
     color: var(--color-accent);
     font-size: 1.2em;
+    min-width: 24px;
+    text-align: center;
 }
 
-.contact-link {
-    color: var(--white);
+/* Ссылки и текст контактов */
+.contact-link,
+.footer-section p,
+.footer-section span,
+.footer-section div {
+    color: var(--white) !important;
+    text-decoration: none;
+    transition: var(--transition);
 }
 
 .contact-link:hover {
-    color: var(--color-accent);
+    color: var(--color-accent) !important;
+    text-decoration: underline;
+}
+
+/* Кнопки быстрой связи */
+.quick-contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.contact-button {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white) !important;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-weight: 500;
+}
+
+.contact-button:hover {
+    background: var(--color-accent);
+    color: var(--color-text) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-color: var(--color-accent);
 }
 
 /* ===== КНОПКИ УПРАВЛЕНИЯ ===== */
