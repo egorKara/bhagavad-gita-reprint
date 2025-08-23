@@ -9,7 +9,7 @@ function formatMessage(level, message, meta) {
         level,
         message: String(message),
         timestamp: new Date().toISOString(),
-        ...meta,
+        ...meta
     };
     return JSON.stringify(base);
 }
@@ -54,9 +54,9 @@ const logger = {
             },
             debug(message, meta = {}) {
                 logger.debug(message, { ...meta, requestId: req.id });
-            },
+            }
         };
-    },
+    }
 };
 
 module.exports = logger;

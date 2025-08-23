@@ -21,7 +21,7 @@ describe('Orders API', () => {
             email: 'ivan@example.com',
             phone: '+79991234567',
             quantity: 2,
-            address: '123456, Москва, Тверская, 1',
+            address: '123456, Москва, Тверская, 1'
         };
         const res = await request(app).post('/api/orders/create').send(body);
         expect(res.status).toBe(200);
@@ -40,22 +40,16 @@ describe('Orders API', () => {
             email: 'petr@example.com',
             phone: '+79990001122',
             quantity: 1,
-            address: '101000, Москва, Арбат, 10',
+            address: '101000, Москва, Арбат, 10'
         };
 
-        const r1 = await request(app)
-            .post('/api/orders/create')
-            .set('x-idempotency-key', key)
-            .send(body);
+        const r1 = await request(app).post('/api/orders/create').set('x-idempotency-key', key).send(body);
         expect(r1.status).toBe(200);
         expect(r1.body).toHaveProperty('success', true);
         const id1 = r1.body.orderId;
         expect(id1).toBeTruthy();
 
-        const r2 = await request(app)
-            .post('/api/orders/create')
-            .set('x-idempotency-key', key)
-            .send(body);
+        const r2 = await request(app).post('/api/orders/create').set('x-idempotency-key', key).send(body);
         expect(r2.status).toBe(200);
         expect(r2.body).toHaveProperty('success', true);
         const id2 = r2.body.orderId;
@@ -72,7 +66,7 @@ describe('Orders API', () => {
             lastName: '',
             email: 'not-an-email',
             phone: '123',
-            quantity: 0,
+            quantity: 0
             // no address provided
         };
         const res = await request(app).post('/api/orders/create').send(bad);

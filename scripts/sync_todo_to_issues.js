@@ -39,7 +39,7 @@ async function main() {
         owner,
         repo,
         state: 'all',
-        per_page: 100,
+        per_page: 100
     });
 
     const issueMap = new Map();
@@ -55,7 +55,7 @@ async function main() {
                 owner,
                 repo,
                 title: task.title,
-                labels: ['agent', 'todo'],
+                labels: ['agent', 'todo']
             });
             console.log('Created issue:', task.title);
         } else if (existing) {
@@ -65,14 +65,12 @@ async function main() {
                     owner,
                     repo,
                     issue_number: existing.number,
-                    state: desiredState,
+                    state: desiredState
                 });
                 console.log('Updated issue state:', task.title, '->', desiredState);
             }
             // Обновляем labels
-            const labels = new Set(
-                existing.labels.map((l) => (typeof l === 'string' ? l : l.name))
-            );
+            const labels = new Set(existing.labels.map((l) => (typeof l === 'string' ? l : l.name)));
             labels.add('agent');
             if (task.done) {
                 labels.delete('todo');
@@ -85,7 +83,7 @@ async function main() {
                 owner,
                 repo,
                 issue_number: existing.number,
-                labels: Array.from(labels),
+                labels: Array.from(labels)
             });
         }
     }

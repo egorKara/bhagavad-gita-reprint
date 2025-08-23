@@ -1,41 +1,37 @@
 {
-    "name": "gita-1972",
+    "name": "bhagavad-gita-1972-reprint",
     "version": "1.0.0",
-    "description": "Официальное издание, одобренное **Bhaktivedanta Book Trust**.   Купить можно на [сайте](https://egorkara.github.io/bhagavad-gita-reprint/).",
+    "description": "Официальный репринт Бхагавад-Гиты 1972 года - лицензированное издание Bhaktivedanta Book Trust",
     "main": "index.js",
     "scripts": {
-        "test": "jest --runInBand",
-        "start": "node src/server.js",
-        "dev": "nodemon src/server.js",
-        "lint": "eslint .",
-        "format": "prettier --write .",
-        "prepare": "husky install || true",
-        "agent:setup": "bash scripts/agent_setup.sh",
-        "agent:snapshot": "bash scripts/agent_snapshot.sh"
+        "format": "prettier --write \"**/*.{css,html,js,json,md}\"",
+        "format:css": "prettier --write \"**/*.css\"",
+        "lint:css": "stylelint \"**/*.css\"",
+        "lint:css:fix": "stylelint \"**/*.css\" --fix",
+        "check": "npm run lint:css && prettier --check \"**/*.{css,html,js,json,md}\"",
+        "dev": "python3 -m http.server 8000 --bind 127.0.0.1 --directory public",
+        "serve": "python3 -m http.server 8002 --bind 127.0.0.1 --directory public"
     },
-    "keywords": [],
-    "author": "",
-    "license": "MIT",
-    "dependencies": {
-        "cheerio": "^1.0.0",
-        "cors": "^2.8.5",
-        "dotenv": "^16.4.5",
-        "express": "^5.1.0",
-        "express-rate-limit": "^6.11.2",
-        "helmet": "^7.1.0",
-        "morgan": "^1.10.0",
-        "node-fetch": "^3.3.2",
-        "prom-client": "^14.2.0",
-        "uuid": "^11.1.0"
-    },
+    "keywords": [
+        "bhagavad-gita",
+        "1972",
+        "reprint",
+        "prabhupada",
+        "vedic",
+        "philosophy",
+        "iskcon",
+        "krishna"
+    ],
+    "author": "A.C. Bhaktivedanta Swami Prabhupada",
+    "license": "BBT",
     "devDependencies": {
-        "eslint": "^9.10.0",
-        "eslint-config-prettier": "^9.1.0",
-        "eslint-plugin-node": "^11.1.0",
-        "husky": "^9.1.6",
-        "jest": "^29.7.0",
-        "nodemon": "^3.1.10",
-        "prettier": "^3.3.3",
-        "supertest": "^7.0.0"
-    }
+        "prettier": "^3.1.0",
+        "stylelint": "^15.11.0",
+        "stylelint-config-standard": "^34.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/egorKara/bhagavad-gita-reprint.git"
+    },
+    "homepage": "https://gita-1972-reprint.ru"
 }

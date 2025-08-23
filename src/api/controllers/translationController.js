@@ -68,7 +68,7 @@ exports.submitFeedback = async (req, res) => {
             corrected,
             url,
             selector,
-            reason,
+            reason
         });
         return res.json({ id, ok: true });
     } catch (err) {

@@ -39,8 +39,8 @@ morgan.token('id', (req) => req.id);
 app.use(
     morgan(':method :url :status :res[content-length] - :response-time ms id=:id', {
         stream: {
-            write: (message) => process.stdout.write(message),
-        },
+            write: (message) => process.stdout.write(message)
+        }
     })
 );
 
@@ -49,7 +49,7 @@ const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 минут
     max: 1000, // мягкий лимит
     standardHeaders: true,
-    legacyHeaders: false,
+    legacyHeaders: false
 });
 
 // Отдельный более строгий лимит на создание заказов
@@ -57,7 +57,7 @@ const createOrderLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 минут
     max: 20,
     standardHeaders: true,
-    legacyHeaders: false,
+    legacyHeaders: false
 });
 
 // CORS (для фронта на другом домене)
@@ -65,7 +65,7 @@ app.use(
     cors({
         origin: corsOrigins,
         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-        credentials: false,
+        credentials: false
     })
 );
 
@@ -103,7 +103,7 @@ app.use((err, req, res, _next) => {
     logger.error('Unhandled error', {
         message: err && err.message,
         stack: err && err.stack,
-        requestId: req.id,
+        requestId: req.id
     });
     res.status(500).json({ error: 'Internal Server Error', requestId: req.id });
 });

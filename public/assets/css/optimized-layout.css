@@ -1,8 +1,11 @@
 /* ===== ОПТИМИЗИРОВАННАЯ РАСКЛАДКА UX/UI ===== */
+
 /* Основано на принципах визуального дизайна и юзабилити */
+
 /* Версия: 4.0 | Дата: 2025-01-23 | UX/UI Аудит */
 
 /* ===== ПРИНЦИПЫ ДИЗАЙНА ===== */
+
 /*
 1. ПРАВИЛО 8-PIXEL GRID: Все отступы кратны 8px
 2. ЗОЛОТОЕ СЕЧЕНИЕ: Пропорции 1:1.618
@@ -14,41 +17,41 @@
 
 :root {
     /* ===== МОДУЛЬНАЯ ШКАЛА (1.25 - мажорная терция) ===== */
-    --space-xs: 4px;      /* 0.25rem */
-    --space-sm: 8px;      /* 0.5rem */
-    --space-md: 16px;     /* 1rem */
-    --space-lg: 24px;     /* 1.5rem */
-    --space-xl: 32px;     /* 2rem */
-    --space-2xl: 48px;    /* 3rem */
-    --space-3xl: 64px;    /* 4rem */
-    --space-4xl: 80px;    /* 5rem */
-    --space-5xl: 120px;   /* 7.5rem */
-    
+    --space-xs: 4px; /* 0.25rem */
+    --space-sm: 8px; /* 0.5rem */
+    --space-md: 16px; /* 1rem */
+    --space-lg: 24px; /* 1.5rem */
+    --space-xl: 32px; /* 2rem */
+    --space-2xl: 48px; /* 3rem */
+    --space-3xl: 64px; /* 4rem */
+    --space-4xl: 80px; /* 5rem */
+    --space-5xl: 120px; /* 7.5rem */
+
     /* ===== ТИПОГРАФИКА ===== */
-    --font-xs: 0.75rem;   /* 12px */
-    --font-sm: 0.875rem;  /* 14px */
-    --font-base: 1rem;    /* 16px */
-    --font-lg: 1.125rem;  /* 18px */
-    --font-xl: 1.25rem;   /* 20px */
-    --font-2xl: 1.5rem;   /* 24px */
+    --font-xs: 0.75rem; /* 12px */
+    --font-sm: 0.875rem; /* 14px */
+    --font-base: 1rem; /* 16px */
+    --font-lg: 1.125rem; /* 18px */
+    --font-xl: 1.25rem; /* 20px */
+    --font-2xl: 1.5rem; /* 24px */
     --font-3xl: 1.875rem; /* 30px */
-    --font-4xl: 2.25rem;  /* 36px */
-    --font-5xl: 3rem;     /* 48px */
-    --font-6xl: 3.75rem;  /* 60px */
-    
+    --font-4xl: 2.25rem; /* 36px */
+    --font-5xl: 3rem; /* 48px */
+    --font-6xl: 3.75rem; /* 60px */
+
     /* ===== ВЫСОТЫ СТРОК ===== */
     --leading-tight: 1.25;
     --leading-normal: 1.5;
     --leading-relaxed: 1.625;
     --leading-loose: 2;
-    
+
     /* ===== ШИРИНЫ КОНТЕНТА ===== */
     --max-width-sm: 640px;
     --max-width-md: 768px;
     --max-width-lg: 1024px;
     --max-width-xl: 1280px;
     --max-width-reading: 65ch; /* Оптимальная ширина для чтения */
-    
+
     /* ===== АНИМАЦИИ ===== */
     --transition-fast: 150ms ease-out;
     --transition-base: 300ms ease-out;
@@ -60,7 +63,7 @@
 body {
     font-size: var(--font-base);
     line-height: var(--leading-normal);
-    font-family: 'Georgia', 'Times New Roman', serif;
+    font-family: Georgia, 'Times New Roman', serif;
     color: var(--color-text);
     background: var(--color-background);
 }
@@ -205,13 +208,13 @@ p {
     padding: var(--space-md) var(--space-lg);
     background: var(--white);
     border-radius: var(--border-radius);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 8%);
     transition: var(--transition-base);
 }
 
 .feature:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 12%);
 }
 
 .feature-icon {
@@ -255,13 +258,13 @@ p {
 .btn-primary {
     background: var(--color-primary);
     color: var(--white);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
 }
 
 .btn-primary:hover {
     background: var(--color-secondary);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 20px rgb(0 0 0 / 20%);
 }
 
 .btn-secondary {
@@ -289,13 +292,13 @@ p {
     max-width: 100%;
     height: auto;
     border-radius: var(--border-radius);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 32px rgb(0 0 0 / 20%);
     transition: var(--transition-slow);
 }
 
 .book-cover-hero:hover {
     transform: scale(1.02) rotate(1deg);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 12px 40px rgb(0 0 0 / 25%);
 }
 
 /* ===== ЦЕНОВОЙ БЛОК ===== */
@@ -313,9 +316,9 @@ p {
     padding: var(--space-md) var(--space-lg);
     border-radius: var(--border-radius);
     text-align: center;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 15%);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgb(255 255 255 / 20%);
 }
 
 .price-label {
@@ -381,85 +384,85 @@ p {
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
     padding: var(--space-xl);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 12px rgb(0 0 0 / 8%);
     transition: var(--transition-base);
 }
 
 .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
 }
 
 /* ===== АДАПТИВНОСТЬ ===== */
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .hero-content {
         grid-template-columns: 1fr;
         gap: var(--space-xl);
         text-align: center;
     }
-    
+
     .hero-text {
         order: 1;
     }
-    
+
     .hero-image {
         order: 2;
     }
-    
+
     .price-info {
         position: static;
         margin-top: var(--space-lg);
         display: flex;
         justify-content: center;
     }
-    
+
     .hero-title {
         font-size: var(--font-4xl);
     }
-    
+
     .hero-cta {
         justify-content: center;
     }
-    
+
     .btn {
         min-width: 180px;
     }
-    
+
     .about-content {
         grid-template-columns: 1fr;
         gap: var(--space-xl);
     }
-    
+
     .container,
     .container-narrow {
         padding: 0 var(--space-md);
     }
-    
+
     .section {
         padding: var(--space-4xl) 0;
     }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
     .hero-title {
         font-size: var(--font-3xl);
     }
-    
+
     .hero-subtitle {
         font-size: var(--font-lg);
     }
-    
+
     .hero-cta {
         flex-direction: column;
         align-items: center;
     }
-    
+
     .btn {
         width: 100%;
         max-width: 280px;
     }
-    
+
     .container,
     .container-narrow {
         padding: 0 var(--space-sm);
@@ -472,23 +475,23 @@ p {
     .hero-title {
         animation: fadeInUp 0.8s ease-out;
     }
-    
+
     .hero-subtitle {
         animation: fadeInUp 0.8s ease-out 0.2s both;
     }
-    
+
     .hero-description {
         animation: fadeInUp 0.8s ease-out 0.4s both;
     }
-    
+
     .hero-features {
         animation: fadeInUp 0.8s ease-out 0.6s both;
     }
-    
+
     .hero-cta {
         animation: fadeInUp 0.8s ease-out 0.8s both;
     }
-    
+
     .hero-image {
         animation: fadeInRight 0.8s ease-out 0.4s both;
     }
@@ -499,6 +502,7 @@ p {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -510,6 +514,7 @@ p {
         opacity: 0;
         transform: translateX(30px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -527,16 +532,16 @@ p {
 }
 
 /* Оптимизация для слабых устройств */
-@media (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
+@media (maxwidth: 768px) and (-webkit-min-device-pixel-ratio: 1) {
     .hero-section {
         background: var(--color-background);
     }
-    
+
     .card,
     .feature {
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
     }
-    
+
     .book-cover-hero:hover {
         transform: none;
     }

@@ -11,9 +11,7 @@ describe('Translate API', () => {
     it('should return immediate results for cached/echo with batch', async () => {
         const app = bootstrapApp();
         const items = [{ text: 'Привет' }, { text: 'Мир' }];
-        const res = await request(app)
-            .post('/api/translate/batch')
-            .send({ sourceLang: 'ru', targetLang: 'en', items });
+        const res = await request(app).post('/api/translate/batch').send({ sourceLang: 'ru', targetLang: 'en', items });
         expect(res.status).toBe(200);
         expect(res.body).toHaveProperty('results');
         expect(Array.isArray(res.body.results)).toBe(true);
@@ -24,9 +22,7 @@ describe('Translate API', () => {
     it('should enqueue and return job status', async () => {
         const app = bootstrapApp();
         const items = Array.from({ length: 3 }, (_, i) => ({ text: `Текст ${i + 1}` }));
-        const res = await request(app)
-            .post('/api/translate/batch')
-            .send({ sourceLang: 'ru', targetLang: 'en', items });
+        const res = await request(app).post('/api/translate/batch').send({ sourceLang: 'ru', targetLang: 'en', items });
         expect(res.status).toBe(200);
         expect(res.body).toHaveProperty('jobId');
         const jobId = res.body.jobId;

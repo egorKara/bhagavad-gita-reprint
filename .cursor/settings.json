@@ -1,48 +1,48 @@
 {
-  "cursor.chat.agentMode": true,
-  "cursor.chat.autoScroll": true,
-  "cursor.chat.memories": true,
-  "cursor.chat.autoApplyFilesOutsideContext": true,
-  "cursor.chat.collapsePills": true,
-  "cursor.chat.showPillsAsText": false,
-  "cursor.chat.iterativeLinterFix": true,
-  
-  "cursor.codebase.indexNewFiles": true,
-  "cursor.codebase.gitGraph": true,
-  
-  "cursor.editor.chatHover": true,
-  "cursor.editor.autoSelect": true,
-  "cursor.editor.automaticLinkParsing": true,
-  "cursor.editor.themedDiffs": true,
-  
-  "cursor.terminal.showHover": true,
-  "cursor.terminal.usePreviewPane": true,
-  
-  "cursor.composer.iterativeLinterFix": true,
-  "cursor.composer.autoScroll": true,
-  "cursor.composer.agentMode": true,
-  
-  "cursor.background.enabled": true,
-  "cursor.background.slack_integration": false,
-  "cursor.background.auto_commit": true,
-  "cursor.background.notification_level": "minimal",
-  "cursor.background.working_hours": "09:00-18:00",
-  
-  "cursor.memory.persistence": "project-level",
-  "cursor.memory.auto_update": true,
-  "cursor.memory.context_retention": "enhanced",
-  
-  "cursor.performance.lazy_loading": true,
-  "cursor.performance.parallel_processing": true,
-  "cursor.performance.cache_enabled": true,
-  
-  "cursor.git.auto_pull": true,
-  "cursor.git.rebase_mode": true,
-  "cursor.git.auto_stash": true,
-  "cursor.git.fast_forward_only": true,
-  
-  "cursor.project.language": "en",
-  "cursor.project.secondary_language": "ru",
-  "cursor.project.coding_style": "airbnb-base",
-  "cursor.project.documentation_language": "en"
+    "cursor.chat.agentMode": true,
+    "cursor.chat.autoScroll": true,
+    "cursor.chat.memories": true,
+    "cursor.chat.autoApplyFilesOutsideContext": true,
+    "cursor.chat.collapsePills": true,
+    "cursor.chat.showPillsAsText": false,
+    "cursor.chat.iterativeLinterFix": true,
+
+    "cursor.codebase.indexNewFiles": true,
+    "cursor.codebase.gitGraph": true,
+
+    "cursor.editor.chatHover": true,
+    "cursor.editor.autoSelect": true,
+    "cursor.editor.automaticLinkParsing": true,
+    "cursor.editor.themedDiffs": true,
+
+    "cursor.terminal.showHover": true,
+    "cursor.terminal.usePreviewPane": true,
+
+    "cursor.composer.iterativeLinterFix": true,
+    "cursor.composer.autoScroll": true,
+    "cursor.composer.agentMode": true,
+
+    "cursor.background.enabled": true,
+    "cursor.background.slack_integration": false,
+    "cursor.background.auto_commit": true,
+    "cursor.background.notification_level": "minimal",
+    "cursor.background.working_hours": "09:00-18:00",
+
+    "cursor.memory.persistence": "project-level",
+    "cursor.memory.auto_update": true,
+    "cursor.memory.context_retention": "enhanced",
+
+    "cursor.performance.lazy_loading": true,
+    "cursor.performance.parallel_processing": true,
+    "cursor.performance.cache_enabled": true,
+
+    "cursor.git.auto_pull": true,
+    "cursor.git.rebase_mode": true,
+    "cursor.git.auto_stash": true,
+    "cursor.git.fast_forward_only": true,
+
+    "cursor.project.language": "en",
+    "cursor.project.secondary_language": "ru",
+    "cursor.project.coding_style": "airbnb-base",
+    "cursor.project.documentation_language": "en"
 }

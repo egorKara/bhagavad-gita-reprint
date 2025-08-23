@@ -13,17 +13,17 @@ class ThemeSwitcher {
             { id: 'elegant', name: 'Элегантная', description: 'Серо-золотая схема для изысканного дизайна' },
             { id: 'calm', name: 'Спокойная', description: 'Оливково-зеленая схема для умиротворения' }
         ];
-        
+
         this.currentTheme = 'classic';
         this.init();
     }
-    
+
     init() {
         this.loadSavedTheme();
         this.createThemeSwitcher();
         this.applyTheme(this.currentTheme);
     }
-    
+
     createThemeSwitcher() {
         // Создаем кнопку переключателя тем
         const themeButton = document.createElement('button');
@@ -31,14 +31,14 @@ class ThemeSwitcher {
         themeButton.innerHTML = 'Тема';
         themeButton.title = 'Сменить цветовую схему';
         themeButton.onclick = () => this.showThemeModal();
-        
+
         // Добавляем кнопку к body
         document.body.appendChild(themeButton);
-        
+
         // Добавляем стили для модального окна
         this.addThemeSwitchStyles();
     }
-    
+
     addThemeSwitchStyles() {
         const style = document.createElement('style');
         style.textContent = `
@@ -192,23 +192,25 @@ class ThemeSwitcher {
         `;
         document.head.appendChild(style);
     }
-    
+
     showThemeModal() {
         const modal = document.createElement('div');
         modal.className = 'theme-modal';
         modal.innerHTML = this.createModalHTML();
-        
+
         document.body.appendChild(modal);
-        
+
         // Показываем модальное окно
         setTimeout(() => modal.classList.add('show'), 10);
-        
+
         // Обработчики событий
         this.bindModalEvents(modal);
     }
-    
+
     createModalHTML() {
-        const themesHTML = this.themes.map(theme => `
+        const themesHTML = this.themes
+            .map(
+                (theme) => `
             <div class="theme-option ${theme.id === this.currentTheme ? 'active' : ''}" 
                  data-theme="${theme.id}">
                 <div class="theme-preview" style="background: ${this.getThemePreviewColor(theme.id)}">
@@ -217,8 +219,10 @@ class ThemeSwitcher {
                 <div class="theme-name">${theme.name}</div>
                 <div class="theme-description">${theme.description}</div>
             </div>
-        `).join('');
-        
+        `
+            )
+            .join('');
+
         return `
             <div class="theme-modal-content">
                 <div class="theme-modal-header">
@@ -240,49 +244,49 @@ class ThemeSwitcher {
             </div>
         `;
     }
-    
+
     getThemePreviewColor(themeId) {
         const themeColors = {
-            'classic': 'linear-gradient(135deg, #8B4513, #D2691E)',
-            'vedic': 'linear-gradient(135deg, #8B0000, #B22222)',
-            'modern': 'linear-gradient(135deg, #2C3E50, #34495E)',
-            'warm': 'linear-gradient(135deg, #A0522D, #CD853F)',
-            'elegant': 'linear-gradient(135deg, #2F4F4F, #696969)',
-            'calm': 'linear-gradient(135deg, #556B2F, #6B8E23)'
+            classic: 'linear-gradient(135deg, #8B4513, #D2691E)',
+            vedic: 'linear-gradient(135deg, #8B0000, #B22222)',
+            modern: 'linear-gradient(135deg, #2C3E50, #34495E)',
+            warm: 'linear-gradient(135deg, #A0522D, #CD853F)',
+            elegant: 'linear-gradient(135deg, #2F4F4F, #696969)',
+            calm: 'linear-gradient(135deg, #556B2F, #6B8E23)'
         };
         return themeColors[themeId] || themeColors['classic'];
     }
-    
+
     bindModalEvents(modal) {
         // Сохраняем текущую тему для возможности отмены
         const originalTheme = this.currentTheme;
-        
+
         // Выбор темы с мгновенным предварительным просмотром
-        modal.querySelectorAll('.theme-option').forEach(option => {
+        modal.querySelectorAll('.theme-option').forEach((option) => {
             option.addEventListener('click', () => {
-                modal.querySelectorAll('.theme-option').forEach(opt => opt.classList.remove('active'));
+                modal.querySelectorAll('.theme-option').forEach((opt) => opt.classList.remove('active'));
                 option.classList.add('active');
                 const selectedTheme = option.dataset.theme;
-                
+
                 // Мгновенно применяем тему для предварительного просмотра
                 this.applyTheme(selectedTheme);
                 this.currentTheme = selectedTheme;
             });
         });
-        
+
         // Применение темы (сохранение выбора)
         modal.querySelector('.theme-apply-btn').addEventListener('click', () => {
             this.saveTheme();
             this.showThemeNotification(this.currentTheme);
             this.closeModal(modal);
         });
-        
+
         // Закрытие модального окна (сохраняем выбранную тему)
         modal.querySelector('.theme-close-btn').addEventListener('click', () => {
             this.saveTheme();
             this.closeModal(modal);
         });
-        
+
         // Закрытие по клику вне модального окна (сохраняем выбранную тему)
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
@@ -290,7 +294,7 @@ class ThemeSwitcher {
                 this.closeModal(modal);
             }
         });
-        
+
         // Закрытие по Escape (возвращаем исходную тему)
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
@@ -300,7 +304,7 @@ class ThemeSwitcher {
             }
         });
     }
-    
+
     closeModal(modal) {
         modal.classList.remove('show');
         setTimeout(() => {
@@ -309,33 +313,33 @@ class ThemeSwitcher {
             }
         }, 300);
     }
-    
+
     applyTheme(themeId) {
         // Удаляем все предыдущие темы
         document.documentElement.removeAttribute('data-theme');
-        
+
         // Применяем новую тему
         if (themeId !== 'classic') {
             document.documentElement.setAttribute('data-theme', themeId);
         }
-        
+
         // Обновляем текущую тему
         this.currentTheme = themeId;
-        
+
         // Показываем уведомление
         this.showThemeNotification(themeId);
     }
-    
+
     showThemeNotification(themeId) {
-        const theme = this.themes.find(t => t.id === themeId);
+        const theme = this.themes.find((t) => t.id === themeId);
         if (!theme) return;
-        
+
         const notification = document.createElement('div');
         notification.className = 'theme-notification';
         notification.innerHTML = `
             <span>🎨 Применена схема: ${theme.name}</span>
         `;
-        
+
         // Добавляем стили для уведомления
         const style = document.createElement('style');
         style.textContent = `
@@ -365,9 +369,9 @@ class ThemeSwitcher {
             }
         `;
         document.head.appendChild(style);
-        
+
         document.body.appendChild(notification);
-        
+
         // Автоматически скрываем через 3 секунды
         setTimeout(() => {
             if (notification.parentNode) {
@@ -380,14 +384,14 @@ class ThemeSwitcher {
             }
         }, 3000);
     }
-    
+
     saveTheme() {
         localStorage.setItem('gita-theme', this.currentTheme);
     }
-    
+
     loadSavedTheme() {
         const savedTheme = localStorage.getItem('gita-theme');
-        if (savedTheme && this.themes.some(t => t.id === savedTheme)) {
+        if (savedTheme && this.themes.some((t) => t.id === savedTheme)) {
             this.currentTheme = savedTheme;
         }
     }
@@ -397,4 +401,3 @@ class ThemeSwitcher {
 document.addEventListener('DOMContentLoaded', () => {
     new ThemeSwitcher();
 });
-

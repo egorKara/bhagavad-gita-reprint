@@ -1,10 +1,10 @@
 {
-  "generated_at": "2025-08-23T07:05:27Z",
-  "total_files": 157,
-  "memory_bank_files": 6,
-  "documentation_files": 42,
-  "config_files": 19,
-  "recent_commits": 78,
-  "cursor_config_valid": true,
-  "language_policy": "en_primary_ru_secondary"
+    "generated_at": "2025-08-23T07:05:27Z",
+    "total_files": 157,
+    "memory_bank_files": 6,
+    "documentation_files": 42,
+    "config_files": 19,
+    "recent_commits": 78,
+    "cursor_config_valid": true,
+    "language_policy": "en_primary_ru_secondary"
 }

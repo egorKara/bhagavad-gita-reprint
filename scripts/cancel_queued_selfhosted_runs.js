@@ -32,8 +32,8 @@ function requestJson({ method, pathname, token, body }) {
         headers: {
             'User-Agent': 'cursor-automation',
             Accept: 'application/vnd.github+json',
-            Authorization: `token ${token}`,
-        },
+            Authorization: `token ${token}`
+        }
     };
     return new Promise((resolve, reject) => {
         const req = https.request(options, (res) => {
@@ -42,8 +42,7 @@ function requestJson({ method, pathname, token, body }) {
             res.on('end', () => {
                 const status = res.statusCode || 0;
                 const ok = status >= 200 && status < 300;
-                if (!data)
-                    return ok ? resolve({ status, json: {} }) : reject(new Error(`HTTP ${status}`));
+                if (!data) return ok ? resolve({ status, json: {} }) : reject(new Error(`HTTP ${status}`));
                 try {
                     const json = JSON.parse(data);
                     if (ok) resolve({ status, json });
@@ -64,7 +63,7 @@ async function listWorkflows(owner, repo, token) {
     const { json } = await requestJson({
         method: 'GET',
         pathname: `/repos/${owner}/${repo}/actions/workflows?per_page=100`,
-        token,
+        token
     });
     return json.workflows || [];
 }
@@ -76,7 +75,7 @@ async function listRuns(owner, repo, workflowId, token, status) {
         const { json } = await requestJson({
             method: 'GET',
             pathname: `/repos/${owner}/${repo}/actions/workflows/${workflowId}/runs?status=${status}&per_page=100&page=${page}`,
-            token,
+            token
         });
         const items = json.workflow_runs || [];
         runs.push(...items);
@@ -92,7 +91,7 @@ async function cancelRun(owner, repo, runId, token) {
         await requestJson({
             method: 'POST',
             pathname: `/repos/${owner}/${repo}/actions/runs/${runId}/cancel`,
-            token,
+            token
         });
         return 'canceled';
     } catch {
@@ -101,7 +100,7 @@ async function cancelRun(owner, repo, runId, token) {
             await requestJson({
                 method: 'DELETE',
                 pathname: `/repos/${owner}/${repo}/actions/runs/${runId}`,
-                token,
+                token
             });
             return 'deleted';
         } catch {
@@ -138,9 +137,7 @@ async function cancelRun(owner, repo, runId, token) {
             }
         }
 
-        console.log(
-            JSON.stringify({ canceled: totalCanceled, deleted: totalDeleted, failed: totalFailed })
-        );
+        console.log(JSON.stringify({ canceled: totalCanceled, deleted: totalDeleted, failed: totalFailed }));
     } catch (e) {
         console.error(`Error: ${e.message}`);
         process.exit(1);

@@ -13,7 +13,7 @@ function getStatus(req, res) {
     res.json({
         status: 'OK',
         message: 'Сервер работает корректно',
-        timestamp: new Date().toISOString(),
+        timestamp: new Date().toISOString()
     });
 }
 
@@ -37,12 +37,12 @@ async function getSystemInfo(req, res) {
             uptime: Math.floor(os.uptime() / 3600),
             loadAverage: loadAvg,
             platform: os.platform(),
-            arch: os.arch(),
+            arch: os.arch()
         });
     } catch (error) {
         res.status(500).json({
             error: 'Ошибка получения системной информации',
-            details: error.message,
+            details: error.message
         });
     }
 }
@@ -59,12 +59,12 @@ async function getSecurityStatus(req, res) {
             ssl: 'unavailable',
             headers: 'OK',
             note: 'System-level checks moved to infrastructure monitoring (Prometheus/Grafana).',
-            timestamp: new Date().toISOString(),
+            timestamp: new Date().toISOString()
         });
     } catch (error) {
         res.status(500).json({
             error: 'Ошибка получения статуса безопасности',
-            details: error.message,
+            details: error.message
         });
     }
 }
@@ -78,12 +78,12 @@ async function getNginxStats(req, res) {
     try {
         return res.status(501).json({
             error: 'Not Implemented',
-            details: 'Use Nginx stub_status via Prometheus exporter.',
+            details: 'Use Nginx stub_status via Prometheus exporter.'
         });
     } catch (error) {
         res.status(500).json({
             error: 'Ошибка получения статистики Nginx',
-            details: error.message,
+            details: error.message
         });
     }
 }
@@ -92,5 +92,5 @@ module.exports = {
     getStatus,
     getSystemInfo,
     getSecurityStatus,
-    getNginxStats,
+    getNginxStats
 };

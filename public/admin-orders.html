@@ -1,146 +1,148 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Админ-панель — Управление заказами | Бхагавад-Гита 1972</title>
-    <meta name="description" content="Административная панель для управления заказами Бхагавад-Гиты">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/unified-styles.css?v=3.2">
-    <link rel="icon" href="favicon.ico">
-
-</head>
-<body class="page-load">
-
-    
-    <header class="hero-header">
-        <div class="header-content">
-            <nav class="main-nav">
-                <a href="index.html" class="nav-link">Главная</a>
-                <a href="about.html" class="nav-link">О книге</a>
-                <a href="author.html" class="nav-link">Автор</a>
-                <a href="contacts.html" class="nav-link">Купить</a>
-                <a href="admin-orders.html" class="nav-link active">Админ</a>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <div class="container">
-            <h1 class="admin-title">Управление заказами</h1>
-            
-            <!-- Панель управления -->
-            <div class="admin-controls">
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Поиск по имени, email, телефону..." class="search-input">
-                    <button onclick="searchOrders()" class="search-button">🔍 Поиск</button>
-                </div>
-                
-                <div class="control-buttons">
-                    <button onclick="refreshOrders()" class="control-button">🔄 Обновить</button>
-                    <button onclick="exportToCSV()" class="control-button">📊 Экспорт CSV</button>
-                    <button onclick="showStats()" class="control-button">📈 Статистика</button>
-                </div>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Админ-панель — Управление заказами | Бхагавад-Гита 1972</title>
+        <meta name="description" content="Административная панель для управления заказами Бхагавад-Гиты" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="assets/css/unified-styles.css?v=3.2" />
+        <link rel="icon" href="favicon.ico" />
+    </head>
+    <body class="page-load">
+        <header class="hero-header">
+            <div class="header-content">
+                <nav class="main-nav">
+                    <a href="index.html" class="nav-link">Главная</a>
+                    <a href="about.html" class="nav-link">О книге</a>
+                    <a href="author.html" class="nav-link">Автор</a>
+                    <a href="contacts.html" class="nav-link">Купить</a>
+                    <a href="admin-orders.html" class="nav-link active">Админ</a>
+                </nav>
             </div>
+        </header>
 
-            <!-- Фильтры -->
-            <div class="filters">
-                <select id="statusFilter" onchange="filterOrders()" class="filter-select">
-                    <option value="">Все статусы</option>
-                    <option value="new">Новый</option>
-                    <option value="processing">В обработке</option>
-                    <option value="shipped">Отправлен</option>
-                    <option value="delivered">Доставлен</option>
-                    <option value="cancelled">Отменен</option>
-                </select>
-                
-                <select id="dateFilter" onchange="filterOrders()" class="filter-select">
-                    <option value="">Все даты</option>
-                    <option value="today">Сегодня</option>
-                    <option value="week">За неделю</option>
-                    <option value="month">За месяц</option>
-                </select>
-            </div>
+        <main>
+            <div class="container">
+                <h1 class="admin-title">Управление заказами</h1>
 
-            <!-- Таблица заказов -->
-            <div class="orders-table-container">
-                <table class="orders-table" id="ordersTable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Дата</th>
-                            <th>Клиент</th>
-                            <th>Email</th>
-                            <th>Телефон</th>
-                            <th>Количество</th>
-                            <th>Сумма</th>
-                            <th>Статус</th>
-                            <th>Действия</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ordersTableBody">
-                        <!-- Заказы будут загружены динамически -->
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Пагинация -->
-            <div class="pagination" id="pagination">
-                <!-- Пагинация будет создана динамически -->
-            </div>
-
-            <!-- Статистика -->
-            <div class="stats-overview" id="statsOverview" style="display: none;">
-                <h2>Общая статистика</h2>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3>Всего заказов</h3>
-                        <p id="totalOrders">0</p>
+                <!-- Панель управления -->
+                <div class="admin-controls">
+                    <div class="search-box">
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Поиск по имени, email, телефону..."
+                            class="search-input"
+                        />
+                        <button onclick="searchOrders()" class="search-button">🔍 Поиск</button>
                     </div>
-                    <div class="stat-card">
-                        <h3>Общая выручка</h3>
-                        <p id="totalRevenue">0 ₽</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Средний чек</h3>
-                        <p id="averageOrder">0 ₽</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Заказов сегодня</h3>
-                        <p id="todayOrders">0</p>
+
+                    <div class="control-buttons">
+                        <button onclick="refreshOrders()" class="control-button">🔄 Обновить</button>
+                        <button onclick="exportToCSV()" class="control-button">📊 Экспорт CSV</button>
+                        <button onclick="showStats()" class="control-button">📈 Статистика</button>
                     </div>
                 </div>
+
+                <!-- Фильтры -->
+                <div class="filters">
+                    <select id="statusFilter" onchange="filterOrders()" class="filter-select">
+                        <option value="">Все статусы</option>
+                        <option value="new">Новый</option>
+                        <option value="processing">В обработке</option>
+                        <option value="shipped">Отправлен</option>
+                        <option value="delivered">Доставлен</option>
+                        <option value="cancelled">Отменен</option>
+                    </select>
+
+                    <select id="dateFilter" onchange="filterOrders()" class="filter-select">
+                        <option value="">Все даты</option>
+                        <option value="today">Сегодня</option>
+                        <option value="week">За неделю</option>
+                        <option value="month">За месяц</option>
+                    </select>
+                </div>
+
+                <!-- Таблица заказов -->
+                <div class="orders-table-container">
+                    <table class="orders-table" id="ordersTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Дата</th>
+                                <th>Клиент</th>
+                                <th>Email</th>
+                                <th>Телефон</th>
+                                <th>Количество</th>
+                                <th>Сумма</th>
+                                <th>Статус</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Заказы будут загружены динамически -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Пагинация -->
+                <div class="pagination" id="pagination">
+                    <!-- Пагинация будет создана динамически -->
+                </div>
+
+                <!-- Статистика -->
+                <div class="stats-overview" id="statsOverview" style="display: none">
+                    <h2>Общая статистика</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Всего заказов</h3>
+                            <p id="totalOrders">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Общая выручка</h3>
+                            <p id="totalRevenue">0 ₽</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Средний чек</h3>
+                            <p id="averageOrder">0 ₽</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Заказов сегодня</h3>
+                            <p id="todayOrders">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Модальное окно для просмотра заказа -->
+        <div id="orderModal" class="modal" style="display: none">
+            <div class="modal-content">
+                <span class="close" onclick="closeOrderModal()">&times;</span>
+                <h2>Детали заказа</h2>
+                <div id="orderDetails">
+                    <!-- Детали заказа будут загружены динамически -->
+                </div>
+                <div class="modal-actions">
+                    <label for="orderStatusSelect" style="margin-right: 8px">Статус:</label>
+                    <select id="orderStatusSelect" class="filter-select" style="margin-right: 12px">
+                        <option value="processing">В обработке</option>
+                        <option value="shipped">Отправлен</option>
+                        <option value="delivered">Доставлен</option>
+                        <option value="cancelled">Отменен</option>
+                    </select>
+                    <button onclick="updateOrderStatus()" class="action-button">Обновить статус</button>
+                    <button onclick="deleteOrder()" class="action-button delete">Удалить заказ</button>
+                </div>
             </div>
         </div>
-    </main>
 
-    <!-- Модальное окно для просмотра заказа -->
-    <div id="orderModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close" onclick="closeOrderModal()">&times;</span>
-            <h2>Детали заказа</h2>
-            <div id="orderDetails">
-                <!-- Детали заказа будут загружены динамически -->
-            </div>
-            <div class="modal-actions">
-                <label for="orderStatusSelect" style="margin-right: 8px;">Статус:</label>
-                <select id="orderStatusSelect" class="filter-select" style="margin-right: 12px;">
-                    <option value="processing">В обработке</option>
-                    <option value="shipped">Отправлен</option>
-                    <option value="delivered">Доставлен</option>
-                    <option value="cancelled">Отменен</option>
-                </select>
-                <button onclick="updateOrderStatus()" class="action-button">Обновить статус</button>
-                <button onclick="deleteOrder()" class="action-button delete">Удалить заказ</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Подключаем скрипты -->
-    <script src="assets/js/translations.js?v=1.1"></script>
-    <script src="assets/js/translation-config.js"></script>
-    <script src="assets/js/translate-animation.js"></script>
-    <script src="assets/js/progressive-translate.js"></script>
-    <script src="assets/js/admin-orders.js"></script>
-    <script src="assets/js/theme-switcher.js"></script>
-</body>
+        <!-- Подключаем скрипты -->
+        <script src="assets/js/translations.js?v=1.1"></script>
+        <script src="assets/js/translation-config.js"></script>
+        <script src="assets/js/translate-animation.js"></script>
+        <script src="assets/js/progressive-translate.js"></script>
+        <script src="assets/js/admin-orders.js"></script>
+        <script src="assets/js/theme-switcher.js"></script>
+    </body>
 </html>

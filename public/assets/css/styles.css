@@ -1,114 +1,118 @@
 /* Основные стили и переменные */
 :root {
     /* ===== КЛАССИЧЕСКАЯ СХЕМА (ТЕКУЩАЯ) ===== */
-    --primary-color: #8B4513;
-    --secondary-color: #D2691E;
-    --accent-color: #FFD700;
-    --text-dark: #2C1810;
-    --text-light: #6B4423;
-    --background-light: #FFF8F0;
-    --background-white: #FFFFFF;
-    --border-color: #E6D7C3;
-    --shadow-light: 0 2px 10px rgba(139, 69, 19, 0.1);
-    --shadow-medium: 0 4px 20px rgba(139, 69, 19, 0.15);
+    --primary-color: #8b4513;
+    --secondary-color: #d2691e;
+    --accent-color: #ffd700;
+    --text-dark: #2c1810;
+    --text-light: #6b4423;
+    --background-light: #fff8f0;
+    --background-white: #fff;
+    --border-color: #e6d7c3;
+    --shadow-light: 0 2px 10px rgb(139 69 19 / 10%);
+    --shadow-medium: 0 4px 20px rgb(139 69 19 / 15%);
     --border-radius: 8px;
     --transition: all 0.3s ease;
-    
+
     /* ===== ДОПОЛНИТЕЛЬНЫЕ ЦВЕТА ===== */
     --success-color: #28a745;
     --warning-color: #ffc107;
     --error-color: #dc3545;
     --info-color: #17a2b8;
-    
+
     /* ===== ГРАДИЕНТЫ ===== */
     --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    --gradient-accent: linear-gradient(135deg, var(--accent-color), #FFA500);
-    --gradient-light: linear-gradient(135deg, var(--background-light) 0%, var(--background-white) 100%);
-    
+    --gradient-accent: linear-gradient(135deg, var(--accent-color), #ffa500);
+    --gradient-light: linear-gradient(
+        135deg,
+        var(--background-light) 0%,
+        var(--background-white) 100%
+    );
+
     /* ===== ПРОЗРАЧНОСТЬ ===== */
-    --overlay-light: rgba(255, 255, 255, 0.1);
-    --overlay-dark: rgba(0, 0, 0, 0.1);
-    --overlay-accent: rgba(255, 215, 0, 0.1);
+    --overlay-light: rgb(255 255 255 / 10%);
+    --overlay-dark: rgb(0 0 0 / 10%);
+    --overlay-accent: rgb(255 215 0 / 10%);
 }
 
 /* ===== АЛЬТЕРНАТИВНАЯ СХЕМА 1: ВЕДИЧЕСКАЯ ===== */
-[data-theme="vedic"] {
-    --primary-color: #8B0000;      /* Темно-красный */
-    --secondary-color: #B22222;    /* Огненно-красный */
-    --accent-color: #FFD700;       /* Золотой */
-    --text-dark: #1a0f0f;         /* Очень темный красновато-коричневый */
-    --text-light: #8B0000;         /* Темно-красный */
-    --background-light: #FFF5F5;   /* Очень светлый розоватый */
-    --background-white: #FFFFFF;   /* Белый */
-    --border-color: #FFE4E1;       /* Светло-розовый */
-    --shadow-light: 0 2px 10px rgba(139, 0, 0, 0.1);
-    --shadow-medium: 0 4px 20px rgba(139, 0, 0, 0.15);
-    --gradient-primary: linear-gradient(135deg, #8B0000, #B22222);
-    --gradient-light: linear-gradient(135deg, #FFF5F5 0%, #FFFFFF 100%);
+[data-theme='vedic'] {
+    --primary-color: #8b0000; /* Темно-красный */
+    --secondary-color: #b22222; /* Огненно-красный */
+    --accent-color: #ffd700; /* Золотой */
+    --text-dark: #1a0f0f; /* Очень темный красновато-коричневый */
+    --text-light: #8b0000; /* Темно-красный */
+    --background-light: #fff5f5; /* Очень светлый розоватый */
+    --background-white: #fff; /* Белый */
+    --border-color: #ffe4e1; /* Светло-розовый */
+    --shadow-light: 0 2px 10px rgb(139 0 0 / 10%);
+    --shadow-medium: 0 4px 20px rgb(139 0 0 / 15%);
+    --gradient-primary: linear-gradient(135deg, #8b0000, #b22222);
+    --gradient-light: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
 }
 
 /* ===== АЛЬТЕРНАТИВНАЯ СХЕМА 2: СОВРЕМЕННАЯ ===== */
-[data-theme="modern"] {
-    --primary-color: #2C3E50;      /* Темно-синий */
-    --secondary-color: #34495E;    /* Сине-серый */
-    --accent-color: #3498DB;       /* Голубой */
-    --text-dark: #2C3E50;          /* Темно-синий */
-    --text-light: #7F8C8D;         /* Серый */
-    --background-light: #ECF0F1;   /* Светло-серый */
-    --background-white: #FFFFFF;   /* Белый */
-    --border-color: #BDC3C7;       /* Серый */
-    --shadow-light: 0 2px 10px rgba(44, 62, 80, 0.1);
-    --shadow-medium: 0 4px 20px rgba(44, 62, 80, 0.15);
-    --gradient-primary: linear-gradient(135deg, #2C3E50, #34495E);
-    --gradient-light: linear-gradient(135deg, #ECF0F1 0%, #FFFFFF 100%);
+[data-theme='modern'] {
+    --primary-color: #2c3e50; /* Темно-синий */
+    --secondary-color: #34495e; /* Сине-серый */
+    --accent-color: #3498db; /* Голубой */
+    --text-dark: #2c3e50; /* Темно-синий */
+    --text-light: #7f8c8d; /* Серый */
+    --background-light: #ecf0f1; /* Светло-серый */
+    --background-white: #fff; /* Белый */
+    --border-color: #bdc3c7; /* Серый */
+    --shadow-light: 0 2px 10px rgb(44 62 80 / 10%);
+    --shadow-medium: 0 4px 20px rgb(44 62 80 / 15%);
+    --gradient-primary: linear-gradient(135deg, #2c3e50, #34495e);
+    --gradient-light: linear-gradient(135deg, #ecf0f1 0%, #fff 100%);
 }
 
 /* ===== АЛЬТЕРНАТИВНАЯ СХЕМА 3: ТЕПЛАЯ ===== */
-[data-theme="warm"] {
-    --primary-color: #A0522D;      /* Сиена */
-    --secondary-color: #CD853F;    /* Песочный */
-    --accent-color: #FF8C00;       /* Темно-оранжевый */
-    --text-dark: #654321;          /* Темно-коричневый */
-    --text-light: #8B7355;         /* Коричневый */
-    --background-light: #FFF8DC;   /* Кукурузный */
-    --background-white: #FFFFFF;   /* Белый */
-    --border-color: #DEB887;       /* Бурвуд */
-    --shadow-light: 0 2px 10px rgba(160, 82, 45, 0.1);
-    --shadow-medium: 0 4px 20px rgba(160, 82, 45, 0.15);
-    --gradient-primary: linear-gradient(135deg, #A0522D, #CD853F);
-    --gradient-light: linear-gradient(135deg, #FFF8DC 0%, #FFFFFF 100%);
+[data-theme='warm'] {
+    --primary-color: #a0522d; /* Сиена */
+    --secondary-color: #cd853f; /* Песочный */
+    --accent-color: #ff8c00; /* Темно-оранжевый */
+    --text-dark: #654321; /* Темно-коричневый */
+    --text-light: #8b7355; /* Коричневый */
+    --background-light: #fff8dc; /* Кукурузный */
+    --background-white: #fff; /* Белый */
+    --border-color: #deb887; /* Бурвуд */
+    --shadow-light: 0 2px 10px rgb(160 82 45 / 10%);
+    --shadow-medium: 0 4px 20px rgb(160 82 45 / 15%);
+    --gradient-primary: linear-gradient(135deg, #a0522d, #cd853f);
+    --gradient-light: linear-gradient(135deg, #fff8dc 0%, #fff 100%);
 }
 
 /* ===== АЛЬТЕРНАТИВНАЯ СХЕМА 4: ЭЛЕГАНТНАЯ ===== */
-[data-theme="elegant"] {
-    --primary-color: #2F4F4F;      /* Темно-сланцево-серый */
-    --secondary-color: #696969;    /* Тускло-серый */
-    --accent-color: #DAA520;       /* Золотисто-желтый */
-    --text-dark: #2F4F4F;          /* Темно-сланцево-серый */
-    --text-light: #708090;         /* Сланцево-серый */
-    --background-light: #F5F5F5;   /* Белый дым */
-    --background-white: #FFFFFF;   /* Белый */
-    --border-color: #C0C0C0;       /* Серебряный */
-    --shadow-light: 0 2px 10px rgba(47, 79, 79, 0.1);
-    --shadow-medium: 0 4px 20px rgba(47, 79, 79, 0.15);
-    --gradient-primary: linear-gradient(135deg, #2F4F4F, #696969);
-    --gradient-light: linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%);
+[data-theme='elegant'] {
+    --primary-color: #2f4f4f; /* Темно-сланцево-серый */
+    --secondary-color: #696969; /* Тускло-серый */
+    --accent-color: #daa520; /* Золотисто-желтый */
+    --text-dark: #2f4f4f; /* Темно-сланцево-серый */
+    --text-light: #708090; /* Сланцево-серый */
+    --background-light: #f5f5f5; /* Белый дым */
+    --background-white: #fff; /* Белый */
+    --border-color: #c0c0c0; /* Серебряный */
+    --shadow-light: 0 2px 10px rgb(47 79 79 / 10%);
+    --shadow-medium: 0 4px 20px rgb(47 79 79 / 15%);
+    --gradient-primary: linear-gradient(135deg, #2f4f4f, #696969);
+    --gradient-light: linear-gradient(135deg, #f5f5f5 0%, #fff 100%);
 }
 
 /* ===== АЛЬТЕРНАТИВНАЯ СХЕМА 5: СПОКОЙНАЯ ===== */
-[data-theme="calm"] {
-    --primary-color: #556B2F;      /* Темно-оливковый */
-    --secondary-color: #6B8E23;    /* Оливковый */
-    --accent-color: #9ACD32;       /* Желто-зеленый */
-    --text-dark: #2F4F2F;          /* Темно-оливковый */
-    --text-light: #556B2F;         /* Темно-оливковый */
-    --background-light: #F0F8FF;   /* Алиса-синий */
-    --background-white: #FFFFFF;   /* Белый */
-    --border-color: #B0C4DE;       /* Светло-стальной-синий */
-    --shadow-light: 0 2px 10px rgba(85, 107, 47, 0.1);
-    --shadow-medium: 0 4px 20px rgba(85, 107, 47, 0.15);
-    --gradient-primary: linear-gradient(135deg, #556B2F, #6B8E23);
-    --gradient-light: linear-gradient(135deg, #F0F8FF 0%, #FFFFFF 100%);
+[data-theme='calm'] {
+    --primary-color: #556b2f; /* Темно-оливковый */
+    --secondary-color: #6b8e23; /* Оливковый */
+    --accent-color: #9acd32; /* Желто-зеленый */
+    --text-dark: #2f4f2f; /* Темно-оливковый */
+    --text-light: #556b2f; /* Темно-оливковый */
+    --background-light: #f0f8ff; /* Алиса-синий */
+    --background-white: #fff; /* Белый */
+    --border-color: #b0c4de; /* Светло-стальной-синий */
+    --shadow-light: 0 2px 10px rgb(85 107 47 / 10%);
+    --shadow-medium: 0 4px 20px rgb(85 107 47 / 15%);
+    --gradient-primary: linear-gradient(135deg, #556b2f, #6b8e23);
+    --gradient-light: linear-gradient(135deg, #f0f8ff 0%, #fff 100%);
 }
 
 * {
@@ -116,7 +120,7 @@
 }
 
 body {
-    font-family: 'Georgia', 'Times New Roman', serif;
+    font-family: Georgia, 'Times New Roman', serif;
     line-height: 1.6;
     color: var(--text-dark);
     background-color: var(--background-light);
@@ -177,7 +181,7 @@ body {
 }
 
 .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgb(255 255 255 / 20%);
     transform: translateY(-2px);
 }
 
@@ -198,7 +202,7 @@ body {
 }
 
 .nav-link.active {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgb(255 255 255 / 30%);
     color: var(--accent-color);
     font-weight: 600;
 }
@@ -229,13 +233,13 @@ body {
 }
 
 .hero-title {
-    font-family: 'Times New Roman', 'Times', serif;
+    font-family: 'Times New Roman', Times, serif;
     font-size: 4rem;
     font-weight: 900;
     color: var(--primary-color);
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
     line-height: 1.1;
-    text-shadow: 3px 3px 6px rgba(139, 69, 19, 0.2);
+    text-shadow: 3px 3px 6px rgb(139 69 19 / 20%);
     letter-spacing: -0.02em;
     text-transform: none;
     font-style: normal;
@@ -244,14 +248,14 @@ body {
 .hero-subtitle {
     font-size: 1.5rem;
     color: var(--secondary-color);
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
     font-weight: 600;
 }
 
 .hero-description {
     font-size: 1.2rem;
     color: var(--text-light);
-    margin: 0 0 30px 0;
+    margin: 0 0 30px;
     line-height: 1.8;
 }
 
@@ -346,7 +350,7 @@ body {
 
 .book-cover-hero:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(139, 69, 19, 0.25);
+    box-shadow: 0 8px 30px rgb(139 69 19 / 25%);
 }
 
 .price-info {
@@ -402,7 +406,7 @@ body {
     font-size: 2.5rem;
     color: var(--primary-color);
     text-align: center;
-    margin: 0 0 50px 0;
+    margin: 0 0 50px;
     position: relative;
 }
 
@@ -429,20 +433,20 @@ body {
 .about-description {
     font-size: 1.2rem;
     color: var(--text-light);
-    margin: 0 0 30px 0;
+    margin: 0 0 30px;
     line-height: 1.8;
 }
 
 .book-details h3 {
     color: var(--primary-color);
     font-size: 1.5rem;
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
 }
 
 .features-list {
     list-style: none;
     padding: 0;
-    margin: 0 0 30px 0;
+    margin: 0 0 30px;
 }
 
 .features-list li {
@@ -516,7 +520,7 @@ body {
 .publication-card h3 {
     color: var(--primary-color);
     font-size: 1.3rem;
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -550,7 +554,7 @@ body {
 .why-text h3 {
     color: var(--primary-color);
     font-size: 1.5rem;
-    margin: 30px 0 15px 0;
+    margin: 30px 0 15px;
 }
 
 .why-text h3:first-child {
@@ -560,7 +564,7 @@ body {
 .why-text p {
     font-size: 1.1rem;
     color: var(--text-light);
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
     line-height: 1.7;
 }
 
@@ -580,7 +584,7 @@ body {
     color: var(--primary-color);
     font-size: 1.8rem;
     text-align: center;
-    margin: 0 0 30px 0;
+    margin: 0 0 30px;
 }
 
 .materials-grid {
@@ -622,7 +626,7 @@ body {
 .material-item h4 {
     color: var(--primary-color);
     font-size: 1.2rem;
-    margin: 0 0 10px 0;
+    margin: 0 0 10px;
 }
 
 .material-item p {
@@ -650,26 +654,26 @@ body {
 .author-text h2 {
     color: var(--primary-color);
     font-size: 2.2rem;
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
 }
 
 .author-description {
     font-size: 1.2rem;
     color: var(--text-light);
-    margin: 0 0 30px 0;
+    margin: 0 0 30px;
     line-height: 1.8;
 }
 
 .author-achievements h3 {
     color: var(--primary-color);
     font-size: 1.5rem;
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
 }
 
 .achievements-list {
     list-style: none;
     padding: 0;
-    margin: 0 0 30px 0;
+    margin: 0 0 30px;
 }
 
 .achievements-list li {
@@ -706,7 +710,7 @@ body {
 .literary-text h3 {
     color: var(--primary-color);
     font-size: 1.5rem;
-    margin: 30px 0 15px 0;
+    margin: 30px 0 15px;
 }
 
 .early-life-text h3:first-child,
@@ -720,7 +724,7 @@ body {
 .literary-text p {
     font-size: 1.1rem;
     color: var(--text-light);
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
     line-height: 1.7;
 }
 
@@ -738,13 +742,13 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
-    margin: 20px 0 30px 0;
+    margin: 20px 0 30px;
 }
 
 .book-category h4 {
     color: var(--primary-color);
     font-size: 1.3rem;
-    margin: 0 0 15px 0;
+    margin: 0 0 15px;
 }
 
 .books-list {
@@ -767,7 +771,7 @@ body {
 .translation-features {
     list-style: none;
     padding: 0;
-    margin: 0 0 30px 0;
+    margin: 0 0 30px;
 }
 
 .translation-features li {
@@ -784,13 +788,13 @@ body {
 .philosophy-text h3 {
     color: var(--primary-color);
     font-size: 1.8rem;
-    margin: 0 0 30px 0;
+    margin: 0 0 30px;
 }
 
 .philosophy-text p {
     font-size: 1.2rem;
     color: var(--text-light);
-    margin: 0 0 40px 0;
+    margin: 0 0 40px;
     line-height: 1.7;
     max-width: 800px;
     margin-left: auto;
@@ -801,7 +805,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
-    margin: 30px 0 40px 0;
+    margin: 30px 0 40px;
 }
 
 .principle-item {
@@ -838,7 +842,7 @@ body {
 .principle-item h4 {
     color: var(--primary-color);
     font-size: 1.2rem;
-    margin: 0 0 10px 0;
+    margin: 0 0 10px;
 }
 
 .principle-item p {
@@ -856,7 +860,7 @@ body {
 .legacy-text h3 {
     color: var(--primary-color);
     font-size: 1.5rem;
-    margin: 30px 0 15px 0;
+    margin: 30px 0 15px;
 }
 
 .legacy-text h3:first-child {
@@ -866,7 +870,7 @@ body {
 .legacy-text p {
     font-size: 1.1rem;
     color: var(--text-light);
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
     line-height: 1.7;
     max-width: 800px;
     margin-left: auto;
@@ -883,7 +887,7 @@ body {
 .contents-column h3 {
     color: var(--primary-color);
     font-size: 1.5rem;
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
 }
 
 .chapters-list {
@@ -912,13 +916,13 @@ body {
 
 .cta-title {
     font-size: 2.5rem;
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
     color: white;
 }
 
 .cta-description {
     font-size: 1.3rem;
-    margin: 0 0 40px 0;
+    margin: 0 0 40px;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -958,7 +962,7 @@ body {
 .main-footer {
     background: var(--text-dark);
     color: var(--background-white);
-    padding: 60px 0 20px 0;
+    padding: 60px 0 20px;
 }
 
 .footer-content {
@@ -971,11 +975,11 @@ body {
 .footer-section h4 {
     color: var(--accent-color);
     font-size: 1.3rem;
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
 }
 
 .footer-section p {
-    margin: 0 0 10px 0;
+    margin: 0 0 10px;
     line-height: 1.6;
 }
 
@@ -987,21 +991,21 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .hero-content {
         grid-template-columns: 1fr;
         gap: 40px;
         text-align: center;
     }
-    
+
     .hero-title {
         font-size: 2.5rem;
     }
-    
+
     .hero-subtitle {
         font-size: 1.3rem;
     }
-    
+
     .about-content,
     .author-content,
     .why-content,
@@ -1011,64 +1015,63 @@ body {
         grid-template-columns: 1fr;
         gap: 40px;
     }
-    
+
     .contents-grid {
         grid-template-columns: 1fr;
         gap: 40px;
     }
-    
+
     .publication-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .materials-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .books-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .principles-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .hero-cta,
     .cta-buttons {
         flex-direction: column;
         align-items: center;
     }
-    
+
     .cta-features {
         flex-direction: column;
         gap: 20px;
     }
-    
+
     .hero-header {
         padding: 8px 0; /* Уменьшен с 15px */
     }
-    
+
     .main-nav {
-        flex-direction: row; /* Горизонтальная раскладка */
+        flex-flow: row wrap; /* Горизонтальная раскладка */
         gap: 8px; /* Уменьшен с 15px */
-        flex-wrap: wrap;
         justify-content: center;
         margin-top: 8px; /* Уменьшен с 20px */
         width: 100%;
     }
-    
+
     .nav-link {
         padding: 4px 8px; /* Уменьшены отступы с 6px 12px */
         font-size: 0.9rem; /* Уменьшен размер текста */
         border-radius: 4px;
     }
-    
+
     .header-content {
         flex-direction: column;
         text-align: center;
         padding: 0 10px; /* Добавлены боковые отступы */
     }
-    
+
     .logo {
         width: 45px; /* Уменьшен размер с 60px */
         margin-right: 0; /* Убран правый отступ */
@@ -1076,38 +1079,38 @@ body {
     }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
     .hero-header {
         padding: 6px 0; /* Еще меньше для маленьких экранов */
     }
-    
+
     .main-nav {
         gap: 6px; /* Еще меньший отступ */
         margin-top: 6px;
     }
-    
+
     .nav-link {
         padding: 3px 6px; /* Минимальные отступы */
         font-size: 0.85rem; /* Еще меньший шрифт */
     }
-    
+
     .logo {
         width: 40px; /* Еще меньше */
         margin-bottom: 2px;
     }
-    
+
     .hero-title {
         font-size: 2rem;
     }
-    
+
     .section-title {
         font-size: 2rem;
     }
-    
+
     .container {
         padding: 0 15px;
     }
-    
+
     /* Улучшенные отступы между секциями */
     .hero-section,
     .about-section,
@@ -1124,7 +1127,7 @@ body {
         margin-bottom: 60px; /* Увеличены отступы */
         padding: 40px 0; /* Увеличен внутренний отступ */
     }
-    
+
     /* Увеличенные размеры кнопок для сенсорного ввода */
     .cta-button,
     .nav-link,
@@ -1137,13 +1140,13 @@ body {
         align-items: center;
         justify-content: center;
     }
-    
+
     .cta-button.large {
         min-height: 56px; /* Еще больше для основных действий */
         padding: 16px 24px;
         font-size: 1.1rem;
     }
-    
+
     /* Улучшенные отступы для форм */
     .form-input,
     .form-textarea,
@@ -1152,7 +1155,7 @@ body {
         font-size: 1rem; /* Предотвращает зум на iOS */
         min-height: 48px;
     }
-    
+
     .form-group {
         margin-bottom: 30px; /* Увеличено с 25px */
     }
@@ -1185,7 +1188,7 @@ nav a {
 }
 
 .btn {
-    background: #4CAF50;
+    background: #4caf50;
     color: white;
     padding: 10px 20px;
     text-decoration: none;
@@ -1218,7 +1221,7 @@ nav a {
     font-size: 3rem;
     margin-bottom: 20px;
     color: var(--accent-color);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 4px rgb(0 0 0 / 30%);
 }
 
 .order-subtitle {
@@ -1355,12 +1358,12 @@ nav a {
 }
 
 /* Адаптивность галереи */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .gallery-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-    
+
     .gallery-image {
         height: 200px;
     }
@@ -1432,14 +1435,14 @@ nav a {
 .form-select:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+    box-shadow: 0 0 0 3px rgb(139 69 19 / 10%);
 }
 
 .form-input.error,
 .form-textarea.error,
 .form-select.error {
     border-color: #e74c3c;
-    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+    box-shadow: 0 0 0 3px rgb(231 76 60 / 10%);
 }
 
 .form-textarea {
@@ -1474,7 +1477,7 @@ nav a {
     line-height: 1.5;
 }
 
-.checkbox-label input[type="checkbox"] {
+.checkbox-label input[type='checkbox'] {
     width: 20px;
     height: 20px;
     margin: 0;
@@ -1585,43 +1588,43 @@ nav a {
 }
 
 /* Адаптивность для формы */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .form-row {
         grid-template-columns: 1fr;
         gap: 0;
     }
-    
+
     .order-form {
         padding: 30px 20px;
     }
-    
+
     .order-title {
         font-size: 2.5rem;
     }
-    
+
     .contact-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .book-preview {
         flex-direction: column;
         text-align: center;
     }
-    
+
     .book-info {
         text-align: center;
     }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
     .order-form {
         padding: 20px 15px;
     }
-    
+
     .order-title {
         font-size: 2rem;
     }
-    
+
     .order-hero {
         padding: 60px 0;
     }
@@ -1747,7 +1750,7 @@ nav a {
 .order-status-form input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+    box-shadow: 0 0 0 3px rgb(139 69 19 / 10%);
 }
 
 .order-status-form .submit-button {
@@ -1868,7 +1871,7 @@ nav a {
 }
 
 .footer-logo p {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgb(255 255 255 / 80%);
     font-size: 0.9rem;
     line-height: 1.5;
 }
@@ -1907,23 +1910,23 @@ nav a {
     align-items: center;
     gap: 10px;
     padding: 12px 16px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgb(255 255 255 / 10%);
     color: white;
     text-decoration: none;
     border-radius: var(--border-radius);
     transition: var(--transition);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgb(255 255 255 / 20%);
 }
 
 .contact-button:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgb(255 255 255 / 20%);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px rgb(0 0 0 / 20%);
 }
 
 .contact-button.telegram:hover {
-    background: #0088cc;
-    border-color: #0088cc;
+    background: #08c;
+    border-color: #08c;
 }
 
 .contact-button.whatsapp:hover {
@@ -1956,7 +1959,7 @@ nav a {
 }
 
 .footer-links a {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgb(255 255 255 / 80%);
     text-decoration: none;
     transition: var(--transition);
 }
@@ -1966,7 +1969,7 @@ nav a {
 }
 
 .footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgb(255 255 255 / 20%);
     padding-top: 20px;
 }
 
@@ -1982,7 +1985,7 @@ nav a {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgb(255 255 255 / 70%);
     font-size: 0.9rem;
 }
 
@@ -2035,21 +2038,21 @@ nav a {
 
 /* ===== АДАПТИВНОСТЬ ФУТЕРА ===== */
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .footer-content {
         grid-template-columns: 1fr;
         gap: 30px;
     }
-    
+
     .footer-bottom-content {
         flex-direction: column;
         text-align: center;
     }
-    
+
     .contact-button {
         justify-content: center;
     }
-    
+
     .form-section {
         padding: 20px;
     }
@@ -2090,7 +2093,7 @@ nav a {
 .form-textarea.error,
 .form-select.error {
     border-color: #dc3545;
-    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+    box-shadow: 0 0 0 3px rgb(220 53 69 / 10%);
     animation: shake 0.5s ease-in-out;
 }
 
@@ -2099,7 +2102,7 @@ nav a {
 .form-select:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+    box-shadow: 0 0 0 3px rgb(139 69 19 / 10%);
 }
 
 .form-input:valid,
@@ -2110,10 +2113,19 @@ nav a {
 
 /* Анимация тряски для ошибок */
 @keyframes shake {
-    0%, 20%, 40%, 60%, 80% {
+    0%,
+    20%,
+    40%,
+    60%,
+    80% {
         transform: translateX(0);
     }
-    10%, 30%, 50%, 70%, 90% {
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
         transform: translateX(-3px);
     }
 }
@@ -2151,13 +2163,13 @@ nav a {
     border-radius: 50%;
 }
 
-input[type="checkbox"]:checked + .checkmark,
-input[type="radio"]:checked + .radiomark {
+input[type='checkbox']:checked + .checkmark,
+input[type='radio']:checked + .radiomark {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
 }
 
-input[type="checkbox"]:checked + .checkmark:after {
+input[type='checkbox']:checked + .checkmark::after {
     content: '✓';
     position: absolute;
     color: white;
@@ -2168,7 +2180,7 @@ input[type="checkbox"]:checked + .checkmark:after {
     transform: translate(-50%, -50%);
 }
 
-input[type="radio"]:checked + .radiomark:after {
+input[type='radio']:checked + .radiomark::after {
     content: '';
     position: absolute;
     width: 8px;
@@ -2181,8 +2193,8 @@ input[type="radio"]:checked + .radiomark:after {
 }
 
 /* Скрываем стандартные checkbox и radio */
-input[type="checkbox"],
-input[type="radio"] {
+input[type='checkbox'],
+input[type='radio'] {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -2195,6 +2207,7 @@ input[type="radio"] {
         transform: translateY(-20px);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
@@ -2209,7 +2222,7 @@ input[type="radio"] {
     gap: 20px;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .form-row {
         grid-template-columns: 1fr;
         gap: 15px;
@@ -2229,7 +2242,7 @@ input[type="radio"] {
     line-height: 1.5;
 }
 
-.checkbox-label input[type="checkbox"] {
+.checkbox-label input[type='checkbox'] {
     margin: 0;
     width: 18px;
     height: 18px;

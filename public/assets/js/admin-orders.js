@@ -11,7 +11,7 @@ class AdminOrdersManager {
         this.filteredOrders = [];
         this.currentOrder = null;
         this.adminToken = null;
-        
+
         this.init();
     }
 
@@ -35,7 +35,7 @@ class AdminOrdersManager {
     }
 
     getAuthHeaders() {
-        return this.adminToken ? { 'Authorization': `Bearer ${this.adminToken}` } : {};
+        return this.adminToken ? { Authorization: `Bearer ${this.adminToken}` } : {};
     }
 
     bindEvents() {
@@ -66,7 +66,7 @@ class AdminOrdersManager {
                 headers: this.getAuthHeaders()
             });
             const data = await response.json();
-            
+
             if (data.success) {
                 this.allOrders = data.data;
                 this.filteredOrders = [...this.allOrders];
@@ -108,7 +108,7 @@ class AdminOrdersManager {
             return;
         }
 
-        pageOrders.forEach(order => {
+        pageOrders.forEach((order) => {
             const row = this.createOrderRow(order);
             tbody.appendChild(row);
         });
@@ -154,11 +154,11 @@ class AdminOrdersManager {
      */
     getStatusText(status) {
         const statusMap = {
-            'new': 'Новый',
-            'processing': 'В обработке',
-            'shipped': 'Отправлен',
-            'delivered': 'Доставлен',
-            'cancelled': 'Отменен'
+            new: 'Новый',
+            processing: 'В обработке',
+            shipped: 'Отправлен',
+            delivered: 'Доставлен',
+            cancelled: 'Отменен'
         };
         return statusMap[status] || status;
     }
@@ -201,16 +201,17 @@ class AdminOrdersManager {
      */
     searchOrders() {
         const query = document.getElementById('searchInput').value.toLowerCase();
-        
+
         if (query.length === 0) {
             this.filteredOrders = [...this.allOrders];
         } else {
-            this.filteredOrders = this.allOrders.filter(order => 
-                order.firstName.toLowerCase().includes(query) ||
-                order.lastName.toLowerCase().includes(query) ||
-                order.email.toLowerCase().includes(query) ||
-                order.phone.includes(query) ||
-                order.id.toLowerCase().includes(query)
+            this.filteredOrders = this.allOrders.filter(
+                (order) =>
+                    order.firstName.toLowerCase().includes(query) ||
+                    order.lastName.toLowerCase().includes(query) ||
+                    order.email.toLowerCase().includes(query) ||
+                    order.phone.includes(query) ||
+                    order.id.toLowerCase().includes(query)
             );
         }
 
@@ -226,7 +227,7 @@ class AdminOrdersManager {
         const statusFilter = document.getElementById('statusFilter').value;
         const dateFilter = document.getElementById('dateFilter').value;
 
-        this.filteredOrders = this.allOrders.filter(order => {
+        this.filteredOrders = this.allOrders.filter((order) => {
             let matchesStatus = true;
             let matchesDate = true;
 
@@ -239,7 +240,7 @@ class AdminOrdersManager {
             if (dateFilter) {
                 const orderDate = new Date(order.createdAt);
                 const now = new Date();
-                
+
                 switch (dateFilter) {
                     case 'today':
                         matchesDate = orderDate.toDateString() === now.toDateString();
@@ -271,7 +272,7 @@ class AdminOrdersManager {
         if (!pagination) return;
 
         const totalPages = Math.ceil(this.filteredOrders.length / this.ordersPerPage);
-        
+
         if (totalPages <= 1) {
             pagination.innerHTML = '';
             return;
@@ -318,7 +319,7 @@ class AdminOrdersManager {
     goToPage(page) {
         const totalPages = Math.ceil(this.filteredOrders.length / this.ordersPerPage);
         if (page < 1 || page > totalPages) return;
-        
+
         this.currentPage = page;
         this.displayOrders();
         this.updatePagination();
@@ -330,14 +331,14 @@ class AdminOrdersManager {
     async showOrderDetails(orderId) {
         try {
             let order;
-            
+
             if (typeof orderId === 'string') {
                 // Если передан ID, загружаем заказ
                 const response = await fetch(`/api/orders/${orderId}`, {
                     headers: this.getAuthHeaders()
                 });
                 const data = await response.json();
-                
+
                 if (data.success) {
                     order = data.data;
                 } else {
@@ -351,7 +352,6 @@ class AdminOrdersManager {
 
             this.currentOrder = order;
             this.displayOrderModal(order);
-            
         } catch (error) {
             console.error('Ошибка загрузки деталей заказа:', error);
             this.showError('Ошибка загрузки деталей заказа');
@@ -364,7 +364,7 @@ class AdminOrdersManager {
     displayOrderModal(order) {
         const modal = document.getElementById('orderModal');
         const details = document.getElementById('orderDetails');
-        
+
         if (!modal || !details) return;
 
         details.innerHTML = `
@@ -409,12 +409,16 @@ class AdminOrdersManager {
                     <span class="order-detail-label">Сумма:</span>
                     <span class="order-detail-value"><strong>${order.totalAmount} ₽</strong></span>
                 </div>
-                ${order.message ? `
+                ${
+                    order.message
+                        ? `
                 <div class="order-detail-row">
                     <span class="order-detail-label">Дополнительная информация:</span>
                     <span class="order-detail-value">${order.message}</span>
                 </div>
-                ` : ''}
+                `
+                        : ''
+                }
             </div>
         `;
 
@@ -444,7 +448,7 @@ class AdminOrdersManager {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
-                    ...this.getAuthHeaders(),
+                    ...this.getAuthHeaders()
                 },
                 body: JSON.stringify({ status: newStatus })
             });
@@ -473,7 +477,7 @@ class AdminOrdersManager {
         try {
             const response = await fetch(`/api/orders/${orderId}`, {
                 method: 'DELETE',
-                headers: this.getAuthHeaders(),
+                headers: this.getAuthHeaders()
             });
             const data = await response.json();
 
@@ -495,9 +499,9 @@ class AdminOrdersManager {
     async exportToCSV() {
         try {
             const response = await fetch('/api/orders/export/csv', {
-                headers: this.getAuthHeaders(),
+                headers: this.getAuthHeaders()
             });
-            
+
             if (response.ok) {
                 const blob = await response.blob();
                 const url = window.URL.createObjectURL(blob);
@@ -508,7 +512,7 @@ class AdminOrdersManager {
                 a.click();
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
-                
+
                 this.showSuccess('Экспорт завершен');
             } else {
                 const data = await response.json();
@@ -526,10 +530,10 @@ class AdminOrdersManager {
     async loadStats() {
         try {
             const response = await fetch('/api/orders/stats/overview', {
-                headers: this.getAuthHeaders(),
+                headers: this.getAuthHeaders()
             });
             const data = await response.json();
-            
+
             if (data.success) {
                 this.displayStats(data.data);
             }
@@ -545,7 +549,7 @@ class AdminOrdersManager {
         document.getElementById('totalOrders').textContent = stats.totalOrders;
         document.getElementById('totalRevenue').textContent = stats.totalRevenue + ' ₽';
         document.getElementById('averageOrder').textContent = Math.round(stats.averageOrderValue) + ' ₽';
-        
+
         // Подсчет заказов за сегодня
         const today = new Date().toISOString().slice(0, 10);
         const todayOrders = stats.ordersByMonth[today] ? stats.ordersByMonth[today].count : 0;

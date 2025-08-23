@@ -3,7 +3,7 @@
 /** @type {import('eslint').Linter.FlatConfig[]} */
 module.exports = [
     {
-        ignores: ['public/**', 'node_modules/**', 'docs/**', '.github/**'],
+        ignores: ['public/**', 'node_modules/**', 'docs/**', '.github/**']
     },
     {
         files: ['**/*.js'],
@@ -16,11 +16,11 @@ module.exports = [
                 module: 'readonly',
                 console: 'readonly',
                 setTimeout: 'readonly',
-                clearTimeout: 'readonly',
-            },
+                clearTimeout: 'readonly'
+            }
         },
         rules: {
-            'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-        },
-    },
+            'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
+        }
+    }
 ];

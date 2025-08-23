@@ -1,4 +1,45 @@
-public/
+# Игнорировать файлы и папки для Prettier
+
+# Зависимости
 node_modules/
-docs/
-.github/
+*.lock
+
+# Сборка
+dist/
+build/
+.cache/
+
+# Логи
+*.log
+logs/
+
+# Временные файлы
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# Изображения и медиа (не форматируем)
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.svg
+*.ico
+*.webp
+*.mp4
+*.mp3
+*.wav
+
+# Другие файлы
+*.md
+README.md
+CHANGELOG.md
