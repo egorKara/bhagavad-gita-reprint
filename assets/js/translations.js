@@ -1106,29 +1106,63 @@ class UniversalTranslator {
     
     // Находит перевод для текста
     findTranslationForText(text) {
+        if (!text || !text.trim()) return null;
+        
+        const cleanText = text.trim();
+        
         // Создаем карту соответствий русский текст -> ключ перевода
         const textMap = this.createTextMap();
         
-        // Ищем точное совпадение
-        if (textMap[text]) {
-            return this.getTranslation(textMap[text]);
+        // 1. Ищем точное совпадение
+        if (textMap[cleanText]) {
+            return this.getTranslation(textMap[cleanText]);
         }
         
-        // Ищем частичное совпадение (для более гибкого поиска)
+        // 2. Ищем без пунктуации
+        const noPunctuation = cleanText.replace(/[.,!?:;]/g, '');
+        if (textMap[noPunctuation]) {
+            return this.getTranslation(textMap[noPunctuation]);
+        }
+        
+        // 3. Ищем частичное совпадение (для более гибкого поиска)
         for (const [russianText, translationKey] of Object.entries(textMap)) {
-            if (russianText.includes(text) || text.includes(russianText)) {
+            if (russianText.includes(cleanText) || cleanText.includes(russianText)) {
                 return this.getTranslation(translationKey);
             }
         }
         
-        // Ищем по ключевым словам (для более умного поиска)
+        // 4. Ищем по ключевым словам (для более умного поиска)
         const keywordMap = this.createKeywordMap();
         for (const [keyword, translationKey] of Object.entries(keywordMap)) {
-            if (text.toLowerCase().includes(keyword.toLowerCase())) {
+            if (cleanText.toLowerCase().includes(keyword.toLowerCase())) {
                 return this.getTranslation(translationKey);
             }
         }
         
+        // 5. Прямой поиск в переводах по текущему языку
+        const currentTranslations = this.translations[this.currentLang === 'ru' ? 'en' : 'ru'];
+        const directTranslation = this.searchInTranslations(cleanText, currentTranslations);
+        if (directTranslation) {
+            return directTranslation;
+        }
+        
+        return null;
+    }
+    
+    // Рекурсивный поиск в объекте переводов
+    searchInTranslations(searchText, obj, path = '') {
+        for (const [key, value] of Object.entries(obj)) {
+            if (typeof value === 'string') {
+                if (value.toLowerCase() === searchText.toLowerCase() || 
+                    value.toLowerCase().includes(searchText.toLowerCase()) ||
+                    searchText.toLowerCase().includes(value.toLowerCase())) {
+                    return this.getTranslation(path ? `${path}.${key}` : key);
+                }
+            } else if (typeof value === 'object' && value !== null) {
+                const result = this.searchInTranslations(searchText, value, path ? `${path}.${key}` : key);
+                if (result) return result;
+            }
+        }
         return null;
     }
     
@@ -1142,11 +1176,20 @@ class UniversalTranslator {
         map['Автор'] = 'nav.author';
         map['Купить'] = 'nav.buy';
         
-        // Главная страница
+        // Главная страница - расширенный набор
         map['Бхагавад-Гита как она есть'] = 'home.title';
-        map['Лицензированный репринт оригинального издания'] = 'home.subtitle';
-        map['Цена: 1500 руб.'] = 'home.price';
+        map['Оригинальное издание 1972 года от Macmillan Publishing'] = 'home.subtitle';
+        map['Точное воспроизведение легендарного издания с полным текстом, комментариями А.Ч. Бхактиведанты Свами Прабхупады и 44 оригинальными иллюстрациями'] = 'home.description';
+        map['Цена:'] = 'home.priceLabel';
+        map['1500 ₽'] = 'home.price';
+        map['Доставка по России'] = 'home.priceNote';
         map['Заказать книгу'] = 'home.orderButton';
+        map['Узнать больше'] = 'home.learnMore';
+        
+        // Особенности книги
+        map['Полный текст с комментариями'] = 'home.features.fullText';
+        map['44 оригинальные иллюстрации'] = 'home.features.illustrations';
+        map['Официальная лицензия BBT'] = 'home.features.license';
         
         // О книге
         map['О книге'] = 'about.title';
