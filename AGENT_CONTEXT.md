@@ -2,18 +2,18 @@
 
 Цель: синхронизировать понимание проекта между всеми агентами и устройствами.
 
-### Цели проекта
-- Продажа лицензированного репринта «Бхагавад‑Гита как она есть» (1972)
-- Фронтенд на GitHub Pages, API на сервере (Yandex Cloud), домены: `gita-1972-reprint.ru` и `api.gita-1972-reprint.ru`
-- Безопасность, мониторинг, надежность, многоязычность
+### Project Goals
+- Sale of licensed reprint of "Bhagavad-Gita As It Is" (1972 original edition)
+- Frontend on GitHub Pages, API on server (Yandex Cloud), domains: `gita-1972-reprint.ru` and `api.gita-1972-reprint.ru`
+- Security, monitoring, reliability, multilingual support (English primary, Russian secondary)
 
 ### Технические договоренности
 - Архитектура: `public/` — статика, `src/` — API (Express)
 - Качество кода: ESLint + Prettier + Husky
 - Безопасность: Helmet, rate limiting, morgan, Nginx заголовки
 - Мониторинг: Prometheus `/metrics`, Nginx `stub_status`, systemd, Fail2ban
-- i18n: универсальный переводчик, `localStorage` хранит язык
-- Темы: CSS-переменные + переключатель тем, сохранение в `localStorage`
+- i18n: universal translator system, `localStorage` stores language preference (English primary, Russian secondary)
+- Themes: CSS variables + theme switcher, saved in `localStorage`
 
 ### Правила работы агентов
 1. Всегда коммитьте атомарные изменения, описывайте цель коммита.

@@ -1,10 +1,12 @@
-# Настройка Cursor Background Agents
+# Cursor Background Agents Configuration
 
-## Что делает агент
-- Синхронизирует репозиторий (`pull --rebase`)
-- Выполняет задачи по TODO
-- Делает атомарные коммиты и пушит
-- Может запускать деплой (push в `main`) и снимать снапшот
+## Agent Capabilities
+- Synchronizes repository (`pull --rebase`)
+- Executes TODO tasks
+- Makes atomic commits and pushes
+- Can trigger deployment (push to `main`) and create snapshots
+- Integrates with Memory Bank for context retention
+- Auto-fixes linting errors when possible
 
 ## Базовые команды
 ```bash
