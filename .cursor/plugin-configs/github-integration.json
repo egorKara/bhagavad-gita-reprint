@@ -1,0 +1,11 @@
+{
+  "github_integration": {
+    "repository": "bhagavad-gita-reprint",
+    "default_branch": "main",
+    "auto_pr_analysis": true,
+    "issue_tracking": true,
+    "workflow_integration": true,
+    "language_primary": "ru",
+    "language_secondary": "en"
+  }
+}

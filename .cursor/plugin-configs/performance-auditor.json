@@ -1,0 +1,12 @@
+{
+  "performance_auditor": {
+    "targets": {
+      "lcp": "< 2.5s",
+      "fid": "< 100ms",
+      "cls": "< 0.1"
+    },
+    "check_frequency": "weekly",
+    "report_format": "markdown",
+    "integration": "github_actions"
+  }
+}

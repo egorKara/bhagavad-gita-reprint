@@ -1,8 +1,8 @@
 # Unified Rules for Cursor Agents (v2.1)
 
 communication:
-  language: en
-  secondary_language: ru
+  language: ru
+  secondary_language: en
   style: concise
   code_blocks: only for relevant snippets
   max_response_length: medium
@@ -37,8 +37,8 @@ security:
   cors_strict: true
 
 i18n:
-  default_lang: en
-  secondary_lang: ru
+  default_lang: ru
+  secondary_lang: en
   supported_langs: [en, ru]
   persist_language_in_localStorage: true
   fallback_behavior: graceful

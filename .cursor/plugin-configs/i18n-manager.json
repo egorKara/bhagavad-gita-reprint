@@ -1,0 +1,16 @@
+{
+  "i18n_manager": {
+    "primary_language": "ru",
+    "secondary_languages": ["en"],
+    "translation_files": [
+      "public/assets/js/translations.js"
+    ],
+    "validation_rules": {
+      "require_all_keys": true,
+      "check_formatting": true,
+      "validate_html_entities": true
+    },
+    "auto_translate": false,
+    "consistency_check": true
+  }
+}
