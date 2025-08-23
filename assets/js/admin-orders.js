@@ -40,7 +40,7 @@ class AdminOrdersManager {
 
     bindEvents() {
         // Поиск при вводе
-        const searchInput = document.getElementById('searchInput');
+        const searchInput = document.getElementById('search-input');
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
                 if (e.target.value.length >= 3 || e.target.value.length === 0) {
@@ -76,8 +76,7 @@ class AdminOrdersManager {
             } else {
                 this.showError('Ошибка загрузки заказов: ' + data.error);
             }
-        } catch (error) {
-            console.error('Ошибка загрузки заказов:', error);
+        } catch {
             this.showError('Ошибка соединения с сервером');
         }
     }
@@ -86,7 +85,7 @@ class AdminOrdersManager {
      * Отображение заказов в таблице
      */
     displayOrders() {
-        const tbody = document.getElementById('ordersTableBody');
+        const tbody = document.getElementById('orders-table-body');
         if (!tbody) return;
 
         const startIndex = (this.currentPage - 1) * this.ordersPerPage;
@@ -155,29 +154,29 @@ class AdminOrdersManager {
     getStatusText(status) {
         // Безопасная проверка статуса без Generic Object Injection Sink
         const validStatuses = ['new', 'processing', 'shipped', 'delivered', 'cancelled'];
-        
+
         if (!validStatuses.includes(status)) {
             return status; // Возвращаем оригинальный статус если невалидный
         }
-        
-        const statusMap = {
-            new: 'Новый',
-            processing: 'В обработке',
-            shipped: 'Отправлен',
-            delivered: 'Доставлен',
-            cancelled: 'Отменен'
-        };
-        
+
+        // Убрано - не используется после рефакторинга
+
         // Безопасный доступ к statusMap
         if (validStatuses.includes(status)) {
             // Используем switch для безопасного доступа
             switch (status) {
-                case 'new': return 'Новый';
-                case 'processing': return 'В обработке';
-                case 'shipped': return 'Отправлен';
-                case 'delivered': return 'Доставлен';
-                case 'cancelled': return 'Отменен';
-                default: return status;
+                case 'new':
+                    return 'Новый';
+                case 'processing':
+                    return 'В обработке';
+                case 'shipped':
+                    return 'Отправлен';
+                case 'delivered':
+                    return 'Доставлен';
+                case 'cancelled':
+                    return 'Отменен';
+                default:
+                    return status;
             }
         }
         return status;
@@ -231,7 +230,7 @@ class AdminOrdersManager {
      * Поиск заказов
      */
     searchOrders() {
-        const query = document.getElementById('searchInput').value.toLowerCase();
+        const query = document.getElementById('search-input').value.toLowerCase();
 
         if (query.length === 0) {
             this.filteredOrders = [...this.allOrders];
@@ -255,8 +254,8 @@ class AdminOrdersManager {
      * Фильтрация заказов
      */
     filterOrders() {
-        const statusFilter = document.getElementById('statusFilter').value;
-        const dateFilter = document.getElementById('dateFilter').value;
+        const statusFilter = document.getElementById('status-filter').value;
+        const dateFilter = document.getElementById('date-filter').value;
 
         this.filteredOrders = this.allOrders.filter((order) => {
             let matchesStatus = true;
@@ -383,8 +382,7 @@ class AdminOrdersManager {
 
             this.currentOrder = order;
             this.displayOrderModal(order);
-        } catch (error) {
-            console.error('Ошибка загрузки деталей заказа:', error);
+        } catch {
             this.showError('Ошибка загрузки деталей заказа');
         }
     }
@@ -491,8 +489,7 @@ class AdminOrdersManager {
             } else {
                 this.showError('Ошибка обновления статуса: ' + data.error);
             }
-        } catch (error) {
-            console.error('Ошибка обновления статуса:', error);
+        } catch {
             this.showError('Ошибка соединения с сервером');
         }
     }
@@ -518,8 +515,7 @@ class AdminOrdersManager {
             } else {
                 this.showError('Ошибка удаления заказа: ' + data.error);
             }
-        } catch (error) {
-            console.error('Ошибка удаления заказа:', error);
+        } catch {
             this.showError('Ошибка соединения с сервером');
         }
     }
@@ -549,8 +545,7 @@ class AdminOrdersManager {
                 const data = await response.json();
                 this.showError('Ошибка экспорта: ' + data.error);
             }
-        } catch (error) {
-            console.error('Ошибка экспорта:', error);
+        } catch {
             this.showError('Ошибка экспорта');
         }
     }
@@ -568,8 +563,8 @@ class AdminOrdersManager {
             if (data.success) {
                 this.displayStats(data.data);
             }
-        } catch (error) {
-            // console.error('Ошибка загрузки статистики:', error); // Убрано для безопасности
+        } catch {
+            // Ошибка загрузки статистики
         }
     }
 
@@ -577,9 +572,9 @@ class AdminOrdersManager {
      * Отображение статистики
      */
     displayStats(stats) {
-        document.getElementById('totalOrders').textContent = stats.totalOrders;
-        document.getElementById('totalRevenue').textContent = stats.totalRevenue + ' ₽';
-        document.getElementById('averageOrder').textContent = Math.round(stats.averageOrderValue) + ' ₽';
+        document.getElementById('total-orders').textContent = stats.totalOrders;
+        document.getElementById('total-revenue').textContent = stats.totalRevenue + ' ₽';
+        document.getElementById('average-order').textContent = Math.round(stats.averageOrderValue) + ' ₽';
 
         // Подсчет заказов за сегодня
         const today = new Date().toISOString().slice(0, 10);
@@ -598,14 +593,14 @@ class AdminOrdersManager {
                 }
             }
         }
-        document.getElementById('todayOrders').textContent = todayOrders;
+        document.getElementById('today-orders').textContent = todayOrders;
     }
 
     /**
      * Показать статистику
      */
     showStats() {
-        const statsOverview = document.getElementById('statsOverview');
+        const statsOverview = document.getElementById('stats-overview');
         if (statsOverview) {
             statsOverview.style.display = statsOverview.style.display === 'none' ? 'block' : 'none';
         }
@@ -674,6 +669,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Глобальные функции для вызова из HTML
+/* eslint-disable no-unused-vars */
+// Глобальные функции для вызова из HTML (используются в onclick)
 function searchOrders() {
     if (adminManager) adminManager.searchOrders();
 }
@@ -708,7 +705,7 @@ function deleteOrder() {
 
 // Закрытие модального окна при клике вне его
 window.addEventListener('click', (e) => {
-    const modal = document.getElementById('orderModal');
+    const modal = document.getElementById('order-modal');
     if (e.target === modal) {
         closeOrderModal();
     }
