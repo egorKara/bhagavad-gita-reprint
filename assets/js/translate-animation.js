@@ -1,4 +1,4 @@
-(function(){
+(function () {
     function ensureWrapForNode(unit) {
         const node = unit.node;
         if (!node || !node.parentNode) return null;
@@ -57,10 +57,16 @@
     function dustSwap(unit, newText) {
         try {
             const wrap = ensureWrapForNode(unit);
-            if (!wrap) { unit.apply(newText); return; }
+            if (!wrap) {
+                unit.apply(newText);
+                return;
+            }
             const textSpan = getTextSpan(wrap);
             const rect = textSpan.getBoundingClientRect();
-            if (rect.width === 0 || rect.height === 0) { textSpan.textContent = newText; return; }
+            if (rect.width === 0 || rect.height === 0) {
+                textSpan.textContent = newText;
+                return;
+            }
             const c = createCanvas(wrap, rect);
             const ctx = c.getContext('2d');
             const colors = particleColorFrom(textSpan);
@@ -83,12 +89,15 @@
             // Fade out old text quickly
             textSpan.style.transition = 'opacity 160ms ease-out, filter 200ms ease-out';
             textSpan.style.filter = 'blur(0px)';
-            requestAnimationFrame(() => { textSpan.style.opacity = '0'; textSpan.style.filter = 'blur(1px)'; });
+            requestAnimationFrame(() => {
+                textSpan.style.opacity = '0';
+                textSpan.style.filter = 'blur(1px)';
+            });
 
             function drawParticles(t) {
                 const elapsed = t - start;
                 ctx.clearRect(0, 0, c.width, c.height);
-                particles.forEach(p => {
+                particles.forEach((p) => {
                     // Simple Euler integration
                     p.vy += p.g;
                     p.x += p.vx * 3;

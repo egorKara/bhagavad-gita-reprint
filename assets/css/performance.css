@@ -1,7 +1,9 @@
 /* CSS оптимизации для производительности */
 
 /* Оптимизация рендеринга */
+
 /* Убираем глобальные 3D-трансформации, чтобы не ломать fixed/sticky и контексты наложения */
+
 /* Аппаратное ускорение оставляем только на интерактивных элементах точечно (см. ниже) */
 * {
     backface-visibility: hidden;
@@ -24,6 +26,7 @@ img {
     /* Предотвращаем layout shift */
     max-width: 100%;
     height: auto;
+
     /* Оптимизируем рендеринг */
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
@@ -33,8 +36,9 @@ img {
 body {
     /* Предотвращаем FOUT (Flash of Unstyled Text) */
     font-display: swap;
+
     /* Оптимизируем рендеринг текста */
-    text-rendering: optimizeLegibility;
+    text-rendering: optimizelegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -43,6 +47,7 @@ body {
 html {
     /* Плавный скролл */
     scroll-behavior: smooth;
+
     /* Оптимизация для мобильных устройств */
     -webkit-overflow-scrolling: touch;
 }
@@ -66,19 +71,19 @@ html {
     .language-switch {
         display: none !important;
     }
-    
+
     body {
         background: white !important;
         color: black !important;
     }
-    
+
     .section-title::after {
         display: none !important;
     }
 }
 
 /* Оптимизация для высоких DPI экранов */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (min-device-pixel-ratio: 2), (resolution >= 192dpi) {
     .logo,
     .book-cover-hero,
     .back-cover,
@@ -89,14 +94,14 @@ html {
 }
 
 /* Оптимизация для мобильных устройств */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     /* Уменьшаем тени для лучшей производительности */
     .publication-card,
     .material-item,
     .principle-item {
-        box-shadow: 0 2px 8px rgba(139, 69, 19, 0.1);
+        box-shadow: 0 2px 8px rgb(139 69 19 / 10%);
     }
-    
+
     /* Упрощаем анимации */
     .cta-button:hover {
         transform: translateY(-2px);
@@ -116,21 +121,22 @@ html {
 }
 
 /* Оптимизация для темной темы */
+
 /* Не переопределяем вручную выбранную тему: если установлен data-theme на <html>, ОС-тема не применяется */
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme]) {
         --background-light: #1a1a1a;
         --background-white: #2d2d2d;
-        --text-dark: #ffffff;
-        --text-light: #cccccc;
-        --border-color: #444444;
+        --text-dark: #fff;
+        --text-light: #ccc;
+        --border-color: #444;
     }
-    
+
     body {
         background-color: var(--background-light);
         color: var(--text-dark);
     }
-    
+
     .publication-card,
     .material-item,
     .principle-item {
@@ -142,26 +148,26 @@ html {
 /* Оптимизация для устройств с высоким контрастом */
 @media (prefers-contrast: high) {
     :root:not([data-theme]) {
-        --primary-color: #000000;
-        --secondary-color: #000000;
-        --accent-color: #ffffff;
-        --text-dark: #000000;
-        --text-light: #000000;
-        --background-light: #ffffff;
-        --background-white: #ffffff;
-        --border-color: #000000;
+        --primary-color: #000;
+        --secondary-color: #000;
+        --accent-color: #fff;
+        --text-dark: #000;
+        --text-light: #000;
+        --background-light: #fff;
+        --background-white: #fff;
+        --border-color: #000;
     }
-    
+
     .cta-button.primary {
-        background: #000000;
-        color: #ffffff;
-        border: 2px solid #000000;
+        background: #000;
+        color: #fff;
+        border: 2px solid #000;
     }
-    
+
     .cta-button.secondary {
-        background: #ffffff;
-        color: #000000;
-        border: 2px solid #000000;
+        background: #fff;
+        color: #000;
+        border: 2px solid #000;
     }
 }
 
@@ -186,13 +192,13 @@ html {
         transform: none;
         box-shadow: inherit;
     }
-    
+
     /* Увеличиваем размеры кнопок для сенсорных устройств */
     .cta-button {
         min-height: 44px;
         min-width: 44px;
     }
-    
+
     .nav-link {
         min-height: 44px;
         padding: 12px 20px;
@@ -204,24 +210,24 @@ html {
     /* Дополнительные hover эффекты для устройств с мышью */
     .cta-button:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
+        box-shadow: 0 8px 25px rgb(139 69 19 / 30%);
     }
 }
 
 /* Оптимизация для устройств с ограниченной шириной экрана */
-@media (max-width: 480px) {
+@media (width <= 480px) {
     /* Упрощаем layout для очень маленьких экранов */
     .hero-content {
         grid-template-columns: 1fr;
         gap: 30px;
     }
-    
+
     .about-content,
     .author-content {
         grid-template-columns: 1fr;
         gap: 30px;
     }
-    
+
     .publication-grid,
     .materials-grid,
     .principles-grid {
@@ -231,7 +237,7 @@ html {
 }
 
 /* Оптимизация для устройств с ограниченной высотой экрана */
-@media (max-height: 600px) {
+@media (height <= 600px) {
     /* Уменьшаем отступы для устройств с маленькой высотой */
     .hero-section,
     .about-section,
@@ -247,31 +253,31 @@ html {
     .legacy-section {
         padding: 40px 0;
     }
-    
+
     .hero-title {
         font-size: 2.5rem;
     }
-    
+
     .section-title {
         font-size: 2rem;
     }
 }
 
 /* Оптимизация для устройств с ограниченной памятью */
-@media (max-width: 320px) {
+@media (width <= 320px) {
     /* Минимальные стили для очень старых устройств */
     .hero-title {
         font-size: 2rem;
     }
-    
+
     .hero-subtitle {
         font-size: 1.1rem;
     }
-    
+
     .hero-description {
         font-size: 1rem;
     }
-    
+
     .cta-button {
         padding: 12px 20px;
         font-size: 1rem;
@@ -279,12 +285,12 @@ html {
 }
 
 /* Оптимизация для устройств с высоким DPI и ограниченной производительностью */
-@media (-webkit-min-device-pixel-ratio: 2) and (max-width: 768px) {
+@media (min-device-pixel-ratio: 2) and (width <= 768px) {
     /* Упрощаем эффекты для высоких DPI мобильных устройств */
     .cta-button::before {
         display: none;
     }
-    
+
     .publication-card:hover,
     .material-item:hover,
     .principle-item:hover {
@@ -340,16 +346,16 @@ html {
 }
 
 /* Адаптивность для breadcrumbs */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .breadcrumbs {
         padding: 10px 15px;
     }
-    
+
     .breadcrumbs ol {
         flex-wrap: wrap;
         gap: 5px;
     }
-    
+
     .breadcrumbs li:not(:last-child)::after {
         margin-left: 5px;
     }

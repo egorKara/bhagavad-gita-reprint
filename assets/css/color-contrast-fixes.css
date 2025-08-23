@@ -1,17 +1,21 @@
 /* ИСПРАВЛЕНИЯ КОНТРАСТНОСТИ ЦВЕТОВ */
+
 /* Основано на стандартах WCAG 2.1 AA (контрастность 4.5:1) */
 
 /* ===== ПРИНЦИПЫ ЦВЕТОВЫХ СХЕМ ===== */
 
 /* ПРАВИЛО 1: Никогда белый на белом или черный на черном */
+
 /* ПРАВИЛО 2: Минимальная контрастность 4.5:1 для обычного текста */
+
 /* ПРАВИЛО 3: Минимальная контрастность 3:1 для крупного текста (18pt+) */
+
 /* ПРАВИЛО 4: Использовать семантические цвета для состояний */
 
 /* ===== ИСПРАВЛЕНИЯ ДЛЯ КОНТАКТОВ ===== */
 
 /* Контакты в футере - исправление белого текста на белом фоне */
-.contact-info, 
+.contact-info,
 .contact-item {
     color: var(--text-dark) !important;
     background: transparent;
@@ -36,81 +40,76 @@
 /* Классическая схема - улучшенная контрастность */
 :root {
     /* Основные цвета с правильной контрастностью */
-    --text-on-light: #2C1810;        /* Темно-коричневый на светлом фоне */
-    --text-on-dark: #FFF8F0;         /* Кремовый на темном фоне */
-    --text-on-primary: #FFFFFF;      /* Белый на основном цвете */
-    --text-on-secondary: #2C1810;    /* Темный на вторичном цвете */
-    
+    --text-on-light: #2c1810; /* Темно-коричневый на светлом фоне */
+    --text-on-dark: #fff8f0; /* Кремовый на темном фоне */
+    --text-on-primary: #fff; /* Белый на основном цвете */
+    --text-on-secondary: #2c1810; /* Темный на вторичном цвете */
+
     /* Ссылки с достаточной контрастностью */
-    --link-on-light: #8B4513;        /* Седло-коричневый на светлом */
-    --link-on-dark: #D2691E;         /* Шоколадный на темном */
-    --link-hover: #A0522D;           /* Седло-коричневый при наведении */
-    
+    --link-on-light: #8b4513; /* Седло-коричневый на светлом */
+    --link-on-dark: #d2691e; /* Шоколадный на темном */
+    --link-hover: #a0522d; /* Седло-коричневый при наведении */
+
     /* Состояния с семантическими цветами */
-    --success-color: #228B22;        /* Лесной зеленый */
-    --warning-color: #FF8C00;        /* Темно-оранжевый */
-    --error-color: #DC143C;          /* Малиновый */
-    --info-color: #4682B4;           /* Стальной синий */
+    --success-color: #228b22; /* Лесной зеленый */
+    --warning-color: #ff8c00; /* Темно-оранжевый */
+    --error-color: #dc143c; /* Малиновый */
+    --info-color: #4682b4; /* Стальной синий */
 }
 
 /* Ведическая схема - исправленная контрастность */
-[data-theme="vedic"] {
-    --text-on-light: #1a0f0f;        /* Очень темный красно-коричневый */
-    --text-on-dark: #FFF5F5;         /* Очень светлый розоватый */
-    --text-on-primary: #FFFFFF;      /* Белый на красном */
-    --text-on-secondary: #1a0f0f;    /* Темный на золотом */
-    
-    --link-on-light: #8B0000;        /* Темно-красный */
-    --link-on-dark: #FFB6C1;         /* Светло-розовый */
-    --link-hover: #DC143C;           /* Малиновый */
+[data-theme='vedic'] {
+    --text-on-light: #1a0f0f; /* Очень темный красно-коричневый */
+    --text-on-dark: #fff5f5; /* Очень светлый розоватый */
+    --text-on-primary: #fff; /* Белый на красном */
+    --text-on-secondary: #1a0f0f; /* Темный на золотом */
+    --link-on-light: #8b0000; /* Темно-красный */
+    --link-on-dark: #ffb6c1; /* Светло-розовый */
+    --link-hover: #dc143c; /* Малиновый */
 }
 
 /* Современная схема - улучшенная контрастность */
-[data-theme="modern"] {
-    --text-on-light: #2C3E50;        /* Темно-синий */
-    --text-on-dark: #ECF0F1;         /* Светло-серый */
-    --text-on-primary: #FFFFFF;      /* Белый на синем */
-    --text-on-secondary: #2C3E50;    /* Темный на светлом */
-    
-    --link-on-light: #34495E;        /* Влажный асфальт */
-    --link-on-dark: #74B9FF;         /* Светло-синий */
-    --link-hover: #0984E3;           /* Ярко-синий */
+[data-theme='modern'] {
+    --text-on-light: #2c3e50; /* Темно-синий */
+    --text-on-dark: #ecf0f1; /* Светло-серый */
+    --text-on-primary: #fff; /* Белый на синем */
+    --text-on-secondary: #2c3e50; /* Темный на светлом */
+    --link-on-light: #34495e; /* Влажный асфальт */
+    --link-on-dark: #74b9ff; /* Светло-синий */
+    --link-hover: #0984e3; /* Ярко-синий */
 }
 
 /* Теплая схема - улучшенная контрастность */
-[data-theme="warm"] {
-    --text-on-light: #654321;        /* Темно-коричневый */
-    --text-on-dark: #FFF8DC;         /* Кукурузный шелк */
-    --text-on-primary: #FFFFFF;      /* Белый на песочном */
-    --text-on-secondary: #654321;    /* Темный на оранжевом */
-    
-    --link-on-light: #A0522D;        /* Седло-коричневый */
-    --link-on-dark: #F4A460;         /* Песочно-коричневый */
-    --link-hover: #CD853F;           /* Перу */
+[data-theme='warm'] {
+    --text-on-light: #654321; /* Темно-коричневый */
+    --text-on-dark: #fff8dc; /* Кукурузный шелк */
+    --text-on-primary: #fff; /* Белый на песочном */
+    --text-on-secondary: #654321; /* Темный на оранжевом */
+    --link-on-light: #a0522d; /* Седло-коричневый */
+    --link-on-dark: #f4a460; /* Песочно-коричневый */
+    --link-hover: #cd853f; /* Перу */
 }
 
 /* Элегантная схема - улучшенная контрастность */
-[data-theme="elegant"] {
-    --text-on-light: #2F4F4F;        /* Темно-сланцево-серый */
-    --text-on-dark: #F5F5F5;         /* Белый дым */
-    --text-on-primary: #FFFFFF;      /* Белый на сером */
-    --text-on-secondary: #2F4F4F;    /* Темный на золотом */
-    
-    --link-on-light: #708090;        /* Сланцево-серый */
-    --link-on-dark: #B8860B;         /* Темное золото */
-    --link-hover: #DAA520;           /* Золотарник */
+[data-theme='elegant'] {
+    --text-on-light: #2f4f4f; /* Темно-сланцево-серый */
+    --text-on-dark: #f5f5f5; /* Белый дым */
+    --text-on-primary: #fff; /* Белый на сером */
+    --text-on-secondary: #2f4f4f; /* Темный на золотом */
+    --link-on-light: #708090; /* Сланцево-серый */
+    --link-on-dark: #b8860b; /* Темное золото */
+    --link-hover: #daa520; /* Золотарник */
 }
 
 /* Спокойная схема - улучшенная контрастность */
-[data-theme="calm"] {
-    --text-on-light: #2F4F2F;        /* Темно-оливково-зеленый */
-    --text-on-dark: #F0F8FF;         /* Алисов синий */
-    --text-on-primary: #FFFFFF;      /* Белый на зеленом */
-    --text-on-secondary: #2F4F2F;    /* Темный на светлом */
-    
-    --link-on-light: #556B2F;        /* Темно-оливковый */
-    --link-on-dark: #9ACD32;         /* Желто-зеленый */
-    --link-hover: #6B8E23;           /* Оливково-серый */
+[data-theme='calm'] {
+    --text-on-light: #2f4f2f; /* Темно-оливково-зеленый */
+    --text-on-dark: #f0f8ff; /* Алисов синий */
+    --text-on-primary: #fff; /* Белый на зеленом */
+    --text-on-secondary: #2f4f2f; /* Темный на светлом */
+    --link-on-light: #556b2f; /* Темно-оливковый */
+    --link-on-dark: #9acd32; /* Желто-зеленый */
+    --link-hover: #6b8e23; /* Оливково-серый */
 }
 
 /* ===== ПРИМЕНЕНИЕ ПРАВИЛЬНЫХ ЦВЕТОВ ===== */
@@ -188,7 +187,7 @@
 .form-textarea:focus {
     border-color: var(--primary-color);
     outline: none;
-    box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.2);
+    box-shadow: 0 0 0 2px rgb(139 69 19 / 20%);
 }
 
 /* Специальные исправления для контактов */
@@ -206,8 +205,8 @@
 /* Быстрая связь */
 .quick-contact-btn {
     color: var(--text-on-dark) !important;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgb(255 255 255 / 10%);
+    border: 1px solid rgb(255 255 255 / 30%);
 }
 
 .quick-contact-btn:hover {
@@ -223,9 +222,9 @@
         outline: 2px solid red !important;
         outline-offset: 2px;
     }
-    
+
     .debug-contrast::after {
-        content: "ПЛОХАЯ КОНТРАСТНОСТЬ";
+        content: 'ПЛОХАЯ КОНТРАСТНОСТЬ';
         position: absolute;
         background: red;
         color: white;
@@ -250,25 +249,25 @@ a:focus {
 
 /* Состояния успеха, ошибки и предупреждения */
 .success {
-    color: #ffffff;
+    color: #fff;
     background-color: var(--success-color);
     border: 1px solid #1f7a1f;
 }
 
 .warning {
-    color: #ffffff;
+    color: #fff;
     background-color: var(--warning-color);
     border: 1px solid #e67e00;
 }
 
 .error {
-    color: #ffffff;
+    color: #fff;
     background-color: var(--error-color);
     border: 1px solid #c11e39;
 }
 
 .info {
-    color: #ffffff;
+    color: #fff;
     background-color: var(--info-color);
     border: 1px solid #3f75a1;
 }
