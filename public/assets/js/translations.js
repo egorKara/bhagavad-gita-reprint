@@ -1284,18 +1284,22 @@ class UniversalTranslator {
             // Убираем inline-обработчик и навешиваем актуальный
             try { switchBtn.removeAttribute('onclick'); } catch (e) {}
             switchBtn.onclick = () => this.switchLanguage();
-            
-            // Добавляем анимацию при смене языка
-            switchBtn.classList.add('changing');
-            setTimeout(() => {
-                switchBtn.classList.remove('changing');
-            }, 300);
         }
     }
     
     // Переключает язык
     switchLanguage() {
         const newLang = this.currentLang === 'ru' ? 'en' : 'ru';
+        
+        // Добавляем анимацию при смене языка
+        const switchBtn = document.querySelector('.language-switch');
+        if (switchBtn) {
+            switchBtn.classList.add('changing');
+            setTimeout(() => {
+                switchBtn.classList.remove('changing');
+            }, 400); // Соответствует длительности анимации
+        }
+        
         this.setLanguage(newLang);
         
         // Сохраняем в localStorage

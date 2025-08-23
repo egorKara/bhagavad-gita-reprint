@@ -413,6 +413,29 @@ a:hover {
     transform: scale(1.1);
 }
 
+.language-switch.changing {
+    animation: languageSwitch 0.4s ease-in-out;
+}
+
+@keyframes languageSwitch {
+    0% { 
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    25% { 
+        transform: scale(0.9) rotate(-5deg);
+        opacity: 0.7;
+    }
+    75% { 
+        transform: scale(1.1) rotate(5deg);
+        opacity: 0.9;
+    }
+    100% { 
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
 /* Переключатель тем */
 .theme-switch {
     position: fixed;
