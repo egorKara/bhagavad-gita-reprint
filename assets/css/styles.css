@@ -957,7 +957,7 @@ body {
 /* Footer */
 .main-footer {
     background: var(--text-dark);
-    color: white;
+    color: var(--background-white);
     padding: 60px 0 20px 0;
 }
 
@@ -1832,7 +1832,7 @@ nav a {
 
 .site-footer {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
+    color: var(--background-white);
     padding: 60px 0 20px;
     margin-top: 80px;
 }
