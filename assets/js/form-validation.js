@@ -70,7 +70,7 @@ class OrderFormValidator {
             // Безопасная проверка паттерна без динамического RegExp
             const pattern = field.pattern;
             let isValidPattern = true;
-            
+
             // Предопределенные безопасные паттерны
             if (pattern === '^[a-zA-Zа-яА-Я\\s-]+$') {
                 isValidPattern = /^[a-zA-Zа-яА-Я\s-]+$/.test(field.value);
@@ -79,7 +79,7 @@ class OrderFormValidator {
             } else if (pattern === '^[a-zA-Zа-яА-Я0-9\\s-]+$') {
                 isValidPattern = /^[a-zA-Zа-яА-Я0-9\s-]+$/.test(field.value);
             }
-            
+
             if (!isValidPattern) {
                 isValid = false;
                 errorMessage = field.title || 'Неверный формат';
@@ -217,7 +217,7 @@ class OrderFormValidator {
         // Безопасный сбор данных из формы без FormData
         const data = {};
         const formElements = this.form.elements;
-        
+
         for (let i = 0; i < formElements.length; i++) {
             const element = formElements[i];
             if (element.name && element.value) {
