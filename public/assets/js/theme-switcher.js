@@ -28,7 +28,7 @@ class ThemeSwitcher {
         // Создаем кнопку переключателя тем
         const themeButton = document.createElement('button');
         themeButton.className = 'theme-switch';
-        themeButton.innerHTML = '🎨';
+        themeButton.innerHTML = 'Тема';
         themeButton.title = 'Сменить цветовую схему';
         themeButton.onclick = () => this.showThemeModal();
         
@@ -50,15 +50,16 @@ class ThemeSwitcher {
             .theme-switch {
                 position: fixed;
                 top: 20px;
-                right: 90px;
+                right: 100px;
                 z-index: 9999;
                 background: var(--accent-color);
                 color: var(--text-dark);
                 border: 2px solid var(--primary-color);
-                border-radius: 50%;
-                width: 56px;
-                height: 56px;
-                font-size: 20px;
+                border-radius: var(--border-radius);
+                padding: var(--space-xs) var(--space-sm);
+                min-width: 60px;
+                height: 36px;
+                font-size: 12px;
                 cursor: pointer;
                 transition: all 0.3s ease;
                 box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
