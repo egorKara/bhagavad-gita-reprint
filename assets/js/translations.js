@@ -20,7 +20,7 @@ const translations = {
                 license: "Официальная лицензия BBT"
             },
             priceLabel: "Цена:",
-            price: "1500 ₽",
+            price: "Уточняйте",
             priceNote: "Доставка по России",
             orderButton: "Заказать книгу",
             learnMore: "Узнать больше"
@@ -370,7 +370,7 @@ const translations = {
                 license: "Official BBT license"
             },
             priceLabel: "Price:",
-            price: "1500 RUB",
+            price: "Contact us",
             priceNote: "Delivery across Russia",
             orderButton: "Order Book",
             learnMore: "Learn More"
@@ -943,20 +943,27 @@ class UniversalTranslator {
             console.log(`✅ Кнопка "Узнать больше" обновлена: "${this.getTranslation('home.learnMore')}"`);
         }
         
-        // Обновляем цену
-        const priceLabel = main.querySelector('.price-label');
+        // Обновляем цену (БЭМ + обратная совместимость)
+        const priceLabel = main.querySelector('.price__label') || main.querySelector('.price-label');
         if (priceLabel) {
             priceLabel.textContent = this.getTranslation('home.priceLabel');
             console.log(`✅ Подпись цены обновлена: "${this.getTranslation('home.priceLabel')}"`);
         }
         
-        const price = main.querySelector('.price');
-        if (price) {
-            price.textContent = this.getTranslation('home.price');
-            console.log(`✅ Цена обновлена: "${this.getTranslation('home.price')}"`);
+        const priceValue = main.querySelector('.price__value');
+        if (priceValue) {
+            priceValue.textContent = this.getTranslation('home.price');
+            console.log(`✅ Цена обновлена (БЭМ): "${this.getTranslation('home.price')}"`);
         }
         
-        const priceNote = main.querySelector('.price-note');
+        // Обратная совместимость для старых классов
+        const price = main.querySelector('.price:not(.price__value)');
+        if (price && !price.querySelector('.price__value')) {
+            price.textContent = this.getTranslation('home.price');
+            console.log(`✅ Цена обновлена (старый класс): "${this.getTranslation('home.price')}"`);
+        }
+        
+        const priceNote = main.querySelector('.price__note') || main.querySelector('.price-note');
         if (priceNote) {
             priceNote.textContent = this.getTranslation('home.priceNote');
             console.log(`✅ Примечание о цене обновлено: "${this.getTranslation('home.priceNote')}"`);
@@ -1181,7 +1188,7 @@ class UniversalTranslator {
         map['Оригинальное издание 1972 года от Macmillan Publishing'] = 'home.subtitle';
         map['Точное воспроизведение легендарного издания с полным текстом, комментариями А.Ч. Бхактиведанты Свами Прабхупады и 44 оригинальными иллюстрациями'] = 'home.description';
         map['Цена:'] = 'home.priceLabel';
-        map['1500 ₽'] = 'home.price';
+        map['Уточняйте'] = 'home.price';
         map['Доставка по России'] = 'home.priceNote';
         map['Заказать книгу'] = 'home.orderButton';
         map['Узнать больше'] = 'home.learnMore';
@@ -1430,7 +1437,9 @@ class UniversalTranslator {
         if (subtitle) subtitle.textContent = this.getTranslation('about.subtitle', subtitle.textContent);
         
         const price = main.querySelector('.price');
-        if (price) price.textContent = this.getTranslation('home.price', price.textContent);
+        if (price && !price.querySelector('.price__value')) {
+            price.textContent = this.getTranslation('home.price', price.textContent);
+        }
         
         const delivery = main.querySelector('.delivery');
         if (delivery) delivery.textContent = this.getTranslation('home.priceNote', delivery.textContent);
@@ -1476,7 +1485,7 @@ class UniversalTranslator {
                     const num = parseInt(opt.value, 10);
                     if (!isNaN(num)) {
                         const word = this.currentLang === 'ru' ? (num === 1 ? 'книга' : 'книги') : (num === 1 ? 'book' : 'books');
-                        const priceSuffix = this.currentLang === 'ru' ? ` - ${num * 1500} ₽` : ` - ${num * 1500} RUB`;
+                        const priceSuffix = this.currentLang === 'ru' ? ` - уточняйте цену` : ` - contact for price`;
                         opt.textContent = `${num} ${word}${priceSuffix}`;
                     }
                 }
@@ -1529,6 +1538,25 @@ class UniversalTranslator {
 // Создаем глобальный экземпляр переводчика
 const translator = new UniversalTranslator();
 
+// Функция для создания кнопки переключения языка
+function createLanguageSwitch() {
+    // Проверяем, не создана ли уже кнопка
+    if (document.querySelector('.language-switch')) return;
+    
+    // Создаем кнопку переключения языка
+    const languageButton = document.createElement('button');
+    languageButton.className = 'language-switch control-btn control-btn--language';
+    
+    // Безопасно получаем текущий язык
+    const currentLang = translator.currentLang || document.documentElement.lang || 'ru';
+    languageButton.innerHTML = currentLang === 'ru' ? 'EN' : 'RU';
+    languageButton.title = 'Переключить язык / Switch language';
+    languageButton.onclick = () => translator.switchLanguage();
+    
+    // Добавляем кнопку к body
+    document.body.appendChild(languageButton);
+}
+
 // Функция для переключения языка (для обратной совместимости)
 function switchLanguage(lang) {
     translator.setLanguage(lang);
@@ -1541,4 +1569,8 @@ function initializeLanguage() {
 }
 
 // Запускаем инициализацию при загрузке страницы
-document.addEventListener('DOMContentLoaded', initializeLanguage);
+document.addEventListener('DOMContentLoaded', function() {
+    initializeLanguage();
+    // Создаем кнопку языка с небольшой задержкой, чтобы переводчик успел инициализироваться
+    setTimeout(createLanguageSwitch, 100);
+});

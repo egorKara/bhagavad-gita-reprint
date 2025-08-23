@@ -60,7 +60,7 @@ function addStructuredData() {
         "inLanguage": ["en", "ru"],
         "offers": {
             "@type": "Offer",
-            "price": "1500",
+            "price": "0",
             "priceCurrency": "RUB",
             "availability": "https://schema.org/InStock",
             "seller": {

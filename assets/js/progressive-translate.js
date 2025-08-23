@@ -151,13 +151,33 @@
         if (document.querySelector('.translation-feedback-btn')) return;
         const btn = document.createElement('button');
         btn.className = 'translation-feedback-btn';
-        btn.textContent = '⚑';
+        btn.textContent = 'Перевод';
         btn.title = 'Сообщить об ошибке перевода';
+        // Применяем CSS переменные и унифицированный стиль
+        btn.className = 'translation-feedback-btn control-btn control-btn--feedback';
         Object.assign(btn.style, {
-            position: 'fixed', right: '20px', bottom: '20px', zIndex: 10000,
-            width: '40px', height: '40px', borderRadius: '50%',
-            background: '#fff', border: '2px solid #8B4513', cursor: 'pointer',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.2)', fontSize: '18px'
+            position: 'fixed', 
+            top: '20px', 
+            right: '180px', 
+            zIndex: '9998',
+            padding: 'var(--space-xs) var(--space-sm)',
+            minWidth: '60px',
+            height: '36px', 
+            borderRadius: 'var(--border-radius)',
+            background: 'var(--color-accent)', 
+            color: 'var(--color-text)',
+            border: '2px solid var(--color-primary)', 
+            cursor: 'pointer',
+            boxShadow: 'var(--shadow)', 
+            fontSize: '12px',
+            fontWeight: '600',
+            transition: 'var(--transition)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontFamily: 'inherit',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px'
         });
         btn.addEventListener('click', openFeedbackModal);
         document.body.appendChild(btn);
