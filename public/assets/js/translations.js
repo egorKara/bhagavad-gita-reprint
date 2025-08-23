@@ -175,7 +175,7 @@ const translations = {
         contacts: {
             title: "Купить книгу",
             description: "Для заказа книги свяжитесь с нами:",
-            phone: "Телефон: +7 (XXX) XXX-XX-XX",
+            telegram: "Телеграм: @egorkaray",
             email: "Email: info@gita-1972-reprint.ru",
             address: "Адрес: Россия, Москва",
             orderForm: "Форма заказа",
@@ -525,7 +525,7 @@ const translations = {
         contacts: {
             title: "Buy the Book",
             description: "To order the book, contact us:",
-            phone: "Phone: +7 (XXX) XXX-XX-XX",
+            telegram: "Telegram: @egorkaray",
             email: "Email: info@gita-1972-reprint.ru",
             address: "Address: Russia, Moscow",
             orderForm: "Order Form",
@@ -1165,7 +1165,7 @@ class UniversalTranslator {
         // Контакты
         map['Купить книгу'] = 'contacts.title';
         map['Для заказа книги свяжитесь с нами:'] = 'contacts.description';
-        map['Телефон: +7 (XXX) XXX-XX-XX'] = 'contacts.phone';
+        map['Телеграм: @egorkaray'] = 'contacts.telegram';
         map['Email: info@gita-1972-reprint.ru'] = 'contacts.email';
         map['Адрес: Россия, Москва'] = 'contacts.address';
         map['Форма заказа'] = 'contacts.orderForm';
