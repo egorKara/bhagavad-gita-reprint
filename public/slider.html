@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Слайдер - Бхагавад-Гита 1972</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .slider-container {
+            position: relative;
+            padding: 40px;
+        }
+
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            max-width: 100%;
+            max-height: 80%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .slide-caption {
+            margin-top: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+            padding: 15px 30px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            gap: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: #667eea;
+            transform: scale(1.2);
+        }
+
+        .slide-counter {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .keyboard-hint {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .slider-container {
+                padding: 20px;
+            }
+            
+            .slider {
+                height: 400px;
+            }
+            
+            .slide-caption {
+                font-size: 1.1rem;
+                padding: 10px 20px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Бхагавад-Гита 1972</h1>
+            <p>Фотографии оригинального издания</p>
+        </div>
+
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slide active">
+                    <img src="assets/images/slider/Полная_обложка.jpg" alt="Полная обложка">
+                    <div class="slide-caption">Полная обложка</div>
+                </div>
+                <div class="slide">
+                    <img src="assets/images/slider/Титульная_страница.jpg" alt="Титульная страница">
+                    <div class="slide-caption">Титульная страница</div>
+                </div>
+                <div class="slide">
+                    <img src="assets/images/slider/Предисловие.jpg" alt="Предисловие">
+                    <div class="slide-caption">Предисловие</div>
+                </div>
+                <div class="slide">
+                    <img src="assets/images/slider/Введение.jpg" alt="Введение">
+                    <div class="slide-caption">Введение</div>
+                </div>
+                <div class="slide">
+                    <img src="assets/images/slider/Предисловие_автора.jpg" alt="Предисловие автора">
+                    <div class="slide-caption">Предисловие автора</div>
+                </div>
+                <div class="slide">
+                    <img src="assets/images/slider/Разворот_с_комментариями.jpg" alt="Разворот с комментариями">
+                    <div class="slide-caption">Разворот с комментариями</div>
+                </div>
+                <div class="slide">
+                    <img src="assets/images/slider/Санскритский_текст.jpg" alt="Санскритский текст">
+                    <div class="slide-caption">Санскритский текст</div>
+                </div>
+                <div class="slide">
+                    <img src="assets/images/slider/Начало_главы.jpg" alt="Начало главы">
+                    <div class="slide-caption">Начало главы</div>
+                </div>
+                <div class="slide">
+                    <img src="assets/images/slider/Детали_иллюстраций.jpg" alt="Детали иллюстраций">
+                    <div class="slide-caption">Детали иллюстраций</div>
+                </div>
+                <div class="slide">
+                    <img src="assets/images/slider/Детали_переплета.jpg" alt="Детали переплета">
+                    <div class="slide-caption">Детали переплета</div>
+                </div>
+                <div class="slide">
+                    <img src="assets/images/slider/Корешок_книги.jpg" alt="Корешок книги">
+                    <div class="slide-caption">Корешок книги</div>
+                </div>
+            </div>
+
+            <div class="slider-controls">
+                <button class="btn" id="prevBtn">← Назад</button>
+                <button class="btn" id="nextBtn">Вперед →</button>
+            </div>
+
+            <div class="slide-indicators" id="indicators"></div>
+            
+            <div class="slide-counter">
+                <span id="currentSlide">1</span> из <span id="totalSlides">11</span>
+            </div>
+            
+            <div class="keyboard-hint">
+                Используйте стрелки ← → для навигации или кликайте по кнопкам
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class ImageSlider {
+            constructor() {
+                this.currentSlide = 0;
+                this.slides = document.querySelectorAll('.slide');
+                this.totalSlides = this.slides.length;
+                
+                this.prevBtn = document.getElementById('prevBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.currentSlideSpan = document.getElementById('currentSlide');
+                this.totalSlidesSpan = document.getElementById('totalSlides');
+                this.indicatorsContainer = document.getElementById('indicators');
+                
+                this.init();
+            }
+            
+            init() {
+                this.createIndicators();
+                this.updateCounter();
+                this.bindEvents();
+                this.updateButtons();
+            }
+            
+            createIndicators() {
+                for (let i = 0; i < this.totalSlides; i++) {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'indicator';
+                    indicator.addEventListener('click', () => this.goToSlide(i));
+                    this.indicatorsContainer.appendChild(indicator);
+                }
+                this.updateIndicators();
+            }
+            
+            bindEvents() {
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+                
+                // Клавиатура
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') this.prevSlide();
+                    if (e.key === 'ArrowRight') this.nextSlide();
+                });
+                
+                // Автопрокрутка
+                this.startAutoPlay();
+            }
+            
+            goToSlide(index) {
+                if (index < 0 || index >= this.totalSlides) return;
+                
+                this.slides[this.currentSlide].classList.remove('active');
+                this.currentSlide = index;
+                this.slides[this.currentSlide].classList.add('active');
+                
+                this.updateCounter();
+                this.updateIndicators();
+                this.updateButtons();
+            }
+            
+            nextSlide() {
+                const next = (this.currentSlide + 1) % this.totalSlides;
+                this.goToSlide(next);
+            }
+            
+            prevSlide() {
+                const prev = this.currentSlide === 0 ? this.totalSlides - 1 : this.currentSlide - 1;
+                this.goToSlide(prev);
+            }
+            
+            updateCounter() {
+                this.currentSlideSpan.textContent = this.currentSlide + 1;
+                this.totalSlidesSpan.textContent = this.totalSlides;
+            }
+            
+            updateIndicators() {
+                const indicators = this.indicatorsContainer.querySelectorAll('.indicator');
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === this.currentSlide);
+                });
+            }
+            
+            updateButtons() {
+                this.prevBtn.disabled = false;
+                this.nextBtn.disabled = false;
+            }
+            
+            startAutoPlay() {
+                setInterval(() => {
+                    this.nextSlide();
+                }, 5000); // Смена каждые 5 секунд
+            }
+        }
+        
+        // Инициализация слайдера после загрузки страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            new ImageSlider();
+        });
+    </script>
+</body>
+</html>
