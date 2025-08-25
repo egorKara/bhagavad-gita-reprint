@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+    # PostgreSQL база данных
+    postgres:
+        image: postgres:16
+        container_name: gita-postgres
+        environment:
+            POSTGRES_DB: gita_landing
+            POSTGRES_USER: gita_user
+            POSTGRES_PASSWORD: gita_password_2024
+        ports:
+            - '5432:5432'
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        restart: unless-stopped
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U gita_user -d gita_landing']
+            interval: 30s
+            timeout: 10s
+            retries: 3
+
+    # Prometheus для мониторинга
+    prometheus:
+        image: prom/prometheus:v2.48.0
+        container_name: gita-prometheus
+        ports:
+            - '9090:9090'
+        volumes:
+            - ./prometheus.yml:/etc/prometheus/prometheus.yml
+            - prometheus_data:/prometheus
+        command:
+            - '--config.file=/etc/prometheus/prometheus.yml'
+            - '--storage.tsdb.path=/prometheus'
+            - '--web.console.libraries=/etc/prometheus/console_libraries'
+            - '--web.console.templates=/etc/prometheus/consoles'
+            - '--storage.tsdb.retention.time=200h'
+            - '--web.enable-lifecycle'
+        restart: unless-stopped
+
+volumes:
+    postgres_data:
+    prometheus_data:

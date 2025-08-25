@@ -1,0 +1,38 @@
+# GitaLanding MCP Tools Configuration
+
+## MCP Tools для проекта GitaLanding
+
+### Git Integration
+- Автоматические коммиты
+- Управление ветками
+- Code review assistance
+
+### Database Tools
+- PostgreSQL connection
+- Entity Framework support
+- Schema inspection
+- Query optimization
+
+### File System Tools
+- Image optimization
+- Content generation
+- Translation management
+- File organization
+
+### API Testing Tools
+- Endpoint testing
+- Performance monitoring
+- Documentation generation
+- Error handling
+
+## Настройки проекта
+- Frontend: React/TypeScript
+- Backend: ASP.NET Core 8
+- Database: PostgreSQL
+- Styling: CSS Grid + Flexbox
+
+## Приоритеты разработки
+1. Завершение базового функционала
+2. Интеграция frontend + backend
+3. Оптимизация производительности
+4. Добавление AI-функций

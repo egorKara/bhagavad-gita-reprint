@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bhagavad-gita As It Is - классический перевод и комментарии от Шрилы Прабхупады">
+    <meta name="keywords" content="Бхагавад-гита, Прабхупада, ведическая литература, духовность">
+    <meta name="author" content="A.C. Bhaktivedanta Swami Prabhupada">
+    
+    <title>Bhagavad-gita As It Is - Бхагавад-гита как она есть</title>
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Bhagavad-gita As It Is">
+    <meta property="og:description" content="Классический перевод и комментарии к Бхагавад-гите от Шрилы Прабхупады">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gita-1972-reprint.ru">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/src/styles/landing-grid.css">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/assets/images/book-cover.jpg" as="image">
+    <link rel="preload" href="/assets/images/prabhupada.jpg" as="image">
+</head>
+<body>
+    <!-- Основной контейнер -->
+    <div class="landing-container">
+        
+        <!-- Header -->
+        <header class="landing-header">
+            <div class="header-content">
+                <a href="#" class="logo" data-translate="logo">Bhagavad-gita As It Is</a>
+                <nav class="header-nav">
+                    <a href="#about" data-translate="nav_about">Об авторе</a>
+                    <a href="#buy" data-translate="nav_buy">Купить книгу</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero секция (первый экран) -->
+        <section class="landing-hero">
+            <!-- Переключатель языка -->
+            <div class="language-switch" id="language-switch-container">
+                <!-- Кнопка будет добавлена JavaScript -->
+            </div>
+
+            <!-- Заголовок -->
+            <h1 class="hero-title" data-translate="hero_title">Bhagavad-gita As It Is</h1>
+
+            <!-- Слайдер изображений -->
+            <div class="hero-slider" id="hero-slider">
+                <!-- Слайдер будет инициализирован JavaScript -->
+            </div>
+
+            <!-- Описание -->
+            <p class="hero-description" data-translate="hero_description">
+                Классический перевод и комментарии к Бхагавад-гите от Шрилы Прабхупады. 
+                Погрузитесь в глубины ведической мудрости через призму сознания Кришны.
+            </p>
+
+            <!-- CTA кнопка -->
+            <a href="#buy" class="hero-cta" data-translate="hero_cta">Купить книгу</a>
+        </section>
+
+        <!-- Author секция (второй экран) -->
+        <section class="landing-author" id="about">
+            <!-- Фотография автора -->
+            <div class="author-photo">
+                <img src="/assets/images/prabhupada.jpg" 
+                     alt="Шрила Прабхупада" 
+                     width="400" 
+                     height="500"
+                     loading="lazy">
+            </div>
+
+            <!-- Контент об авторе -->
+            <div class="author-content">
+                <!-- Биография -->
+                <div class="author-biography">
+                    <h3 data-translate="biography_title">Биография</h3>
+                    <p data-translate="biography_text">
+                        Абхай Чаранаравинда Бхактиведанта Свами Прабхупада (1896-1977) - 
+                        выдающийся философ, духовный учитель и основатель Международного 
+                        общества сознания Кришны (ISKCON). Родился в Калькутте, получил 
+                        образование в Шотландском церковном колледже.
+                    </p>
+                </div>
+
+                <!-- Миссия -->
+                <div class="author-mission">
+                    <h3 data-translate="mission_title">Миссия Прабхупады</h3>
+                    <p data-translate="mission_text">
+                        Миссия Шрилы Прабхупады заключалась в распространении ведической 
+                        мудрости по всему миру. Он перевел и прокомментировал более 60 
+                        томов ведической литературы, включая полную Бхагавад-гиту.
+                    </p>
+                </div>
+
+                <!-- CTA кнопка -->
+                <div class="author-cta">
+                    <a href="#author-details" class="cta-button" data-translate="author_cta">
+                        Узнать больше об авторе
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reviews секция (третий экран) -->
+        <section class="landing-reviews">
+            <h2 class="reviews-title" data-translate="reviews_title">Отзывы о книге</h2>
+            
+            <div class="reviews-grid" id="reviews-container">
+                <!-- Отзывы будут загружены из API -->
+                <div class="review-card">
+                    <blockquote class="review-quote" data-translate="review_1_quote">
+                        "Бхагавад-гита как она есть" - это не просто перевод, 
+                        это живое учение, которое открывает сердца читателей.
+                    </blockquote>
+                    <cite class="review-author" data-translate="review_1_author">
+                        - Доктор философии
+                    </cite>
+                </div>
+
+                <div class="review-card">
+                    <blockquote class="review-quote" data-translate="review_2_quote">
+                        Комментарии Шрилы Прабхупады делают древнюю мудрость 
+                        доступной для современного читателя.
+                    </blockquote>
+                    <cite class="review-author" data-translate="review_2_author">
+                        - Профессор университета
+                    </cite>
+                </div>
+
+                <div class="review-card">
+                    <blockquote class="review-quote" data-translate="review_3_quote">
+                        Эта книга изменила мой взгляд на жизнь и помогла 
+                        найти ответы на самые важные вопросы.
+                    </blockquote>
+                    <cite class="review-author" data-translate="review_3_author">
+                        - Читатель
+                    </cite>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="landing-footer">
+            <div class="footer-logo">BBT</div>
+            <div class="footer-copyright" data-translate="footer_copyright">
+                © 1972 BBT. Все права защищены.
+            </div>
+            <div class="footer-contact">
+                <p>Email: <a href="mailto:info@gita-1972-reprint.ru" data-translate="footer_email">info@gita-1972-reprint.ru</a></p>
+            </div>
+            <div class="footer-social">
+                <p data-translate="footer_telegram">Telegram: @gita-1972-reprint-bot</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

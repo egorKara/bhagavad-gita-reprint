@@ -1,0 +1,13 @@
+/home/oem/github/bhagavad-gita-reprint/landing-gita-1972-reprint/GitaLanding.Data/bin/Debug/net8.0/GitaLanding.Data.deps.json
+/home/oem/github/bhagavad-gita-reprint/landing-gita-1972-reprint/GitaLanding.Data/bin/Debug/net8.0/GitaLanding.Data.dll
+/home/oem/github/bhagavad-gita-reprint/landing-gita-1972-reprint/GitaLanding.Data/bin/Debug/net8.0/GitaLanding.Data.pdb
+/home/oem/github/bhagavad-gita-reprint/landing-gita-1972-reprint/GitaLanding.Data/obj/Debug/net8.0/GitaLanding.Data.GeneratedMSBuildEditorConfig.editorconfig
+/home/oem/github/bhagavad-gita-reprint/landing-gita-1972-reprint/GitaLanding.Data/obj/Debug/net8.0/GitaLanding.Data.AssemblyInfoInputs.cache
+/home/oem/github/bhagavad-gita-reprint/landing-gita-1972-reprint/GitaLanding.Data/obj/Debug/net8.0/GitaLanding.Data.AssemblyInfo.cs
+/home/oem/github/bhagavad-gita-reprint/landing-gita-1972-reprint/GitaLanding.Data/obj/Debug/net8.0/GitaLanding.Data.csproj.CoreCompileInputs.cache
+/home/oem/github/bhagavad-gita-reprint/landing-gita-1972-reprint/GitaLanding.Data/obj/Debug/net8.0/GitaLanding.Data.sourcelink.json
+/home/oem/github/bhagavad-gita-reprint/landing-gita-1972-reprint/GitaLanding.Data/obj/Debug/net8.0/GitaLanding.Data.dll
+/home/oem/github/bhagavad-gita-reprint/landing-gita-1972-reprint/GitaLanding.Data/obj/Debug/net8.0/refint/GitaLanding.Data.dll
+/home/oem/github/bhagavad-gita-reprint/landing-gita-1972-reprint/GitaLanding.Data/obj/Debug/net8.0/GitaLanding.Data.pdb
+/home/oem/github/bhagavad-gita-reprint/landing-gita-1972-reprint/GitaLanding.Data/obj/Debug/net8.0/ref/GitaLanding.Data.dll
+/home/oem/github/bhagavad-gita-reprint/landing-gita-1972-reprint/GitaLanding.Data/obj/Debug/net8.0/GitaLanding.Data.csproj.AssemblyReference.cache
