@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "GitaLanding.Core/1.0.0": {
+        "runtime": {
+          "GitaLanding.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "GitaLanding.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

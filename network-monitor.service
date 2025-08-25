@@ -1,0 +1,16 @@
+[Unit]
+Description=Network Connection Monitor and Auto-Fix
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/home/oem/github/bhagavad-gita-reprint/landing-gita-1972-reprint/network-monitor.sh
+Restart=always
+RestartSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

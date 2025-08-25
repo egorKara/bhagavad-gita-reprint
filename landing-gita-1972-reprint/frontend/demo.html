@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bhagavad-gita As It Is - Демо</title>
+        <link rel="stylesheet" href="src/styles/landing-grid.css" />
+        <style>
+            .demo-notice {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+                color: white;
+                text-align: center;
+                padding: 10px;
+                font-weight: bold;
+                z-index: 10000;
+            }
+            .demo-slider {
+                width: 100%;
+                height: 400px;
+                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #2c3e50;
+                font-size: 1.2rem;
+                text-align: center;
+            }
+            .demo-image {
+                width: 200px;
+                height: 200px;
+                background: #3498db;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-weight: bold;
+                margin: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <!--div class="demo-notice">🎭 ДЕМОНСТРАЦИОННАЯ ВЕРСИЯ - Все функции работают локально</div-->
+
+        <div class="landing-container">
+            <!-- Header -->
+            <header class="landing-header">
+                <div class="header-content">
+                    <img src="src/images/BBT-logo.png" alt="BBT Logo" class="header-logo-img" />
+                    <!--a href="#" class="logo">Bhagavad-gita As It Is</a-->
+                    <!--nav class="header-nav">
+                        <a href="#about">Об авторе</a>
+                        <a href="#buy">Купить книгу</a>
+                    </nav-->
+                </div>
+            </header>
+
+            <!-- Hero секция -->
+            <section class="landing-hero">
+                <!-- Переключатель языка -->
+                <div class="language-switch" id="language-switch">
+                    <button class="language-toggle-button" onclick="toggleLanguage()">EN</button>
+                </div>
+
+                <!-- Заголовок -->
+                <h1 class="hero-title" data-translate="hero_title">Бхагавад-гита как она есть</h1>
+
+                <!-- Демо слайдер -->
+                <div class="demo-slider">
+                    <div id="slider-content">
+                        <h3>Слайдер изображений</h3>
+                        <p>Здесь будет слайдер с 14 изображениями книги</p>
+                        <div style="display: flex; justify-content: center; flex-wrap: wrap">
+                            <div class="demo-image">Обложка</div>
+                            <div class="demo-image">Клапан 1</div>
+                            <div class="demo-image">Клапан 2</div>
+                            <div class="demo-image">Задняя сторона</div>
+                        </div>
+                        <p>+ 10 иллюстраций (Plate 15-28)</p>
+                    </div>
+                </div>
+
+                <!-- Описание -->
+                <p class="hero-description" data-translate="hero_description">
+                    Классический перевод и комментарии к Бхагавад-гите от Шрилы Прабхупады. Погрузитесь в глубины
+                    ведической мудрости через призму сознания Кришны.
+                </p>
+
+                <!-- CTA кнопка -->
+                <div class="hero-cta" data-translate="hero_cta">
+                    <a href="#buy" class="cta-button">Купить книгу</a>
+                </div>
+            </section>
+
+            <!-- Author секция -->
+            <section class="landing-author" id="about">
+                <!-- Заголовок -->
+                <h1 class="author-title" data-translate="hero_title">Об авторе</h1>
+                <!-- Фотография автора -->
+                <div class="author-photo">
+                    <div class="demo-image" style="width: 400px; height: 500px">Фото Шрилы Прабхупады</div>
+                </div>
+
+                <!-- Контент об авторе -->
+                <div class="author-content">
+                    <!-- Биография -->
+                    <div class="author-biography">
+                        <h3 data-translate="biography_title">Биография</h3>
+                        <p data-translate="biography_text">
+                            Абхай Чаранаравинда Бхактиведанта Свами Прабхупада (1896-1977) - выдающийся философ,
+                            духовный учитель и основатель Международного общества сознания Кришны (ISKCON). Родился в
+                            Калькутте, получил образование в Шотландском церковном колледже.
+                        </p>
+                    </div>
+
+                    <!-- Миссия -->
+                    <div class="author-mission">
+                        <h3 data-translate="mission_title">Миссия Прабхупады</h3>
+                        <p data-translate="mission_text">
+                            Миссия Шрилы Прабхупады заключалась в распространении ведической мудрости по всему миру. Он
+                            перевел и прокомментировал более 60 томов ведической литературы, включая полную
+                            Бхагавад-гиту.
+                        </p>
+                    </div>
+
+                    <!-- CTA кнопка -->
+                    <div class="author-cta">
+                        <a href="#author-details" class="cta-button" data-translate="author_cta">
+                            Узнать больше об авторе
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reviews секция -->
+            <section class="landing-reviews">
+                <h2 class="reviews-title" data-translate="reviews_title">Отзывы о книге</h2>
+
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <blockquote class="review-quote" data-translate="review_1_quote">
+                            "Бхагавад-гита как она есть" - это не просто перевод, это живое учение, которое открывает
+                            сердца читателей.
+                        </blockquote>
+                        <cite class="review-author" data-translate="review_1_author">- Доктор философии</cite>
+                    </div>
+
+                    <div class="review-card">
+                        <blockquote class="review-quote" data-translate="review_2_quote">
+                            Комментарии Шрилы Прабхупады делают древнюю мудрость доступной для современного читателя.
+                        </blockquote>
+                        <cite class="review-author" data-translate="review_2_author">- Профессор университета</cite>
+                    </div>
+
+                    <div class="review-card">
+                        <blockquote class="review-quote" data-translate="review_3_quote">
+                            Эта книга изменила мой взгляд на жизнь и помогла найти ответы на самые важные вопросы.
+                        </blockquote>
+                        <cite class="review-author" data-translate="review_3_author">- Читатель</cite>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="landing-footer">
+                <!-- Левая колонка: Копирайт, лицензия -->
+                <div class="footer-left">
+                    <div class="footer-copyright" data-translate="footer_copyright">
+                        © 1972 BBT. Все права защищены.
+                    </div>
+                    <div class="footer-license">Лицензионное издание</div>
+                </div>
+
+                <!-- Центральная колонка: Логотип -->
+                <div class="footer-center">
+                    <div class="footer-logo">
+                        <img src="src/images/BBT-logo.png" alt="BBT Logo" class="footer-logo-img" />
+                    </div>
+                </div>
+
+                <!-- Правая колонка: Контакты -->
+                <div class="footer-right">
+                    <div class="footer-email">
+                        <p>
+                            Email:
+                            <a href="mailto:info@gita-1972-reprint.ru">info@gita-1972-reprint.ru</a>
+                        </p>
+                    </div>
+                    <div class="footer-telegram">
+                        <p>
+                            Telegram:
+                            <a href="https://t.me/gita_1972_reprint_bot" target="_blank">@gita_1972_reprint_bot</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <script>
+            // Простая демонстрация переключения языков
+            const translations = {
+                hero_title: {
+                    ru: 'Бхагавад-гита как она есть',
+                    en: 'Bhagavad-gita As It Is'
+                },
+                hero_description: {
+                    ru: 'Классический перевод и комментарии к Бхагавад-гите от Шрилы Прабхупады. Погрузитесь в глубины ведической мудрости через призму сознания Кришны.',
+                    en: 'Classical translation and commentary on the Bhagavad-gita by Srila Prabhupada. Immerse yourself in the depths of Vedic wisdom through the lens of Krishna consciousness.'
+                },
+                hero_cta: {
+                    ru: 'Купить книгу',
+                    en: 'Buy Book'
+                },
+                biography_title: {
+                    ru: 'Биография',
+                    en: 'Biography'
+                },
+                biography_text: {
+                    ru: 'Абхай Чаранаравинда Бхактиведанта Свами Прабхупада (1896-1977) - выдающийся философ, духовный учитель и основатель Международного общества сознания Кришны (ISKCON). Родился в Калькутте, получил образование в Шотландском церковном колледже.',
+                    en: 'Abhay Charanaravinda Bhaktivedanta Swami Prabhupada (1896-1977) was an outstanding philosopher, spiritual teacher and founder of the International Society for Krishna Consciousness (ISKCON). Born in Calcutta, he received his education at the Scottish Church College.'
+                },
+                mission_title: {
+                    ru: 'Миссия Прабхупады',
+                    en: "Prabhupada's Mission"
+                },
+                mission_text: {
+                    ru: 'Миссия Шрилы Прабхупады заключалась в распространении ведической мудрости по всему миру. Он перевел и прокомментировал более 60 томов ведической литературы, включая полную Бхагавад-гиту.',
+                    en: "Srila Prabhupada's mission was to spread Vedic wisdom throughout the world. He translated and commented on more than 60 volumes of Vedic literature, including the complete Bhagavad-gita."
+                },
+                author_cta: {
+                    ru: 'Узнать больше об авторе',
+                    en: 'Learn More About Author'
+                },
+                reviews_title: {
+                    ru: 'Отзывы о книге',
+                    en: 'Book Reviews'
+                },
+                review_1_quote: {
+                    ru: '"Бхагавад-гита как она есть" - это не просто перевод, это живое учение, которое открывает сердца читателей.',
+                    en: '"Bhagavad-gita As It Is" is not just a translation, it is a living teaching that opens the hearts of readers.'
+                },
+                review_1_author: {
+                    ru: '- Доктор философии',
+                    en: '- Doctor of Philosophy'
+                },
+                review_2_quote: {
+                    ru: 'Комментарии Шрилы Прабхупады делают древнюю мудрость доступной для современного читателя.',
+                    en: "Srila Prabhupada's commentaries make ancient wisdom accessible to the modern reader."
+                },
+                review_2_author: {
+                    ru: '- Профессор университета',
+                    en: '- University Professor'
+                },
+                review_3_quote: {
+                    ru: 'Эта книга изменила мой взгляд на жизнь и помогла найти ответы на самые важные вопросы.',
+                    en: 'This book changed my outlook on life and helped me find answers to the most important questions.'
+                },
+                review_3_author: {
+                    ru: '- Читатель',
+                    en: '- Reader'
+                },
+                footer_copyright: {
+                    ru: '© 1972 BBT. Все права защищены.',
+                    en: '© 1972 BBT. All rights reserved.'
+                }
+            };
+
+            let currentLanguage = 'ru';
+
+            function toggleLanguage() {
+                currentLanguage = currentLanguage === 'ru' ? 'en' : 'ru';
+                const button = document.querySelector('.language-toggle-button');
+                button.textContent = currentLanguage === 'ru' ? 'EN' : 'RU';
+
+                // Обновляем все переводы
+                document.querySelectorAll('[data-translate]').forEach((element) => {
+                    const key = element.getAttribute('data-translate');
+                    if (translations[key]) {
+                        element.textContent = translations[key][currentLanguage];
+                    }
+                });
+
+                // Обновляем атрибут lang
+                document.documentElement.lang = currentLanguage;
+            }
+
+            // Плавная прокрутка
+            document.querySelectorAll('a[href^="#"]').forEach((link) => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    if (targetId) {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Анимации при скролле
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('fade-in-up');
+                        }
+                    });
+                },
+                { threshold: 0.1 }
+            );
+
+            document.querySelectorAll('section').forEach((section) => {
+                observer.observe(section);
+            });
+
+            console.log('🎭 Демонстрационная версия GitaLanding загружена!');
+            console.log('🌐 Переключение языков: ru/en');
+            console.log('📱 Адаптивный дизайн: мобильные и десктопные версии');
+            console.log('🎨 CSS Grid разметка с анимациями');
+        </script>
+    </body>
+</html>
