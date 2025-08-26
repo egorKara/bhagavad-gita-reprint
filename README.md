@@ -209,6 +209,12 @@ journalctl -u yandex-server-agent -f
 # Анализ логов: python3 server-agent/ai_log_analyzer.py
 # Telegram команды: /status, /services, /restart_api, /logs
 # Метрики: python3 server-agent/yandex_monitoring_integration.py
+
+# Безопасная работа с сервером (решение зависаний!)
+./scripts/ssh-ultra-safe.sh check      # Проверка подключения
+./scripts/ssh-ultra-safe.sh status     # Статус агента
+./scripts/ssh-ultra-safe.sh logs       # Логи без зависаний
+./scripts/ssh-diagnostics.sh           # Диагностика SSH проблем
 ```
 
 ### **📋 Документация и отчеты:**
@@ -218,6 +224,7 @@ journalctl -u yandex-server-agent -f
 - [🔧 **Задачи поддержки**](MAINTENANCE_TODO.md) — Актуальные задачи поддержки
 - [🤖 **Инструкции агента**](server-agent/DEPLOYMENT_INSTRUCTIONS.md) — Развертывание агента
 - [🧠 **AI возможности агента**](server-agent/AI_CAPABILITIES_SUMMARY.md) — Новые AI функции
+- [🛡️ **Решение SSH зависаний**](SSH_PROBLEM_SOLUTION.md) — Безопасная работа с сервером
 - [📊 **Итоговый отчет**](PROJECT_SUMMARY.md) — Обзор проекта
 - [🔍 **Аудит документации**](DOCUMENTATION_AUDIT_REPORT.md) — Анализ актуальности
 - [✅ **Статус завершения**](COMPLETION_STATUS.md) — Детальный статус
