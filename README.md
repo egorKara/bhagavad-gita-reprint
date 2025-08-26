@@ -1,7 +1,7 @@
 # 🕉️ Бхагавад-Гита как она есть — Оригинальное издание 1972 года
 
 [![GitHub Actions](https://github.com/egorkara/bhagavad-gita-reprint/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)](https://github.com/egorkara/bhagavad-gita-reprint/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: BBT](https://img.shields.io/badge/License-BBT-blue.svg)](LICENSE)
 [![Status: Complete](https://img.shields.io/badge/Status-Complete-brightgreen.svg)](https://gita-1972-reprint.ru)
 
 > **Официальный сайт для продажи оригинального издания "Бхагавад-Гита как она есть" (Macmillan, 1972)**
@@ -35,7 +35,7 @@ npm install
 npm run dev
 
 # Открыть в браузере
-open http://localhost:3000
+open http://localhost:8000
 ```
 
 ### Требования
@@ -54,21 +54,24 @@ public/                    # Статические файлы для GitHub Pag
 ├── contacts.html         # Купить
 ├── order-status.html     # Статус заказа
 ├── thanks.html           # Благодарность
+├── admin-orders.html     # Администрирование заказов
+├── slider.html           # Слайдер изображений
 ├── assets/               # Ресурсы
 │   ├── css/              # Стили
 │   ├── js/               # JavaScript
 │   └── images/           # Изображения
 docs/                     # Документация
 src/                      # Исходный код API
+deployment/               # Скрипты развертывания
 .github/                  # GitHub Actions
 tests/                    # Тесты
 ```
 
 ## 🌐 Живой сайт
 
-- **Основной сайт:** [https://gita-1972-reprint.ru](https://gita-1972-reprint.ru)
+- **Основной сайт:** [https://gita-1972-reprint.ru](https://gita-1972-reprint.ru) ⚠️ *В процессе восстановления*
+- **GitHub Pages:** [https://egorkara.github.io/bhagavad-gita-reprint](https://egorkara.github.io/bhagavad-gita-reprint) ✅ *Работает*
 - **API:** [https://api.gita-1972-reprint.ru](https://api.gita-1972-reprint.ru) ⚠️ *В процессе восстановления*
-- **GitHub Pages:** [https://egorkara.github.io/bhagavad-gita-reprint](https://egorkara.github.io/bhagavad-gita-reprint)
 
 ## 🛠 Технологии
 
@@ -126,6 +129,7 @@ tests/                    # Тесты
 | 🔍 SEO                | ✅ Завершено | Полная SEO оптимизация        |
 | ♿ Доступность        | ✅ Завершена | WCAG 2.1 AA                   |
 | 🚀 Развертывание      | ✅ Завершено | Автоматизация                 |
+| 🌐 API                | ⚠️ Восстановление | В процессе восстановления |
 
 ## 🚀 Развертывание
 
@@ -154,7 +158,7 @@ npm run deploy
 npm test
 
 # Проверка линтером
-npm run lint
+npm run check
 
 # Форматирование кода
 npm run format
@@ -176,6 +180,7 @@ npm run format
 ### **📋 Отчеты:**
 - [📊 **Итоговый отчет**](PROJECT_SUMMARY.md) — Обзор проекта
 - [🔍 **Аудит документации**](DOCUMENTATION_AUDIT_REPORT.md) — Анализ актуальности
+- [✅ **Статус завершения**](COMPLETION_STATUS.md) — Детальный статус
 
 ## 🤝 Вклад в проект
 
@@ -187,7 +192,7 @@ npm run format
 
 ## 📄 Лицензия
 
-Этот проект распространяется под лицензией MIT. См. файл [LICENSE](LICENSE) для получения дополнительной информации.
+Этот проект распространяется под лицензией BBT (Bhaktivedanta Book Trust). См. файл [LICENSE](LICENSE) для получения дополнительной информации.
 
 ## 🙏 Благодарности
 
