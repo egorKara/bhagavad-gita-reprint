@@ -8,7 +8,7 @@ const httpRequestDuration = new client.Histogram({
     name: 'http_request_duration_seconds',
     help: 'Duration of HTTP requests in seconds',
     labelNames: ['method', 'route', 'status_code'],
-    buckets: [0.05, 0.1, 0.3, 0.5, 1, 3, 5]
+    buckets: [0.05, 0.1, 0.3, 0.5, 1, 3, 5],
 });
 
 function metricsMiddleware(req, res, next) {
@@ -25,7 +25,9 @@ function metricsMiddleware(req, res, next) {
 function requireMetricsAuth(req, res, next) {
     const authHeader = req.headers['authorization'] || '';
     if (!metricsToken) {
-        return res.status(503).json({ error: 'Metrics are disabled. Set METRICS_TOKEN to enable.' });
+        return res
+            .status(503)
+            .json({ error: 'Metrics are disabled. Set METRICS_TOKEN to enable.' });
     }
     if (authHeader === `Bearer ${metricsToken}`) {
         return next();

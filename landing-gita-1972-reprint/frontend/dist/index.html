@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bhagavad-gita As It Is - 1972 Reprint</title>
+        <style>
+            /* Стили для слайдера */
+            .slider-container {
+                position: relative;
+                width: 100%;
+                max-width: 800px;
+                margin: 0 auto;
+                background: var(--background-gradient);
+                border-radius: var(--border-radius);
+                overflow: hidden;
+                box-shadow: var(--box-shadow);
+            }
+
+            .slider-image-container {
+                position: relative;
+                width: 100%;
+                height: 400px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #f8f9fa;
+            }
+
+            .slider-image {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                transition: all var(--transition-normal);
+                border-radius: var(--border-radius);
+            }
+
+            .slider-text-container {
+                padding: 2rem;
+                text-align: center;
+            }
+
+            .slider-title {
+                font-size: var(--font-size-h2);
+                color: var(--primary-color);
+                margin-bottom: 1rem;
+                font-family: var(--font-family-secondary);
+            }
+
+            .slider-description {
+                font-size: var(--font-size-body);
+                color: var(--text-secondary);
+                line-height: 1.6;
+            }
+
+            .slider-navigation {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                right: 0;
+                transform: translateY(-50%);
+                display: flex;
+                justify-content: space-between;
+                padding: 0 1rem;
+                pointer-events: none;
+            }
+
+            .slider-nav-button {
+                width: 50px;
+                height: 50px;
+                border: none;
+                background: rgba(255, 255, 255, 0.9);
+                color: var(--primary-color);
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all var(--transition-fast);
+                pointer-events: auto;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .slider-nav-button:hover {
+                background: white;
+                transform: scale(1.1);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .slider-indicators {
+                display: flex;
+                justify-content: center;
+                gap: 0.5rem;
+                padding: 1rem;
+            }
+
+            .slider-indicator {
+                width: 12px;
+                height: 12px;
+                border: none;
+                background: rgba(0, 0, 0, 0.2);
+                border-radius: 50%;
+                cursor: pointer;
+                transition: all var(--transition-fast);
+            }
+
+            .slider-indicator.active {
+                background: var(--secondary-color);
+                transform: scale(1.2);
+            }
+
+            .slider-indicator:hover {
+                background: var(--secondary-color);
+            }
+
+            /* Стили для hero секции */
+            .hero-slider {
+                margin: 2rem 0;
+            }
+
+            .language-switch-container {
+                position: absolute;
+                top: 2rem;
+                right: 2rem;
+                z-index: 100;
+            }
+
+            .language-toggle-button {
+                background: var(--secondary-color);
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: var(--border-radius);
+                cursor: pointer;
+                font-weight: bold;
+                transition: all var(--transition-fast);
+            }
+
+            .language-toggle-button:hover {
+                background: var(--primary-color);
+                transform: translateY(-2px);
+            }
+
+            /* Адаптивность */
+            @media (max-width: 768px) {
+                .slider-image-container {
+                    height: 300px;
+                }
+
+                .slider-text-container {
+                    padding: 1rem;
+                }
+
+                .slider-nav-button {
+                    width: 40px;
+                    height: 40px;
+                    font-size: 1.2rem;
+                }
+            }
+        </style>
+      <script type="module" crossorigin src="/assets/index-Cw47r0pS.js"></script>
+      <link rel="stylesheet" crossorigin href="/assets/index-7vNiQ4_T.css">
+    </head>
+    <body>
+        <div class="landing-container">
+            <!-- Header -->
+            <header class="landing-header">
+                <div class="header-content">
+                    <img src="src/images/BBT-logo.png" alt="BBT Logo" class="header-logo-img" />
+                    <nav class="header-nav">
+                        <a href="#about">Об авторе</a>
+                        <a href="#buy">Купить книгу</a>
+                    </nav>
+                </div>
+            </header>
+
+            <!-- Hero секция -->
+            <section class="landing-hero">
+                <!-- Переключатель языка -->
+                <div class="language-switch-container" id="language-switch-container">
+                    <!-- Кнопка будет создана JavaScript'ом -->
+                </div>
+
+                <!-- Заголовок -->
+                <h1 class="hero-title" data-translate="hero_title">Бхагавад-гита как она есть</h1>
+
+                <!-- Слайдер изображений -->
+                <div class="hero-slider" id="hero-slider">
+                    <!-- Слайдер будет создан JavaScript'ом -->
+                </div>
+
+                <!-- Описание -->
+                <p class="hero-description" data-translate="hero_description">
+                    Классический перевод и комментарии к Бхагавад-гите от Шрилы Прабхупады. Погрузитесь в глубины
+                    ведической мудрости через призму сознания Кришны.
+                </p>
+
+                <!-- CTA кнопка -->
+                <div class="hero-cta" data-translate="hero_cta">
+                    <a href="#buy" class="cta-button">Купить книгу</a>
+                </div>
+            </section>
+
+            <!-- Author секция -->
+            <section class="landing-author" id="about">
+                <div class="section-content">
+                    <h2 class="section-title" data-translate="author_title">Об авторе</h2>
+                    <div class="author-content">
+                        <div class="author-image">
+                            <img src="data:image/jpeg;base64,IyDQrdGC0L4g0LfQsNCz0LvRg9GI0LrQsCDQtNC70Y8g0LjQt9C+0LHRgNCw0LbQtdC90LjRjyDQsNCy0YLQvtGA0LAKIyDQkiDRgNC10LDQu9GM0L3QvtC8INC/0YDQvtC10LrRgtC1INC30LTQtdGB0Ywg0LTQvtC70LbQvdC+INCx0YvRgtGMINC40LfQvtCx0YDQsNC20LXQvdC40LUg0LIg0YTQvtGA0LzQsNGC0LUgSlBHCiMg0KDQsNC30LzQtdGAOiAzMDB4NDAwcHgKIyDQodC+0LTQtdGA0LbQsNC90LjQtTog0KTQvtGC0L7Qs9GA0LDRhNC40Y8g0KjRgNC40LvRiyDQn9GA0LDQsdGF0YPQv9Cw0LTRiwo=" alt="Шрила Прабхупада" />
+                        </div>
+                        <div class="author-text">
+                            <h3 data-translate="author_name">Шрила Прабхупада</h3>
+                            <p data-translate="author_description">
+                                Основатель-ачарья Международного общества сознания Кришны (ИСККОН). Автор более 80 томов
+                                переводов и комментариев к ведическим текстам.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reviews секция -->
+            <section class="landing-reviews">
+                <div class="section-content">
+                    <h2 class="section-title" data-translate="reviews_title">Отзывы читателей</h2>
+                    <div class="reviews-grid">
+                        <div class="review-card">
+                            <div class="review-text">
+                                <p data-translate="review_1">
+                                    "Потрясающий перевод! Каждый стих раскрывает глубокий смысл."
+                                </p>
+                            </div>
+                            <div class="review-author">
+                                <strong data-translate="review_author_1">Михаил К.</strong>
+                            </div>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-text">
+                                <p data-translate="review_2">"Лучшее издание Бхагавад-гиты на русском языке."</p>
+                            </div>
+                            <div class="review-author">
+                                <strong data-translate="review_author_2">Анна С.</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="landing-footer">
+                <div class="section-content">
+                    <p>&copy; 2024 Bhagavad-gita As It Is. Все права защищены.</p>
+                </div>
+            </footer>
+        </div>
+
+    </body>
+</html>

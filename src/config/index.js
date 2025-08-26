@@ -7,12 +7,12 @@ const defaultCorsOrigins = [
     'https://egorkara.github.io',
     'https://gita-1972-reprint.ru',
     'https://www.gita-1972-reprint.ru',
-    'https://api.gita-1972-reprint.ru'
+    'https://api.gita-1972-reprint.ru',
 ];
 
 const corsOrigins = (process.env.CORS_ORIGINS || '')
     .split(',')
-    .map((s) => s.trim())
+    .map(s => s.trim())
     .filter(Boolean);
 
 function resolveDataDir() {
@@ -38,9 +38,9 @@ const config = {
             process.env.DEEPL_API_KEY ||
             process.env.YANDEX_API_KEY ||
             null,
-        endpoint: process.env.TRANSLATOR_ENDPOINT || null
+        endpoint: process.env.TRANSLATOR_ENDPOINT || null,
     },
-    logLevel: process.env.LOG_LEVEL || (process.env.NODE_ENV === 'development' ? 'debug' : 'info')
+    logLevel: process.env.LOG_LEVEL || (process.env.NODE_ENV === 'development' ? 'debug' : 'info'),
 };
 
 module.exports = config;

@@ -1,5 +1,10 @@
 const express = require('express');
-const { getStatus, getSystemInfo, getSecurityStatus, getNginxStats } = require('../controllers/statusController');
+const {
+    getStatus,
+    getSystemInfo,
+    getSecurityStatus,
+    getNginxStats,
+} = require('../controllers/statusController');
 const { requireAdminAuth } = require('../../middleware/auth');
 const router = express.Router();
 

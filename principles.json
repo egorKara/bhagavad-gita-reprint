@@ -1,0 +1,120 @@
+{
+    "project": "bhagavad-gita-1972-reprint",
+    "principles_version": "1.0.0",
+    "created": "2025-08-25T05:40:00Z",
+    "status": "active",
+    "principles": {
+        "core_principles": {
+            "quality_and_reliability": [
+                "максимально детальный анализ перед действиями",
+                "все задачи требуют реального подтверждения выполнения",
+                "обязательная проверка всех изменений",
+                "проблемы не должны возникать повторно"
+            ],
+            "modern_standards": [
+                "WCAG AA - контрастность 4.5:1 для текста, 3:1 для крупного",
+                "mobile-first, breakpoint 800px+ для desktop",
+                "осмысленные имена классов, БЭМ методология",
+                "оптимизация, lazy loading, современные форматы"
+            ]
+        },
+        "technical_principles": {
+            "code_architecture": [
+                "единые системы стилей и компонентов",
+                "чистая архитектура, разделение ответственности",
+                "строгая типизация, TypeScript",
+                "компонентный подход, переиспользование"
+            ],
+            "optimization_and_performance": [
+                "динамические значения вместо фиксированных",
+                "WebP, AVIF, responsive images",
+                "lazy loading, tree shaking",
+                "эффективное кеширование"
+            ]
+        },
+        "internationalization_and_accessibility": {
+            "multilingual": [
+                "автоматический перевод всех страниц",
+                "без per-page кода",
+                "сохранение выбора в localStorage",
+                "graceful degradation при ошибках"
+            ],
+            "accessibility": [
+                "полное соответствие стандартам",
+                "правильная структура HTML",
+                "доступность с клавиатуры",
+                "поддержка скринридеров"
+            ]
+        },
+        "design_and_ux_principles": {
+            "visual_harmony": [
+                "единообразие всех элементов",
+                "контент не разбросан по краям",
+                "четкая структура и приоритеты",
+                "правильные контрасты и цветовые схемы"
+            ],
+            "adaptability": [
+                "приоритет мобильным устройствам",
+                "логичные точки перелома",
+                "оптимизация для тач-устройств",
+                "быстрая загрузка на слабых устройствах"
+            ]
+        },
+        "processes_and_work_principles": {
+            "automation_and_monitoring": [
+                "автоматическое тестирование и развертывание",
+                "отслеживание Core Web Vitals",
+                "мониторинг ошибок в реальном времени",
+                "unit, integration, e2e тесты"
+            ],
+            "code_management": [
+                "Git flow, semantic versioning",
+                "обязательная проверка кода",
+                "актуальная документация",
+                "читаемость, поддерживаемость"
+            ]
+        },
+        "iterative_improvement": {
+            "feedback_and_adaptation": [
+                "постоянное улучшение на основе отзывов",
+                "измерение и оптимизация",
+                "экспериментальное улучшение",
+                "изучение новых технологий и подходов"
+            ],
+            "code_quality": [
+                "строгая проверка типов",
+                "покрытие тестами",
+                "регулярные проверки безопасности",
+                "proactive подход"
+            ]
+        }
+    },
+    "universal_rules": [
+        "максимальная понятность вместо конкретных решений",
+        "фокус на творчестве через автоматизацию рутины",
+        "proactive подход - предотвращение проблем",
+        "итеративный процесс - постоянное улучшение",
+        "UX-driven разработка - пользователь в центре"
+    ],
+    "target_metrics": {
+        "performance": "Core Web Vitals 90+",
+        "accessibility": "WCAG AA 100%",
+        "code_quality": "0 critical issues",
+        "user_satisfaction": "95%+"
+    },
+    "technology_stack": {
+        "frontend": ["TypeScript", "Vite", "CSS Grid/Flexbox"],
+        "backend": ["Node.js", "Express", "ASP.NET Core 8"],
+        "database": ["PostgreSQL", "Redis"],
+        "devops": ["Docker", "GitHub Actions", "Prometheus"]
+    },
+    "conclusion": {
+        "modern_development_standard_2025": {
+            "quality_over_speed": true,
+            "automation_over_routine": true,
+            "user_over_technology": true,
+            "maintainability_over_functionality": true
+        },
+        "result": "Enterprise-уровень кода с максимальной эффективностью и минимальными ошибками"
+    }
+}
