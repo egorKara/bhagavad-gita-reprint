@@ -55,7 +55,7 @@ class TranslationQueue {
             return {
                 translation: entry.translation,
                 fromCache: true,
-                userEdited: !!entry.userEdited
+                userEdited: !!entry.userEdited,
             };
         }
         return null;
@@ -74,7 +74,7 @@ class TranslationQueue {
             total: pendingItems.length,
             done: 0,
             createdAt: new Date().toISOString(),
-            items: pendingItems.map((it) => ({ ...it, status: 'queued' }))
+            items: pendingItems.map(it => ({ ...it, status: 'queued' })),
         };
         writeJSON(JOBS_FILE, this.jobs);
         return jobId;
@@ -94,7 +94,7 @@ class TranslationQueue {
                 context: it.context || null,
                 url: it.url || null,
                 sourceLang,
-                targetLang
+                targetLang,
             });
         });
         this.processNext();
@@ -114,16 +114,21 @@ class TranslationQueue {
                 const cached = this.getCached(task.text, task.sourceLang, task.targetLang);
                 let translation = cached ? cached.translation : null;
                 if (!translation) {
-                    translation = await translatorProvider.translateText(task.text, task.sourceLang, task.targetLang, {
-                        url: task.url,
-                        context: task.context
-                    });
+                    translation = await translatorProvider.translateText(
+                        task.text,
+                        task.sourceLang,
+                        task.targetLang,
+                        {
+                            url: task.url,
+                            context: task.context,
+                        }
+                    );
                 }
                 if (translation) {
                     this.setCache(task.text, task.sourceLang, task.targetLang, translation, {
                         userEdited: false,
                         url: task.url,
-                        context: task.context
+                        context: task.context,
                     });
                 }
                 job.items[task.index].status = 'done';
@@ -175,7 +180,7 @@ class TranslationQueue {
             url: url || null,
             selector: selector || null,
             reason: reason || null,
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
         };
         this.feedback.push(record);
         writeJSON(FEEDBACK_FILE, this.feedback);
@@ -184,7 +189,7 @@ class TranslationQueue {
             this.setCache(text, sourceLang, targetLang, corrected, {
                 userEdited: true,
                 url,
-                selector
+                selector,
             });
         }
         logger.info('Translation feedback received', { id: record.id, url: record.url });

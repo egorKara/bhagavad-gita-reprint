@@ -27,7 +27,12 @@ class TranslatorProvider {
                 case 'yandex':
                     return await this.translateWithYandex(text, sourceLang, targetLang);
                 case 'custom':
-                    return await this.translateWithCustomEndpoint(text, sourceLang, targetLang, context);
+                    return await this.translateWithCustomEndpoint(
+                        text,
+                        sourceLang,
+                        targetLang,
+                        context
+                    );
                 default:
                     return null;
             }
@@ -43,13 +48,13 @@ class TranslatorProvider {
             method: 'POST',
             headers: {
                 Authorization: `DeepL-Auth-Key ${this.apiKey}`,
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: new URLSearchParams({
                 text,
                 target_lang: targetLang.toUpperCase(),
-                source_lang: sourceLang.toUpperCase()
-            })
+                source_lang: sourceLang.toUpperCase(),
+            }),
         });
         if (!res.ok) return null;
         const data = await res.json();
@@ -66,8 +71,8 @@ class TranslatorProvider {
                 q: [text],
                 source: sourceLang,
                 target: targetLang,
-                format: 'text'
-            })
+                format: 'text',
+            }),
         });
         if (!res.ok) return null;
         const data = await res.json();
@@ -80,13 +85,13 @@ class TranslatorProvider {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Api-Key ${this.apiKey}`
+                Authorization: `Api-Key ${this.apiKey}`,
             },
             body: JSON.stringify({
                 sourceLanguageCode: sourceLang,
                 targetLanguageCode: targetLang,
-                texts: [text]
-            })
+                texts: [text],
+            }),
         });
         if (!res.ok) return null;
         const data = await res.json();
@@ -99,9 +104,9 @@ class TranslatorProvider {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                ...(this.apiKey ? { Authorization: `Bearer ${this.apiKey}` } : {})
+                ...(this.apiKey ? { Authorization: `Bearer ${this.apiKey}` } : {}),
             },
-            body: JSON.stringify({ text, sourceLang, targetLang, context })
+            body: JSON.stringify({ text, sourceLang, targetLang, context }),
         });
         if (!res.ok) return null;
         const data = await res.json();

@@ -1,0 +1,38 @@
+{
+    "snapshot": "snapshot-example",
+    "terminals": [
+        {
+            "name": "Main Terminal",
+            "command": "cd /path/to/your/project && bash"
+        },
+        {
+            "name": "Monitoring",
+            "command": "cd /path/to/your/project && tail -f logs/*.log"
+        },
+        {
+            "name": "API Status",
+            "command": "cd /path/to/your/project && curl -s http://localhost:3000/api/status"
+        }
+    ],
+    "install": "npm install",
+    "start": "npm run dev",
+    "secrets": {
+        "github_token": "ghp_your_github_token_here",
+        "database_password": "your_db_password",
+        "jwt_secret": "your_jwt_secret_key",
+        "yandex_api_key": "your_yandex_cloud_key",
+        "email_password": "your_email_password",
+        "postgres_connection": "Host=localhost;Database=your_db;Username=your_user;Password=your_password",
+        "api_secret_key": "your_api_secret_key",
+        "monitoring_token": "your_monitoring_token"
+    },
+    "runtime": {
+        "environment": "development",
+        "port": 3000,
+        "node_env": "development",
+        "log_level": "debug",
+        "cors_origin": "http://localhost:3000",
+        "rate_limit": 100,
+        "session_secret": "your_session_secret"
+    }
+}

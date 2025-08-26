@@ -9,7 +9,7 @@ function formatMessage(level, message, meta) {
         level,
         message: String(message),
         timestamp: new Date().toISOString(),
-        ...meta
+        ...meta,
     };
     return JSON.stringify(base);
 }
@@ -17,28 +17,28 @@ function formatMessage(level, message, meta) {
 function toMeta(args) {
     if (!args || args.length === 0) return undefined;
     if (args.length === 1 && typeof args[0] === 'object') return args[0];
-    return { details: args.map((a) => (typeof a === 'string' ? a : util.inspect(a))) };
+    return { details: args.map(a => (typeof a === 'string' ? a : util.inspect(a))) };
 }
 
 const logger = {
     info(message, ...args) {
         if (levelIndex >= levels.indexOf('info')) {
-            process.stdout.write(formatMessage('info', message, toMeta(args)) + '\n');
+            process.stdout.write(`${formatMessage('info', message, toMeta(args))}\n`);
         }
     },
     warn(message, ...args) {
         if (levelIndex >= levels.indexOf('warn')) {
-            process.stdout.write(formatMessage('warn', message, toMeta(args)) + '\n');
+            process.stdout.write(`${formatMessage('warn', message, toMeta(args))}\n`);
         }
     },
     error(message, ...args) {
         if (levelIndex >= levels.indexOf('error')) {
-            process.stderr.write(formatMessage('error', message, toMeta(args)) + '\n');
+            process.stderr.write(`${formatMessage('error', message, toMeta(args))}\n`);
         }
     },
     debug(message, ...args) {
         if (levelIndex >= levels.indexOf('debug')) {
-            process.stdout.write(formatMessage('debug', message, toMeta(args)) + '\n');
+            process.stdout.write(`${formatMessage('debug', message, toMeta(args))}\n`);
         }
     },
     request(req) {
@@ -54,9 +54,9 @@ const logger = {
             },
             debug(message, meta = {}) {
                 logger.debug(message, { ...meta, requestId: req.id });
-            }
+            },
         };
-    }
+    },
 };
 
 module.exports = logger;

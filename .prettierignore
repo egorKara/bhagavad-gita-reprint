@@ -43,3 +43,42 @@ Thumbs.db
 *.md
 README.md
 CHANGELOG.md
+
+# Игнорировать backup директории
+frontend-backup/
+public-backup/
+landing-gita-1972-reprint/
+GitaLanding.*/
+
+# Игнорировать тесты
+tests/
+
+# Игнорировать конфигурационные файлы
+*.yml
+*.yaml
+*.cjs
+*.conf
+*.config
+prometheus.yml
+
+# Игнорировать скрипты
+scripts/
+
+# Игнорировать GitHub Actions
+.github/
+
+# Игнорировать .NET файлы
+*.csproj
+*.sln
+*.dll
+*.exe
+*.pdb
+*.deps.json
+*.runtimeconfig.json
+*.runtimeconfig.dev.json
+
+# Игнорировать coverage
+coverage/
+
+# Игнорировать другие файлы
+test-api.js

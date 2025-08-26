@@ -17,7 +17,7 @@ function getDefaultStats() {
         averageOrderValue: 0,
         ordersByMonth: {},
         topProducts: {},
-        lastUpdated: new Date().toISOString()
+        lastUpdated: new Date().toISOString(),
     };
 }
 
@@ -104,19 +104,19 @@ class OrderController {
         const secret = isRecaptcha ? recaptchaSecret : turnstileSecret;
         const body = new URLSearchParams({ secret, response: token }).toString();
 
-        const { ok, score } = await new Promise((resolve) => {
+        const { ok, score } = await new Promise(resolve => {
             const req = https.request(
                 url,
                 {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        'Content-Length': Buffer.byteLength(body)
-                    }
+                        'Content-Length': Buffer.byteLength(body),
+                    },
                 },
-                (res) => {
+                res => {
                     let data = '';
-                    res.on('data', (chunk) => (data += chunk));
+                    res.on('data', chunk => (data += chunk));
                     res.on('end', () => {
                         try {
                             const parsed = JSON.parse(data);
@@ -157,7 +157,7 @@ class OrderController {
                     return {
                         success: true,
                         orderId: existing.orderId,
-                        message: 'Идемпотентная повторная отправка'
+                        message: 'Идемпотентная повторная отправка',
                     };
                 }
             }
@@ -178,7 +178,13 @@ class OrderController {
             const canonicalAddress =
                 orderData.address && orderData.address.trim()
                     ? orderData.address.trim()
-                    : [orderData.postalCode, orderData.city, orderData.street, orderData.house, orderData.apartment]
+                    : [
+                          orderData.postalCode,
+                          orderData.city,
+                          orderData.street,
+                          orderData.house,
+                          orderData.apartment,
+                      ]
                           .filter(Boolean)
                           .join(', ');
 
@@ -193,7 +199,7 @@ class OrderController {
                 status: 'new',
                 createdAt: new Date().toISOString(),
                 updatedAt: new Date().toISOString(),
-                totalAmount: this.calculateTotal(quantityNum)
+                totalAmount: this.calculateTotal(quantityNum),
             };
 
             // Чтение существующих заказов
@@ -209,7 +215,7 @@ class OrderController {
             // Логирование
             logger.info('Новый заказ создан', {
                 orderId: order.id,
-                customer: `${order.firstName} ${order.lastName}`
+                customer: `${order.firstName} ${order.lastName}`,
             });
 
             // Сохраняем идемпотентную запись
@@ -220,7 +226,7 @@ class OrderController {
             return {
                 success: true,
                 orderId: order.id,
-                message: 'Заказ успешно создан'
+                message: 'Заказ успешно создан',
             };
         } catch (error) {
             logger.error('Ошибка создания заказа', { error: String(error) });
@@ -243,7 +249,9 @@ class OrderController {
         // Адрес: либо цельное поле address, либо составные
         const hasAddress = data.address && String(data.address).trim() !== '';
         const requiredAddressParts = ['postalCode', 'city', 'street', 'house'];
-        const hasAddressParts = requiredAddressParts.every((k) => data[k] && String(data[k]).trim() !== '');
+        const hasAddressParts = requiredAddressParts.every(
+            k => data[k] && String(data[k]).trim() !== ''
+        );
         if (!hasAddress && !hasAddressParts) {
             errors.push('Адрес обязателен: используйте address или postalCode/city/street/house');
         }
@@ -255,7 +263,7 @@ class OrderController {
         }
 
         // Проверка телефона
-        const phoneRegex = /^(\+7|8)[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/;
+        const phoneRegex = /^(\+7|8)[\s-]?\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}$/;
         if (data.phone && !phoneRegex.test(data.phone)) {
             errors.push('Некорректный номер телефона');
         }
@@ -279,7 +287,7 @@ class OrderController {
 
         return {
             isValid: errors.length === 0,
-            errors
+            errors,
         };
     }
 
@@ -314,7 +322,7 @@ class OrderController {
         await this.ready;
         try {
             const orders = await this.readOrders();
-            return orders.find((order) => order.id === orderId);
+            return orders.find(order => order.id === orderId);
         } catch (error) {
             logger.error('Ошибка получения заказа', { error: String(error) });
             return null;
@@ -328,7 +336,7 @@ class OrderController {
         await this.ready;
         try {
             const orders = await this.readOrders();
-            const orderIndex = orders.findIndex((order) => order.id === orderId);
+            const orderIndex = orders.findIndex(order => order.id === orderId);
 
             if (orderIndex === -1) {
                 throw new Error('Заказ не найден');
@@ -341,7 +349,7 @@ class OrderController {
 
             return {
                 success: true,
-                message: `Статус заказа ${orderId} обновлен на ${newStatus}`
+                message: `Статус заказа ${orderId} обновлен на ${newStatus}`,
             };
         } catch (error) {
             logger.error('Ошибка обновления статуса заказа', { error: String(error) });
@@ -382,7 +390,7 @@ class OrderController {
             if (!stats.ordersByMonth[month]) {
                 stats.ordersByMonth[month] = {
                     count: 0,
-                    revenue: 0
+                    revenue: 0,
                 };
             }
             stats.ordersByMonth[month].count += 1;
@@ -393,10 +401,13 @@ class OrderController {
                 stats.topProducts['bhagavad-gita-1972'] = {
                     name: 'Бхагавад-Гита как она есть (1972)',
                     quantity: 0,
-                    revenue: 0
+                    revenue: 0,
                 };
             }
-            stats.topProducts['bhagavad-gita-1972'].quantity += Number.parseInt(newOrder.quantity, 10);
+            stats.topProducts['bhagavad-gita-1972'].quantity += Number.parseInt(
+                newOrder.quantity,
+                10
+            );
             stats.topProducts['bhagavad-gita-1972'].revenue += newOrder.totalAmount;
 
             stats.lastUpdated = new Date().toISOString();
@@ -417,7 +428,7 @@ class OrderController {
             const searchTerm = query.toLowerCase();
 
             return orders.filter(
-                (order) =>
+                order =>
                     order.firstName.toLowerCase().includes(searchTerm) ||
                     order.lastName.toLowerCase().includes(searchTerm) ||
                     order.email.toLowerCase().includes(searchTerm) ||
@@ -452,7 +463,7 @@ class OrderController {
                 'Адрес',
                 'Количество',
                 'Сумма',
-                'Статус'
+                'Статус',
             ];
             const csvRows = [headers.join(',')];
 
@@ -467,7 +478,7 @@ class OrderController {
                     `"${order.address}"`,
                     order.quantity,
                     order.totalAmount,
-                    order.status
+                    order.status,
                 ];
                 csvRows.push(row.join(','));
             }
@@ -486,7 +497,7 @@ class OrderController {
         await this.ready;
         try {
             const orders = await this.readOrders();
-            const filteredOrders = orders.filter((order) => order.id !== orderId);
+            const filteredOrders = orders.filter(order => order.id !== orderId);
 
             if (filteredOrders.length === orders.length) {
                 throw new Error('Заказ не найден');
@@ -496,7 +507,7 @@ class OrderController {
 
             return {
                 success: true,
-                message: `Заказ ${orderId} удален`
+                message: `Заказ ${orderId} удален`,
             };
         } catch (error) {
             logger.error('Ошибка удаления заказа', { error: String(error) });

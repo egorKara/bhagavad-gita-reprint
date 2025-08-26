@@ -33,6 +33,9 @@ backups/
 # Директории данных (не коммитить PII)
 data/
 
+# Cursor Background Agents - секреты
+.cursor/environment.json
+
 # Прочие файлы, которые не должны попасть в репозиторий
 npm-debug.log*
 yarn-debug.log*
