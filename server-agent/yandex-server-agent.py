@@ -21,6 +21,16 @@ from pathlib import Path
 import shutil
 import psutil
 
+# Новые модули для расширенной функциональности
+try:
+    from ai_log_analyzer import AILogAnalyzer
+    from telegram_notifier import TelegramNotifier  
+    from yandex_monitoring_integration import YandexMonitoringIntegration
+    AI_ENABLED = True
+except ImportError:
+    AI_ENABLED = False
+    logging.info("⚠️ AI модули недоступны, работаем в базовом режиме")
+
 class YandexServerAgent:
     def __init__(self, config_path="agent-config.json"):
         """Инициализация агента"""
@@ -28,6 +38,23 @@ class YandexServerAgent:
         self.config = self.load_config()
         self.setup_logging()
         self.last_sync = None
+        
+        # Инициализация новых модулей
+        if AI_ENABLED:
+            try:
+                self.ai_analyzer = AILogAnalyzer(config_path)
+                self.telegram = TelegramNotifier(config_path)
+                self.monitoring = YandexMonitoringIntegration(config_path)
+                self.log_info("🤖 AI модули загружены успешно")
+            except Exception as e:
+                self.log_error(f"❌ Ошибка загрузки AI модулей: {e}")
+                self.ai_analyzer = None
+                self.telegram = None
+                self.monitoring = None
+        else:
+            self.ai_analyzer = None
+            self.telegram = None
+            self.monitoring = None
         self.status = "initializing"
         
         self.log_info("🤖 Yandex Server Agent запущен")
@@ -193,6 +220,148 @@ class YandexServerAgent:
         )
         
         self.log_info("✅ Очистка логов завершена")
+        
+    def check_system_updates(self):
+        """Проверка доступных обновлений системы"""
+        self.log_info("🔍 Проверка системных обновлений")
+        
+        try:
+            # Обновляем списки пакетов
+            success, stdout, stderr = self.run_command("sudo apt update -qq")
+            if not success:
+                self.log_error(f"❌ Ошибка обновления списков пакетов: {stderr}")
+                return False, []
+                
+            # Проверяем доступные обновления
+            success, stdout, stderr = self.run_command("apt list --upgradable 2>/dev/null | grep -v 'WARNING'")
+            
+            if success and stdout.strip():
+                updates = []
+                for line in stdout.strip().split('\n')[1:]:  # Пропускаем заголовок
+                    if '/' in line:
+                        package = line.split('/')[0]
+                        updates.append(package)
+                        
+                self.log_info(f"📦 Найдено {len(updates)} обновлений")
+                return True, updates
+            else:
+                self.log_info("✅ Система актуальна, обновлений нет")
+                return True, []
+                
+        except Exception as e:
+            self.log_error(f"❌ Ошибка проверки обновлений: {e}")
+            return False, []
+            
+    def install_security_updates(self):
+        """Установка только критических обновлений безопасности"""
+        self.log_info("🔒 Установка обновлений безопасности")
+        
+        try:
+            # Устанавливаем только обновления безопасности
+            success, stdout, stderr = self.run_command(
+                "sudo unattended-upgrade -d 2>/dev/null || "
+                "sudo apt upgrade -y --with-new-pkgs -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold'"
+            )
+            
+            if success:
+                self.log_info("✅ Обновления безопасности установлены")
+                
+                # Проверяем нужна ли перезагрузка
+                if os.path.exists('/var/run/reboot-required'):
+                    self.log_warning("⚠️ Требуется перезагрузка сервера")
+                    
+                    # Отправляем уведомление, но НЕ перезагружаем автоматически
+                    self.log_info("ℹ️ Перезагрузка отложена - требуется ручное подтверждение")
+                    
+                return True
+            else:
+                self.log_error(f"❌ Ошибка установки обновлений: {stderr}")
+                return False
+                
+        except Exception as e:
+            self.log_error(f"❌ Ошибка при установке обновлений: {e}")
+            return False
+            
+    def install_package_updates(self, allowed_packages=None):
+        """Установка обновлений определенных пакетов"""
+        if not allowed_packages:
+            allowed_packages = ['python3', 'python3-*', 'nginx', 'curl', 'git']
+            
+        self.log_info(f"📦 Установка обновлений пакетов: {', '.join(allowed_packages)}")
+        
+        try:
+            # Формируем команду для обновления только разрешенных пакетов
+            packages_str = ' '.join(allowed_packages)
+            success, stdout, stderr = self.run_command(
+                f"sudo apt install --only-upgrade -y {packages_str}"
+            )
+            
+            if success:
+                self.log_info("✅ Пакеты обновлены успешно")
+                return True
+            else:
+                # Если некоторые пакеты не найдены, это нормально
+                if "unable to locate package" in stderr.lower():
+                    self.log_info("ℹ️ Некоторые пакеты уже актуальны")
+                    return True
+                else:
+                    self.log_error(f"❌ Ошибка обновления пакетов: {stderr}")
+                    return False
+                    
+        except Exception as e:
+            self.log_error(f"❌ Ошибка при обновлении пакетов: {e}")
+            return False
+            
+    def cleanup_after_updates(self):
+        """Очистка после обновлений"""
+        self.log_info("🧹 Очистка после обновлений")
+        
+        # Удаляем ненужные пакеты
+        success, stdout, stderr = self.run_command("sudo apt autoremove -y")
+        if success:
+            self.log_info("✅ Ненужные пакеты удалены")
+            
+        # Очищаем кэш пакетов
+        success, stdout, stderr = self.run_command("sudo apt autoclean")
+        if success:
+            self.log_info("✅ Кэш пакетов очищен")
+            
+    def perform_system_maintenance(self):
+        """Выполнение системного обслуживания"""
+        self.log_info("🔧 Запуск системного обслуживания")
+        
+        maintenance_results = {
+            'updates_checked': False,
+            'security_updates': False,
+            'package_updates': False,
+            'cleanup_done': False,
+            'reboot_required': False
+        }
+        
+        # Проверяем обновления
+        updates_available, update_list = self.check_system_updates()
+        maintenance_results['updates_checked'] = updates_available
+        
+        if updates_available and update_list:
+            # Устанавливаем обновления безопасности
+            if self.config['automation'].get('auto_security_updates', True):
+                maintenance_results['security_updates'] = self.install_security_updates()
+                
+            # Устанавливаем обновления разрешенных пакетов
+            allowed_packages = self.config.get('update_policy', {}).get('allowed_packages', [])
+            if allowed_packages and self.config['automation'].get('auto_package_updates', False):
+                maintenance_results['package_updates'] = self.install_package_updates(allowed_packages)
+                
+        # Очистка после обновлений
+        maintenance_results['cleanup_done'] = True
+        self.cleanup_after_updates()
+        
+        # Проверка необходимости перезагрузки
+        if os.path.exists('/var/run/reboot-required'):
+            maintenance_results['reboot_required'] = True
+            self.log_warning("⚠️ Сервер требует перезагрузки")
+            
+        return maintenance_results
         
     def check_ssl_certificates(self):
         """Проверка SSL сертификатов"""
@@ -378,20 +547,157 @@ class YandexServerAgent:
     def setup_schedule(self):
         """Настройка расписания"""
         interval = self.config['monitoring']['interval_minutes']
-        
+
         # Основные проверки каждые 15 минут
         schedule.every(interval).minutes.do(self.perform_critical_checks)
-        
+
         # Синхронизация с Cursor каждый час
         schedule.every().hour.do(self.sync_with_cursor)
-        
+
         # Синхронизация с GitHub каждые 30 минут
         schedule.every(30).minutes.do(self.sync_with_github)
-        
+
         # Генерация отчета каждые 5 минут
         schedule.every(5).minutes.do(lambda: self.save_status_report(self.generate_status_report()))
-        
-        self.log_info(f"✅ Расписание настроено (проверки каждые {interval} минут)")
+
+        # Системное обслуживание и обновления
+        if self.config['automation'].get('auto_security_updates', True):
+            # Проверка обновлений безопасности каждые 6 часов
+            schedule.every(6).hours.do(self.perform_system_maintenance)
+
+        # Еженедельное обслуживание (воскресенье в 3:00)
+        schedule.every().sunday.at("03:00").do(self.perform_system_maintenance)
+
+        # Новые расширенные функции
+        if AI_ENABLED and self.ai_analyzer:
+            # AI анализ логов каждые 30 минут
+            schedule.every(30).minutes.do(self.run_ai_analysis)
+            
+        if AI_ENABLED and self.monitoring:
+            # Сбор и отправка метрик каждые 5 минут
+            schedule.every(5).minutes.do(self.collect_and_send_metrics)
+            
+        if AI_ENABLED and self.telegram:
+            # Ежедневный отчет в 9:00
+            schedule.every().day.at("09:00").do(self.send_daily_telegram_report)
+
+        self.log_info(f"✅ Расписание настроено (проверки каждые {interval} минут, AI анализ каждые 30 минут)")
+    
+    def run_ai_analysis(self):
+        """Запуск AI анализа логов"""
+        if not self.ai_analyzer:
+            return
+            
+        try:
+            self.log_info("🤖 Запуск AI анализа логов")
+            result = self.ai_analyzer.run_analysis()
+            
+            if result.get('status') == 'success' and result.get('fixes_applied', {}).get('fixes_applied', 0) > 0:
+                # Отправляем уведомление о примененных исправлениях
+                if self.telegram:
+                    message = f"🔧 AI автоисправление: применено {result['fixes_applied']['fixes_applied']} исправлений"
+                    self.telegram.send_message(message, "admin")
+                    
+        except Exception as e:
+            self.log_error(f"❌ Ошибка AI анализа: {e}")
+    
+    def collect_and_send_metrics(self):
+        """Сбор и отправка метрик"""
+        if not self.monitoring:
+            return
+            
+        try:
+            self.log_info("📊 Сбор метрик")
+            metrics = self.monitoring.run_metrics_collection()
+            
+            # Проверяем критические значения
+            if 'business' in metrics:
+                business = metrics['business']
+                
+                # Алерт при низком uptime
+                if business.get('uptime_percentage_today', 100) < 95:
+                    if self.telegram:
+                        self.telegram.send_critical_alert(
+                            "low_uptime", 
+                            f"Uptime снизился до {business['uptime_percentage_today']:.1f}%"
+                        )
+                
+                # Алерт при истечении SSL
+                ssl_days = business.get('ssl_certificate_days_remaining', 30)
+                if ssl_days < 7:
+                    if self.telegram:
+                        self.telegram.send_critical_alert(
+                            "ssl_expired",
+                            f"SSL сертификат истекает через {ssl_days} дней"
+                        )
+                        
+        except Exception as e:
+            self.log_error(f"❌ Ошибка сбора метрик: {e}")
+    
+    def send_daily_telegram_report(self):
+        """Отправка ежедневного отчета в Telegram"""
+        if not self.telegram:
+            return
+            
+        try:
+            self.log_info("📱 Отправка ежедневного отчета")
+            
+            # Собираем данные для отчета
+            system_stats = {
+                'cpu': psutil.cpu_percent(interval=1),
+                'memory': psutil.virtual_memory().percent,
+                'disk': psutil.disk_usage('/').percent,
+                'uptime': f"{(time.time() - psutil.boot_time()) / 3600:.1f} hours"
+            }
+            
+            service_status = {
+                'gita-api': self.check_service_status('gita-api'),
+                'nginx': self.check_service_status('nginx'),
+                'yandex-server-agent': self.check_service_status('yandex-server-agent')
+            }
+            
+            # Получаем недавние проблемы из логов
+            recent_issues = self.get_recent_issues()
+            
+            self.telegram.send_daily_report(system_stats, service_status, recent_issues)
+            
+        except Exception as e:
+            self.log_error(f"❌ Ошибка отправки отчета: {e}")
+    
+    def check_service_status(self, service_name):
+        """Проверка статуса сервиса"""
+        try:
+            success, stdout, stderr = self.run_command(f"systemctl is-active {service_name}")
+            return stdout.strip() if success else "inactive"
+        except:
+            return "unknown"
+    
+    def get_recent_issues(self):
+        """Получение недавних проблем из логов"""
+        try:
+            issues = []
+            
+            # Ищем ошибки в логах агента за последние 24 часа
+            success, stdout, stderr = self.run_command(
+                "grep 'ERROR' /home/yc-user/gita-1972/logs/server-agent.log | tail -5"
+            )
+            
+            if success and stdout:
+                for line in stdout.strip().split('\n'):
+                    if line:
+                        # Простой парсинг времени и описания
+                        parts = line.split(' - ', 2)
+                        if len(parts) >= 3:
+                            issues.append({
+                                'time': parts[0],
+                                'description': parts[2]
+                            })
+            
+            return issues
+            
+        except Exception as e:
+            self.log_error(f"❌ Ошибка получения недавних проблем: {e}")
+            return []
         
     def run(self):
         """Основной цикл агента"""
