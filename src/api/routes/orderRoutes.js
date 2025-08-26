@@ -3,10 +3,11 @@
  * Включает все операции с заказами
  */
 
-const express = require('express');
+import express from 'express';
+import orderController from '../controllers/orderController.js';
+import { requireAdminAuth } from '../../middleware/auth.js';
+
 const router = express.Router();
-const orderController = require('../controllers/orderController');
-const { requireAdminAuth } = require('../../middleware/auth');
 
 // Создание нового заказа (публично)
 router.post('/create', async (req, res) => {
@@ -28,8 +29,8 @@ router.post('/create', async (req, res) => {
 // Получение всех заказов (админ, с пагинацией)
 router.get('/list', requireAdminAuth, async (req, res) => {
     try {
-        const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 20;
+        const page = parseInt(req.query.page, 10) || 1;
+        const limit = parseInt(req.query.limit, 10) || 20;
         const orders = await orderController.readOrders();
 
         const startIndex = (page - 1) * limit;
@@ -170,4 +171,4 @@ router.delete('/:orderId', requireAdminAuth, async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

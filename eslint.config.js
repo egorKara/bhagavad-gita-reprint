@@ -1,9 +1,10 @@
 // ESLint конфигурация для проекта Bhagavad-Gita 1972
 // Современный формат ESLint 9.x (flat config)
 
-// import js from '@eslint/js'; // Убрано - не используется
 import prettier from 'eslint-config-prettier';
 import security from 'eslint-plugin-security';
+import typescript from '@typescript-eslint/eslint-plugin';
+import typescriptParser from '@typescript-eslint/parser';
 
 export default [
     // Базовая конфигурация для всех JS файлов
@@ -100,94 +101,88 @@ export default [
                 }
             ],
 
-            // Функции
-            'function-paren-newline': 'off',
-            'max-len': [
-                'warn',
+            // ===== ПРАВИЛА ДЛЯ ES MODULES =====
+            'import/no-commonjs': 'error',
+            'import/no-amd': 'error',
+            'import/no-umd': 'error',
+            'import/extensions': [
+                'error',
+                'ignorePackages',
                 {
-                    code: 120,
-                    ignoreUrls: true,
-                    ignoreStrings: true,
-                    ignoreComments: true
+                    js: 'never',
+                    ts: 'never'
                 }
-            ],
-
-            // Объекты и массивы
-            'object-curly-spacing': ['error', 'always'],
-            'array-bracket-spacing': ['error', 'never'],
-            'comma-spacing': ['error', { before: false, after: true }],
-
-            // Безопасность DOM
-            'no-inner-declarations': 'error',
-            'no-irregular-whitespace': 'error'
+            ]
         }
     },
 
-    // Специальная конфигурация для серверных файлов
+    // Конфигурация для TypeScript файлов
     {
-        files: ['src/**/*.js', 'scripts/**/*.js'],
+        files: ['**/*.ts', '**/*.tsx'],
         languageOptions: {
+            parser: typescriptParser,
+            ecmaVersion: 2022,
             sourceType: 'module',
             globals: {
-                // Node.js окружение
+                // Node.js глобальные
                 process: 'readonly',
+                global: 'readonly',
                 Buffer: 'readonly',
                 __dirname: 'readonly',
                 __filename: 'readonly'
             }
         },
-        rules: {
-            'no-console': 'off' // Разрешаем console в серверном коде
-        }
-    },
-
-    // Специальная конфигурация для клиентских файлов
-    {
-        files: ['public/**/*.js'],
-        languageOptions: {
-            sourceType: 'script', // Браузерные скрипты часто не модули
-            globals: {
-                // Браузерное окружение
-                window: 'readonly',
-                document: 'readonly',
-                console: 'readonly',
-                fetch: 'readonly',
-                localStorage: 'readonly',
-                sessionStorage: 'readonly'
-            }
+        plugins: {
+            '@typescript-eslint': typescript,
+            security
         },
         rules: {
-            'no-console': 'warn', // Предупреждение для клиентского кода
-            'no-undef': 'error'
+            ...security.configs.recommended.rules,
+            '@typescript-eslint/no-unused-vars': [
+                'error',
+                {
+                    vars: 'all',
+                    args: 'after-used',
+                    ignoreRestSiblings: true
+                }
+            ],
+            '@typescript-eslint/no-explicit-any': 'warn',
+            '@typescript-eslint/explicit-function-return-type': 'off',
+            '@typescript-eslint/explicit-module-boundary-types': 'off',
+            '@typescript-eslint/no-inferrable-types': 'error',
+            '@typescript-eslint/prefer-const': 'error',
+            '@typescript-eslint/no-var-requires': 'error'
         }
     },
 
-    // Конфигурация для тестовых файлов
+    // Конфигурация для HTML файлов
     {
-        files: ['tests/**/*.js', '**/*.test.js', '**/*.spec.js'],
+        files: ['**/*.html'],
         languageOptions: {
             globals: {
-                // Тестовые фреймворки
-                describe: 'readonly',
-                it: 'readonly',
-                expect: 'readonly',
-                test: 'readonly',
-                beforeEach: 'readonly',
-                afterEach: 'readonly',
-                beforeAll: 'readonly',
-                afterAll: 'readonly'
+                // HTML специфичные глобальные
+                HTMLElement: 'readonly',
+                HTMLDivElement: 'readonly',
+                HTMLButtonElement: 'readonly',
+                HTMLInputElement: 'readonly'
             }
-        },
-        rules: {
-            'no-console': 'off' // Разрешаем console в тестах
         }
     },
 
-    // Исключения файлов
+    // Конфигурация для конфигурационных файлов
     {
-        ignores: ['node_modules/**', 'dist/**', 'build/**', '.cursor/**', 'coverage/**', '*.min.js']
+        files: ['*.config.js', '*.config.ts', '*.config.mjs'],
+        rules: {
+            'no-console': 'off',
+            'import/no-commonjs': 'off'
+        }
     },
 
-    // Интеграция с Prettier (должна быть последней)
+    // Игнорируем node_modules и dist
+    {
+        ignores: ['node_modules/**', 'dist/**', 'build/**', '.git/**']
+    },
+
+    // Prettier конфигурация (должна быть последней)
     prettier
 ];

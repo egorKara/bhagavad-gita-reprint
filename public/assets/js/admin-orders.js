@@ -159,27 +159,21 @@ class AdminOrdersManager {
             return status; // Возвращаем оригинальный статус если невалидный
         }
 
-        // Убрано - не используется после рефакторинга
-
-        // Безопасный доступ к statusMap
-        if (validStatuses.includes(status)) {
-            // Используем switch для безопасного доступа
-            switch (status) {
-                case 'new':
-                    return 'Новый';
-                case 'processing':
-                    return 'В обработке';
-                case 'shipped':
-                    return 'Отправлен';
-                case 'delivered':
-                    return 'Доставлен';
-                case 'cancelled':
-                    return 'Отменен';
-                default:
-                    return status;
-            }
+        // Безопасный доступ к статусам через switch
+        switch (status) {
+            case 'new':
+                return 'Новый';
+            case 'processing':
+                return 'В обработке';
+            case 'shipped':
+                return 'Отправлен';
+            case 'delivered':
+                return 'Доставлен';
+            case 'cancelled':
+                return 'Отменен';
+            default:
+                return status;
         }
-        return status;
     }
 
     /**

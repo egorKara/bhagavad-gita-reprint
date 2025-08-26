@@ -4,9 +4,11 @@
  * Точка входа в приложение
  */
 
-const app = require('./app');
-const { port } = require('./config');
-const logger = require('./utils/logger');
+import app from './app.js';
+import config from './config/index.js';
+import logger from './utils/logger.js';
+
+const { port } = config;
 
 // Запуск сервера
 const server = app.listen(port, () => {

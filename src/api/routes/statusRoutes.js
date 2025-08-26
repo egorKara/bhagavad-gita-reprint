@@ -1,12 +1,12 @@
-const express = require('express');
-const { getStatus, getSystemInfo, getSecurityStatus, getNginxStats } = require('../controllers/statusController');
-const { requireAdminAuth } = require('../../middleware/auth');
+/**
+ * Маршруты для API статуса
+ */
+
+import express from 'express';
+import statusController from '../controllers/statusController.js';
+
 const router = express.Router();
 
-// Определение маршрутов
-router.get('/', getStatus);
-router.get('/system-info', requireAdminAuth, getSystemInfo);
-router.get('/security-status', requireAdminAuth, getSecurityStatus);
-router.get('/nginx-stats', requireAdminAuth, getNginxStats);
+router.get('/', statusController.getStatus);
 
-module.exports = router;
+export default router;

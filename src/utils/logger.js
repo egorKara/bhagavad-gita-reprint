@@ -1,5 +1,6 @@
-const util = require('util');
-const { logLevel } = require('../config');
+import config from '../config/index.js';
+
+const { logLevel } = config;
 
 const levels = ['error', 'warn', 'info', 'debug'];
 const levelIndex = Math.max(0, levels.indexOf((logLevel || 'info').toLowerCase()));
@@ -59,4 +60,4 @@ const logger = {
     }
 };
 
-module.exports = logger;
+export default logger;
