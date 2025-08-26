@@ -2,7 +2,7 @@
 
 /* Один файл для управления всеми стилями проекта */
 
-/* Версия: 3.0 | Дата: 2025-01-23 | Архитектор: AI Assistant */
+/* Версия: 4.0 | Дата: 2025-01-23 | Архитектор: AI Assistant */
 
 /* ===== RESET И ОСНОВЫ ===== */
 * {
@@ -44,7 +44,7 @@ button {
 .footer-section *,
 .site-footer *,
 .main-footer *,
-.hero-section * {
+.hero * {
     color: var(--white) !important; /* Белый текст в футере и hero */
 }
 

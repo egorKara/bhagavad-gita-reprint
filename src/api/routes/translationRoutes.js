@@ -1,10 +1,12 @@
-const express = require('express');
+/**
+ * Маршруты для API переводов
+ */
+
+import express from 'express';
+import translationController from '../controllers/translationController.js';
+
 const router = express.Router();
-const controller = require('../controllers/translationController');
 
-router.post('/batch', controller.batchTranslate);
-router.get('/status/:jobId', controller.jobStatus);
-router.post('/feedback', controller.submitFeedback);
-router.post('/prewarm', controller.prewarmSite);
+router.post('/translate', translationController.translateText);
 
-module.exports = router;
+export default router;

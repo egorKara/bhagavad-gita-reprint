@@ -1,16 +1,20 @@
-const express = require('express');
-const path = require('path');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const rateLimit = require('express-rate-limit');
-const { randomUUID } = require('crypto');
-const { metricsMiddleware, requireMetricsAuth, metricsHandler } = require('./utils/metrics');
-const statusRoutes = require('./api/routes/statusRoutes');
-const orderRoutes = require('./api/routes/orderRoutes');
-const translationRoutes = require('./api/routes/translationRoutes');
-const { corsOrigins } = require('./config');
-const logger = require('./utils/logger');
+import express from 'express';
+import path from 'path';
+import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import rateLimit from 'express-rate-limit';
+import { randomUUID } from 'crypto';
+import { fileURLToPath } from 'url';
+import { metricsMiddleware, requireMetricsAuth, metricsHandler } from './utils/metrics.js';
+import statusRoutes from './api/routes/statusRoutes.js';
+import orderRoutes from './api/routes/orderRoutes.js';
+import translationRoutes from './api/routes/translationRoutes.js';
+import config from './config/index.js';
+import logger from './utils/logger.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -63,7 +67,7 @@ const createOrderLimiter = rateLimit({
 // CORS (для фронта на другом домене)
 app.use(
     cors({
-        origin: corsOrigins,
+        origin: config.corsOrigins,
         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
         credentials: false
     })
@@ -109,4 +113,4 @@ app.use((err, req, res, _next) => {
 });
 
 // Экспорт приложения
-module.exports = app;
+export default app;

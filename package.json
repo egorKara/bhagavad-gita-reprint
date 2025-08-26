@@ -2,7 +2,7 @@
     "name": "bhagavad-gita-1972-reprint",
     "version": "1.0.0",
     "description": "Официальный репринт Бхагавад-Гиты 1972 года - лицензированное издание Bhaktivedanta Book Trust",
-    "main": "index.js",
+    "main": "src/server.js",
     "type": "module",
     "scripts": {
         "format": "prettier --write \"**/*.{css,html,js,json,md}\"",
@@ -20,9 +20,12 @@
         "docs:watch": "jsdoc -c jsdoc.conf.json --watch",
         "lighthouse": "lhci autorun",
         "lighthouse:legacy": "lhci autorun --config=lighthouserc-legacy.cjs",
-        "dev": "python3 -m http.server 8000 --bind 127.0.0.1 --directory public",
-        "serve": "python3 -m http.server 8002 --bind 127.0.0.1 --directory public",
-        "prepare": "husky"
+        "dev": "node --experimental-modules src/server.js",
+        "serve": "node --experimental-modules src/server.js",
+        "start": "node src/server.js",
+        "prepare": "husky",
+        "test": "echo \"Tests not configured yet\"",
+        "build": "echo \"Build not required for static site\""
     },
     "keywords": [
         "bhagavad-gita",
