@@ -2,6 +2,7 @@
     "name": "gita-express-server",
     "version": "1.0.0",
     "description": "Express.js сервер для проекта Бхагавад-Гита 1972",
+    "type": "module",
     "main": "src/app.js",
     "scripts": {
         "start": "node src/app.js",
