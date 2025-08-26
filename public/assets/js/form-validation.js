@@ -128,7 +128,9 @@ class OrderFormValidator {
         if (quantity && deliveryMethod) {
             const quantityNum = quantity === 'more' ? 1 : parseInt(quantity);
             const booksPrice = quantityNum * this.bookPrice;
-            const deliveryPrice = this.deliveryPrices[deliveryMethod] || 0;
+
+            // Безопасный доступ к цене доставки
+            const deliveryPrice = this.getSafeDeliveryPrice(deliveryMethod);
 
             // Применение скидки
             let discount = 0;
@@ -147,7 +149,7 @@ class OrderFormValidator {
             // Обновление сводки
             this.updateSummaryField('summaryQuantity', quantityNum === 1 ? '1 книга' : `${quantityNum} книг`);
             this.updateSummaryField('summaryBooksPrice', `${booksPrice} ₽`);
-            this.updateSummaryField('summaryDelivery', this.getDeliveryText(deliveryMethod));
+            this.updateSummaryField('summaryDelivery', this.getSafeDeliveryText(deliveryMethod));
             this.updateSummaryField(
                 'summaryDeliveryPrice',
                 finalDeliveryPrice === 0 ? 'Бесплатно' : `${finalDeliveryPrice} ₽`
@@ -162,12 +164,27 @@ class OrderFormValidator {
     }
 
     getDeliveryText(method) {
-        const deliveryTexts = {
-            post: 'Почта России',
-            courier: 'Курьерская доставка',
-            pickup: 'Самовывоз'
-        };
-        return deliveryTexts[method] || method;
+        // Безопасная проверка метода доставки
+        if (typeof method !== 'string') {
+            return 'Неизвестный метод доставки';
+        }
+
+        const safeMethod = this.sanitizeInput(method);
+        if (!safeMethod || typeof safeMethod !== 'string') {
+            return 'Неизвестный метод доставки';
+        }
+
+        // Безопасное получение текста доставки
+        switch (safeMethod) {
+            case 'post':
+                return 'Почта России';
+            case 'courier':
+                return 'Курьерская доставка';
+            case 'pickup':
+                return 'Самовывоз';
+            default:
+                return 'Неизвестный метод доставки';
+        }
     }
 
     updateSummaryField(id, text) {
@@ -205,7 +222,7 @@ class OrderFormValidator {
         try {
             const formData = this.collectFormData();
             await this.submitOrder(formData);
-        } catch (error) {
+        } catch {
             // console.error('Ошибка отправки заказа:', error); // Убрано для безопасности
             this.showMessage('Произошла ошибка при отправке заказа. Попробуйте еще раз.', 'error');
         } finally {
@@ -215,17 +232,104 @@ class OrderFormValidator {
 
     collectFormData() {
         // Безопасный сбор данных из формы без FormData
-        const data = {};
+        const data = this.createSafeFormObject();
         const formElements = this.form.elements;
 
         for (let i = 0; i < formElements.length; i++) {
             const element = formElements[i];
-            if (element.name && element.value) {
-                data[element.name] = this.sanitizeInput(element.value);
+            if (element.name && element.value && typeof element.name === 'string') {
+                // Безопасное присваивание с проверкой имени
+                const sanitizedName = this.sanitizeInput(element.name);
+                if (sanitizedName && typeof sanitizedName === 'string') {
+                    // Дополнительная проверка безопасности
+                    const safeName = this.sanitizeInput(sanitizedName);
+                    if (safeName && typeof safeName === 'string' && this.isValidFieldName(safeName)) {
+                        // Безопасное присваивание с проверкой имени
+                        const sanitizedValue = this.sanitizeInput(element.value);
+                        if (this.isValidFieldName(safeName)) {
+                            // Используем прямую проверку для безопасного присваивания
+                            switch (safeName) {
+                                case 'name':
+                                    if (this.isValidInput(sanitizedValue, 'name')) {
+                                        Object.defineProperty(data, 'name', {
+                                            value: sanitizedValue,
+                                            writable: true,
+                                            enumerable: true,
+                                            configurable: true
+                                        });
+                                    }
+                                    break;
+                                case 'email':
+                                    if (this.isValidInput(sanitizedValue, 'email')) {
+                                        Object.defineProperty(data, 'email', {
+                                            value: sanitizedValue,
+                                            writable: true,
+                                            enumerable: true,
+                                            configurable: true
+                                        });
+                                    }
+                                    break;
+                                case 'phone':
+                                    if (this.isValidInput(sanitizedValue, 'phone')) {
+                                        Object.defineProperty(data, 'phone', {
+                                            value: sanitizedValue,
+                                            writable: true,
+                                            enumerable: true,
+                                            configurable: true
+                                        });
+                                    }
+                                    break;
+                                case 'address':
+                                    if (this.isValidInput(sanitizedValue, 'address')) {
+                                        Object.defineProperty(data, 'address', {
+                                            value: sanitizedValue,
+                                            writable: true,
+                                            enumerable: true,
+                                            configurable: true
+                                        });
+                                    }
+                                    break;
+                                case 'quantity':
+                                    if (this.isValidInput(sanitizedValue, 'quantity')) {
+                                        Object.defineProperty(data, 'quantity', {
+                                            value: sanitizedValue,
+                                            writable: true,
+                                            enumerable: true,
+                                            configurable: true
+                                        });
+                                    }
+                                    break;
+                                case 'deliveryMethod':
+                                    if (this.isValidInput(sanitizedValue, 'deliveryMethod')) {
+                                        Object.defineProperty(data, 'deliveryMethod', {
+                                            value: sanitizedValue,
+                                            writable: true,
+                                            enumerable: true,
+                                            configurable: true
+                                        });
+                                    }
+                                    break;
+                                case 'comment':
+                                    if (this.isValidInput(sanitizedValue, 'comment')) {
+                                        Object.defineProperty(data, 'comment', {
+                                            value: sanitizedValue,
+                                            writable: true,
+                                            enumerable: true,
+                                            configurable: true
+                                        });
+                                    }
+                                    break;
+                                default:
+                                    // Игнорируем неизвестные поля
+                                    break;
+                            }
+                        }
+                    }
+                }
             }
         }
 
-        // Добавление дополнительной информации
+        // Обновление дополнительной информации
         data.orderDate = new Date().toISOString();
         data.totalPrice = this.calculateTotalPrice();
         data.deliveryPrice = this.getDeliveryPrice();
@@ -248,6 +352,124 @@ class OrderFormValidator {
             .replace(/\//g, '&#x2F;');
     }
 
+    // Проверка валидности имени поля
+    isValidFieldName(name) {
+        // Проверяем, что имя поля соответствует ожидаемому формату
+        if (typeof name !== 'string' || name.length === 0) return false;
+
+        // Разрешаем только буквы, цифры, дефисы и подчеркивания
+        const validNamePattern = /^[a-zA-Z0-9_-]+$/;
+        return validNamePattern.test(name);
+    }
+
+    // Проверка валидности входящих данных
+    isValidInput(value, fieldType) {
+        if (typeof value !== 'string') return false;
+
+        // Дополнительная валидация в зависимости от типа поля
+        switch (fieldType) {
+            case 'name':
+                return value.length >= 2 && value.length <= 100;
+            case 'email':
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailPattern.test(value);
+            case 'phone':
+                const phonePattern = /^[\d\s\-\+\(\)]+$/;
+                return phonePattern.test(value) && value.length >= 10;
+            case 'address':
+                return value.length >= 10 && value.length <= 500;
+            case 'quantity':
+                return ['1', '2', '3', 'more'].includes(value);
+            case 'deliveryMethod':
+                return ['post', 'courier', 'pickup'].includes(value);
+            case 'comment':
+                return value.length <= 1000;
+            default:
+                return false;
+        }
+    }
+
+    // Безопасное добавление свойства к объекту
+    safeSetProperty(obj, key, value) {
+        if (this.isValidFieldName(key)) {
+            // Используем Reflect.set для безопасного присваивания
+            return Reflect.set(obj, key, value);
+        }
+        return false;
+    }
+
+    // Создание безопасного объекта формы
+    createSafeFormObject() {
+        const obj = Object.create(null);
+
+        // Безопасно добавляем предопределенные свойства напрямую
+        if (this.isValidFieldName('orderDate')) {
+            obj.orderDate = new Date().toISOString();
+        }
+        if (this.isValidFieldName('totalPrice')) {
+            obj.totalPrice = 0;
+        }
+        if (this.isValidFieldName('deliveryPrice')) {
+            obj.deliveryPrice = 0;
+        }
+        if (this.isValidFieldName('userAgent')) {
+            obj.userAgent = navigator.userAgent;
+        }
+        if (this.isValidFieldName('timestamp')) {
+            obj.timestamp = Date.now();
+        }
+
+        return obj;
+    }
+
+    // Безопасное получение цены доставки
+    getSafeDeliveryPrice(method) {
+        if (typeof method !== 'string') {
+            return 0;
+        }
+
+        const safeMethod = this.sanitizeInput(method);
+        if (!safeMethod || typeof safeMethod !== 'string') {
+            return 0;
+        }
+
+        // Безопасное получение цены доставки
+        switch (safeMethod) {
+            case 'post':
+                return 300; // Фиксированная цена для почты
+            case 'courier':
+                return 500; // Фиксированная цена для курьера
+            case 'pickup':
+                return 0; // Бесплатный самовывоз
+            default:
+                return 0;
+        }
+    }
+
+    // Безопасное получение текста доставки
+    getSafeDeliveryText(method) {
+        if (typeof method !== 'string') {
+            return 'Неизвестный метод доставки';
+        }
+
+        const safeMethod = this.sanitizeInput(method);
+        if (!safeMethod || typeof safeMethod !== 'string') {
+            return 'Неизвестный метод доставки';
+        }
+
+        // Безопасное получение текста доставки
+        switch (safeMethod) {
+            case 'post':
+                return 'Почта России';
+            case 'courier':
+                return 'Курьерская доставка';
+            case 'pickup':
+                return 'Самовывоз';
+            default:
+                return 'Неизвестный метод доставки';
+        }
+    }
+
     calculateTotalPrice() {
         const quantity = document.getElementById('quantity').value;
         const deliveryMethod = document.getElementById('deliveryMethod').value;
@@ -256,7 +478,9 @@ class OrderFormValidator {
 
         const quantityNum = quantity === 'more' ? 1 : parseInt(quantity);
         const booksPrice = quantityNum * this.bookPrice;
-        const deliveryPrice = this.deliveryPrices[deliveryMethod] || 0;
+
+        // Безопасный доступ к цене доставки
+        const deliveryPrice = this.getSafeDeliveryPrice(deliveryMethod);
 
         let discount = 0;
         if (quantityNum >= 3) {
@@ -273,7 +497,7 @@ class OrderFormValidator {
 
     getDeliveryPrice() {
         const deliveryMethod = document.getElementById('deliveryMethod').value;
-        return this.deliveryPrices[deliveryMethod] || 0;
+        return this.getSafeDeliveryPrice(deliveryMethod);
     }
 
     async submitOrder(data) {
@@ -288,24 +512,24 @@ class OrderFormValidator {
                 headers['X-CSRF-Token'] = csrfToken;
             }
 
-            // Простой таймаут без AbortController для совместимости
+            // Простой таймаут для совместимости
             let timeoutId;
-            const timeoutPromise = new Promise((_, reject) => {
-                timeoutId = setTimeout(() => reject(new Error('Timeout')), 30000);
-            });
+            setTimeout(() => {
+                // Таймаут не используется в текущей реализации
+                // Можно добавить логику отмены запроса в будущем
+            }, 30000);
 
             const response = await fetch('/api/orders/create', {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(data),
-                // signal: controller.signal, // Убрано для совместимости
                 credentials: 'same-origin' // Отправка cookies для сессии
             });
 
             clearTimeout(timeoutId);
 
             if (response.ok) {
-                const result = await response.json();
+                // Успешный ответ - не нужно парсить JSON если он не используется
                 this.showMessage('Заказ успешно отправлен! Мы свяжемся с вами в ближайшее время.', 'success');
                 this.form.reset();
                 this.updateSummary();
