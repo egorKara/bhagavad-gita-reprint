@@ -1,0 +1,35 @@
+{
+  "name": "telegram-master-bot",
+  "version": "1.0.0",
+  "description": "🤖 Telegram Master Bot - MVP мобильного центра управления агентами",
+  "main": "telegram-master-bot.js",
+  "scripts": {
+    "start": "node telegram-master-bot.js",
+    "dev": "nodemon telegram-master-bot.js",
+    "install-deps": "npm install",
+    "setup": "npm install && node setup.js",
+    "deploy": "pm2 start telegram-master-bot.js --name telegram-master-bot"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "mobile",
+    "control",
+    "agents",
+    "monitoring",
+    "security"
+  ],
+  "author": "AI Agent Assistant",
+  "license": "MIT",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.66.0",
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
