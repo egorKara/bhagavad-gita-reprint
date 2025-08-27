@@ -204,38 +204,52 @@ class TelegramNotifier:
     
     def check_for_commands(self) -> bool:
         """Проверка и обработка входящих команд от Telegram"""
+        print("🔍 DEBUG: check_for_commands() вызван")
+        
         if not self.config.get('telegram', {}).get('enabled', False):
+            print("🔍 DEBUG: Telegram отключен в конфиге")
             return False
             
         if not self.config.get('telegram', {}).get('interactive_commands', False):
+            print("🔍 DEBUG: Интерактивные команды отключены в конфиге")
             return False
             
         try:
             bot_token = self.config.get('telegram', {}).get('bot_token')
             if not bot_token or bot_token == "YOUR_BOT_TOKEN_HERE":
+                print("🔍 DEBUG: Нет токена бота")
                 return False
+            
+            print(f"🔍 DEBUG: Токен найден: {bot_token[:10]}...")
             
             # Получаем обновления от Telegram API
             url = f"https://api.telegram.org/bot{bot_token}/getUpdates"
+            current_offset = getattr(self, 'last_update_id', 0) + 1
             params = {
-                'offset': getattr(self, 'last_update_id', 0) + 1,
+                'offset': current_offset,
                 'timeout': 1,  # Короткий таймаут для неблокирующего опроса
                 'limit': 10
             }
             
+            print(f"🔍 DEBUG: Запрос getUpdates с offset={current_offset}")
             response = requests.get(url, params=params, timeout=5)
             
             if response.status_code != 200:
+                print(f"🔍 DEBUG: Ошибка HTTP {response.status_code}")
                 return False
                 
             data = response.json()
+            print(f"🔍 DEBUG: Ответ API: ok={data.get('ok', False)}")
             
             if not data.get('ok', False):
+                print(f"🔍 DEBUG: API вернул ошибку: {data}")
                 return False
                 
             updates = data.get('result', [])
+            print(f"🔍 DEBUG: Получено обновлений: {len(updates)}")
             
             if not updates:
+                print("🔍 DEBUG: Нет новых обновлений")
                 return False
                 
             # Обрабатываем каждое обновление
