@@ -1,0 +1,130 @@
+name: 🚀 Deploy Yandex Server Agent
+
+on:
+  push:
+    branches: [ main ]
+    paths: 
+      - 'server-agent/**'
+      - '.github/workflows/deploy-yandex-server-agent.yml'
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        default: 'deploy'
+        type: choice
+        options:
+        - deploy
+        - restart
+        - status
+        - logs
+
+jobs:
+  deploy:
+    name: 🤖 Deploy Agent to VM
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🔑 Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.VM_IP_ADDRESS }} >> ~/.ssh/known_hosts
+        
+    - name: 📋 Verify Server Connection
+      run: |
+        ssh -i ~/.ssh/id_rsa ${{ secrets.VM_USER }}@${{ secrets.VM_IP_ADDRESS }} \
+          "echo 'SSH Connection: ✅ Success' && uptime"
+          
+    - name: 📦 Deploy Agent Files
+      run: |
+        # Создать директорию если не существует
+        ssh -i ~/.ssh/id_rsa ${{ secrets.VM_USER }}@${{ secrets.VM_IP_ADDRESS }} \
+          "sudo mkdir -p ${{ secrets.PROJECT_PATH }}/server-agent"
+          
+        # Копировать файлы агента
+        scp -i ~/.ssh/id_rsa -r server-agent/* \
+          ${{ secrets.VM_USER }}@${{ secrets.VM_IP_ADDRESS }}:${{ secrets.PROJECT_PATH }}/server-agent/
+          
+        # Установить права
+        ssh -i ~/.ssh/id_rsa ${{ secrets.VM_USER }}@${{ secrets.VM_IP_ADDRESS }} \
+          "sudo chown -R ${{ secrets.VM_USER }}:${{ secrets.VM_USER }} ${{ secrets.PROJECT_PATH }}/server-agent && \
+           sudo chmod +x ${{ secrets.PROJECT_PATH }}/server-agent/*.py && \
+           sudo chmod +x ${{ secrets.PROJECT_PATH }}/server-agent/*.sh"
+           
+    - name: ⚙️ Update Configuration
+      run: |
+        ssh -i ~/.ssh/id_rsa ${{ secrets.VM_USER }}@${{ secrets.VM_IP_ADDRESS }} '
+          cd ${{ secrets.PROJECT_PATH }}/server-agent
+          
+          # Обновить Telegram конфигурацию
+          sudo sed -i "s/YOUR_BOT_TOKEN_HERE/${{ secrets.TELEGRAM_BOT_TOKEN }}/g" agent-config.json
+          sudo sed -i "s/YOUR_ADMIN_CHAT_ID/${{ secrets.TELEGRAM_CHAT_ID }}/g" agent-config.json
+          sudo sed -i "s/YOUR_ALERTS_CHAT_ID/${{ secrets.TELEGRAM_CHAT_ID }}/g" agent-config.json
+          sudo sed -i "s/YOUR_REPORTS_CHAT_ID/${{ secrets.TELEGRAM_CHAT_ID }}/g" agent-config.json
+          
+          echo "✅ Configuration updated"
+        '
+        
+    - name: 🔄 Restart Agent Service
+      run: |
+        ssh -i ~/.ssh/id_rsa ${{ secrets.VM_USER }}@${{ secrets.VM_IP_ADDRESS }} \
+          "sudo systemctl daemon-reload && \
+           sudo systemctl restart yandex-server-agent && \
+           sudo systemctl enable yandex-server-agent"
+           
+    - name: ✅ Verify Deployment
+      run: |
+        sleep 10
+        ssh -i ~/.ssh/id_rsa ${{ secrets.VM_USER }}@${{ secrets.VM_IP_ADDRESS }} \
+          "sudo systemctl status yandex-server-agent --no-pager && \
+           echo '🎉 Deployment successful!'"
+           
+    - name: 📱 Notify Telegram
+      if: always()
+      run: |
+        STATUS="${{ job.status }}"
+        if [ "$STATUS" = "success" ]; then
+          MESSAGE="🎉 Yandex Server Agent успешно развернут!%0A%0A✅ VM: ${{ secrets.VM_ID }}%0A🌐 IP: ${{ secrets.VM_IP_ADDRESS }}%0A⏰ Время: $(date)%0A🚀 Статус: Успешно"
+        else
+          MESSAGE="❌ Ошибка развертывания Yandex Server Agent!%0A%0A🆔 VM: ${{ secrets.VM_ID }}%0A🌐 IP: ${{ secrets.VM_IP_ADDRESS }}%0A⏰ Время: $(date)%0A💥 Статус: Ошибка"
+        fi
+        
+        curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+          -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}" \
+          -d "text=$MESSAGE"
+          
+  manual-actions:
+    name: 🛠️ Manual Actions
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    
+    steps:
+    - name: 🔑 Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.VM_IP_ADDRESS }} >> ~/.ssh/known_hosts
+        
+    - name: 🎯 Execute Action
+      run: |
+        case "${{ github.event.inputs.action }}" in
+          "restart")
+            ssh -i ~/.ssh/id_rsa ${{ secrets.VM_USER }}@${{ secrets.VM_IP_ADDRESS }} \
+              "sudo systemctl restart yandex-server-agent"
+            echo "🔄 Agent restarted"
+            ;;
+          "status")
+            ssh -i ~/.ssh/id_rsa ${{ secrets.VM_USER }}@${{ secrets.VM_IP_ADDRESS }} \
+              "sudo systemctl status yandex-server-agent --no-pager"
+            ;;
+          "logs")
+            ssh -i ~/.ssh/id_rsa ${{ secrets.VM_USER }}@${{ secrets.VM_IP_ADDRESS }} \
+              "sudo journalctl -u yandex-server-agent --no-pager -n 50"
+            ;;
+        esac

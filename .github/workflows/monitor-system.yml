@@ -1,0 +1,97 @@
+name: 📊 System Monitoring
+
+on:
+  schedule:
+    # Каждые 6 часов
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    name: 🏥 Health Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🔑 Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.VM_IP_ADDRESS }} >> ~/.ssh/known_hosts
+        
+    - name: 🌐 Check Server Availability  
+      run: |
+        if ping -c 3 ${{ secrets.VM_IP_ADDRESS }}; then
+          echo "✅ Server is reachable"
+        else
+          echo "❌ Server is unreachable"
+          exit 1
+        fi
+        
+    - name: 🔍 Check Services Status
+      run: |
+        ssh -i ~/.ssh/id_rsa ${{ secrets.VM_USER }}@${{ secrets.VM_IP_ADDRESS }} '
+          echo "🔍 ПРОВЕРКА СЕРВИСОВ:"
+          echo "===================="
+          
+          # Yandex Server Agent
+          if systemctl is-active yandex-server-agent >/dev/null; then
+            echo "✅ Yandex Server Agent: РАБОТАЕТ"
+          else
+            echo "❌ Yandex Server Agent: НЕ РАБОТАЕТ"
+          fi
+          
+          # Nginx
+          if systemctl is-active nginx >/dev/null; then
+            echo "✅ Nginx: РАБОТАЕТ"
+          else
+            echo "❌ Nginx: НЕ РАБОТАЕТ"
+          fi
+          
+          # SSH
+          if systemctl is-active ssh >/dev/null; then
+            echo "✅ SSH: РАБОТАЕТ"
+          else
+            echo "❌ SSH: НЕ РАБОТАЕТ"
+          fi
+          
+          echo ""
+          echo "📊 СИСТЕМНЫЕ МЕТРИКИ:"
+          echo "===================="
+          
+          # CPU
+          cpu=$(top -bn1 | grep "Cpu(s)" | awk "{print \$2}" | cut -d"%" -f1)
+          echo "🖥️ CPU: ${cpu}%"
+          
+          # Memory
+          memory=$(free | grep Mem | awk "{printf \"%.1f\", \$3/\$2 * 100.0}")
+          echo "💾 RAM: ${memory}%"
+          
+          # Disk
+          disk=$(df -h / | awk "NR==2{print \$5}")
+          echo "💿 Disk: ${disk}"
+          
+          # Uptime
+          echo "⏰ Uptime: $(uptime -p)"
+        '
+        
+    - name: 🤖 Check Agent Logs
+      run: |
+        ssh -i ~/.ssh/id_rsa ${{ secrets.VM_USER }}@${{ secrets.VM_IP_ADDRESS }} \
+          "sudo journalctl -u yandex-server-agent --since '1 hour ago' --no-pager | tail -10"
+          
+    - name: 📱 Send Health Report
+      if: always()
+      run: |
+        STATUS="${{ job.status }}"
+        TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+        
+        if [ "$STATUS" = "success" ]; then
+          MESSAGE="💚 HEALTH CHECK PASSED%0A%0A✅ Все системы работают нормально%0A🌐 IP: ${{ secrets.VM_IP_ADDRESS }}%0A⏰ Время: $TIMESTAMP%0A%0A🤖 Yandex Server Agent активен%0A📊 Мониторинг функционирует"
+        else
+          MESSAGE="🚨 HEALTH CHECK FAILED%0A%0A❌ Обнаружены проблемы в системе%0A🌐 IP: ${{ secrets.VM_IP_ADDRESS }}%0A⏰ Время: $TIMESTAMP%0A%0A⚠️ Требуется внимание администратора"
+        fi
+        
+        curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+          -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}" \
+          -d "text=$MESSAGE"
