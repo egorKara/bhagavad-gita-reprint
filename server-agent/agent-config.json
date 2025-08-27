@@ -1,7 +1,7 @@
 {
   "agent": {
     "name": "YandexServerAgent",
-    "version": "1.0.0",
+    "version": "2.1.0",
     "type": "server-maintenance",
     "created": "2025-08-26",
     "description": "Автономный агент поддержки сервера Yandex Cloud"
@@ -25,7 +25,10 @@
       "memory_threshold": 80,
       "disk_threshold": 85,
       "api_timeout": 10
-    }
+    },
+    "vm_id": "fhmqd2mct32i12bapfn1",
+    "vm_ip": "46.21.247.218",
+    "api_endpoint": "http://46.21.247.218:3000"
   },
   "priorities": {
     "critical": [
@@ -108,7 +111,8 @@
       "health_check_script": "deployment/health-check.sh",
       "dashboard_script": "deployment/server-dashboard.sh",
       "emergency_script": "deployment/api-emergency-fix.sh"
-    }
+    },
+    "cursor_project_path": "/home/egorkara/gita-1972"
   },
   "services": {
     "api": {
@@ -162,7 +166,7 @@
   },
   "telegram": {
     "enabled": true,
-    "bot_token": "YOUR_BOT_TOKEN_HERE",
+    "bot_token": "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s",
     "chat_ids": {
       "admin": "YOUR_ADMIN_CHAT_ID",
       "alerts": "YOUR_ALERTS_CHAT_ID",
@@ -178,12 +182,13 @@
     "rate_limit": {
       "max_messages_per_minute": 10,
       "critical_override": true
-    }
+    },
+    "chat_id": "6878699213"
   },
   "yandex_monitoring": {
     "enabled": true,
     "service_account_key": "YOUR_SERVICE_ACCOUNT_KEY",
-    "folder_id": "YOUR_FOLDER_ID",
+    "folder_id": "b1ggm01ncoamcljg44qa",
     "api_endpoint": "https://monitoring.api.cloud.yandex.net/monitoring/v2/data/write",
     "metrics": {
       "system_metrics": true,
@@ -202,6 +207,7 @@
         "email"
       ]
     },
-    "retention_days": 30
+    "retention_days": 30,
+    "vm_id": "fhmqd2mct32i12bapfn1"
   }
 }
