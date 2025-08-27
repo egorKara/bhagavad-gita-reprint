@@ -12,8 +12,8 @@
         "ip": "46.21.247.218",
         "hostname": "gita-server",
         "os": "Ubuntu 24.04.3 LTS",
-        "project_path": "/home/yc-user/gita-1972/",
-        "user": "yc-user"
+        "project_path": "/home/egorkara/gita-1972/",
+        "user": "egorkara"
     },
     "monitoring": {
         "enabled": true,
@@ -116,7 +116,7 @@
     },
     "logging": {
         "level": "INFO",
-        "log_file": "/home/yc-user/gita-1972/logs/server-agent.log",
+        "log_file": "/home/egorkara/gita-1972/logs/server-agent.log",
         "max_size_mb": 100,
         "rotation_days": 30,
         "remote_sync": true
