@@ -202,6 +202,110 @@ class TelegramNotifier:
         
         return self.send_message(notification_text, "admin")
     
+    def check_for_commands(self) -> bool:
+        """Проверка и обработка входящих команд от Telegram"""
+        if not self.config.get('telegram', {}).get('enabled', False):
+            return False
+            
+        if not self.config.get('telegram', {}).get('interactive_commands', False):
+            return False
+            
+        try:
+            bot_token = self.config.get('telegram', {}).get('bot_token')
+            if not bot_token or bot_token == "YOUR_BOT_TOKEN_HERE":
+                return False
+            
+            # Получаем обновления от Telegram API
+            url = f"https://api.telegram.org/bot{bot_token}/getUpdates"
+            params = {
+                'offset': getattr(self, 'last_update_id', 0) + 1,
+                'timeout': 1,  # Короткий таймаут для неблокирующего опроса
+                'limit': 10
+            }
+            
+            response = requests.get(url, params=params, timeout=5)
+            
+            if response.status_code != 200:
+                return False
+                
+            data = response.json()
+            
+            if not data.get('ok', False):
+                return False
+                
+            updates = data.get('result', [])
+            
+            if not updates:
+                return False
+                
+            # Обрабатываем каждое обновление
+            for update in updates:
+                self.last_update_id = update['update_id']
+                
+                if 'message' not in update:
+                    continue
+                    
+                message = update['message']
+                chat_id = str(message['chat']['id'])
+                
+                # Проверяем что сообщение от разрешенного пользователя
+                allowed_chat_ids = [
+                    str(self.config.get('telegram', {}).get('chat_id', '')),
+                    str(self.config.get('telegram', {}).get('chat_ids', {}).get('admin', ''))
+                ]
+                
+                if chat_id not in allowed_chat_ids:
+                    continue
+                    
+                if 'text' not in message:
+                    continue
+                    
+                command_text = message['text'].strip()
+                
+                # Игнорируем старые сообщения (более 5 минут)
+                message_date = message.get('date', 0)
+                current_time = int(time.time())
+                if current_time - message_date > 300:  # 5 минут
+                    continue
+                
+                # Обрабатываем команду
+                if command_text.startswith('/'):
+                    self.logger.info(f"📱 Получена команда: {command_text} от {chat_id}")
+                    response_text = self.process_command(command_text)
+                    
+                    # Отправляем ответ
+                    self.send_message_to_chat(response_text, chat_id)
+                    
+            return len(updates) > 0
+            
+        except requests.exceptions.RequestException as e:
+            self.logger.debug(f"Ошибка при получении обновлений Telegram: {e}")
+            return False
+        except Exception as e:
+            self.logger.error(f"Ошибка при обработке команд Telegram: {e}")
+            return False
+    
+    def send_message_to_chat(self, text: str, chat_id: str) -> bool:
+        """Отправка сообщения в конкретный чат"""
+        try:
+            bot_token = self.config.get('telegram', {}).get('bot_token')
+            if not bot_token:
+                return False
+                
+            url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+            payload = {
+                'chat_id': chat_id,
+                'text': text,
+                'parse_mode': 'Markdown'
+            }
+            
+            response = requests.post(url, json=payload, timeout=10)
+            return response.status_code == 200
+            
+        except Exception as e:
+            self.logger.error(f"Ошибка отправки сообщения в чат {chat_id}: {e}")
+            return False
+
     def process_command(self, command: str) -> str:
         """Обработка интерактивных команд"""
         if not self.config.get('telegram', {}).get('interactive_commands', False):

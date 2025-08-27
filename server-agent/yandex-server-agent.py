@@ -713,7 +713,15 @@ class YandexServerAgent:
         try:
             while True:
                 schedule.run_pending()
-                time.sleep(60)  # Проверяем расписание каждую минуту
+                
+                # Проверяем команды Telegram каждый цикл
+                if self.telegram:
+                    try:
+                        self.telegram.check_for_commands()
+                    except Exception as e:
+                        self.log_error(f"Ошибка обработки команд Telegram: {e}")
+                
+                time.sleep(30)  # Уменьшили интервал для быстрой реакции на команды
                 
         except KeyboardInterrupt:
             self.log_info("🛑 Агент остановлен пользователем")
