@@ -270,7 +270,7 @@ class TelegramNotifier:
                 
                 # Обрабатываем команду
                 if command_text.startswith('/'):
-                    self.logger.info(f"📱 Получена команда: {command_text} от {chat_id}")
+                    print(f"📱 Получена команда: {command_text} от {chat_id}")  # Используем print вместо logger
                     response_text = self.process_command(command_text)
                     
                     # Отправляем ответ
@@ -279,10 +279,10 @@ class TelegramNotifier:
             return len(updates) > 0
             
         except requests.exceptions.RequestException as e:
-            self.logger.debug(f"Ошибка при получении обновлений Telegram: {e}")
+            print(f"DEBUG: Ошибка при получении обновлений Telegram: {e}")
             return False
         except Exception as e:
-            self.logger.error(f"Ошибка при обработке команд Telegram: {e}")
+            print(f"ERROR: Ошибка при обработке команд Telegram: {e}")
             return False
     
     def send_message_to_chat(self, text: str, chat_id: str) -> bool:
@@ -303,7 +303,7 @@ class TelegramNotifier:
             return response.status_code == 200
             
         except Exception as e:
-            self.logger.error(f"Ошибка отправки сообщения в чат {chat_id}: {e}")
+            print(f"ERROR: Ошибка отправки сообщения в чат {chat_id}: {e}")
             return False
 
     def process_command(self, command: str) -> str:
