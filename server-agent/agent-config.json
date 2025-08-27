@@ -1,213 +1,181 @@
 {
-  "agent": {
-    "name": "YandexServerAgent",
-    "version": "2.1.0",
-    "type": "server-maintenance",
-    "created": "2025-08-26",
-    "description": "Автономный агент поддержки сервера Yandex Cloud"
-  },
-  "server": {
-    "provider": "yandex-cloud",
-    "id": "fhmmuttj78nf215noffh",
-    "ip": "46.21.247.218",
-    "hostname": "gita-server",
-    "os": "Ubuntu 24.04.3 LTS",
-    "project_path": "/home/yc-user/gita-1972/",
-    "user": "yc-user"
-  },
-  "monitoring": {
-    "enabled": true,
-    "interval_minutes": 15,
-    "working_hours": "24/7",
-    "timezone": "Europe/Moscow",
-    "alerts": {
-      "cpu_threshold": 80,
-      "memory_threshold": 80,
-      "disk_threshold": 85,
-      "api_timeout": 10
+    "agent": {
+        "name": "YandexServerAgent",
+        "version": "2.1.0",
+        "type": "server-maintenance",
+        "created": "2025-08-26",
+        "description": "Автономный агент поддержки сервера Yandex Cloud"
     },
-    "vm_id": "fhmqd2mct32i12bapfn1",
-    "vm_ip": "46.21.247.218",
-    "api_endpoint": "http://46.21.247.218:3000"
-  },
-  "priorities": {
-    "critical": [
-      "api_availability",
-      "systemd_services",
-      "ssl_certificates",
-      "disk_space"
-    ],
-    "high": [
-      "security_updates",
-      "log_rotation",
-      "backup_validation",
-      "performance_monitoring"
-    ],
-    "medium": [
-      "dependency_updates",
-      "cache_cleanup",
-      "metric_collection",
-      "documentation_sync"
-    ]
-  },
-  "automation": {
-    "auto_restart_services": true,
-    "auto_cleanup_logs": true,
-    "auto_security_updates": true,
-    "auto_package_updates": false,
-    "auto_ssl_renewal": true,
-    "emergency_recovery": true,
-    "auto_reboot": false
-  },
-  "update_policy": {
-    "enabled": true,
-    "security_updates": true,
-    "package_updates": false,
-    "allowed_packages": [
-      "python3",
-      "python3-pip",
-      "python3-requests",
-      "python3-psutil",
-      "nginx",
-      "curl",
-      "git",
-      "certbot"
-    ],
-    "excluded_packages": [
-      "linux-*",
-      "kernel-*",
-      "grub-*"
-    ],
-    "maintenance_window": {
-      "enabled": true,
-      "start_time": "03:00",
-      "end_time": "05:00",
-      "timezone": "Europe/Moscow",
-      "days": [
-        "sunday"
-      ]
+    "server": {
+        "provider": "yandex-cloud",
+        "id": "fhmqd2mct32i12bapfn1",
+        "ip": "46.21.247.218",
+        "hostname": "gita-server",
+        "os": "Ubuntu 24.04.3 LTS",
+        "project_path": "/home/yc-user/gita-1972/",
+        "user": "yc-user"
     },
-    "notifications": {
-      "before_update": true,
-      "after_update": true,
-      "reboot_required": true
-    }
-  },
-  "sync": {
-    "cursor_ide": {
-      "enabled": true,
-      "sync_interval": "1h",
-      "config_path": ".cursor/",
-      "priority_file": ".cursor/rules/agent-priorities.mdc",
-      "status_file": ".cursor/sync-status.log"
+    "monitoring": {
+        "enabled": true,
+        "interval_minutes": 15,
+        "working_hours": "24/7",
+        "timezone": "Europe/Moscow",
+        "alerts": {
+            "cpu_threshold": 80,
+            "memory_threshold": 80,
+            "disk_threshold": 85,
+            "api_timeout": 10
+        },
+        "vm_id": "fhmqd2mct32i12bapfn1",
+        "vm_ip": "46.21.247.218",
+        "api_endpoint": "http://46.21.247.218:3000"
     },
-    "github": {
-      "enabled": true,
-      "repository": "egorKara/bhagavad-gita-reprint",
-      "sync_branch": "main",
-      "auto_pull": true
+    "priorities": {
+        "critical": ["api_availability", "systemd_services", "ssl_certificates", "disk_space"],
+        "high": ["security_updates", "log_rotation", "backup_validation", "performance_monitoring"],
+        "medium": ["dependency_updates", "cache_cleanup", "metric_collection", "documentation_sync"]
     },
-    "local_agents": {
-      "health_check_script": "deployment/health-check.sh",
-      "dashboard_script": "deployment/server-dashboard.sh",
-      "emergency_script": "deployment/api-emergency-fix.sh"
+    "automation": {
+        "auto_restart_services": true,
+        "auto_cleanup_logs": true,
+        "auto_security_updates": true,
+        "auto_package_updates": false,
+        "auto_ssl_renewal": true,
+        "emergency_recovery": true,
+        "auto_reboot": false
     },
-    "cursor_project_path": "/home/egorkara/gita-1972"
-  },
-  "services": {
-    "api": {
-      "name": "gita-api",
-      "type": "systemd",
-      "check_url": "https://api.gita-1972-reprint.ru/api/status",
-      "restart_policy": "always",
-      "max_restart_attempts": 3
+    "update_policy": {
+        "enabled": true,
+        "security_updates": true,
+        "package_updates": false,
+        "allowed_packages": [
+            "python3",
+            "python3-pip",
+            "python3-requests",
+            "python3-psutil",
+            "nginx",
+            "curl",
+            "git",
+            "certbot"
+        ],
+        "excluded_packages": ["linux-*", "kernel-*", "grub-*"],
+        "maintenance_window": {
+            "enabled": true,
+            "start_time": "03:00",
+            "end_time": "05:00",
+            "timezone": "Europe/Moscow",
+            "days": ["sunday"]
+        },
+        "notifications": {
+            "before_update": true,
+            "after_update": true,
+            "reboot_required": true
+        }
     },
-    "nginx": {
-      "name": "nginx",
-      "type": "systemd",
-      "config_path": "/etc/nginx/sites-available/gita-1972-reprint.ru",
-      "ssl_cert_path": "/etc/letsencrypt/live/gita-1972-reprint.ru/"
+    "sync": {
+        "cursor_ide": {
+            "enabled": true,
+            "sync_interval": "1h",
+            "config_path": ".cursor/",
+            "priority_file": ".cursor/rules/agent-priorities.mdc",
+            "status_file": ".cursor/sync-status.log"
+        },
+        "github": {
+            "enabled": true,
+            "repository": "egorKara/bhagavad-gita-reprint",
+            "sync_branch": "main",
+            "auto_pull": true
+        },
+        "local_agents": {
+            "health_check_script": "deployment/health-check.sh",
+            "dashboard_script": "deployment/server-dashboard.sh",
+            "emergency_script": "deployment/api-emergency-fix.sh"
+        },
+        "cursor_project_path": "/home/egorkara/gita-1972"
     },
-    "certbot": {
-      "renewal_check": "weekly",
-      "auto_renew": true,
-      "notification_days": 7,
-      "ssl_cert_path": "/etc/letsencrypt/live/gita-1972-reprint.ru/"
-    }
-  },
-  "logging": {
-    "level": "INFO",
-    "log_file": "/home/yc-user/gita-1972/logs/server-agent.log",
-    "max_size_mb": 100,
-    "rotation_days": 30,
-    "remote_sync": true
-  },
-  "notifications": {
-    "enabled": true,
-    "channels": [
-      "log",
-      "sync"
-    ],
-    "critical_events": [
-      "service_down",
-      "ssl_expiring",
-      "disk_full",
-      "security_alert"
-    ]
-  },
-  "ai_integration": {
-    "enabled": true,
-    "yandexgpt_api_key": "YOUR_API_KEY_HERE",
-    "model": "yandexgpt-lite",
-    "max_tokens": 1000,
-    "temperature": 0.1,
-    "analyze_critical_only": true,
-    "auto_apply_safe_fixes": false
-  },
-  "telegram": {
-    "enabled": true,
-    "bot_token": "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s",
-    "chat_ids": {
-      "admin": "YOUR_ADMIN_CHAT_ID",
-      "alerts": "YOUR_ALERTS_CHAT_ID",
-      "reports": "YOUR_REPORTS_CHAT_ID"
+    "services": {
+        "api": {
+            "name": "gita-api",
+            "type": "systemd",
+            "check_url": "https://api.gita-1972-reprint.ru/api/status",
+            "restart_policy": "always",
+            "max_restart_attempts": 3
+        },
+        "nginx": {
+            "name": "nginx",
+            "type": "systemd",
+            "config_path": "/etc/nginx/sites-available/gita-1972-reprint.ru",
+            "ssl_cert_path": "/etc/letsencrypt/live/gita-1972-reprint.ru/"
+        },
+        "certbot": {
+            "renewal_check": "weekly",
+            "auto_renew": true,
+            "notification_days": 7,
+            "ssl_cert_path": "/etc/letsencrypt/live/gita-1972-reprint.ru/"
+        }
+    },
+    "logging": {
+        "level": "INFO",
+        "log_file": "/home/yc-user/gita-1972/logs/server-agent.log",
+        "max_size_mb": 100,
+        "rotation_days": 30,
+        "remote_sync": true
     },
     "notifications": {
-      "critical_alerts": true,
-      "daily_reports": true,
-      "weekly_summaries": true,
-      "maintenance_notifications": true
+        "enabled": true,
+        "channels": ["log", "sync"],
+        "critical_events": ["service_down", "ssl_expiring", "disk_full", "security_alert"]
     },
-    "interactive_commands": true,
-    "rate_limit": {
-      "max_messages_per_minute": 10,
-      "critical_override": true
+    "ai_integration": {
+        "enabled": true,
+        "yandexgpt_api_key": "YOUR_API_KEY_HERE",
+        "model": "yandexgpt-lite",
+        "max_tokens": 1000,
+        "temperature": 0.1,
+        "analyze_critical_only": true,
+        "auto_apply_safe_fixes": false
     },
-    "chat_id": "6878699213"
-  },
-  "yandex_monitoring": {
-    "enabled": true,
-    "service_account_key": "YOUR_SERVICE_ACCOUNT_KEY",
-    "folder_id": "b1ggm01ncoamcljg44qa",
-    "api_endpoint": "https://monitoring.api.cloud.yandex.net/monitoring/v2/data/write",
-    "metrics": {
-      "system_metrics": true,
-      "application_metrics": true,
-      "business_metrics": true,
-      "custom_metrics": true
+    "telegram": {
+        "enabled": true,
+        "bot_token": "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s",
+        "chat_ids": {
+            "admin": "6878699213",
+            "alerts": "6878699213",
+            "reports": "6878699213"
+        },
+        "notifications": {
+            "critical_alerts": true,
+            "daily_reports": true,
+            "weekly_summaries": true,
+            "maintenance_notifications": true
+        },
+        "interactive_commands": true,
+        "rate_limit": {
+            "max_messages_per_minute": 10,
+            "critical_override": true
+        },
+        "chat_id": "6878699213"
     },
-    "dashboards": {
-      "auto_create": true,
-      "update_interval": "1h"
-    },
-    "alerts": {
-      "enabled": true,
-      "notification_channels": [
-        "telegram",
-        "email"
-      ]
-    },
-    "retention_days": 30,
-    "vm_id": "fhmqd2mct32i12bapfn1"
-  }
+    "yandex_monitoring": {
+        "enabled": true,
+        "service_account_key": "YOUR_SERVICE_ACCOUNT_KEY",
+        "folder_id": "b1ggm01ncoamcljg44qa",
+        "api_endpoint": "https://monitoring.api.cloud.yandex.net/monitoring/v2/data/write",
+        "metrics": {
+            "system_metrics": true,
+            "application_metrics": true,
+            "business_metrics": true,
+            "custom_metrics": true
+        },
+        "dashboards": {
+            "auto_create": true,
+            "update_interval": "1h"
+        },
+        "alerts": {
+            "enabled": true,
+            "notification_channels": ["telegram", "email"]
+        },
+        "retention_days": 30,
+        "vm_id": "fhmqd2mct32i12bapfn1"
+    }
 }
