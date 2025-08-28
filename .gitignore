@@ -36,6 +36,56 @@ data/
 # Cursor Background Agents - секреты
 .cursor/environment.json
 
+# КРИТИЧЕСКАЯ БЕЗОПАСНОСТЬ - Секреты и токены
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+secrets.json
+tokens.json
+api-keys.json
+credentials.json
+config.json
+agent-config.json
+
+# SSH ключи
+ssh-key-*
+*.ssh
+id_rsa*
+id_ecdsa*
+id_ed25519*
+
+# Yandex Cloud
+yc-token
+.yandex-cloud/
+service-account-key.json
+
+# Telegram
+telegram-token*
+bot-token*
+chat-ids*
+
+# Временные файлы с секретами
+secrets-to-remove.txt
+clean-docs-secrets.sh
+*.secret
+*.token
+*.key.txt
+
+# Backup файлы с потенциальными секретами
+*.backup
+*.bak
+*.old
+*.orig
+
+# Логи с потенциальной конфиденциальной информацией
+logs/
+*.log.*
+error.log
+access.log
+security.log
+
 # Прочие файлы, которые не должны попасть в репозиторий
 npm-debug.log*
 yarn-debug.log*
