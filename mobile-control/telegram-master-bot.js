@@ -7,12 +7,11 @@
 
 const TelegramBot = require('node-telegram-bot-api');
 const axios = require('axios');
-const fs = require('fs').promises;
-const path = require('path');
+// const fs = require('fs').promises;
+// const path = require('path');
 
 // 🔐 Конфигурация (используем существующий бот)
-const BOT_TOKEN =
-    process.env.TELEGRAM_BOT_TOKEN || '8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s';
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID || '6878699213';
 const SERVER_API_URL = 'http://46.21.247.218:3000';
 
@@ -20,7 +19,7 @@ const SERVER_API_URL = 'http://46.21.247.218:3000';
 const bot = new TelegramBot(BOT_TOKEN, { polling: true });
 
 // 📊 Состояние системы
-let systemState = {
+const systemState = {
     agents: {
         cursor: { status: 'active', count: 3, lastCheck: new Date() },
         server: { status: 'active', uptime: '99.9%', lastCheck: new Date() },
@@ -511,6 +510,7 @@ bot.on('message', async msg => {
 });
 
 // 🚀 Периодические уведомления
+/* global setInterval */
 setInterval(
     async () => {
         try {

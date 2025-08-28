@@ -31,7 +31,7 @@ class ServerRecoverySystem:
         # Конфигурация серверов
         self.primary_server = {
             'id': 'fhmqd2mct32i12bapfn1',
-            'ip': '46.21.247.218',
+            'ip': os.environ.get('PRIMARY_SERVER_IP', '46.21.247.218'),
             'name': 'primary-gita-server'
         }
         
@@ -47,7 +47,7 @@ class ServerRecoverySystem:
         
         # Telegram для экстренных уведомлений
         self.telegram_config = {
-            'bot_token': os.environ.get('TELEGRAM_BOT_TOKEN', '8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s'),
+            'bot_token': os.environ.get('TELEGRAM_BOT_TOKEN'),
             'chat_id': os.environ.get('TELEGRAM_CHAT_ID', '6878699213')
         }
         

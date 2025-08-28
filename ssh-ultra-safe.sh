@@ -5,7 +5,7 @@
 set -e
 
 # Конфигурация
-SERVER_IP="46.21.247.218"
+SERVER_IP="${SERVER_IP:-46.21.247.218}"
 SSH_KEY="$HOME/.ssh/ssh-key-1753182147967"
 SSH_USER="yc-user"
 DEFAULT_TIMEOUT=10
