@@ -1,4 +1,4 @@
-using GitaLanding.Core.Entities;
+using GitaLanding.Data.Models;
 
 namespace GitaLanding.Data.Repositories;
 
@@ -23,9 +23,9 @@ public interface IBookRepository : IRepository<Book>
     Task<IEnumerable<Book>> GetAvailableBooksAsync();
 
     /// <summary>
-    /// Получить книги по году публикации
+    /// Получить книги по изданию
     /// </summary>
-    Task<IEnumerable<Book>> GetByPublicationYearAsync(int year);
+    Task<IEnumerable<Book>> GetByEditionAsync(string edition);
 
     /// <summary>
     /// Получить основную книгу (Bhagavad-gita As It Is)

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using GitaLanding.Core.Entities;
+using GitaLanding.Data.Models;
 using GitaLanding.Data;
 
 namespace GitaLanding.Data.Repositories;
@@ -22,7 +22,7 @@ public class BookRepository : Repository<Book>, IBookRepository
     public async Task<IEnumerable<Book>> GetByAuthorAsync(string authorName)
     {
         return await _dbSet
-            .Where(b => b.AuthorName.Contains(authorName))
+            .Where(b => b.Author.Contains(authorName))
             .OrderBy(b => b.Title)
             .ToListAsync();
     }
@@ -44,10 +44,10 @@ public class BookRepository : Repository<Book>, IBookRepository
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Book>> GetByPublicationYearAsync(int year)
+    public async Task<IEnumerable<Book>> GetByEditionAsync(string edition)
     {
         return await _dbSet
-            .Where(b => b.PublicationYear == year)
+            .Where(b => b.Edition.Contains(edition))
             .OrderBy(b => b.Title)
             .ToListAsync();
     }

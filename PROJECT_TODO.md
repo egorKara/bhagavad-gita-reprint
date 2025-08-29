@@ -6,7 +6,9 @@
 - [x] Создать API контроллеры (Books, Orders, Authors)
 - [x] Настроить Entity Framework Core
 - [x] Создать базу данных PostgreSQL
-- [ ] Запустить .NET API сервер
+- [x] Запустить .NET API сервер (базовая версия)
+- [ ] Настроить PostgreSQL базу данных
+- [ ] Восстановить полную функциональность API
 - [ ] Настроить Nginx для .NET
 - [ ] Интегрировать с frontend
 

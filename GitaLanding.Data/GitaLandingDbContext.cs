@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using GitaLanding.Core.Entities;
+using GitaLanding.Data.Models;
 
 namespace GitaLanding.Data;
 
@@ -36,12 +36,11 @@ public class GitaLandingDbContext : DbContext
         {
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
-            entity.Property(e => e.AuthorName).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Author).IsRequired().HasMaxLength(100);
             entity.Property(e => e.ISBN).HasMaxLength(20);
             entity.Property(e => e.Price).HasColumnType("decimal(18,2)");
-            entity.Property(e => e.Description).HasMaxLength(2000);
-            entity.Property(e => e.CoverImageUrl).HasMaxLength(500);
-            entity.Property(e => e.PublicationYear);
+            entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.CoverImage).HasMaxLength(100);
             entity.Property(e => e.StockQuantity);
             entity.Property(e => e.IsAvailable);
             entity.Property(e => e.CreatedAt);
@@ -49,7 +48,7 @@ public class GitaLandingDbContext : DbContext
 
             // Индексы для оптимизации поиска
             entity.HasIndex(e => e.Title);
-            entity.HasIndex(e => e.AuthorName);
+            entity.HasIndex(e => e.Author);
             entity.HasIndex(e => e.ISBN);
             entity.HasIndex(e => e.IsAvailable);
         });
@@ -58,30 +57,29 @@ public class GitaLandingDbContext : DbContext
         modelBuilder.Entity<BookOrder>(entity =>
         {
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.OrderNumber).IsRequired().HasMaxLength(50);
             entity.Property(e => e.CustomerName).IsRequired().HasMaxLength(100);
             entity.Property(e => e.CustomerEmail).IsRequired().HasMaxLength(100);
             entity.Property(e => e.CustomerPhone).HasMaxLength(20);
-            entity.Property(e => e.DeliveryAddress).IsRequired().HasMaxLength(500);
+            entity.Property(e => e.ShippingAddress).IsRequired().HasMaxLength(200);
             entity.Property(e => e.Quantity).IsRequired();
             entity.Property(e => e.TotalPrice).HasColumnType("decimal(18,2)");
-            entity.Property(e => e.Status).IsRequired();
-            entity.Property(e => e.DeliveryMethod).IsRequired();
+            entity.Property(e => e.OrderStatus).IsRequired();
+            entity.Property(e => e.PaymentStatus).IsRequired();
             entity.Property(e => e.PaymentMethod).IsRequired();
-            entity.Property(e => e.Notes).HasMaxLength(1000);
+            entity.Property(e => e.ShippingMethod).IsRequired();
+            entity.Property(e => e.Notes).HasMaxLength(500);
             entity.Property(e => e.CreatedAt);
             entity.Property(e => e.UpdatedAt);
 
             // Связь с книгой
-            entity.HasOne<Book>()
-                  .WithMany()
+            entity.HasOne(e => e.Book)
+                  .WithMany(b => b.Orders)
                   .HasForeignKey(e => e.BookId)
                   .OnDelete(DeleteBehavior.Restrict);
 
             // Индексы для оптимизации
-            entity.HasIndex(e => e.OrderNumber).IsUnique();
             entity.HasIndex(e => e.CustomerEmail);
-            entity.HasIndex(e => e.Status);
+            entity.HasIndex(e => e.OrderStatus);
             entity.HasIndex(e => e.CreatedAt);
         });
 
@@ -90,12 +88,11 @@ public class GitaLandingDbContext : DbContext
         {
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
-            entity.Property(e => e.Biography).HasMaxLength(5000);
-            entity.Property(e => e.BirthDate);
-            entity.Property(e => e.DeathDate);
-            entity.Property(e => e.Nationality).HasMaxLength(50);
-            entity.Property(e => e.PhotoUrl).HasMaxLength(500);
-            entity.Property(e => e.Website).HasMaxLength(200);
+            entity.Property(e => e.Biography).HasMaxLength(500);
+            entity.Property(e => e.BirthDate).HasMaxLength(20);
+            entity.Property(e => e.PassingDate).HasMaxLength(20);
+            entity.Property(e => e.Nationality).HasMaxLength(100);
+            entity.Property(e => e.Photo).HasMaxLength(100);
             entity.Property(e => e.CreatedAt);
             entity.Property(e => e.UpdatedAt);
 
@@ -109,11 +106,15 @@ public class GitaLandingDbContext : DbContext
         {
             Id = 1,
             Title = "Bhagavad-gita As It Is",
-            AuthorName = "A.C. Bhaktivedanta Swami Prabhupada",
+            Author = "A.C. Bhaktivedanta Swami Prabhupada",
+            Edition = "1972 Original",
+            Publisher = "Macmillan",
             ISBN = "978-0-89213-268-3",
-            Price = 1500.00m,
+            Language = "English",
+            Pages = 800,
             Description = "Классический перевод и комментарии к Бхагавад-гите от Шрилы Прабхупады",
-            PublicationYear = 1972,
+            Price = 1500.00m,
+            Currency = "RUB",
             StockQuantity = 100,
             IsAvailable = true,
             CreatedAt = DateTime.UtcNow,
@@ -125,11 +126,16 @@ public class GitaLandingDbContext : DbContext
         {
             Id = 1,
             Name = "A.C. Bhaktivedanta Swami Prabhupada",
+            Title = "Srila Prabhupada",
+            BirthName = "Abhay Charan De",
+            BirthDate = "1896-09-01",
+            PassingDate = "1977-11-14",
+            BirthPlace = "Calcutta, India",
+            Nationality = "Indian",
             Biography = "Основатель Международного общества сознания Кришны (ISKCON), выдающийся философ и духовный учитель",
-            BirthDate = new DateTime(1896, 9, 1),
-            DeathDate = new DateTime(1977, 11, 14),
-            Nationality = "Индийская",
-            PhotoUrl = "/assets/images/prabhupada.jpg",
+            Mission = "Распространение сознания Кришны по всему миру через перевод и комментарии к ведическим текстам",
+            Organization = "ISKCON",
+            Photo = "/assets/images/prabhupada.jpg",
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         });

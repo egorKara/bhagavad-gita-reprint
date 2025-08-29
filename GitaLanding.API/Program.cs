@@ -1,4 +1,3 @@
-using GitaLanding.Core.Services;
 using GitaLanding.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -26,9 +25,9 @@ builder.Services.AddDbContext<GitaLanding.Data.GitaLandingDbContext>(options =>
 // Добавляем репозитории
 builder.Services.AddScoped<GitaLanding.Data.Repositories.IBookRepository, GitaLanding.Data.Repositories.BookRepository>();
 
-// Добавляем сервисы
-builder.Services.AddScoped<IBookService, BookService>();
-builder.Services.AddScoped<IOrderService, OrderService>();
+// Добавляем сервисы (будут созданы позже)
+// builder.Services.AddScoped<IBookService, BookService>();
+// builder.Services.AddScoped<IOrderService, OrderService>();
 
 // Добавляем CORS
 builder.Services.AddCors(options =>
