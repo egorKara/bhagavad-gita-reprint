@@ -1,0 +1,203 @@
+{
+    "name": "Bhagavad Gita Reprint Design System",
+    "version": "1.0.0",
+    "description": "Дизайн-токены для духовного проекта с культурным уважением",
+
+    "colors": {
+        "sacred": {
+            "gold": {
+                "value": "#D4AF37",
+                "description": "Золото - божественность, мудрость"
+            },
+            "gold-light": {
+                "value": "#F4E4BC",
+                "description": "Светлое золото для акцентов"
+            },
+            "gold-dark": {
+                "value": "#B8941F",
+                "description": "Тёмное золото для ховеров"
+            }
+        },
+        "divine": {
+            "blue": {
+                "value": "#1E3A8A",
+                "description": "Глубокий синий - бесконечность, истина"
+            },
+            "blue-light": {
+                "value": "#3B82F6",
+                "description": "Светлый синий"
+            },
+            "blue-dark": {
+                "value": "#1E40AF",
+                "description": "Тёмный синий"
+            }
+        },
+        "spiritual": {
+            "lotus-pink": {
+                "value": "#F8BBD9",
+                "description": "Розовый лотоса - чистота"
+            },
+            "saffron-orange": {
+                "value": "#FF8C00",
+                "description": "Шафрановый - отречение, мудрость"
+            },
+            "nature-green": {
+                "value": "#059669",
+                "description": "Зелёный природы - жизнь, рост"
+            },
+            "om-purple": {
+                "value": "#7C3AED",
+                "description": "Фиолетовый ОМ - духовность"
+            }
+        },
+        "neutral": {
+            "pure-white": {
+                "value": "#FFFFFF",
+                "description": "Чистый белый"
+            },
+            "warm-white": {
+                "value": "#FEFCF3",
+                "description": "Тёплый белый"
+            },
+            "light-gray": {
+                "value": "#F3F4F6",
+                "description": "Светло-серый"
+            },
+            "medium-gray": {
+                "value": "#6B7280",
+                "description": "Средний серый"
+            },
+            "dark-gray": {
+                "value": "#374151",
+                "description": "Тёмно-серый"
+            },
+            "charcoal": {
+                "value": "#1F2937",
+                "description": "Угольный"
+            }
+        }
+    },
+
+    "typography": {
+        "fontFamilies": {
+            "serif": {
+                "value": "'Crimson Text', 'Times New Roman', serif",
+                "description": "Для заголовков и священных текстов"
+            },
+            "sans": {
+                "value": "'Inter', 'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+                "description": "Для основного текста и UI"
+            },
+            "mono": {
+                "value": "'SF Mono', Monaco, 'Cascadia Code', monospace",
+                "description": "Для кода и технических элементов"
+            }
+        },
+        "fontSizes": {
+            "xs": { "value": "0.75rem", "description": "12px - мелкий текст" },
+            "sm": { "value": "0.875rem", "description": "14px - подписи" },
+            "base": { "value": "1rem", "description": "16px - основной размер" },
+            "lg": { "value": "1.125rem", "description": "18px - крупный текст" },
+            "xl": { "value": "1.25rem", "description": "20px - подзаголовки" },
+            "2xl": { "value": "1.5rem", "description": "24px - заголовки H3" },
+            "3xl": { "value": "1.875rem", "description": "30px - заголовки H2" },
+            "4xl": { "value": "2.25rem", "description": "36px - заголовки H1" },
+            "5xl": { "value": "3rem", "description": "48px - главные заголовки" },
+            "6xl": { "value": "3.75rem", "description": "60px - героические заголовки" }
+        },
+        "fontWeights": {
+            "light": { "value": "300", "description": "Лёгкий" },
+            "normal": { "value": "400", "description": "Обычный" },
+            "medium": { "value": "500", "description": "Средний" },
+            "semibold": { "value": "600", "description": "Полужирный" },
+            "bold": { "value": "700", "description": "Жирный" }
+        },
+        "lineHeights": {
+            "tight": { "value": "1.25", "description": "Для заголовков" },
+            "snug": { "value": "1.375", "description": "Для подзаголовков" },
+            "normal": { "value": "1.5", "description": "Для основного текста" },
+            "relaxed": { "value": "1.625", "description": "Для длинного текста" },
+            "loose": { "value": "2", "description": "Для цитат и стихов" }
+        }
+    },
+
+    "spacing": {
+        "xs": { "value": "0.25rem", "description": "4px" },
+        "sm": { "value": "0.5rem", "description": "8px" },
+        "md": { "value": "1rem", "description": "16px" },
+        "lg": { "value": "1.5rem", "description": "24px" },
+        "xl": { "value": "2rem", "description": "32px" },
+        "2xl": { "value": "3rem", "description": "48px" },
+        "3xl": { "value": "4rem", "description": "64px" },
+        "4xl": { "value": "6rem", "description": "96px" },
+        "5xl": { "value": "8rem", "description": "128px" }
+    },
+
+    "borderRadius": {
+        "none": { "value": "0", "description": "Без скругления" },
+        "sm": { "value": "0.25rem", "description": "Небольшое скругление" },
+        "md": { "value": "0.5rem", "description": "Среднее скругление" },
+        "lg": { "value": "0.75rem", "description": "Большое скругление" },
+        "xl": { "value": "1rem", "description": "Очень большое скругление" },
+        "full": { "value": "9999px", "description": "Полное скругление" }
+    },
+
+    "shadows": {
+        "sm": {
+            "value": "0 1px 2px rgba(0, 0, 0, 0.05)",
+            "description": "Лёгкая тень"
+        },
+        "md": {
+            "value": "0 4px 6px rgba(0, 0, 0, 0.1)",
+            "description": "Средняя тень"
+        },
+        "lg": {
+            "value": "0 10px 15px rgba(0, 0, 0, 0.1)",
+            "description": "Большая тень"
+        },
+        "sacred": {
+            "value": "0 4px 20px rgba(212, 175, 55, 0.3)",
+            "description": "Золотое свечение"
+        },
+        "divine": {
+            "value": "0 4px 20px rgba(30, 58, 138, 0.2)",
+            "description": "Синее свечение"
+        }
+    },
+
+    "breakpoints": {
+        "mobile": { "value": "768px", "description": "Мобильные устройства" },
+        "tablet": { "value": "1024px", "description": "Планшеты" },
+        "desktop": { "value": "1280px", "description": "Десктопы" },
+        "wide": { "value": "1536px", "description": "Широкие экраны" }
+    },
+
+    "animation": {
+        "duration": {
+            "fast": { "value": "0.15s", "description": "Быстрая анимация" },
+            "normal": { "value": "0.2s", "description": "Обычная анимация" },
+            "slow": { "value": "0.3s", "description": "Медленная анимация" }
+        },
+        "easing": {
+            "linear": { "value": "linear", "description": "Линейная" },
+            "ease-in": { "value": "ease-in", "description": "Ускорение" },
+            "ease-out": { "value": "ease-out", "description": "Замедление" },
+            "ease-in-out": { "value": "ease-in-out", "description": "Ускорение-замедление" }
+        }
+    },
+
+    "spiritual": {
+        "lotus": {
+            "petals": { "value": "8", "description": "Количество лепестков лотоса" },
+            "symbolism": { "value": "purity", "description": "Символизм чистоты" }
+        },
+        "om": {
+            "frequency": { "value": "432Hz", "description": "Священная частота" },
+            "symbolism": { "value": "universal-sound", "description": "Универсальный звук" }
+        },
+        "mandala": {
+            "sections": { "value": "8", "description": "Секции мандалы" },
+            "center": { "value": "divine-consciousness", "description": "Божественное сознание" }
+        }
+    }
+}

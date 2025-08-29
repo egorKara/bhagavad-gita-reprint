@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>🕉️ Bhagavad Gita Design System Demo</title>
+        <link rel="stylesheet" href="./bhagavad-gita-design-system.css" />
+        <style>
+            .demo-section {
+                margin: 3rem 0;
+                padding: 2rem;
+                border: 1px solid var(--color-border-light);
+                border-radius: var(--border-radius-lg);
+                background: var(--color-bg-secondary);
+            }
+
+            .demo-title {
+                color: var(--color-divine-blue);
+                border-bottom: 2px solid var(--color-sacred-gold);
+                padding-bottom: 0.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .color-palette {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+                margin: 1rem 0;
+            }
+
+            .color-swatch {
+                padding: 1rem;
+                border-radius: var(--border-radius-md);
+                color: white;
+                text-align: center;
+                font-weight: var(--font-weight-medium);
+                font-size: var(--font-size-sm);
+            }
+
+            .button-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+                margin: 1rem 0;
+            }
+
+            .typography-sample {
+                margin: 1rem 0;
+                padding: 1rem;
+                background: var(--color-warm-white);
+                border-radius: var(--border-radius-md);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <!-- 🏛️ Заголовок -->
+            <div class="hero-layout" style="min-height: 60vh">
+                <div class="text-center">
+                    <h1 class="sacred-heading">🕉️ Bhagavad Gita Design System</h1>
+                    <p class="spiritual-quote">Духовная дизайн-система с культурным уважением</p>
+                    <div class="om-symbol">ॐ</div>
+                </div>
+            </div>
+
+            <!-- 🎨 Цветовая палитра -->
+            <section class="demo-section">
+                <h2 class="demo-title">🎨 Цветовая палитра</h2>
+
+                <h3>Священные цвета:</h3>
+                <div class="color-palette">
+                    <div class="color-swatch" style="background: var(--color-sacred-gold)">
+                        Золото<br />#D4AF37
+                    </div>
+                    <div class="color-swatch" style="background: var(--color-divine-blue)">
+                        Божественный синий<br />#1E3A8A
+                    </div>
+                    <div
+                        class="color-swatch"
+                        style="background: var(--color-lotus-pink); color: var(--color-divine-blue)"
+                    >
+                        Лотос<br />#F8BBD9
+                    </div>
+                    <div class="color-swatch" style="background: var(--color-saffron-orange)">
+                        Шафран<br />#FF8C00
+                    </div>
+                    <div class="color-swatch" style="background: var(--color-nature-green)">
+                        Природа<br />#059669
+                    </div>
+                    <div class="color-swatch" style="background: var(--color-om-purple)">
+                        ОМ<br />#7C3AED
+                    </div>
+                </div>
+            </section>
+
+            <!-- 📝 Типографика -->
+            <section class="demo-section">
+                <h2 class="demo-title">📝 Типографика</h2>
+
+                <div class="typography-sample">
+                    <h1>Заголовок H1 - Священный текст</h1>
+                    <h2>Заголовок H2 - Божественная мудрость</h2>
+                    <h3>Заголовок H3 - Духовное знание</h3>
+                    <h4>Заголовок H4 - Внутреннее понимание</h4>
+
+                    <p class="reading-text">
+                        Это основной текст для чтения. Он использует шрифт Inter для максимальной
+                        читаемости и оптимальную длину строки 65 символов для комфортного
+                        восприятия.
+                    </p>
+
+                    <blockquote class="verse-text">
+                        "Как человек надевает новые одежды, оставив старые, так и душа принимает
+                        новые материальные тела, оставив старые и бесполезные."
+                        <br /><em>— Бхагавад-гита, 2.22</em>
+                    </blockquote>
+
+                    <div class="sacred-text">
+                        🕉️ Священный текст с особым оформлением для духовных цитат и мантр
+                    </div>
+                </div>
+            </section>
+
+            <!-- 🧩 Кнопки -->
+            <section class="demo-section">
+                <h2 class="demo-title">🧩 Система кнопок</h2>
+
+                <div class="button-grid">
+                    <button class="btn btn-primary">Основная кнопка</button>
+                    <button class="btn btn-secondary">Вторичная кнопка</button>
+                    <button class="btn btn-ghost">Призрачная кнопка</button>
+                    <button class="btn btn-lotus">Кнопка лотоса</button>
+                    <button class="btn btn-action">Кнопка действия</button>
+                    <button class="btn btn-sacred">Священная кнопка</button>
+                </div>
+
+                <h3>Размеры кнопок:</h3>
+                <div class="flex-grid justify-center items-center">
+                    <button class="btn btn-primary btn-sm">Маленькая</button>
+                    <button class="btn btn-primary">Обычная</button>
+                    <button class="btn btn-primary btn-lg">Большая</button>
+                    <button class="btn btn-primary btn-xl">Очень большая</button>
+                </div>
+
+                <h3>Специальные кнопки:</h3>
+                <div class="flex-grid justify-center items-center">
+                    <button class="btn btn-om">ॐ</button>
+                    <button class="btn btn-link">Ссылка</button>
+                    <button class="btn btn-primary" disabled>Отключённая</button>
+                </div>
+            </section>
+
+            <!-- 📱 Адаптивная сетка -->
+            <section class="demo-section">
+                <h2 class="demo-title">📱 Адаптивная сетка</h2>
+
+                <h3>Священная сетка (золотое сечение):</h3>
+                <div class="sacred-grid">
+                    <div
+                        style="
+                            background: var(--color-lotus-pink);
+                            padding: 2rem;
+                            border-radius: var(--border-radius-md);
+                            text-align: center;
+                            color: var(--color-divine-blue);
+                        "
+                    >
+                        Меньшая часть<br />(φ = 1)
+                    </div>
+                    <div
+                        style="
+                            background: var(--color-sacred-gold);
+                            padding: 2rem;
+                            border-radius: var(--border-radius-md);
+                            text-align: center;
+                            color: white;
+                        "
+                    >
+                        Большая часть<br />(φ = 1.618)
+                    </div>
+                </div>
+
+                <h3>Трёхколоночная сетка:</h3>
+                <div class="three-column">
+                    <div
+                        style="
+                            background: var(--color-divine-blue);
+                            padding: 1.5rem;
+                            border-radius: var(--border-radius-md);
+                            color: white;
+                            text-align: center;
+                        "
+                    >
+                        Колонка 1
+                    </div>
+                    <div
+                        style="
+                            background: var(--color-nature-green);
+                            padding: 1.5rem;
+                            border-radius: var(--border-radius-md);
+                            color: white;
+                            text-align: center;
+                        "
+                    >
+                        Колонка 2
+                    </div>
+                    <div
+                        style="
+                            background: var(--color-om-purple);
+                            padding: 1.5rem;
+                            border-radius: var(--border-radius-md);
+                            color: white;
+                            text-align: center;
+                        "
+                    >
+                        Колонка 3
+                    </div>
+                </div>
+            </section>
+
+            <!-- 🕉️ Духовные элементы -->
+            <section class="demo-section">
+                <h2 class="demo-title">🕉️ Духовные элементы</h2>
+
+                <div class="lotus-divider">🪷 ✦ 🪷 ✦ 🪷</div>
+
+                <div class="verse-layout">
+                    <div class="om-symbol">ॐ</div>
+                    <div>
+                        <h3 class="sacred-heading">Священный стих</h3>
+                        <p class="verse-text">
+                            "Тот, кто видит бездействие в действии и действие в бездействии, мудр
+                            среди людей и совершает все действия в духе преданности."
+                        </p>
+                        <p class="text-muted">— Бхагавад-гита, 4.18</p>
+                    </div>
+                </div>
+
+                <div class="center">
+                    <div class="om-symbol gentle-pulse">ॐ शान्ति शान्ति शान्तिः</div>
+                </div>
+            </section>
+
+            <!-- 🌙 Переключатель темы -->
+            <section class="demo-section">
+                <h2 class="demo-title">🌙 Темы</h2>
+                <div class="center">
+                    <button class="btn btn-ghost" onclick="toggleTheme()">Переключить тему</button>
+                </div>
+            </section>
+
+            <!-- 📋 Заключение -->
+            <section class="demo-section text-center">
+                <h2 class="sacred-heading">🙏 Намасте</h2>
+                <p class="spiritual-quote">
+                    Эта дизайн-система создана с глубоким уважением к духовным традициям<br />
+                    и стремлением к красоте, гармонии и доступности.
+                </p>
+                <div class="lotus-divider">🪷</div>
+            </section>
+        </div>
+
+        <script>
+            // Переключение темы
+            function toggleTheme() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            }
+
+            // Загрузка сохранённой темы
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        </script>
+    </body>
+</html>

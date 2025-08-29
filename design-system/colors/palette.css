@@ -1,0 +1,87 @@
+/* 🎨 Цветовая палитра Bhagavad Gita Reprint */
+/* Духовные и сакральные цвета с культурным уважением */
+
+:root {
+    /* 🕉️ Основные духовные цвета */
+    --color-sacred-gold: #d4af37; /* Золото - божественность, мудрость */
+    --color-sacred-gold-light: #f4e4bc; /* Светлое золото */
+    --color-sacred-gold-dark: #b8941f; /* Тёмное золото */
+
+    --color-divine-blue: #1e3a8a; /* Глубокий синий - бесконечность, истина */
+    --color-divine-blue-light: #3b82f6; /* Светлый синий */
+    --color-divine-blue-dark: #1e40af; /* Тёмный синий */
+
+    /* 🌸 Сакральные акцентные цвета */
+    --color-lotus-pink: #f8bbd9; /* Розовый лотоса - чистота */
+    --color-saffron-orange: #ff8c00; /* Шафрановый - отречение, мудрость */
+    --color-nature-green: #059669; /* Зелёный природы - жизнь, рост */
+    --color-om-purple: #7c3aed; /* Фиолетовый ОМ - духовность */
+
+    /* 🤍 Нейтральные цвета */
+    --color-pure-white: #ffffff; /* Чистый белый */
+    --color-warm-white: #fefcf3; /* Тёплый белый */
+    --color-light-gray: #f3f4f6; /* Светло-серый */
+    --color-medium-gray: #6b7280; /* Средний серый */
+    --color-dark-gray: #374151; /* Тёмно-серый */
+    --color-charcoal: #1f2937; /* Угольный */
+
+    /* 🌙 Тёмная тема */
+    --color-dark-bg: #0f172a; /* Тёмный фон */
+    --color-dark-surface: #1e293b; /* Тёмная поверхность */
+    --color-dark-border: #334155; /* Тёмная граница */
+
+    /* 🎯 Функциональные цвета */
+    --color-success: #10b981; /* Успех */
+    --color-warning: #f59e0b; /* Предупреждение */
+    --color-error: #ef4444; /* Ошибка */
+    --color-info: #3b82f6; /* Информация */
+
+    /* 📱 Интерактивные состояния */
+    --color-hover: rgba(212, 175, 55, 0.1); /* Ховер золотой */
+    --color-active: rgba(212, 175, 55, 0.2); /* Активное золотое */
+    --color-focus: rgba(30, 58, 138, 0.3); /* Фокус синий */
+    --color-disabled: rgba(107, 114, 128, 0.5); /* Отключённое */
+}
+
+/* 🎨 Семантические цвета для компонентов */
+:root {
+    /* Основные цвета интерфейса */
+    --color-primary: var(--color-sacred-gold);
+    --color-primary-hover: var(--color-sacred-gold-dark);
+    --color-secondary: var(--color-divine-blue);
+    --color-secondary-hover: var(--color-divine-blue-dark);
+
+    /* Текстовые цвета */
+    --color-text-primary: var(--color-charcoal);
+    --color-text-secondary: var(--color-dark-gray);
+    --color-text-muted: var(--color-medium-gray);
+    --color-text-inverse: var(--color-pure-white);
+
+    /* Фоновые цвета */
+    --color-bg-primary: var(--color-pure-white);
+    --color-bg-secondary: var(--color-warm-white);
+    --color-bg-tertiary: var(--color-light-gray);
+
+    /* Границы */
+    --color-border-light: rgba(107, 114, 128, 0.2);
+    --color-border-medium: rgba(107, 114, 128, 0.3);
+    --color-border-dark: rgba(107, 114, 128, 0.4);
+}
+
+/* 🌙 Тёмная тема */
+[data-theme='dark'] {
+    --color-primary: var(--color-sacred-gold-light);
+    --color-secondary: var(--color-divine-blue-light);
+
+    --color-text-primary: var(--color-pure-white);
+    --color-text-secondary: var(--color-light-gray);
+    --color-text-muted: var(--color-medium-gray);
+
+    --color-bg-primary: var(--color-dark-bg);
+    --color-bg-secondary: var(--color-dark-surface);
+    --color-bg-tertiary: var(--color-dark-border);
+
+    --color-border-light: rgba(255, 255, 255, 0.1);
+    --color-border-medium: rgba(255, 255, 255, 0.2);
+    --color-border-dark: rgba(255, 255, 255, 0.3);
+}

@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>🕉️ Бхагавад-Гита как она есть — Оригинальное издание 1972 года</title>
+        <meta
+            name="description"
+            content="Точное воспроизведение оригинального издания Бхагавад-Гиты 1972 года от Macmillan Publishing. Полный текст с комментариями А.Ч. Бхактиведанты Свами Прабхупады."
+        />
+        <meta
+            name="keywords"
+            content="Бхагавад-Гита, 1972, оригинальное издание, репринт, Свами Прабхупада, ведическая философия"
+        />
+        <meta name="author" content="A.C. Bhaktivedanta Swami Prabhupada" />
+
+        <style>
+            /* 🎨 Минималистичная палитра (только 3 цвета) */
+            :root {
+                --color-gold: #d4af37; /* Золотой - главный */
+                --color-blue: #1e3a8a; /* Синий - акцент */
+                --color-white: #ffffff; /* Белый - фон */
+
+                /* Оттенки для вариаций */
+                --color-gold-light: #f4e4bc;
+                --color-blue-light: #3b82f6;
+                --color-gray: #6b7280;
+            }
+
+            /* 🌍 Глобальные стили без границ */
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family:
+                    'Inter',
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    sans-serif;
+                line-height: 1.6;
+                color: var(--color-blue);
+                background-color: var(--color-white);
+                text-align: center;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 2rem;
+            }
+
+            /* 📝 Типографика */
+            h1 {
+                font-family: 'Crimson Text', serif;
+                font-size: 3rem;
+                color: var(--color-gold);
+                margin-bottom: 1rem;
+                font-weight: 700;
+            }
+
+            h2 {
+                font-family: 'Crimson Text', serif;
+                font-size: 2.5rem;
+                color: var(--color-blue);
+                margin-bottom: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.75rem;
+                color: var(--color-gold);
+                margin-bottom: 1rem;
+            }
+
+            p {
+                font-size: 1.125rem;
+                margin-bottom: 1.5rem;
+                max-width: 65ch;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            /* 🧩 Кнопки без границ */
+            .btn {
+                display: inline-block;
+                padding: 1rem 2rem;
+                font-size: 1.125rem;
+                font-weight: 600;
+                text-decoration: none;
+                border-radius: 0.5rem;
+                transition: all 0.3s ease;
+                cursor: pointer;
+                border: none;
+                margin: 0.5rem;
+            }
+
+            .btn-primary {
+                background: var(--color-gold);
+                color: var(--color-white);
+            }
+
+            .btn-primary:hover {
+                background: #b8941f;
+                transform: translateY(-2px);
+            }
+
+            .btn-secondary {
+                background: var(--color-blue);
+                color: var(--color-white);
+            }
+
+            .btn-secondary:hover {
+                background: #1e40af;
+                transform: translateY(-2px);
+            }
+
+            .btn-ghost {
+                background: transparent;
+                color: var(--color-gold);
+            }
+
+            .btn-ghost:hover {
+                background: var(--color-gold-light);
+                color: var(--color-blue);
+            }
+
+            /* 🏛️ Секции */
+            section {
+                padding: 4rem 0;
+                text-align: center;
+            }
+
+            .hero {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(135deg, var(--color-white), var(--color-gold-light));
+            }
+
+            .features {
+                background: var(--color-white);
+            }
+
+            .quote-section {
+                background: var(--color-gold-light);
+                padding: 6rem 0;
+            }
+
+            .author-section {
+                background: var(--color-white);
+            }
+
+            .order-section {
+                background: var(--color-blue-light);
+                color: var(--color-white);
+            }
+
+            /* 🕉️ Духовные элементы */
+            .om-symbol {
+                font-size: 3rem;
+                color: var(--color-gold);
+                margin: 2rem 0;
+                display: block;
+            }
+
+            .sacred-quote {
+                font-family: 'Crimson Text', serif;
+                font-size: 1.5rem;
+                font-style: italic;
+                color: var(--color-blue);
+                margin: 3rem auto;
+                padding: 2rem;
+                background: var(--color-white);
+                border-radius: 1rem;
+                max-width: 800px;
+            }
+
+            .divider {
+                text-align: center;
+                font-size: 2rem;
+                color: var(--color-gold);
+                margin: 4rem 0;
+            }
+
+            /* 📱 Сетка */
+            .grid {
+                display: grid;
+                gap: 2rem;
+                margin: 3rem 0;
+            }
+
+            .grid-3 {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .grid-2 {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+
+            .feature-card {
+                padding: 2rem;
+                text-align: center;
+                background: var(--color-white);
+                border-radius: 1rem;
+            }
+
+            .stats-card {
+                background: var(--color-white);
+                padding: 1.5rem;
+                border-radius: 1rem;
+                color: var(--color-blue);
+            }
+
+            /* 📱 Адаптивность */
+            @media (max-width: 768px) {
+                h1 {
+                    font-size: 2.5rem;
+                }
+                h2 {
+                    font-size: 2rem;
+                }
+                .container {
+                    padding: 0 1rem;
+                }
+                section {
+                    padding: 3rem 0;
+                }
+                .btn {
+                    padding: 0.875rem 1.5rem;
+                    font-size: 1rem;
+                }
+            }
+
+            /* 🌙 Тёмная тема */
+            [data-theme='dark'] {
+                --color-white: #1f2937;
+                --color-blue: #93c5fd;
+                --color-gold-light: #374151;
+            }
+
+            /* ♿ Доступность */
+            @media (prefers-reduced-motion: reduce) {
+                * {
+                    transition: none !important;
+                }
+                .btn:hover {
+                    transform: none;
+                }
+            }
+        </style>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="icon" href="favicon.png" />
+    </head>
+    <body>
+        <!-- 🏛️ Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="om-symbol">ॐ</div>
+                <h1>Бхагавад-Гита как она есть</h1>
+                <p style="font-size: 1.5rem; color: var(--color-blue); margin-bottom: 2rem">
+                    Оригинальное издание 1972 года от Macmillan Publishing
+                </p>
+                <p style="color: var(--color-gray); margin-bottom: 3rem">
+                    Точное воспроизведение легендарного издания с полным текстом, комментариями А.Ч.
+                    Бхактиведанты Свами Прабхупады и оригинальными иллюстрациями
+                </p>
+
+                <div>
+                    <a href="#order" class="btn btn-primary">📖 Заказать книгу</a>
+                    <a href="#about" class="btn btn-ghost">📚 Узнать больше</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🌸 Divider -->
+        <div class="divider">🪷 ✦ 🪷 ✦ 🪷</div>
+
+        <!-- 📚 О книге -->
+        <section id="about" class="features">
+            <div class="container">
+                <h2>📜 О священном тексте</h2>
+                <p>
+                    Бхагавад-Гита — это древний санскритский текст, являющийся частью эпоса
+                    Махабхарата. Это диалог между принцем Арджуной и Господом Кришной на поле битвы
+                    Курукшетра.
+                </p>
+
+                <div class="grid grid-3">
+                    <div class="feature-card">
+                        <div style="font-size: 2rem; margin-bottom: 1rem">📖</div>
+                        <h3>Полный текст</h3>
+                        <p style="color: var(--color-gray); font-size: 1rem">
+                            На санскрите с переводом
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div style="font-size: 2rem; margin-bottom: 1rem">💬</div>
+                        <h3>Подробные комментарии</h3>
+                        <p style="color: var(--color-gray); font-size: 1rem">Свами Прабхупады</p>
+                    </div>
+                    <div class="feature-card">
+                        <div style="font-size: 2rem; margin-bottom: 1rem">🎨</div>
+                        <h3>Оригинальные иллюстрации</h3>
+                        <p style="color: var(--color-gray); font-size: 1rem">1972 года</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🕉️ Священная цитата -->
+        <section class="quote-section">
+            <div class="container">
+                <div class="om-symbol">ॐ</div>
+                <div class="sacred-quote">
+                    "Как человек надевает новые одежды, оставив старые, так и душа принимает новые
+                    материальные тела, оставив старые и бесполезные."
+                    <br /><br /><em style="color: var(--color-gray)">— Бхагавад-гита, 2.22</em>
+                </div>
+            </div>
+        </section>
+
+        <!-- 👨‍🏫 Об авторе -->
+        <section class="author-section">
+            <div class="container">
+                <h2>👨‍🏫 А.Ч. Бхактиведанта Свами Прабхупада</h2>
+                <p>
+                    Его Божественная Милость А.Ч. Бхактиведанта Свами Прабхупада (1896-1977) —
+                    выдающийся ведический учёный, духовный учитель и переводчик.
+                </p>
+
+                <div class="grid grid-2" style="margin-top: 3rem">
+                    <div>
+                        <p>
+                            В возрасте 69 лет он отправился в Америку, чтобы исполнить наставление
+                            своего духовного учителя. За 12 лет он перевёл более 60 томов ведической
+                            литературы.
+                        </p>
+                    </div>
+                    <div class="stats-card">
+                        <h3 style="color: var(--color-gold); margin-bottom: 1rem">
+                            📚 Наследие учителя
+                        </h3>
+                        <p><strong>60+</strong> переведённых томов</p>
+                        <p><strong>100+</strong> храмов по миру</p>
+                        <p><strong>500 млн+</strong> книг распространено</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🛒 Заказ -->
+        <section id="order" class="order-section">
+            <div class="container">
+                <h2 style="color: var(--color-white)">📖 Заказать оригинальное издание</h2>
+                <p style="font-size: 1.25rem; margin-bottom: 3rem; color: var(--color-white)">
+                    Получите точную копию исторического издания 1972 года
+                </p>
+
+                <div class="grid grid-3">
+                    <div class="feature-card">
+                        <div style="font-size: 2rem; margin-bottom: 1rem">📦</div>
+                        <h3>Быстрая доставка</h3>
+                        <p style="color: var(--color-gray); font-size: 1rem">По всей России</p>
+                    </div>
+                    <div class="feature-card">
+                        <div style="font-size: 2rem; margin-bottom: 1rem">✅</div>
+                        <h3>100% аутентично</h3>
+                        <p style="color: var(--color-gray); font-size: 1rem">
+                            Точная копия 1972 года
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div style="font-size: 2rem; margin-bottom: 1rem">💎</div>
+                        <h3>Премиум качество</h3>
+                        <p style="color: var(--color-gray); font-size: 1rem">
+                            Высококачественная печать
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem">
+                    <a
+                        href="mailto:info@gita-1972-reprint.ru"
+                        class="btn btn-primary"
+                        style="font-size: 1.25rem; padding: 1.25rem 2.5rem"
+                    >
+                        🛒 Заказать сейчас
+                    </a>
+                </div>
+
+                <p style="margin-top: 2rem; color: var(--color-white)">
+                    💰 Цена:
+                    <span style="color: var(--color-gold); font-weight: 600"
+                        >уточняется индивидуально</span
+                    >
+                </p>
+            </div>
+        </section>
+
+        <!-- 🙏 Footer -->
+        <footer style="padding: 3rem 0; background: var(--color-white)">
+            <div class="container">
+                <div class="divider">🪷</div>
+                <div class="om-symbol" style="font-size: 2rem">ॐ</div>
+                <p style="color: var(--color-gray); font-size: 1rem">
+                    🕉️ Создано с преданностью и уважением к духовной традиции
+                </p>
+                <p style="color: var(--color-gray); font-size: 0.875rem; margin-top: 1rem">
+                    © 2025 Bhagavad-gita As It Is 1972 Reprint. Все права защищены.
+                </p>
+            </div>
+        </footer>
+
+        <!-- 🌙 Theme Toggle -->
+        <button
+            onclick="toggleTheme()"
+            style="
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                background: var(--color-gold);
+                color: var(--color-white);
+                width: 3rem;
+                height: 3rem;
+                border-radius: 50%;
+                border: none;
+                font-size: 1.25rem;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            "
+            title="Переключить тему"
+        >
+            🌙
+        </button>
+
+        <script>
+            // Переключение темы
+            function toggleTheme() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            }
+
+            // Загрузка сохранённой темы
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,261 @@
+/* 🧩 Система кнопок Bhagavad Gita Reprint */
+/* Духовные и функциональные кнопки */
+
+/* 🎯 Базовые стили кнопок */
+.btn {
+    /* Основа */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    /* Типографика */
+    font-family: var(--font-sans);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    white-space: nowrap;
+
+    /* Размеры и отступы */
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    border: 2px solid transparent;
+
+    /* Переходы */
+    transition: all 0.2s ease-in-out;
+
+    /* Состояния */
+    cursor: pointer;
+    user-select: none;
+
+    /* Фокус для доступности */
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--color-focus);
+    }
+
+    /* Отключённое состояние */
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+
+/* 🕉️ Основная кнопка (золотая - священная) */
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-sacred-gold), var(--color-sacred-gold-dark));
+    color: var(--color-pure-white);
+    border-color: var(--color-sacred-gold);
+    box-shadow: 0 2px 4px rgba(212, 175, 55, 0.2);
+
+    &:hover {
+        background: linear-gradient(
+            135deg,
+            var(--color-sacred-gold-dark),
+            var(--color-sacred-gold)
+        );
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(212, 175, 55, 0.4);
+    }
+}
+
+/* 🌊 Вторичная кнопка (синяя - мудрость) */
+.btn-secondary {
+    background: var(--color-divine-blue);
+    color: var(--color-pure-white);
+    border-color: var(--color-divine-blue);
+
+    &:hover {
+        background: var(--color-divine-blue-dark);
+        border-color: var(--color-divine-blue-dark);
+        transform: translateY(-1px);
+    }
+}
+
+/* 👻 Призрачная кнопка (прозрачная) */
+.btn-ghost {
+    background: transparent;
+    color: var(--color-sacred-gold);
+    border-color: var(--color-sacred-gold);
+
+    &:hover {
+        background: var(--color-hover);
+        color: var(--color-sacred-gold-dark);
+    }
+}
+
+/* 🌸 Кнопка лотоса (нежная) */
+.btn-lotus {
+    background: var(--color-lotus-pink);
+    color: var(--color-divine-blue);
+    border-color: var(--color-lotus-pink);
+
+    &:hover {
+        background: var(--color-pure-white);
+        border-color: var(--color-divine-blue);
+    }
+}
+
+/* 🔥 Кнопка действия (шафрановая) */
+.btn-action {
+    background: var(--color-saffron-orange);
+    color: var(--color-pure-white);
+    border-color: var(--color-saffron-orange);
+
+    &:hover {
+        background: #ff7700;
+        transform: translateY(-1px);
+    }
+}
+
+/* 📏 Размеры кнопок */
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: var(--font-size-sm);
+    border-radius: 0.375rem;
+}
+
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: var(--font-size-lg);
+    border-radius: 0.75rem;
+}
+
+.btn-xl {
+    padding: 1.25rem 2.5rem;
+    font-size: var(--font-size-xl);
+    border-radius: 1rem;
+    font-weight: var(--font-weight-semibold);
+}
+
+/* 📱 Полная ширина */
+.btn-full {
+    width: 100%;
+}
+
+/* 🔗 Кнопка-ссылка */
+.btn-link {
+    background: transparent;
+    color: var(--color-sacred-gold);
+    border: none;
+    padding: 0.25rem 0.5rem;
+    text-decoration: underline;
+
+    &:hover {
+        color: var(--color-sacred-gold-dark);
+        text-decoration: none;
+    }
+}
+
+/* 🎨 Кнопка с иконкой */
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .icon {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+    &.btn-sm .icon {
+        width: 1rem;
+        height: 1rem;
+    }
+
+    &.btn-lg .icon {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+}
+
+/* 🕉️ Специальные духовные кнопки */
+.btn-sacred {
+    background: linear-gradient(135deg, var(--color-sacred-gold), var(--color-saffron-orange));
+    color: var(--color-pure-white);
+    border: none;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    &:hover::before {
+        left: 100%;
+    }
+}
+
+.btn-om {
+    background: var(--color-om-purple);
+    color: var(--color-pure-white);
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+
+    &:hover {
+        background: #6d28d9;
+        transform: scale(1.05);
+    }
+}
+
+/* 📱 Мобильная адаптация */
+@media (max-width: 768px) {
+    .btn {
+        padding: 0.875rem 1.25rem;
+        font-size: var(--font-size-base);
+    }
+
+    .btn-sm {
+        padding: 0.625rem 1rem;
+        font-size: var(--font-size-sm);
+    }
+
+    .btn-lg {
+        padding: 1rem 1.75rem;
+        font-size: var(--font-size-lg);
+    }
+
+    .btn-xl {
+        padding: 1.125rem 2rem;
+        font-size: var(--font-size-xl);
+    }
+}
+
+/* ♿ Улучшенная доступность */
+@media (prefers-reduced-motion: reduce) {
+    .btn {
+        transition: none;
+    }
+
+    .btn:hover {
+        transform: none;
+    }
+}
+
+/* 🌙 Тёмная тема */
+[data-theme='dark'] {
+    .btn-ghost {
+        color: var(--color-sacred-gold-light);
+        border-color: var(--color-sacred-gold-light);
+    }
+
+    .btn-lotus {
+        background: rgba(248, 187, 217, 0.2);
+        color: var(--color-divine-blue-light);
+        border-color: rgba(248, 187, 217, 0.3);
+    }
+}

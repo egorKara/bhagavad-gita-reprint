@@ -1,0 +1,208 @@
+/* 📝 Типографическая система Bhagavad Gita Reprint */
+/* Духовная и читаемая типографика */
+
+/* 🔤 Импорт шрифтов */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* 📚 Семейства шрифтов */
+    --font-serif: 'Crimson Text', 'Times New Roman', serif; /* Для заголовков и цитат */
+    --font-sans:
+        'Inter', 'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif; /* Для основного текста */
+    --font-mono: 'SF Mono', Monaco, 'Cascadia Code', monospace; /* Для кода */
+
+    /* 📏 Размеры шрифтов (модульная шкала 1.25) */
+    --font-size-xs: 0.75rem; /* 12px */
+    --font-size-sm: 0.875rem; /* 14px */
+    --font-size-base: 1rem; /* 16px - базовый размер */
+    --font-size-lg: 1.125rem; /* 18px */
+    --font-size-xl: 1.25rem; /* 20px */
+    --font-size-2xl: 1.5rem; /* 24px */
+    --font-size-3xl: 1.875rem; /* 30px */
+    --font-size-4xl: 2.25rem; /* 36px */
+    --font-size-5xl: 3rem; /* 48px */
+    --font-size-6xl: 3.75rem; /* 60px */
+
+    /* ⚖️ Веса шрифтов */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* 📐 Высота строк */
+    --line-height-tight: 1.25; /* Для заголовков */
+    --line-height-snug: 1.375; /* Для подзаголовков */
+    --line-height-normal: 1.5; /* Для основного текста */
+    --line-height-relaxed: 1.625; /* Для длинного текста */
+    --line-height-loose: 2; /* Для цитат */
+
+    /* 🔤 Межбуквенные интервалы */
+    --letter-spacing-tighter: -0.05em;
+    --letter-spacing-tight: -0.025em;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 0.025em;
+    --letter-spacing-wider: 0.05em;
+    --letter-spacing-widest: 0.1em;
+}
+
+/* 📱 Адаптивные размеры для мобильных */
+@media (max-width: 768px) {
+    :root {
+        --font-size-3xl: 1.625rem; /* 26px */
+        --font-size-4xl: 2rem; /* 32px */
+        --font-size-5xl: 2.5rem; /* 40px */
+        --font-size-6xl: 3rem; /* 48px */
+    }
+}
+
+/* 🎯 Типографические классы */
+.font-serif {
+    font-family: var(--font-serif);
+}
+.font-sans {
+    font-family: var(--font-sans);
+}
+.font-mono {
+    font-family: var(--font-mono);
+}
+
+/* 📏 Размеры */
+.text-xs {
+    font-size: var(--font-size-xs);
+}
+.text-sm {
+    font-size: var(--font-size-sm);
+}
+.text-base {
+    font-size: var(--font-size-base);
+}
+.text-lg {
+    font-size: var(--font-size-lg);
+}
+.text-xl {
+    font-size: var(--font-size-xl);
+}
+.text-2xl {
+    font-size: var(--font-size-2xl);
+}
+.text-3xl {
+    font-size: var(--font-size-3xl);
+}
+.text-4xl {
+    font-size: var(--font-size-4xl);
+}
+.text-5xl {
+    font-size: var(--font-size-5xl);
+}
+.text-6xl {
+    font-size: var(--font-size-6xl);
+}
+
+/* ⚖️ Веса */
+.font-light {
+    font-weight: var(--font-weight-light);
+}
+.font-normal {
+    font-weight: var(--font-weight-normal);
+}
+.font-medium {
+    font-weight: var(--font-weight-medium);
+}
+.font-semibold {
+    font-weight: var(--font-weight-semibold);
+}
+.font-bold {
+    font-weight: var(--font-weight-bold);
+}
+
+/* 📐 Высоты строк */
+.leading-tight {
+    line-height: var(--line-height-tight);
+}
+.leading-snug {
+    line-height: var(--line-height-snug);
+}
+.leading-normal {
+    line-height: var(--line-height-normal);
+}
+.leading-relaxed {
+    line-height: var(--line-height-relaxed);
+}
+.leading-loose {
+    line-height: var(--line-height-loose);
+}
+
+/* 🔤 Межбуквенные интервалы */
+.tracking-tighter {
+    letter-spacing: var(--letter-spacing-tighter);
+}
+.tracking-tight {
+    letter-spacing: var(--letter-spacing-tight);
+}
+.tracking-normal {
+    letter-spacing: var(--letter-spacing-normal);
+}
+.tracking-wide {
+    letter-spacing: var(--letter-spacing-wide);
+}
+.tracking-wider {
+    letter-spacing: var(--letter-spacing-wider);
+}
+.tracking-widest {
+    letter-spacing: var(--letter-spacing-widest);
+}
+
+/* 🕉️ Специальные стили для духовного контента */
+.sacred-heading {
+    font-family: var(--font-serif);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+    color: var(--color-sacred-gold);
+}
+
+.verse-text {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-loose);
+    font-style: italic;
+    color: var(--color-text-secondary);
+    border-left: 3px solid var(--color-sacred-gold);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+}
+
+.spiritual-quote {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-relaxed);
+    text-align: center;
+    color: var(--color-divine-blue);
+    font-weight: var(--font-weight-medium);
+}
+
+.reading-text {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-primary);
+    max-width: 65ch; /* Оптимальная длина строки для чтения */
+}
+
+/* ♿ Доступность */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+@media (prefers-contrast: high) {
+    :root {
+        --color-text-primary: #000000;
+        --color-text-secondary: #333333;
+    }
+}
