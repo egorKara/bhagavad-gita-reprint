@@ -10,7 +10,7 @@
 ### **🤖 БОТ ДАННЫЕ:**
 - **Имя:** Gita Server Monitor
 - **Username:** @Gita_server_monitor_bot  
-- **Token:** `8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s`
+- **Token:** `[TELEGRAM_BOT_TOKEN]` (хранится в GitHub Secrets)
 - **Chat ID:** `6878699213`
 - **Bot ID:** `8319867749`
 
@@ -32,7 +32,7 @@
 {
   "telegram": {
     "enabled": true,
-    "bot_token": "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s",
+    "bot_token": "[TELEGRAM_BOT_TOKEN]",
     "chat_ids": {
       "admin": "6878699213",
       "alerts": "6878699213", 
