@@ -1,8 +1,8 @@
-# Project Context: Bhagavad Gita Reprint
+# Project Context: Bhagavad Gita Reprint (.NET)
 
 ## Core Information
 - **Project Name:** Bhagavad-Gita As It Is (1972 Original Edition)
-- **Status:** Completed, version 2.0.0
+- **Status:** Migrated to .NET, version 3.0.0
 - **Primary Goal:** Sale of licensed reprint of the original 1972 Macmillan edition
 - **Target Audience:** English-speaking spiritual seekers, collectors, scholars
 
@@ -13,11 +13,12 @@
 - **Value Proposition:** Authentic original edition vs. later modified versions
 
 ## Technical Architecture
-- **Frontend:** Static files (HTML5, CSS3, JavaScript ES6+)
-- **Backend:** Node.js + Express.js API server
+- **Frontend:** Static files (HTML5, CSS3, JavaScript ES6+) - GitHub Pages
+- **Backend:** ASP.NET Core 8 + Entity Framework Core
+- **Database:** PostgreSQL (production), SQLite (development)
 - **Deployment:** 
   - Frontend: GitHub Pages
-  - Backend: Yandex Cloud VM
+  - Backend: Yandex Cloud VM with .NET Runtime
 - **Domains:** 
   - Main: gita-1972-reprint.ru
   - API: api.gita-1972-reprint.ru
@@ -29,9 +30,17 @@
 - **SEO Optimized:** JSON-LD structured data, meta tags
 - **Performance:** Core Web Vitals optimized, lazy loading
 - **Accessibility:** WCAG 2.1 AA compliant
+- **API:** RESTful .NET Web API with Swagger documentation
 
 ## Current State
-- Project completed December 2024
-- All core functionality implemented
-- Production-ready with monitoring
-- Automated CI/CD pipeline active
+- **Architecture:** Migrated from Node.js to .NET (August 2025)
+- **Status:** .NET projects created, ready for setup
+- **Next Phase:** Local .NET development and server deployment
+- **Monitoring:** Prometheus + Serilog integration ready
+
+## Migration Benefits
+- **Performance:** Compiled .NET code vs interpreted Node.js
+- **Type Safety:** Strong typing with C# vs dynamic JavaScript
+- **Database:** Entity Framework Core vs manual SQL queries
+- **Security:** Built-in .NET security features
+- **Scalability:** Better resource management and performance
