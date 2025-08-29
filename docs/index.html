@@ -518,6 +518,31 @@
             </div>
         </footer>
 
+        <!-- 🔧 Design Mode Toggle -->
+        <button
+            id="designModeToggle"
+            onclick="toggleDesignMode()"
+            style="
+                position: fixed;
+                bottom: 2rem;
+                right: 6rem;
+                background: var(--blue);
+                color: var(--white);
+                width: 3.5rem;
+                height: 3.5rem;
+                border-radius: 50%;
+                border: none;
+                font-size: 1.25rem;
+                cursor: pointer;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease;
+                z-index: 1000;
+            "
+            title="Design Mode - показать структуру элементов"
+        >
+            🔧
+        </button>
+
         <!-- 🌙 Theme Toggle -->
         <button
             onclick="toggleTheme()"
@@ -535,6 +560,7 @@
                 cursor: pointer;
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
                 transition: all 0.3s ease;
+                z-index: 1000;
             "
             title="Переключить тему"
             onmouseover="this.style.transform='scale(1.1)'"

@@ -1,0 +1,44 @@
+{
+    "name": "yandex-server-agent",
+    "displayName": "Yandex Server Agent",
+    "description": "Remote server monitoring and management agent",
+    "version": "1.0.0",
+    "engines": {
+        "vscode": "^1.74.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "main": "./extension.js",
+    "contributes": {
+        "views": {
+            "explorer": [
+                {
+                    "id": "yandexServerAgent",
+                    "name": "Yandex Server Agent",
+                    "when": "true"
+                }
+            ]
+        },
+        "commands": [
+            {
+                "command": "yandexServerAgent.status",
+                "title": "Check Status",
+                "icon": "$(pulse)"
+            },
+            {
+                "command": "yandexServerAgent.logs",
+                "title": "View Logs",
+                "icon": "$(output)"
+            },
+            {
+                "command": "yandexServerAgent.restart",
+                "title": "Restart Services",
+                "icon": "$(refresh)"
+            }
+        ]
+    }
+}

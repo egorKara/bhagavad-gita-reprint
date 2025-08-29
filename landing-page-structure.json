@@ -1,0 +1,324 @@
+{
+    "name": "Bhagavad Gita Landing Page",
+    "type": "FRAME",
+    "width": 1440,
+    "height": 3000,
+    "backgroundColor": "#FFFFFF",
+    "children": [
+        {
+            "name": "Hero Section",
+            "type": "FRAME",
+            "width": 1440,
+            "height": 800,
+            "backgroundColor": "#F4E4BC",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 32,
+            "paddingTop": 120,
+            "paddingBottom": 120,
+            "paddingLeft": 80,
+            "paddingRight": 80,
+            "children": [
+                {
+                    "name": "OM Symbol",
+                    "type": "TEXT",
+                    "characters": "ॐ",
+                    "fontSize": 64,
+                    "fontFamily": "Inter",
+                    "fontWeight": 700,
+                    "fills": [{ "type": "SOLID", "color": { "r": 0.831, "g": 0.686, "b": 0.216 } }],
+                    "textAlignHorizontal": "CENTER"
+                },
+                {
+                    "name": "Main Title",
+                    "type": "TEXT",
+                    "characters": "Бхагавад-Гита как она есть",
+                    "fontSize": 48,
+                    "fontFamily": "Inter",
+                    "fontWeight": 700,
+                    "fills": [{ "type": "SOLID", "color": { "r": 0.831, "g": 0.686, "b": 0.216 } }],
+                    "textAlignHorizontal": "CENTER"
+                },
+                {
+                    "name": "Subtitle",
+                    "type": "TEXT",
+                    "characters": "Оригинальное издание 1972 года",
+                    "fontSize": 24,
+                    "fontFamily": "Inter",
+                    "fontWeight": 500,
+                    "fills": [{ "type": "SOLID", "color": { "r": 0.118, "g": 0.227, "b": 0.541 } }],
+                    "textAlignHorizontal": "CENTER"
+                },
+                {
+                    "name": "Description",
+                    "type": "TEXT",
+                    "characters": "Точное воспроизведение легендарного издания с полным текстом, комментариями А.Ч. Бхактиведанты Свами Прабхупады и оригинальными иллюстрациями",
+                    "fontSize": 18,
+                    "fontFamily": "Inter",
+                    "fontWeight": 400,
+                    "fills": [{ "type": "SOLID", "color": { "r": 0.42, "g": 0.447, "b": 0.502 } }],
+                    "textAlignHorizontal": "CENTER",
+                    "width": 800
+                },
+                {
+                    "name": "Buttons Container",
+                    "type": "FRAME",
+                    "width": 600,
+                    "height": 80,
+                    "layoutMode": "HORIZONTAL",
+                    "itemSpacing": 24,
+                    "children": [
+                        {
+                            "name": "Primary Button",
+                            "type": "RECTANGLE",
+                            "width": 200,
+                            "height": 56,
+                            "fills": [
+                                { "type": "SOLID", "color": { "r": 0.831, "g": 0.686, "b": 0.216 } }
+                            ],
+                            "cornerRadius": 8,
+                            "children": [
+                                {
+                                    "name": "Button Text",
+                                    "type": "TEXT",
+                                    "characters": "📖 Заказать книгу",
+                                    "fontSize": 16,
+                                    "fontWeight": 600,
+                                    "fills": [
+                                        { "type": "SOLID", "color": { "r": 1, "g": 1, "b": 1 } }
+                                    ],
+                                    "textAlignHorizontal": "CENTER"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Secondary Button",
+                            "type": "RECTANGLE",
+                            "width": 200,
+                            "height": 56,
+                            "fills": [
+                                { "type": "SOLID", "color": { "r": 0, "g": 0, "b": 0, "a": 0 } }
+                            ],
+                            "strokes": [
+                                { "type": "SOLID", "color": { "r": 0.831, "g": 0.686, "b": 0.216 } }
+                            ],
+                            "strokeWeight": 2,
+                            "cornerRadius": 8,
+                            "children": [
+                                {
+                                    "name": "Button Text",
+                                    "type": "TEXT",
+                                    "characters": "📚 Узнать больше",
+                                    "fontSize": 16,
+                                    "fontWeight": 600,
+                                    "fills": [
+                                        {
+                                            "type": "SOLID",
+                                            "color": { "r": 0.831, "g": 0.686, "b": 0.216 }
+                                        }
+                                    ],
+                                    "textAlignHorizontal": "CENTER"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Divider",
+            "type": "TEXT",
+            "characters": "🪷 ✦ 🪷 ✦ 🪷",
+            "fontSize": 32,
+            "fontFamily": "Inter",
+            "fills": [{ "type": "SOLID", "color": { "r": 0.831, "g": 0.686, "b": 0.216 } }],
+            "textAlignHorizontal": "CENTER",
+            "y": 900
+        },
+        {
+            "name": "Features Section",
+            "type": "FRAME",
+            "width": 1440,
+            "height": 400,
+            "y": 1000,
+            "backgroundColor": "#FFFFFF",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 48,
+            "paddingTop": 80,
+            "paddingBottom": 80,
+            "paddingLeft": 80,
+            "paddingRight": 80,
+            "children": [
+                {
+                    "name": "Section Title",
+                    "type": "TEXT",
+                    "characters": "📜 О священном тексте",
+                    "fontSize": 36,
+                    "fontFamily": "Inter",
+                    "fontWeight": 700,
+                    "fills": [{ "type": "SOLID", "color": { "r": 0.118, "g": 0.227, "b": 0.541 } }],
+                    "textAlignHorizontal": "CENTER"
+                },
+                {
+                    "name": "Features Grid",
+                    "type": "FRAME",
+                    "width": 1200,
+                    "height": 200,
+                    "layoutMode": "HORIZONTAL",
+                    "itemSpacing": 40,
+                    "children": [
+                        {
+                            "name": "Feature Card 1",
+                            "type": "FRAME",
+                            "width": 360,
+                            "height": 200,
+                            "backgroundColor": "#FFFFFF",
+                            "cornerRadius": 16,
+                            "layoutMode": "VERTICAL",
+                            "itemSpacing": 16,
+                            "paddingTop": 32,
+                            "paddingBottom": 32,
+                            "paddingLeft": 24,
+                            "paddingRight": 24,
+                            "children": [
+                                {
+                                    "name": "Icon",
+                                    "type": "TEXT",
+                                    "characters": "📖",
+                                    "fontSize": 48,
+                                    "textAlignHorizontal": "CENTER"
+                                },
+                                {
+                                    "name": "Title",
+                                    "type": "TEXT",
+                                    "characters": "Полный текст",
+                                    "fontSize": 20,
+                                    "fontWeight": 600,
+                                    "fills": [
+                                        {
+                                            "type": "SOLID",
+                                            "color": { "r": 0.831, "g": 0.686, "b": 0.216 }
+                                        }
+                                    ],
+                                    "textAlignHorizontal": "CENTER"
+                                },
+                                {
+                                    "name": "Description",
+                                    "type": "TEXT",
+                                    "characters": "700 стихов на санскрите с точным переводом и транслитерацией",
+                                    "fontSize": 14,
+                                    "fills": [
+                                        {
+                                            "type": "SOLID",
+                                            "color": { "r": 0.42, "g": 0.447, "b": 0.502 }
+                                        }
+                                    ],
+                                    "textAlignHorizontal": "CENTER"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Feature Card 2",
+                            "type": "FRAME",
+                            "width": 360,
+                            "height": 200,
+                            "backgroundColor": "#FFFFFF",
+                            "cornerRadius": 16,
+                            "layoutMode": "VERTICAL",
+                            "itemSpacing": 16,
+                            "paddingTop": 32,
+                            "paddingBottom": 32,
+                            "paddingLeft": 24,
+                            "paddingRight": 24,
+                            "children": [
+                                {
+                                    "name": "Icon",
+                                    "type": "TEXT",
+                                    "characters": "💬",
+                                    "fontSize": 48,
+                                    "textAlignHorizontal": "CENTER"
+                                },
+                                {
+                                    "name": "Title",
+                                    "type": "TEXT",
+                                    "characters": "Глубокие комментарии",
+                                    "fontSize": 20,
+                                    "fontWeight": 600,
+                                    "fills": [
+                                        {
+                                            "type": "SOLID",
+                                            "color": { "r": 0.831, "g": 0.686, "b": 0.216 }
+                                        }
+                                    ],
+                                    "textAlignHorizontal": "CENTER"
+                                },
+                                {
+                                    "name": "Description",
+                                    "type": "TEXT",
+                                    "characters": "Подробные объяснения от признанного духовного учителя",
+                                    "fontSize": 14,
+                                    "fills": [
+                                        {
+                                            "type": "SOLID",
+                                            "color": { "r": 0.42, "g": 0.447, "b": 0.502 }
+                                        }
+                                    ],
+                                    "textAlignHorizontal": "CENTER"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Feature Card 3",
+                            "type": "FRAME",
+                            "width": 360,
+                            "height": 200,
+                            "backgroundColor": "#FFFFFF",
+                            "cornerRadius": 16,
+                            "layoutMode": "VERTICAL",
+                            "itemSpacing": 16,
+                            "paddingTop": 32,
+                            "paddingBottom": 32,
+                            "paddingLeft": 24,
+                            "paddingRight": 24,
+                            "children": [
+                                {
+                                    "name": "Icon",
+                                    "type": "TEXT",
+                                    "characters": "🎨",
+                                    "fontSize": 48,
+                                    "textAlignHorizontal": "CENTER"
+                                },
+                                {
+                                    "name": "Title",
+                                    "type": "TEXT",
+                                    "characters": "Аутентичные иллюстрации",
+                                    "fontSize": 20,
+                                    "fontWeight": 600,
+                                    "fills": [
+                                        {
+                                            "type": "SOLID",
+                                            "color": { "r": 0.831, "g": 0.686, "b": 0.216 }
+                                        }
+                                    ],
+                                    "textAlignHorizontal": "CENTER"
+                                },
+                                {
+                                    "name": "Description",
+                                    "type": "TEXT",
+                                    "characters": "Оригинальные картины и графика издания 1972 года",
+                                    "fontSize": 14,
+                                    "fills": [
+                                        {
+                                            "type": "SOLID",
+                                            "color": { "r": 0.42, "g": 0.447, "b": 0.502 }
+                                        }
+                                    ],
+                                    "textAlignHorizontal": "CENTER"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,31 @@
+{
+    "agents": [
+        {
+            "id": "yandex-server-agent",
+            "name": "Yandex Server Agent",
+            "type": "remote",
+            "url": "http://localhost:8080",
+            "status": "active",
+            "capabilities": [
+                "security-monitoring",
+                "ai-log-analysis",
+                "system-diagnostics",
+                "auto-recovery",
+                "performance-optimization"
+            ],
+            "priority": "critical",
+            "color": "yellow",
+            "icon": "server"
+        },
+        {
+            "id": "mobile-security-agent",
+            "name": "Mobile Security Agent",
+            "type": "mobile",
+            "status": "connected",
+            "priority": "master",
+            "role": "security-coordinator",
+            "color": "blue",
+            "icon": "smartphone"
+        }
+    ]
+}
