@@ -1,0 +1,60 @@
+# 🚀 GitHub Pages конфигурация для Landing Page прототипа
+# Bhagavad-Gita 1972 Reprint Project
+
+# Основные настройки
+title: "Бхагавад-Гита как она есть — 1972 Reprint"
+description: "Landing Page прототип для оригинального издания Бхагавад-Гиты 1972 года"
+url: "https://egorkara.github.io"
+baseurl: "/bhagavad-gita-reprint"
+
+# Автор
+author:
+  name: "A.C. Bhaktivedanta Swami Prabhupada"
+  email: "info@gita-1972-reprint.ru"
+
+# SEO и социальные сети
+lang: ru
+locale: ru_RU
+
+# GitHub Pages настройки
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Исключения
+exclude:
+  - node_modules/
+  - package*.json
+  - README.md
+  - .git/
+  - .github/
+  - scripts/
+  - src/
+  - tests/
+
+# Включения
+include:
+  - _headers
+  - _redirects
+
+# Markdown настройки
+markdown: kramdown
+highlighter: rouge
+
+# Настройки безопасности
+safe: true
+incremental: false
+
+# Тема (минимальная)
+theme: minima
+
+# Дополнительные мета-данные
+repository: "egorKara/bhagavad-gita-reprint"
+github_username: "egorKara"
+
+# Настройки для духовного контента
+spiritual:
+  tradition: "Gaudiya Vaishnavism"
+  lineage: "Brahma-Madhva-Gaudiya Sampradaya"
+  year: 1972
+  publisher: "Macmillan Publishing"
