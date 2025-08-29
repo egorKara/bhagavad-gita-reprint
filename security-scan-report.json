@@ -1,0 +1,991 @@
+{
+  "timestamp": "2025-08-29T08:45:46.592Z",
+  "totalFiles": 33,
+  "criticalFindings": 0,
+  "highFindings": 0,
+  "mediumFindings": 12,
+  "lowFindings": 34,
+  "details": [
+    {
+      "file": "/workspace/.cursor/BUGBOT_TEST_SCENARIOS.md",
+      "findings": [
+        {
+          "pattern": "/password\\s*[:=]\\s*['\"`]?[^'\"`\\s]+['\"`]?/gi",
+          "matches": [
+            "password = \"admin123\"",
+            "Password: \"password123\"",
+            "Password: process.env.DB_PASSWORD,"
+          ],
+          "lineNumbers": [
+            26,
+            49,
+            55
+          ],
+          "severity": "MEDIUM"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.463Z"
+    },
+    {
+      "file": "/workspace/.cursor/BUGBOT_TEST_SCENARIOS_RU.md",
+      "findings": [
+        {
+          "pattern": "/password\\s*[:=]\\s*['\"`]?[^'\"`\\s]+['\"`]?/gi",
+          "matches": [
+            "password = \"admin123\"",
+            "Password: \"password123\"",
+            "Password: process.env.DB_PASSWORD,"
+          ],
+          "lineNumbers": [
+            30,
+            55,
+            61
+          ],
+          "severity": "MEDIUM"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.463Z"
+    },
+    {
+      "file": "/workspace/.cursor/environment.example.json",
+      "findings": [
+        {
+          "pattern": "/password\\s*[:=]\\s*['\"`]?[^'\"`\\s]+['\"`]?/gi",
+          "matches": [
+            "Password=your_password\""
+          ],
+          "lineNumbers": [
+            25
+          ],
+          "severity": "MEDIUM"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.469Z"
+    },
+    {
+      "file": "/workspace/API_REFERENCE.md",
+      "findings": [
+        {
+          "pattern": "/[a-zA-Z0-9]{32,}/g",
+          "matches": [
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+          ],
+          "lineNumbers": [
+            56
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.472Z"
+    },
+    {
+      "file": "/workspace/ARCHITECTURE.md",
+      "findings": [
+        {
+          "pattern": "/password\\s*[:=]\\s*['\"`]?[^'\"`\\s]+['\"`]?/gi",
+          "matches": [
+            "PASSWORD=password"
+          ],
+          "lineNumbers": [
+            373
+          ],
+          "severity": "MEDIUM"
+        },
+        {
+          "pattern": "/postgresql:\\/\\/[^:\\s]+:[^@\\s]+@[^:\\s]+/gi",
+          "matches": [
+            "postgresql://user:pass@localhost",
+            "postgresql://postgres:password@db"
+          ],
+          "lineNumbers": [
+            330,
+            363
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.472Z"
+    },
+    {
+      "file": "/workspace/CRITICAL_STATUS_FOR_NEW_CHAT.md",
+      "findings": [
+        {
+          "pattern": "/[0-9]+:[AA-Za-z0-9_-]{35}/gi",
+          "matches": [
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s"
+          ],
+          "lineNumbers": [
+            29
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.473Z"
+    },
+    {
+      "file": "/workspace/FINAL_2_MINUTE_INSTRUCTION.md",
+      "findings": [
+        {
+          "pattern": "/[a-zA-Z0-9]{32,}/g",
+          "matches": [
+            "9euelZqdyI7Mi5OJmZeQkMePj87Mju3rnpWamo7Py8adxovPk8mSm8",
+            "d3z9w5YOzr57yRwZBr9zef1656VmpeJz8iYnZWXi5eezI",
+            "oi3crg5mF52x9loJeFube462ofVp2GXrBX5jFW4PBETPGfi6jdBg6epBA"
+          ],
+          "lineNumbers": [
+            51
+          ],
+          "severity": "LOW"
+        },
+        {
+          "pattern": "/[0-9]+:[AA-Za-z0-9_-]{35}/gi",
+          "matches": [
+            "8319867749:AAEDKiPXk7oiqrxMDNNqkK07FVW-jqkpiP8"
+          ],
+          "lineNumbers": [
+            27
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.475Z"
+    },
+    {
+      "file": "/workspace/GITHUB_SECRETS_CRITICAL_DATA.md",
+      "findings": [
+        {
+          "pattern": "/[0-9]+:[AA-Za-z0-9_-]{35}/gi",
+          "matches": [
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s",
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s"
+          ],
+          "lineNumbers": [
+            17
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.476Z"
+    },
+    {
+      "file": "/workspace/GITHUB_SECRETS_DIRECT_LINKS.md",
+      "findings": [
+        {
+          "pattern": "/[0-9]+:[AA-Za-z0-9_-]{35}/gi",
+          "matches": [
+            "8319867749:AAEDKiPXk7oiqrxMDNNqkK07FVW-jqkpiP8"
+          ],
+          "lineNumbers": [
+            24
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.476Z"
+    },
+    {
+      "file": "/workspace/GITHUB_SECRETS_READY_VALUES.md",
+      "findings": [
+        {
+          "pattern": "/[a-zA-Z0-9]{32,}/g",
+          "matches": [
+            "9euelZqdyI7Mi5OJmZeQkMePj87Mju3rnpWamo7Py8adxovPk8mSm8",
+            "d3z9w5YOzr57yRwZBr9zef1656VmpeJz8iYnZWXi5eezI",
+            "oi3crg5mF52x9loJeFube462ofVp2GXrBX5jFW4PBETP"
+          ],
+          "lineNumbers": [
+            43
+          ],
+          "severity": "LOW"
+        },
+        {
+          "pattern": "/[0-9]+:[AA-Za-z0-9_-]{35}/gi",
+          "matches": [
+            "8319867749:AAEDKiPXk7oiqrxMDNNqkK07FVW-jqkpiP8"
+          ],
+          "lineNumbers": [
+            19
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.476Z"
+    },
+    {
+      "file": "/workspace/GITHUB_SECRETS_SETUP.md",
+      "findings": [
+        {
+          "pattern": "/[0-9]+:[AA-Za-z0-9_-]{35}/gi",
+          "matches": [
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s"
+          ],
+          "lineNumbers": [
+            9
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.476Z"
+    },
+    {
+      "file": "/workspace/GITHUB_SECRETS_SETUP_GUIDE.md",
+      "findings": [
+        {
+          "pattern": "/[0-9]+:[AA-Za-z0-9_-]{35}/gi",
+          "matches": [
+            "8319867749:AAEDKiPXk7oiqrxMDNNqkK07FVW-jqkpiP8"
+          ],
+          "lineNumbers": [
+            49
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.476Z"
+    },
+    {
+      "file": "/workspace/GitaLanding.API/appsettings.json",
+      "findings": [
+        {
+          "pattern": "/password\\s*[:=]\\s*['\"`]?[^'\"`\\s]+['\"`]?/gi",
+          "matches": [
+            "Password=postgres;Port=5432\""
+          ],
+          "lineNumbers": [
+            10
+          ],
+          "severity": "MEDIUM"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.477Z"
+    },
+    {
+      "file": "/workspace/MIGRATION_COMPLETE_INFO_FOR_NEW_CHAT.md",
+      "findings": [
+        {
+          "pattern": "/[0-9]+:[AA-Za-z0-9_-]{35}/gi",
+          "matches": [
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s",
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s"
+          ],
+          "lineNumbers": [
+            55
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.480Z"
+    },
+    {
+      "file": "/workspace/PROJECT_CONFIG.md",
+      "findings": [
+        {
+          "pattern": "/password\\s*[:=]\\s*['\"`]?[^'\"`\\s]+['\"`]?/gi",
+          "matches": [
+            "PASSWORD=\nREDIS_DB=0",
+            "PASSWORD=your-app-password",
+            "PASSWORD=password",
+            "PASSWORD=admin",
+            "password: ${{"
+          ],
+          "lineNumbers": [
+            99,
+            180,
+            244,
+            390
+          ],
+          "severity": "MEDIUM"
+        },
+        {
+          "pattern": "/postgresql:\\/\\/[^:\\s]+:[^@\\s]+@[^:\\s]+/gi",
+          "matches": [
+            "postgresql://user:pass@localhost",
+            "postgresql://dev_user:dev_pass@localhost",
+            "postgresql://staging_user:staging_pass@staging-db",
+            "postgresql://prod_user:prod_pass@prod-db",
+            "postgresql://postgres:password@db"
+          ],
+          "lineNumbers": [
+            60,
+            118,
+            128,
+            138,
+            162
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.482Z"
+    },
+    {
+      "file": "/workspace/QUICK_START_NEW_CHAT.md",
+      "findings": [
+        {
+          "pattern": "/[0-9]+:[AA-Za-z0-9_-]{35}/gi",
+          "matches": [
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s"
+          ],
+          "lineNumbers": [
+            65
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.483Z"
+    },
+    {
+      "file": "/workspace/SECURITY_AGENT_README.md",
+      "findings": [
+        {
+          "pattern": "/password\\s*[:=]\\s*['\"`]?[^'\"`\\s]+['\"`]?/gi",
+          "matches": [
+            "password: \\\""
+          ],
+          "lineNumbers": [
+            160
+          ],
+          "severity": "MEDIUM"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.483Z"
+    },
+    {
+      "file": "/workspace/SETUP_GITHUB_SECRETS_INSTRUCTIONS.md",
+      "findings": [
+        {
+          "pattern": "/[0-9]+:[AA-Za-z0-9_-]{35}/gi",
+          "matches": [
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s"
+          ],
+          "lineNumbers": [
+            20
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.483Z"
+    },
+    {
+      "file": "/workspace/TELEGRAM_BOT_SETUP_COMPLETE.md",
+      "findings": [
+        {
+          "pattern": "/[0-9]+:[AA-Za-z0-9_-]{35}/gi",
+          "matches": [
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s",
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s"
+          ],
+          "lineNumbers": [
+            13
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.484Z"
+    },
+    {
+      "file": "/workspace/TRANSFER_TO_NEW_CHAT_INFO.md",
+      "findings": [
+        {
+          "pattern": "/[0-9]+:[AA-Za-z0-9_-]{35}/gi",
+          "matches": [
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s",
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s",
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s"
+          ],
+          "lineNumbers": [
+            38
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.485Z"
+    },
+    {
+      "file": "/workspace/UPDATED_STATUS_FOR_NEW_CHAT.md",
+      "findings": [
+        {
+          "pattern": "/[0-9]+:[AA-Za-z0-9_-]{35}/gi",
+          "matches": [
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s",
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s"
+          ],
+          "lineNumbers": [
+            23
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.485Z"
+    },
+    {
+      "file": "/workspace/docker-compose.yml",
+      "findings": [
+        {
+          "pattern": "/password\\s*[:=]\\s*['\"`]?[^'\"`\\s]+['\"`]?/gi",
+          "matches": [
+            "PASSWORD: gita_password_2024"
+          ],
+          "lineNumbers": [
+            11
+          ],
+          "severity": "MEDIUM"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.488Z"
+    },
+    {
+      "file": "/workspace/docs/SECRETS_SETUP.md",
+      "findings": [
+        {
+          "pattern": "/password\\s*[:=]\\s*['\"`]?[^'\"`\\s]+['\"`]?/gi",
+          "matches": [
+            "Password:**"
+          ],
+          "lineNumbers": [
+            83
+          ],
+          "severity": "MEDIUM"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.489Z"
+    },
+    {
+      "file": "/workspace/frontend-backup/tsconfig.json",
+      "findings": [
+        {
+          "pattern": "/[a-zA-Z0-9]{32,}/g",
+          "matches": [
+            "forceConsistentCasingInFileNames"
+          ],
+          "lineNumbers": [
+            9
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.492Z"
+    },
+    {
+      "file": "/workspace/github-secrets-to-create.md",
+      "findings": [
+        {
+          "pattern": "/password\\s*[:=]\\s*['\"`]?[^'\"`\\s]+['\"`]?/gi",
+          "matches": [
+            "password = admin123`",
+            "Password: password12...`",
+            "Password: process.en...`",
+            "Password=your_passwo...`",
+            "PASSWORD=password`"
+          ],
+          "lineNumbers": [
+            9,
+            10,
+            11,
+            12,
+            14,
+            23,
+            26,
+            27,
+            28,
+            32,
+            33,
+            34,
+            55,
+            56,
+            69
+          ],
+          "severity": "MEDIUM"
+        },
+        {
+          "pattern": "/AKIA[0-9A-Z]{16}/gi",
+          "matches": [
+            "AKIA1234567890ABCDEF"
+          ],
+          "lineNumbers": [
+            39
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.492Z"
+    },
+    {
+      "file": "/workspace/landing-gita-1972-reprint/GitaLanding.API/obj/project.assets.json",
+      "findings": [
+        {
+          "pattern": "/[a-zA-Z0-9]{32,}/g",
+          "matches": [
+            "lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I",
+            "2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw",
+            "1rze9MT1yfWqSIbUPGRu1m1P0fuo9PmqapwsmePfGB5PJrudQLvmUOAMF0DqQ",
+            "analysislevelmicrosoftcodeanalysiscompatibility",
+            "analysislevelmicrosoftcodeanalysiscompatibility"
+          ],
+          "lineNumbers": [
+            1313,
+            1367,
+            1453,
+            1468,
+            1483,
+            1498,
+            1513,
+            1528,
+            1543,
+            1570,
+            1571,
+            1572,
+            1573,
+            1574,
+            1575,
+            1576,
+            1577,
+            1578,
+            1579,
+            1580,
+            1581,
+            1582,
+            1583,
+            1618,
+            1663,
+            1708,
+            1753,
+            1813,
+            1827,
+            1841,
+            1856,
+            1870,
+            2101,
+            2189,
+            2228,
+            2288,
+            2316,
+            2343,
+            2371,
+            2417,
+            2537,
+            2582,
+            2610,
+            2625,
+            2661,
+            2676,
+            2697,
+            2722,
+            2745,
+            2768,
+            2791,
+            2814,
+            2835,
+            2858,
+            2881,
+            2906,
+            2918,
+            2948,
+            3008,
+            3029,
+            3052,
+            3069,
+            3092,
+            3115,
+            3138,
+            3161,
+            3184,
+            3216,
+            3244,
+            3267,
+            3292,
+            3331,
+            3363,
+            3434
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.502Z"
+    },
+    {
+      "file": "/workspace/landing-gita-1972-reprint/GitaLanding.Data/obj/project.assets.json",
+      "findings": [
+        {
+          "pattern": "/[a-zA-Z0-9]{32,}/g",
+          "matches": [
+            "noSwS8bZCKcHz0ydkTDQMuaxSa5WBaQrZmwtTz9rmRvJ7X8mSPQ",
+            "QoMMcw4f3Tirf8PzgdDax8RoWo0dxI2KmqiEGWYjhm2B",
+            "fFKkr24cYc7Zw5T6DC4tEyOEPgPbq23BBmym1r9kn4ET9F3HKaetpOeQtV2RryYyUxEeNkJuxgfiZHTisqZc",
+            "3KuSxeHoNYdxVYfg2IRZCThcrlJ1XJqIXkAWikCsbm5C",
+            "iLSutpgX1CC0NOW70FJoGARRHbyKmG7dc0klnUZ9Dd9hS6N"
+          ],
+          "lineNumbers": [
+            292,
+            306,
+            320,
+            334,
+            394,
+            424,
+            488,
+            520,
+            593,
+            640,
+            693
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.504Z"
+    },
+    {
+      "file": "/workspace/landing-gita-1972-reprint/GitaLanding.Tests/obj/project.assets.json",
+      "findings": [
+        {
+          "pattern": "/[a-zA-Z0-9]{32,}/g",
+          "matches": [
+            "ecbdf3NQm6xCl3zMbaP4J3rMMm5h3kPFeIWBgt4mbz6YY0eeZDLR",
+            "W5hMoPjLkRFnXzH44zDLoovXeKtmxb1ykXK9aJVODSpiJml8CTw2g",
+            "VMoJjBS1QvsxqJeqLaJXub08y1FSjasFPtQ4UBUsudE9PNrzLjooClMsPtY2cZLdXpQ",
+            "5YmJBNn379tJPIK04FOv3tuOfhGZTPFSuj",
+            "ICPoJG6pxuKFsumtZp890UrVuudTUhsE8Qyg"
+          ],
+          "lineNumbers": [
+            1800,
+            1821,
+            1845,
+            1898,
+            1923,
+            1947,
+            1989,
+            2012,
+            2027,
+            2042,
+            2142,
+            2212,
+            2250,
+            2267,
+            2280,
+            2307,
+            2325,
+            2339,
+            2353,
+            2367,
+            2381,
+            2395,
+            2409,
+            2437,
+            2451,
+            2465,
+            2479,
+            2507,
+            2521,
+            2535,
+            2549,
+            2604,
+            2619,
+            2755,
+            2793,
+            2861,
+            2913,
+            2970,
+            3060,
+            3128,
+            3166,
+            3207,
+            3288,
+            3398,
+            3436,
+            3475,
+            3547,
+            3631,
+            3713,
+            3830,
+            3981,
+            4017,
+            4062,
+            4107,
+            4164,
+            4185,
+            4242,
+            4296,
+            4353,
+            4445,
+            4526,
+            4564,
+            4749,
+            4790,
+            4818,
+            4891,
+            4907,
+            4936,
+            4992,
+            5060,
+            5128,
+            5283,
+            5351,
+            5423,
+            5495,
+            5565,
+            5594,
+            5611,
+            5641,
+            5660,
+            5676
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.514Z"
+    },
+    {
+      "file": "/workspace/landing-gita-1972-reprint/frontend/tsconfig.json",
+      "findings": [
+        {
+          "pattern": "/[a-zA-Z0-9]{32,}/g",
+          "matches": [
+            "forceConsistentCasingInFileNames"
+          ],
+          "lineNumbers": [
+            20
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.515Z"
+    },
+    {
+      "file": "/workspace/landing-gita-1972-reprint/get-docker.sh",
+      "findings": [
+        {
+          "pattern": "/[a-zA-Z0-9]{32,}/g",
+          "matches": [
+            "bedc5d6b3e782a5e50d3d2a870f5e1f1b5a38d5c"
+          ],
+          "lineNumbers": [
+            83
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.516Z"
+    },
+    {
+      "file": "/workspace/security-scan-report.json",
+      "findings": [
+        {
+          "pattern": "/[a-zA-Z0-9]{32,}/g",
+          "matches": [
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+            "9euelZqdyI7Mi5OJmZeQkMePj87Mju3rnpWamo7Py8adxovPk8mSm8",
+            "d3z9w5YOzr57yRwZBr9zef1656VmpeJz8iYnZWXi5eezI",
+            "oi3crg5mF52x9loJeFube462ofVp2GXrBX5jFW4PBETPGfi6jdBg6epBA",
+            "9euelZqdyI7Mi5OJmZeQkMePj87Mju3rnpWamo7Py8adxovPk8mSm8"
+          ],
+          "lineNumbers": [
+            71,
+            131,
+            132,
+            133,
+            458,
+            518,
+            519,
+            520,
+            521,
+            611,
+            612,
+            613,
+            614,
+            615,
+            641,
+            642,
+            643,
+            644,
+            645,
+            757,
+            885,
+            920,
+            921,
+            922,
+            923,
+            924,
+            943,
+            945
+          ],
+          "severity": "LOW"
+        },
+        {
+          "pattern": "/password\\s*[:=]\\s*['\"`]?[^'\"`\\s]+['\"`]?/gi",
+          "matches": [
+            "password = \\\"",
+            "Password: \\\"",
+            "Password: process.env.DB_PASSWORD,\"",
+            "password = \\\"",
+            "Password: \\\""
+          ],
+          "lineNumbers": [
+            15,
+            16,
+            17,
+            55,
+            87,
+            252,
+            285,
+            286,
+            288,
+            289,
+            342,
+            426,
+            442,
+            474,
+            475,
+            476,
+            477,
+            478,
+            814,
+            815,
+            816,
+            958
+          ],
+          "severity": "MEDIUM"
+        },
+        {
+          "pattern": "/postgresql:\\/\\/[^:\\s]+:[^@\\s]+@[^:\\s]+/gi",
+          "matches": [
+            "postgresql://user:pass@localhost\",",
+            "postgresql://postgres:password@db\"",
+            "postgresql://user:pass@localhost\",",
+            "postgresql://dev_user:dev_pass@localhost\",",
+            "postgresql://staging_user:staging_pass@staging-db\","
+          ],
+          "lineNumbers": [
+            97,
+            98,
+            303,
+            304,
+            305,
+            849,
+            850,
+            852,
+            853
+          ],
+          "severity": "LOW"
+        },
+        {
+          "pattern": "/AKIA[0-9A-Z]{16}/gi",
+          "matches": [
+            "AKIA1234567890ABCDEF",
+            "AKIA1234567890ABCDEF",
+            "AKIA1234567890ABCDEF",
+            "AKIA1234567890ABCDEF",
+            "AKIA1234567890ABCDEF"
+          ],
+          "lineNumbers": [
+            502
+          ],
+          "severity": "LOW"
+        },
+        {
+          "pattern": "/ghp_[a-zA-Z0-9]{36}/gi",
+          "matches": [
+            "ghp_abcdef1234567890abcdef1234567890abcd",
+            "ghp_abcdef1234567890abcdef1234567890abcd",
+            "ghp_abcdef1234567890abcdef1234567890abcd",
+            "ghp_abcdef1234567890abcdef1234567890abcd",
+            "ghp_abcdef1234567890abcdef1234567890abcd"
+          ],
+          "lineNumbers": [
+            885
+          ],
+          "severity": "LOW"
+        },
+        {
+          "pattern": "/[0-9]+:[AA-Za-z0-9_-]{35}/gi",
+          "matches": [
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s",
+            "8319867749:AAEDKiPXk7oiqrxMDNNqkK07FVW-jqkpiP8",
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s",
+            "8319867749:AAFOq66KNx85smfgtrvFsoBc-KABOPbcX0s",
+            "8319867749:AAEDKiPXk7oiqrxMDNNqkK07FVW-jqkpiP8"
+          ],
+          "lineNumbers": [
+            115,
+            143
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.582Z"
+    },
+    {
+      "file": "/workspace/server-agent/__pycache__/yandex_monitoring_integration.cpython-312.pyc",
+      "findings": [
+        {
+          "pattern": "/[a-zA-Z0-9]{32,}/g",
+          "matches": [
+            "metricsz2YandexMonitoringIntegration",
+            "metricsz7YandexMonitoringIntegration",
+            "metricsz4YandexMonitoringIntegration",
+            "yandexz2YandexMonitoringIntegration",
+            "collectionz2YandexMonitoringIntegration"
+          ],
+          "lineNumbers": [
+            28,
+            64,
+            75,
+            98
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.584Z"
+    },
+    {
+      "file": "/workspace/tests/security-agent.test.js",
+      "findings": [
+        {
+          "pattern": "/[a-zA-Z0-9]{32,}/g",
+          "matches": [
+            "1234567890abcdef1234567890abcdef1234567890abcdef",
+            "abcdef1234567890abcdef1234567890abcdef",
+            "abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890",
+            "abcdef1234567890abcdef1234567890abcdef",
+            "abcdef1234567890abcdef1234567890abcdef"
+          ],
+          "lineNumbers": [
+            17,
+            40
+          ],
+          "severity": "LOW"
+        },
+        {
+          "pattern": "/password\\s*[:=]\\s*['\"`]?[^'\"`\\s]+['\"`]?/gi",
+          "matches": [
+            "password: 'super_secret_password_123'"
+          ],
+          "lineNumbers": [
+            32
+          ],
+          "severity": "MEDIUM"
+        },
+        {
+          "pattern": "/AKIA[0-9A-Z]{16}/gi",
+          "matches": [
+            "AKIA1234567890ABCDEF"
+          ],
+          "lineNumbers": [
+            39
+          ],
+          "severity": "LOW"
+        },
+        {
+          "pattern": "/ghp_[a-zA-Z0-9]{36}/gi",
+          "matches": [
+            "ghp_abcdef1234567890abcdef1234567890abcd",
+            "ghp_abcdef1234567890abcdef1234567890abcd",
+            "ghp_abcdef1234567890abcdef1234567890abcd"
+          ],
+          "lineNumbers": [
+            20
+          ],
+          "severity": "LOW"
+        }
+      ],
+      "timestamp": "2025-08-29T08:45:46.590Z"
+    }
+  ]
+}
