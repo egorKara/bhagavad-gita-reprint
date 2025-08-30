@@ -3,639 +3,303 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>🕉️ Бхагавад-Гита как она есть — Landing Page Прототип</title>
+        <title>🕉️ Бхагавад-Гита как она есть - Оригинальное издание 1972 года</title>
         <meta
             name="description"
-            content="Прототип лэндинга для Бхагавад-Гиты 1972 года. Минималистичный духовный дизайн с 3 цветами."
+            content="Точная печатная копия легендарного издания Макмиллан 1972 года. Полный текст и комментарии А.Ч. Бхактиведанты Свами Прабхупады."
         />
-        <meta
-            name="keywords"
-            content="Бхагавад-Гита, 1972, лэндинг, прототип, минимализм, духовность"
-        />
-        <meta name="author" content="A.C. Bhaktivedanta Swami Prabhupada" />
-
         <style>
-            /* 🎨 Минималистичная палитра (только 3 цвета) */
             :root {
-                --gold: #d4af37; /* Золотой - главный */
-                --blue: #1e3a8a; /* Синий - акцент */
-                --white: #ffffff; /* Белый - фон */
-
-                /* Оттенки */
-                --gold-light: #f4e4bc;
-                --blue-light: #3b82f6;
-                --gray: #6b7280;
+                --gold: #d4af37;
+                --burgundy: #5d1b36;
+                --white: #ffffff;
             }
-
-            /* 🌍 Глобальные стили */
             * {
-                box-sizing: border-box;
                 margin: 0;
                 padding: 0;
+                box-sizing: border-box;
             }
-
             body {
-                font-family:
-                    'Inter',
-                    -apple-system,
-                    BlinkMacSystemFont,
-                    sans-serif;
+                font-family: Arial, sans-serif;
                 line-height: 1.6;
-                color: var(--blue);
-                background: var(--white);
-                text-align: center;
+                color: var(--burgundy);
             }
-
             .container {
                 max-width: 1200px;
                 margin: 0 auto;
-                padding: 0 2rem;
+                padding: 0 20px;
             }
-
-            /* 📝 Типографика */
-            h1 {
-                font-family: 'Crimson Text', serif;
-                font-size: clamp(2.5rem, 5vw, 4rem);
-                color: var(--gold);
-                margin-bottom: 1rem;
-                font-weight: 700;
+            .hero-section {
+                background: linear-gradient(135deg, var(--burgundy) 0%, #8b2a4a 100%);
+                color: var(--white);
+                text-align: center;
+                padding: 4rem 2rem;
             }
-
-            h2 {
-                font-family: 'Crimson Text', serif;
-                font-size: clamp(2rem, 4vw, 3rem);
-                color: var(--blue);
-                margin-bottom: 1.5rem;
-            }
-
-            h3 {
-                font-size: clamp(1.25rem, 3vw, 1.75rem);
+            .hero-title {
+                font-family: Georgia, serif;
+                font-size: 3.5rem;
                 color: var(--gold);
                 margin-bottom: 1rem;
             }
-
-            p {
-                font-size: clamp(1rem, 2vw, 1.125rem);
-                margin-bottom: 1.5rem;
-                max-width: 65ch;
-                margin-left: auto;
-                margin-right: auto;
+            .hero-subtitle {
+                font-size: 1.5rem;
+                margin-bottom: 2rem;
+                opacity: 0.9;
             }
-
-            /* 🧩 Кнопки */
+            .book-cover {
+                width: 100%;
+                max-width: 400px;
+                border-radius: 16px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                margin: 2rem auto;
+            }
             .btn {
-                display: inline-block;
                 padding: 1rem 2rem;
-                font-size: 1.125rem;
-                font-weight: 600;
-                text-decoration: none;
-                border-radius: 0.5rem;
-                transition: all 0.3s ease;
-                cursor: pointer;
                 border: none;
-                margin: 0.5rem;
+                border-radius: 8px;
+                font-size: 1.1rem;
+                cursor: pointer;
+                margin: 0 0.5rem;
+                transition: all 0.3s ease;
+                text-decoration: none;
+                display: inline-block;
             }
-
             .btn-primary {
                 background: var(--gold);
-                color: var(--white);
+                color: var(--darkBlue);
+                font-weight: bold;
             }
-
-            .btn-primary:hover {
-                background: #b8941f;
-                transform: translateY(-2px);
+            .section {
+                padding: 4rem 0;
             }
-
-            .btn-secondary {
-                background: var(--blue);
-                color: var(--white);
-            }
-
-            .btn-secondary:hover {
-                background: #1e40af;
-                transform: translateY(-2px);
-            }
-
-            .btn-ghost {
-                background: transparent;
-                color: var(--gold);
-            }
-
-            .btn-ghost:hover {
-                background: var(--gold-light);
-                color: var(--blue);
-            }
-
-            /* 🏛️ Секции */
-            section {
-                padding: clamp(3rem, 8vw, 6rem) 0;
+            .section-title {
+                font-family: Georgia, serif;
+                font-size: 2.5rem;
+                color: var(--burgundy);
+                margin-bottom: 1rem;
                 text-align: center;
             }
-
-            .hero {
-                min-height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: linear-gradient(135deg, var(--white), var(--gold-light));
-            }
-
-            .features {
-                background: var(--white);
-            }
-
-            .quote-section {
-                background: var(--gold-light);
-                padding: clamp(4rem, 10vw, 8rem) 0;
-            }
-
-            .author-section {
-                background: var(--white);
-            }
-
-            .cta-section {
-                background: var(--blue-light);
-                color: var(--white);
-            }
-
-            /* 🕉️ Духовные элементы */
-            .om-symbol {
-                font-size: clamp(2rem, 5vw, 3rem);
-                color: var(--gold);
-                margin: 2rem 0;
-                display: block;
-            }
-
-            .sacred-quote {
-                font-family: 'Crimson Text', serif;
-                font-size: clamp(1.25rem, 3vw, 1.75rem);
-                font-style: italic;
-                color: var(--blue);
-                margin: 3rem auto;
-                padding: 2rem;
-                background: var(--white);
-                border-radius: 1rem;
-                max-width: 800px;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            }
-
-            .divider {
-                text-align: center;
-                font-size: 2rem;
-                color: var(--gold);
-                margin: 4rem 0;
-            }
-
-            /* 📱 Сетка */
             .grid {
                 display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
                 gap: 2rem;
-                margin: 3rem 0;
+                margin-top: 3rem;
             }
-
-            .grid-3 {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            }
-
-            .grid-2 {
-                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            }
-
-            .feature-card {
+            .card {
+                background: var(--white);
                 padding: 2rem;
+                border-radius: 16px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
                 text-align: center;
-                background: var(--white);
-                border-radius: 1rem;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-                transition: transform 0.3s ease;
+                transition: all 0.3s ease;
             }
-
-            .feature-card:hover {
-                transform: translateY(-4px);
+            .card:hover {
+                transform: translateY(-8px);
             }
-
-            .stats-card {
-                background: var(--white);
-                padding: 2rem;
-                border-radius: 1rem;
-                color: var(--blue);
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            .order-form {
+                max-width: 600px;
+                margin: 0 auto;
+                background: rgba(255, 255, 255, 0.1);
+                padding: 3rem;
+                border-radius: 16px;
             }
-
-            /* 🌙 Тёмная тема */
-            [data-theme='dark'] {
-                --white: #1f2937;
-                --blue: #93c5fd;
-                --gold-light: #374151;
+            .form-group {
+                margin-bottom: 1.5rem;
             }
-
-            /* ♿ Доступность */
-            @media (prefers-reduced-motion: reduce) {
-                * {
-                    transition: none !important;
-                }
-                .btn:hover,
-                .feature-card:hover {
-                    transform: none;
-                }
+            .form-input,
+            .form-select,
+            .form-textarea {
+                width: 100%;
+                padding: 1rem;
+                border: none;
+                border-radius: 8px;
+                font-size: 1rem;
             }
-
-            /* 📱 Мобильная оптимизация */
-            @media (max-width: 768px) {
-                .container {
-                    padding: 0 1rem;
-                }
-                .btn {
-                    padding: 0.875rem 1.5rem;
-                    font-size: 1rem;
-                    display: block;
-                    margin: 0.75rem auto;
-                    max-width: 280px;
-                }
-                .grid {
-                    gap: 1.5rem;
-                }
-                .feature-card {
-                    padding: 1.5rem;
-                }
+            .submit-btn {
+                width: 100%;
+                padding: 1.5rem;
+                background: var(--gold);
+                color: var(--darkBlue);
+                border: none;
+                border-radius: 8px;
+                font-size: 1.2rem;
+                font-weight: bold;
+                cursor: pointer;
             }
         </style>
-
-        <!-- 📝 Шрифты -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap"
-            rel="stylesheet"
-        />
-
-        <!-- 🎯 GitHub Pages мета-теги -->
-        <meta property="og:title" content="Бхагавад-Гита 1972 — Landing Page Прототип" />
-        <meta
-            property="og:description"
-            content="Минималистичный духовный лэндинг для Бхагавад-Гиты"
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Bhagavad-Gita 1972 Reprint" />
     </head>
     <body>
-        <!-- 🏛️ Hero Section -->
-        <section class="hero">
+        <!-- HERO БЛОК -->
+        <section class="hero-section">
             <div class="container">
-                <div class="om-symbol">ॐ</div>
-                <h1>Бхагавад-Гита как она есть</h1>
-                <p
-                    style="
-                        font-size: clamp(1.25rem, 3vw, 1.75rem);
-                        color: var(--blue);
-                        margin-bottom: 2rem;
-                    "
-                >
-                    Оригинальное издание 1972 года
+                <h1 class="hero-title">Бхагавад-Гита как она есть</h1>
+                <p class="hero-subtitle">
+                    Оригинальное издание 1972 года. Точная печатная копия легендарного издания
+                    Макмиллан. Полный текст и комментарии А.Ч. Бхактиведанты Свами Прабхупады.
                 </p>
-                <p style="color: var(--gray); margin-bottom: 3rem">
-                    Точное воспроизведение легендарного издания с полным текстом и комментариями
-                    А.Ч. Бхактиведанты Свами Прабхупады
-                </p>
-
+                <img
+                    src="https://via.placeholder.com/400x600/1b365d/d4af37?text=Бхагавад-Гита+1972"
+                    alt="Обложка Бхагавад-Гиты 1972 года"
+                    class="book-cover"
+                />
                 <div>
-                    <a href="#order" class="btn btn-primary">📖 Заказать книгу</a>
-                    <a href="#about" class="btn btn-ghost">📚 Узнать больше</a>
+                    <a href="#order" class="btn btn-primary">Заказать книгу</a>
                 </div>
             </div>
         </section>
 
-        <!-- 🌸 Divider -->
-        <div class="divider">🪷 ✦ 🪷 ✦ 🪷</div>
-
-        <!-- 📚 О книге -->
-        <section id="about" class="features">
+        <!-- ПОЧЕМУ ЭТО ИЗДАНИЕ -->
+        <section class="section">
             <div class="container">
-                <h2>📜 О священном тексте</h2>
-                <p style="max-width: 800px">
-                    Бхагавад-Гита — древний санскритский текст, диалог между принцем Арджуной и
-                    Господом Кришной на поле битвы Курукшетра. Это квинтэссенция ведической
-                    мудрости.
-                </p>
-
-                <div class="grid grid-3">
-                    <div class="feature-card">
-                        <div style="font-size: 3rem; margin-bottom: 1rem">📖</div>
-                        <h3>Полный текст</h3>
-                        <p style="color: var(--gray)">
-                            700 стихов на санскрите с точным переводом и транслитерацией
-                        </p>
+                <h2 class="section-title">Почему именно это издание?</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>📚 Оригинальный перевод</h3>
+                        <p>Первый и единственный перевод, выполненный самим Прабхупадой.</p>
                     </div>
-                    <div class="feature-card">
-                        <div style="font-size: 3rem; margin-bottom: 1rem">💬</div>
-                        <h3>Глубокие комментарии</h3>
-                        <p style="color: var(--gray)">
-                            Подробные объяснения от признанного духовного учителя
-                        </p>
+                    <div class="card">
+                        <h3>🏆 Издание Макмиллан</h3>
+                        <p>Легендарное издательство, которое первым опубликовало Бхагавад-Гиту.</p>
                     </div>
-                    <div class="feature-card">
-                        <div style="font-size: 3rem; margin-bottom: 1rem">🎨</div>
-                        <h3>Аутентичные иллюстрации</h3>
-                        <p style="color: var(--gray)">
-                            Оригинальные картины и графика издания 1972 года
-                        </p>
+                    <div class="card">
+                        <h3>💎 Уникальные комментарии</h3>
+                        <p>Подробные объяснения каждой шлоки от великого духовного учителя.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 🕉️ Священная цитата -->
-        <section class="quote-section">
+        <!-- ЧТО ВНУТРИ КНИГИ -->
+        <section class="section">
             <div class="container">
-                <div class="om-symbol">ॐ</div>
-                <div class="sacred-quote">
-                    "Оставь все разновидности религии и просто предайся Мне. Я избавлю тебя от всех
-                    последствий грехов. Не страшись ничего."
-                    <br /><br /><em style="color: var(--gray); font-size: 0.9em"
-                        >— Бхагавад-гита, 18.66</em
-                    >
-                </div>
-            </div>
-        </section>
-
-        <!-- 👨‍🏫 Об авторе -->
-        <section class="author-section">
-            <div class="container">
-                <h2>👨‍🏫 А.Ч. Бхактиведанта Свами Прабхупада</h2>
-                <p style="max-width: 900px">
-                    Выдающийся ведический учёный и духовный учитель (1896-1977). В 69 лет отправился
-                    на Запад, чтобы поделиться древней мудростью с современным миром.
-                </p>
-
-                <div class="grid grid-2" style="margin-top: 3rem">
-                    <div>
-                        <h3 style="color: var(--blue); margin-bottom: 1.5rem">🌟 Достижения</h3>
-                        <p style="text-align: left; max-width: none">
-                            • Перевёл более 60 томов ведической литературы<br />
-                            • Основал 100+ храмов и центров по всему миру<br />
-                            • Распространил 500+ миллионов книг<br />
-                            • Обучил тысячи учеников и последователей
-                        </p>
+                <h2 class="section-title">Особенности этого издания</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>📜 Оригинальный санскрит</h3>
+                        <p>Каждый стих на оригинальном санскрите с точной транслитерацией</p>
                     </div>
-                    <div class="stats-card">
-                        <h3 style="color: var(--gold); margin-bottom: 1.5rem">📚 Наследие</h3>
-                        <div style="font-size: 1.1rem; line-height: 2">
-                            <div>
-                                <strong style="color: var(--gold)">60+</strong> томов переводов
-                            </div>
-                            <div><strong style="color: var(--gold)">100+</strong> храмов</div>
-                            <div><strong style="color: var(--gold)">500M+</strong> книг</div>
-                            <div>
-                                <strong style="color: var(--gold)">12</strong> лет служения на
-                                Западе
-                            </div>
-                        </div>
+                    <div class="card">
+                        <h3>🔤 Дословный перевод</h3>
+                        <p>Точный перевод каждого слова, сохраняющий духовную суть</p>
+                    </div>
+                    <div class="card">
+                        <h3>💭 Комментарии Прабхупады</h3>
+                        <p>Подробные объяснения философских концепций</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 🛒 Call to Action -->
-        <section id="order" class="cta-section">
+        <!-- ОТЗЫВЫ -->
+        <section class="section">
             <div class="container">
-                <h2 style="color: var(--white)">📖 Получите аутентичное издание</h2>
-                <p
-                    style="
-                        font-size: 1.25rem;
-                        margin-bottom: 3rem;
-                        color: var(--white);
-                        max-width: 600px;
-                    "
-                >
-                    Закажите точную копию исторического издания 1972 года от Macmillan Publishing
-                </p>
-
-                <div class="grid grid-3">
-                    <div class="feature-card">
-                        <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--gold)">
-                            📦
-                        </div>
-                        <h3>Быстрая доставка</h3>
-                        <p style="color: var(--gray)">
-                            Доставляем по всей России курьерской службой
+                <h2 class="section-title">Отзывы читателей</h2>
+                <div class="grid">
+                    <div class="card">
+                        <p>⭐⭐⭐⭐⭐</p>
+                        <p>
+                            "Это издание изменило мою жизнь. Комментарии делают древнюю мудрость
+                            доступной."
                         </p>
+                        <p><strong>- Михаил К., Москва</strong></p>
                     </div>
-                    <div class="feature-card">
-                        <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--gold)">
-                            ✅
-                        </div>
-                        <h3>100% аутентично</h3>
-                        <p style="color: var(--gray)">
-                            Точное воспроизведение оригинального макета
-                        </p>
+                    <div class="card">
+                        <p>⭐⭐⭐⭐⭐</p>
+                        <p>"Качество печати отличное, иллюстрации красивые. Рекомендую всем."</p>
+                        <p><strong>- Анна С., Санкт-Петербург</strong></p>
                     </div>
-                    <div class="feature-card">
-                        <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--gold)">
-                            💎
-                        </div>
-                        <h3>Премиум качество</h3>
-                        <p style="color: var(--gray)">Высококачественная печать и переплёт</p>
-                    </div>
-                </div>
-
-                <div style="margin-top: 4rem">
-                    <a
-                        href="mailto:info@gita-1972-reprint.ru"
-                        class="btn btn-primary"
-                        style="font-size: 1.5rem; padding: 1.5rem 3rem"
-                    >
-                        🛒 Заказать сейчас
-                    </a>
-                    <br />
-                    <a
-                        href="https://t.me/gita1972reprint"
-                        class="btn btn-ghost"
-                        style="margin-top: 1rem; color: var(--white)"
-                    >
-                        📱 Написать в Telegram
-                    </a>
-                </div>
-
-                <p style="margin-top: 3rem; color: var(--white); font-size: 1.1rem">
-                    💰 Цена:
-                    <span style="color: var(--gold); font-weight: 600"
-                        >обсуждается индивидуально</span
-                    >
-                </p>
-            </div>
-        </section>
-
-        <!-- 🌍 Почему важно -->
-        <section class="features">
-            <div class="container">
-                <h2>🌍 Почему это важно?</h2>
-                <p style="max-width: 800px; margin-bottom: 3rem">
-                    Издание 1972 года — это первый полный перевод Бхагавад-Гиты на английский язык с
-                    подробными комментариями от аутентичного духовного учителя в цепи ученической
-                    преемственности.
-                </p>
-
-                <div class="grid grid-2">
-                    <div class="feature-card">
-                        <h3 style="color: var(--blue)">📜 Историческая ценность</h3>
-                        <p style="color: var(--gray); text-align: left">
-                            Это издание стало основой для всех последующих переводов и комментариев.
-                            Оно сохраняет оригинальную чистоту передачи древнего знания без
-                            искажений современных интерпретаций.
-                        </p>
-                    </div>
-                    <div class="feature-card">
-                        <h3 style="color: var(--blue)">🎯 Духовная аутентичность</h3>
-                        <p style="color: var(--gray); text-align: left">
-                            Свами Прабхупада получил это знание по непрерывной цепи ученической
-                            преемственности, идущей от самого Кришны. Его комментарии основаны на
-                            авторитетных ведических источниках.
-                        </p>
+                    <div class="card">
+                        <p>⭐⭐⭐⭐⭐</p>
+                        <p>"Наконец-то нашел оригинальное издание! Это именно то, что я искал."</p>
+                        <p><strong>- Дмитрий В., Екатеринбург</strong></p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 🙏 Footer -->
-        <footer style="padding: 4rem 0; background: var(--white)">
+        <!-- ВАРИАНТЫ ПОКУПКИ -->
+        <section class="section">
             <div class="container">
-                <div class="divider">🪷</div>
-                <div class="om-symbol" style="font-size: 2.5rem">ॐ</div>
-                <p style="color: var(--blue); font-size: 1.1rem; margin-bottom: 1rem">
-                    🕉️ Создано с преданностью и уважением к духовной традиции
-                </p>
-                <p style="color: var(--gray); font-size: 0.9rem">
-                    © 2025 Bhagavad-gita As It Is 1972 Reprint • Все права защищены<br />
-                    Лицензированное воспроизведение оригинального издания Macmillan Publishing
-                </p>
-
-                <div style="margin-top: 2rem">
-                    <p style="color: var(--gray); font-size: 0.8rem">
-                        🚀 Landing Page Прототип для GitHub Pages<br />
-                        Дизайн: минимализм • 3 цвета • без границ • полное центрирование
-                    </p>
+                <h2 class="section-title">Варианты покупки</h2>
+                <div class="grid">
+                    <div class="card" style="border: 2px solid var(--gold)">
+                        <p
+                            style="
+                                background: var(--gold);
+                                color: var(--burgundy);
+                                padding: 0.5rem;
+                                margin: -2rem -2rem 1rem;
+                                font-weight: bold;
+                            "
+                        >
+                            🌟 РЕКОМЕНДУЕМЫЙ
+                        </p>
+                        <h3>Книга в супер обложке</h3>
+                        <p style="font-size: 2rem; color: var(--gold); font-weight: bold">3,000₽</p>
+                        <ul style="text-align: left; list-style: none">
+                            <li>✓ Книга в твердом переплете</li>
+                            <li>✓ Супер обложка</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Оптовый заказ</h3>
+                        <p style="font-size: 2rem; color: var(--gold); font-weight: bold">2,500₽</p>
+                        <ul style="text-align: left; list-style: none">
+                            <li>✓ От 10 книг</li>
+                            <li>✓ Скидка для общин</li>
+                            <li>✓ Бесплатная доставка</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </footer>
+        </section>
 
-        <!-- 🔧 Design Mode Toggle -->
-        <button
-            id="designModeToggle"
-            onclick="toggleDesignMode()"
-            style="
-                position: fixed;
-                bottom: 2rem;
-                right: 6rem;
-                background: var(--blue);
-                color: var(--white);
-                width: 3.5rem;
-                height: 3.5rem;
-                border-radius: 50%;
-                border: none;
-                font-size: 1.25rem;
-                cursor: pointer;
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-                transition: all 0.3s ease;
-                z-index: 1000;
-            "
-            title="Design Mode - показать структуру элементов"
-        >
-            🔧
-        </button>
-
-        <!-- 🌙 Theme Toggle -->
-        <button
-            onclick="toggleTheme()"
-            style="
-                position: fixed;
-                bottom: 2rem;
-                right: 2rem;
-                background: var(--gold);
-                color: var(--white);
-                width: 3.5rem;
-                height: 3.5rem;
-                border-radius: 50%;
-                border: none;
-                font-size: 1.5rem;
-                cursor: pointer;
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-                transition: all 0.3s ease;
-                z-index: 1000;
-            "
-            title="Переключить тему"
-            onmouseover="this.style.transform='scale(1.1)'"
-            onmouseout="this.style.transform='scale(1)'"
-        >
-            🌙
-        </button>
-
-        <!-- 🎯 GitHub Pages Badge -->
-        <div
-            style="
-                position: fixed;
-                top: 1rem;
-                right: 1rem;
-                background: var(--blue);
-                color: var(--white);
-                padding: 0.5rem 1rem;
-                border-radius: 2rem;
-                font-size: 0.8rem;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            "
-        >
-            🚀 GitHub Pages Прототип
-        </div>
+        <!-- ФОРМА ЗАКАЗА -->
+        <section id="order" class="hero-section">
+            <div class="container">
+                <h2 class="section-title" style="color: var(--white)">Заказать книгу</h2>
+                <form class="order-form">
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder="Ваше имя *" required />
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-input" placeholder="Email *" required />
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-input" placeholder="Телефон *" required />
+                    </div>
+                    <div class="form-group">
+                        <select class="form-select" required>
+                            <option value="">Выберите вариант</option>
+                            <option value="supercover">Книга в супер обложке (3,000₽)</option>
+                            <option value="wholesale">Оптовый заказ (2,500₽)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-textarea" placeholder="Адрес доставки"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Заказать сейчас</button>
+                </form>
+                <div style="text-align: center; margin-top: 2rem">
+                    <h3>Способы оплаты</h3>
+                    <div style="font-size: 2rem; margin: 1rem 0">💳 📱 ₿ 🏦</div>
+                    <p>Банковские карты, СБП, криптовалюты, наличные при получении</p>
+                </div>
+            </div>
+        </section>
 
         <script>
-            // Переключение темы
-            function toggleTheme() {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                document.documentElement.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-            }
+            document.querySelector('.order-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                alert('Спасибо за заказ! Мы свяжемся с вами в ближайшее время.');
+            });
 
-            // Загрузка сохранённой темы
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-
-            // Плавная прокрутка к якорям
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start',
-                        });
-                    }
-                });
-            });
-
-            // Анимация появления при скролле
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px',
-            };
-
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-
-            // Применяем анимацию к секциям
-            document.addEventListener('DOMContentLoaded', () => {
-                const sections = document.querySelectorAll('section:not(.hero)');
-                sections.forEach(section => {
-                    section.style.opacity = '0';
-                    section.style.transform = 'translateY(30px)';
-                    section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                    observer.observe(section);
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth',
+                    });
                 });
             });
         </script>
