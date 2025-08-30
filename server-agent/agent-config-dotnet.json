@@ -1,0 +1,174 @@
+{
+  "agent": {
+    "name": "YandexServerAgent",
+    "version": "2.0.0",
+    "type": "server-maintenance-dotnet",
+    "created": "2025-08-26",
+    "description": "Автономный агент поддержки .NET сервера Yandex Cloud"
+  },
+  "server": {
+    "provider": "yandex-cloud",
+    "id": "fhmmuttj78nf215noffh",
+    "ip": "46.21.247.218",
+    "hostname": "gita-server",
+    "os": "Ubuntu 24.04.3 LTS",
+    "project_path": "/var/www/gita-landing/",
+    "user": "yc-user"
+  },
+  "dotnet": {
+    "runtime_version": "8.0",
+    "api_project": "GitaLanding.API",
+    "data_project": "GitaLanding.Data",
+    "solution_file": "GitaLanding.sln",
+    "publish_path": "/var/www/gita-landing/",
+    "port": 5000,
+    "environment": "Production"
+  },
+  "database": {
+    "type": "postgresql",
+    "connection_string_key": "DefaultConnection",
+    "migrations_enabled": true,
+    "backup_enabled": true,
+    "backup_path": "/var/backups/postgresql/"
+  },
+  "monitoring": {
+    "enabled": true,
+    "interval_minutes": 15,
+    "working_hours": "24/7",
+    "timezone": "Europe/Moscow",
+    "alerts": {
+      "cpu_threshold": 80,
+      "memory_threshold": 80,
+      "disk_threshold": 85,
+      "api_timeout": 5,
+      "dotnet_memory_threshold": 512
+    }
+  },
+  "priorities": {
+    "critical": [
+      "dotnet_api_availability",
+      "systemd_services",
+      "ssl_certificates",
+      "database_connectivity",
+      "disk_space"
+    ],
+    "high": [
+      "security_updates",
+      "log_rotation",
+      "backup_validation",
+      "performance_monitoring",
+      "entity_framework_migrations"
+    ],
+    "medium": [
+      "dotnet_runtime_updates",
+      "cache_cleanup",
+      "metric_collection",
+      "documentation_sync",
+      "nginx_configuration"
+    ]
+  },
+  "automation": {
+    "auto_restart_services": true,
+    "auto_cleanup_logs": true,
+    "auto_security_updates": true,
+    "auto_package_updates": false,
+    "auto_ssl_renewal": true,
+    "emergency_recovery": true,
+    "auto_reboot": false,
+    "auto_dotnet_restart": true,
+    "auto_database_backup": true
+  },
+  "update_policy": {
+    "enabled": true,
+    "security_updates": true,
+    "package_updates": false,
+    "allowed_packages": [
+      "python3",
+      "python3-pip",
+      "python3-requests",
+      "python3-psutil",
+      "nginx",
+      "curl",
+      "git",
+      "certbot",
+      "dotnet-runtime-8.0",
+      "postgresql",
+      "postgresql-contrib"
+    ],
+    "excluded_packages": [
+      "linux-*",
+      "kernel-*",
+      "grub-*"
+    ],
+    "maintenance_window": {
+      "enabled": true,
+      "start_time": "03:00",
+      "end_time": "05:00",
+      "timezone": "Europe/Moscow",
+      "days": [
+        "sunday"
+      ]
+    },
+    "notifications": {
+      "before_update": true,
+      "after_update": true,
+      "reboot_required": true
+    }
+  },
+  "sync": {
+    "cursor_ide": {
+      "enabled": true,
+      "sync_interval": "1h",
+      "config_path": ".cursor/",
+      "priority_file": ".cursor/rules/agent-priorities.mdc",
+      "status_file": ".cursor/sync-status.log"
+    },
+    "github": {
+      "enabled": true,
+      "sync_interval": "30m",
+      "auto_pull": true,
+      "branch": "main"
+    }
+  },
+  "health_checks": {
+    "dotnet_api": {
+      "endpoint": "/health",
+      "timeout": 5,
+      "expected_status": 200
+    },
+    "database": {
+      "type": "postgresql",
+      "timeout": 10,
+      "query": "SELECT 1"
+    },
+    "nginx": {
+      "endpoint": "/nginx_status",
+      "timeout": 3,
+      "expected_status": 200
+    }
+  },
+  "logging": {
+    "serilog": {
+      "enabled": true,
+      "level": "Information",
+      "output": "file",
+      "path": "/var/log/gita-landing/"
+    },
+    "prometheus": {
+      "enabled": true,
+      "endpoint": "/metrics",
+      "port": 5000
+    }
+  },
+  "deployment": {
+    "auto_deploy": false,
+    "deploy_on_push": false,
+    "backup_before_deploy": true,
+    "rollback_on_failure": true,
+    "deployment_scripts": [
+      "deploy-dotnet.sh",
+      "migrate-database.sh",
+      "restart-services.sh"
+    ]
+  }
+}

@@ -1,8 +1,25 @@
-# Зависимости Node.js
-node_modules/
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.dll
+*.exe
+*.pdb
+*.log
+*.tmp
+*.temp
+
+# Entity Framework
+Migrations/
+*.db
+*.db-shm
+*.db-wal
 
 # Логи
 *.log
+logs/
 
 # Временные файлы редактора
 *~
@@ -14,6 +31,8 @@ Thumbs.db
 .env
 .env.local
 .env.*.local
+appsettings.Development.json
+appsettings.Production.json
 
 # Файлы PID и состояния
 *.pid
@@ -29,6 +48,7 @@ backups/
 # IDE и редакторы
 .vscode/
 .idea/
+*.sln.docstates
 
 # Директории данных (не коммитить PII)
 data/
@@ -87,7 +107,4 @@ access.log
 security.log
 
 # Прочие файлы, которые не должны попасть в репозиторий
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 .cursor/backup-*/

@@ -1,8 +1,8 @@
-# Deployment Process & CI/CD
+# Deployment Process & CI/CD (.NET)
 
 ## Deployment Architecture
 - **Frontend:** GitHub Pages (static files)
-- **Backend:** Yandex Cloud VM (Ubuntu, systemd services)
+- **Backend:** Yandex Cloud VM (Ubuntu, .NET Runtime, systemd services)
 - **Domain Setup:** Dual domain configuration
 - **SSL:** Let's Encrypt automated renewal
 
@@ -13,35 +13,33 @@
 - **Trigger:** Push to main branch or manual dispatch
 - **Process:**
   1. Checkout repository
-  2. Setup Node.js v20
-  3. Copy public/* to out/
-  4. Add CNAME record
-  5. Deploy to gh-pages branch
-- **Timeout:** 12 minutes
+  2. Copy public/* to out/
+  3. Add CNAME record
+  4. Deploy to gh-pages branch
+- **Timeout:** 8 minutes
 - **Concurrency:** Cancel in-progress for new deploys
 
-### 2. Linting & Quality
-- **File:** `.github/workflows/lint.yml`
+### 2. .NET Build & Test
+- **File:** `.github/workflows/dotnet-build.yml` (to be created)
 - **Trigger:** Pull requests, push to main
-- **Process:** ESLint validation
-- **Standards:** Zero tolerance for linting errors
+- **Process:** 
+  1. Setup .NET 8.0
+  2. Restore dependencies
+  3. Build projects
+  4. Run tests (xUnit)
+- **Standards:** Zero tolerance for build errors
 
-### 3. Testing
-- **File:** `.github/workflows/test.yml`
-- **Framework:** Jest
-- **Coverage:** Minimal (API endpoints only)
-- **Status:** Configured but not comprehensive
-
-### 4. Utility Workflows
-- **Cleanup Actions Queue:** Manual cleanup for stuck workflows
-- **Sync Labels:** GitHub repository label management
-- **Sync Project TODO:** TODO synchronization with GitHub Issues
+### 3. Quality Assurance
+- **File:** `.github/workflows/quality.yml` (to be created)
+- **Process:** Code analysis, security scanning
+- **Tools:** .NET analyzers, security scanners
 
 ## Backend Deployment (Yandex Cloud)
 
 ### Server Setup
 - **OS:** Ubuntu Linux
-- **Web Server:** Nginx (reverse proxy + static files)
+- **Runtime:** .NET 8.0 Runtime
+- **Web Server:** Nginx (reverse proxy)
 - **Process Manager:** systemd
 - **SSL:** Let's Encrypt with auto-renewal
 - **Security:** Fail2ban, UFW firewall
@@ -50,7 +48,7 @@
 ```bash
 # Manual deployment process
 git pull --rebase --autostash
-npm ci --production
+dotnet publish -c Release -o /var/www/gita-landing
 sudo systemctl restart gita-api
 sudo systemctl reload nginx
 ```
@@ -61,12 +59,36 @@ sudo systemctl reload nginx
 - **SSL:** Automatic via certbot
 - **Logs:** `/var/log/nginx/` and journalctl
 
+## .NET Specific Deployment
+
+### Build Process
+```bash
+# Local build
+dotnet restore
+dotnet build
+dotnet test
+
+# Production build
+dotnet publish -c Release -o ./publish
+```
+
+### Runtime Configuration
+- **Port:** 5000 (HTTP), 5001 (HTTPS)
+- **Environment:** Production/Development
+- **Database:** PostgreSQL connection string
+- **Logging:** Serilog with file output
+
+### Dependencies
+- **Runtime:** .NET 8.0 Runtime
+- **Database:** PostgreSQL client libraries
+- **Monitoring:** Prometheus.NET
+
 ## Automated Scripts
 
 ### Agent Setup (`scripts/agent_setup.sh`)
 - Git configuration for agents
 - Repository synchronization
-- Dependencies installation
+- .NET dependencies installation
 - Non-interactive execution
 
 ### Snapshot Creation (`scripts/agent_snapshot.sh`)
@@ -77,26 +99,34 @@ sudo systemctl reload nginx
 
 ## Monitoring & Health Checks
 - **Prometheus Metrics:** `/metrics` endpoint
+- **Health Check:** `/health` endpoint
 - **Nginx Status:** `stub_status` module
 - **System Monitoring:** systemd service status
 - **Security:** Fail2ban intrusion detection
 
 ## Environment Configuration
-- **Production:** Environment variables via .env
+- **Production:** appsettings.Production.json
+- **Development:** appsettings.Development.json
 - **GitHub Secrets:** Sensitive data storage
 - **CORS:** Strict origin policies
-- **Rate Limiting:** API protection
+- **Rate Limiting:** Built-in .NET protection
 
 ## Rollback Procedures
 1. **Frontend:** Revert commit and push to main
 2. **Backend:** 
    - `git revert <commit>`
-   - `sudo systemctl restart gita-api`
-3. **Database:** Not applicable (stateless API)
+   - `dotnet publish` and restart service
+3. **Database:** Entity Framework migrations
 4. **DNS:** TTL considerations for domain changes
 
 ## Performance Monitoring
 - **Core Web Vitals:** Automated tracking
 - **API Response Times:** Prometheus metrics
-- **Error Rates:** Structured logging
+- **Error Rates:** Structured logging with Serilog
 - **Uptime:** External monitoring recommended
+
+## .NET Migration Benefits
+- **Faster Deployment:** Compiled assemblies
+- **Better Performance:** Native .NET execution
+- **Stronger Security:** Built-in .NET security
+- **Easier Maintenance:** Strong typing and tooling
